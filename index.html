@@ -1207,27 +1207,102 @@
 
         /* İnteraktif Lab Stilleri */
         .lab-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 25px;
-            border-radius: 15px;
+            background: #ffffff;
+            padding: 0;
+            border-radius: 16px;
             margin: 25px 0;
-            color: white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            color: #1a202c;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
         }
 
         .lab-container h3 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px 25px;
+            font-size: 1.4em;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .lab-scenario {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ff6b6b;
+            background: #f8fafc;
+            padding: 20px 25px;
+            border-left: 4px solid #667eea;
+            margin: 0;
+        }
+
+        .lab-scenario p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        /* Windows benzeri adım stilleri */
+        .windows-steps {
+            background: #ffffff;
+            padding: 25px;
+            margin: 0;
+        }
+
+        .windows-step {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .windows-step:hover {
+            background-color: #f8fafc;
+        }
+
+        .windows-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-icon {
+            font-size: 1.3em;
+            margin-right: 15px;
+            min-width: 30px;
+            color: #667eea;
+            background: #f0f4ff;
+            padding: 8px;
+            border-radius: 50%;
+            text-align: center;
+        }
+
+        .step-text {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .lab-test {
+            background: #f0f4ff;
+            padding: 20px 25px;
+            border-top: 1px solid #e2e8f0;
+            margin: 0;
+        }
+
+        .lab-test strong {
+            color: #667eea;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .lab-test code {
+            background: #2d3748;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+            font-weight: 500;
+            margin-left: 5px;
         }
 
         .lab-terminal {
@@ -1469,7 +1544,57 @@
 
         /* Dark mode için lab stilleri */
         .dark-mode .lab-container {
+            background: #1a202c;
+            border: 1px solid #4a5568;
+        }
+
+        .dark-mode .lab-container h3 {
             background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: #ffffff;
+        }
+
+        .dark-mode .lab-scenario {
+            background: #2d3748;
+            border-left-color: #667eea;
+        }
+
+        .dark-mode .lab-scenario p {
+            color: #e2e8f0;
+        }
+
+        .dark-mode .windows-steps {
+            background: #1a202c;
+        }
+
+        .dark-mode .windows-step {
+            border-bottom-color: #4a5568;
+        }
+
+        .dark-mode .windows-step:hover {
+            background-color: #2d3748;
+        }
+
+        .dark-mode .step-icon {
+            color: #667eea;
+            background: #2d3748;
+        }
+
+        .dark-mode .step-text {
+            color: #e2e8f0;
+        }
+
+        .dark-mode .lab-test {
+            background: #2d3748;
+            border-top-color: #4a5568;
+        }
+
+        .dark-mode .lab-test strong {
+            color: #667eea;
+        }
+
+        .dark-mode .lab-test code {
+            background: #4a5568;
+            color: #ffffff;
         }
 
         .dark-mode .lab-terminal {
@@ -2114,14 +2239,14 @@ nslookup -type=any google.com
                     </div>
                     
                     <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <h4 style="color: #495057; margin-bottom: 15px; border-bottom: 2px solid #28a745; padding-bottom: 8px;">⚙️ PowerShell Komutları</h4>
+                        <h4 style="color: #495057; margin-bottom: 15px; border-bottom: 2px solid #28a745; padding-bottom: 8px;">🌐 Ağ Komutları</h4>
                         <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 13px;">
-                            <div style="margin-bottom: 8px;"><strong>Test-NetConnection</strong> - Port testi</div>
-                            <div style="margin-bottom: 8px;"><strong>Resolve-DnsName</strong> - DNS çözümleme</div>
-                            <div style="margin-bottom: 8px;"><strong>Get-NetAdapter</strong> - Ağ adaptörleri</div>
-                            <div style="margin-bottom: 8px;"><strong>Get-NetRoute</strong> - Rota tablosu</div>
-                            <div style="margin-bottom: 8px;"><strong>Test-Path</strong> - Dosya/klasör testi</div>
-                            <div><strong>Get-ComputerInfo</strong> - Sistem bilgisi</div>
+                            <div style="margin-bottom: 8px;"><strong>ipconfig</strong> - IP adresi bilgisi</div>
+                            <div style="margin-bottom: 8px;"><strong>ping</strong> - Bağlantı testi</div>
+                            <div style="margin-bottom: 8px;"><strong>tracert</strong> - Rota takibi</div>
+                            <div style="margin-bottom: 8px;"><strong>nslookup</strong> - DNS sorgusu</div>
+                            <div style="margin-bottom: 8px;"><strong>netstat</strong> - Ağ bağlantıları</div>
+                            <div><strong>arp</strong> - ARP tablosu</div>
                         </div>
                     </div>
                     
@@ -2182,69 +2307,32 @@ nslookup -type=any google.com
 
             <!-- İnteraktif Lab 2: Ağ Yapılandırma -->
             <div class="lab-container">
-                <h3>🧪 Lab 2: Statik IP Adresi Yapılandırma</h3>
+                <h3>🧪 Lab 1: IP Adresi Ayarlama</h3>
                 <div class="lab-scenario">
-                    <p><strong>Senaryo:</strong> Yeni bir bilgisayar ağa bağlanacak. Statik IP adresi yapılandırmanız gerekiyor.</p>
                     <p><strong>Görev:</strong> Bilgisayara 192.168.1.100 IP adresini, 255.255.255.0 subnet mask'ını ve 192.168.1.1 gateway'ini atayın.</p>
                 </div>
                 
-                <div class="lab-network-diagram">
-                    <h4>🌐 Ağ Topolojisi</h4>
-                    <div style="display: flex; justify-content: space-around; align-items: center; margin: 20px 0;">
-                        <div style="text-align: center;">
-                            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 10px;">
-                                <strong>Router</strong><br/>192.168.1.1
-                            </div>
-                        </div>
-                        <div style="font-size: 24px;">→</div>
-                        <div style="text-align: center;">
-                            <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin: 10px;">
-                                <strong>Bilgisayar</strong><br/>IP: ?<br/>Subnet: ?<br/>Gateway: ?
-                            </div>
-                        </div>
+                <div class="windows-steps">
+                    <div class="windows-step">
+                        <div class="step-icon">⚙️</div>
+                        <div class="step-text">Control Panel → Network and Sharing Center</div>
+                    </div>
+                    <div class="windows-step">
+                        <div class="step-icon">🔗</div>
+                        <div class="step-text">"Change adapter settings" → Ethernet'e sağ tık → Properties</div>
+                    </div>
+                    <div class="windows-step">
+                        <div class="step-icon">🌐</div>
+                        <div class="step-text">TCP/IPv4 → Properties → "Use the following IP address"</div>
+                    </div>
+                    <div class="windows-step">
+                        <div class="step-icon">📝</div>
+                        <div class="step-text">IP: 192.168.1.100 | Subnet: 255.255.255.0 | Gateway: 192.168.1.1</div>
                     </div>
                 </div>
                 
-                <div class="lab-steps">
-                    <div class="lab-step">
-                        <span class="step-number">1</span>
-                        <p>Network Adapter'ı seçin</p>
-                        <select class="lab-select" id="adapterSelect">
-                            <option>Ethernet</option>
-                            <option>Wi-Fi</option>
-                        </select>
-                    </div>
-                    
-                    <div class="lab-step">
-                        <span class="step-number">2</span>
-                        <p>IP adresini girin</p>
-                        <input type="text" class="lab-input" id="ipAddress" placeholder="192.168.1.100" />
-                    </div>
-                    
-                    <div class="lab-step">
-                        <span class="step-number">3</span>
-                        <p>Subnet mask'ı girin</p>
-                        <input type="text" class="lab-input" id="subnetMask" placeholder="255.255.255.0" />
-                    </div>
-                    
-                    <div class="lab-step">
-                        <span class="step-number">4</span>
-                        <p>Gateway'i girin</p>
-                        <input type="text" class="lab-input" id="gateway" placeholder="192.168.1.1" />
-                    </div>
-                </div>
-                
-                <button class="lab-button" onclick="testNetworkConfig()">Yapılandırmayı Test Et</button>
-                <div class="lab-result" id="networkResult"></div>
-                
-                <div class="lab-hints">
-                    <h4>💡 İpuçları:</h4>
-                    <ul>
-                        <li>IP adresi: 192.168.1.100</li>
-                        <li>Subnet mask: 255.255.255.0</li>
-                        <li>Gateway: 192.168.1.1</li>
-                        <li>DNS: 8.8.8.8 (opsiyonel)</li>
-                    </ul>
+                <div class="lab-test">
+                    <strong>Test:</strong> <code>ipconfig</code> komutunu çalıştırın
                 </div>
             </div>
 
@@ -2452,16 +2540,6 @@ nslookup -type=any google.com
                 </ul>
             </div>
 
-            <h5>💻 PowerShell ile AD DS Kurulumu (Alternatif)</h5>
-            <div class="code-block">
-                <pre>
-# PowerShell ile AD DS rolü ekleme
-Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
-
-# AD DS kurulumunu başlatma
-Install-ADDSForest -DomainName "contoso.local" -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force)
-                </pre>
-            </div>
 
             <h4>DNS Server</h4>
             
@@ -2516,16 +2594,6 @@ Install-ADDSForest -DomainName "contoso.local" -SafeModeAdministratorPassword (C
                 </ul>
             </div>
 
-            <h5>💻 PowerShell ile DNS Kurulumu (Alternatif)</h5>
-            <div class="code-block">
-                <pre>
-# DNS Server rolü ekleme
-Install-WindowsFeature -Name DNS -IncludeManagementTools
-
-# DNS yapılandırması
-# DNS Manager'ı açın ve forward lookup zone oluşturun
-                </pre>
-            </div>
 
             <h4>DHCP Server</h4>
             
@@ -2588,16 +2656,6 @@ Install-WindowsFeature -Name DNS -IncludeManagementTools
                 </ul>
             </div>
 
-            <h5>💻 PowerShell ile DHCP Kurulumu (Alternatif)</h5>
-            <div class="code-block">
-                <pre>
-# DHCP Server rolü ekleme
-Install-WindowsFeature -Name DHCP -IncludeManagementTools
-
-# DHCP yetkilendirme
-Add-DhcpServerInDC -DnsName "dc01.contoso.local" -IPAddress "192.168.1.10"
-                </pre>
-            </div>
 
             <h3>Domain Join İşlemi</h3>
             
@@ -2755,9 +2813,7 @@ Add-Computer -DomainName $domain -Credential $credential -Restart
             <h4>User & Computer</h4>
             <p>Active Directory'de yönetilen temel nesnelerdir. User hesapları kullanıcıları, Computer hesapları ise domain'e katılan bilgisayarları temsil eder.</p>
 
-            <h3>PowerShell Komutları</h3>
-            
-            <h4>Kullanıcı Yönetimi</h4>
+            <h3>Kullanıcı Yönetimi</h3>
             
             <h5>🖥️ Grafik Arayüzü ile Kullanıcı Yönetimi</h5>
             <div class="step">
@@ -2813,28 +2869,6 @@ Add-Computer -DomainName $domain -Credential $credential -Restart
                 </ul>
             </div>
 
-            <h5>💻 PowerShell ile Kullanıcı Yönetimi (Alternatif)</h5>
-            <div class="code-block">
-                <pre>
-# Yeni kullanıcı oluşturma
-New-ADUser -Name "Ahmet Yılmaz" -SamAccountName "ayilmaz" -UserPrincipalName "ayilmaz@contoso.local" -AccountPassword (ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force) -Enabled $true
-
-# Kullanıcı bilgilerini görüntüleme
-Get-ADUser -Identity "ayilmaz" -Properties *
-
-# Kullanıcı özelliklerini güncelleme
-Set-ADUser -Identity "ayilmaz" -Department "IT" -Title "Sistem Uzmanı" -Office "İstanbul"
-
-# Kullanıcıyı gruba ekleme
-Add-ADGroupMember -Identity "IT_Users" -Members "ayilmaz"
-
-# Kullanıcı hesabını devre dışı bırakma
-Disable-ADAccount -Identity "ayilmaz"
-
-# Kullanıcı hesabını etkinleştirme
-Enable-ADAccount -Identity "ayilmaz"
-                </pre>
-            </div>
 
             <h4>Bilgisayar Yönetimi</h4>
             
@@ -2908,33 +2942,6 @@ Remove-GPLink -Name "IT_Workstation_Policy" -Target "OU=Workstations,DC=contoso,
                 </pre>
             </div>
 
-            <h3>Yararlı PowerShell Komutları</h3>
-            
-            <div class="code-block">
-                <pre>
-# Domain bilgilerini görüntüleme
-Get-ADDomain
-
-# Forest bilgilerini görüntüleme
-Get-ADForest
-
-# Domain Controller'ları listeleme
-Get-ADDomainController
-
-# Son oturum açma zamanını görüntüleme
-Get-ADUser -Identity "ayilmaz" -Properties LastLogonDate | Select-Object Name, LastLogonDate
-
-# Şifre süresi dolacak kullanıcıları listeleme
-Get-ADUser -Filter {PasswordExpired -eq $true} -Properties PasswordExpired
-
-# Kilitli hesapları listeleme
-Get-ADUser -Filter {LockedOut -eq $true} -Properties LockedOut
-                </pre>
-            </div>
-
-            <div class="highlight">
-                <strong>💡 İpucu:</strong> PowerShell komutlarını çalıştırmadan önce Active Directory modülünün yüklü olduğundan emin olun: <code>Import-Module ActiveDirectory</code>
-            </div>
 
             <!-- İnteraktif Lab 1: Active Directory Kullanıcı Oluşturma -->
             <div class="lab-container">
@@ -3029,35 +3036,6 @@ Get-ADUser -Filter {LockedOut -eq $true} -Properties LockedOut
                 </tbody>
             </table>
 
-            <h3>DNS Yönetimi PowerShell Komutları</h3>
-            
-            <div class="code-block">
-                <pre>
-# DNS sunucusu kurulumu
-Install-WindowsFeature -Name DNS -IncludeManagementTools
-
-# Forward lookup zone oluşturma
-Add-DnsServerPrimaryZone -Name "contoso.local" -ZoneFile "contoso.local.dns"
-
-# A kaydı ekleme
-Add-DnsServerResourceRecordA -Name "www" -ZoneName "contoso.local" -IPv4Address "192.168.1.10"
-
-# CNAME kaydı ekleme
-Add-DnsServerResourceRecordCName -Name "mail" -HostNameAlias "mailserver.contoso.local" -ZoneName "contoso.local"
-
-# MX kaydı ekleme
-Add-DnsServerResourceRecordMX -Name "contoso.local" -MailExchange "mail.contoso.local" -Preference 10 -ZoneName "contoso.local"
-
-# DNS kayıtlarını listeleme
-Get-DnsServerResourceRecord -ZoneName "contoso.local"
-
-# Belirli kayıt türünü listeleme
-Get-DnsServerResourceRecord -ZoneName "contoso.local" -RRType A
-
-# DNS kaydını silme
-Remove-DnsServerResourceRecord -ZoneName "contoso.local" -Name "www" -RRType A -Force
-                </pre>
-            </div>
 
             <h3>DHCP Scope ve Reservation Ayarları</h3>
             
@@ -3065,103 +3043,106 @@ Remove-DnsServerResourceRecord -ZoneName "contoso.local" -Name "www" -RRType A -
             <p>DHCP Scope, DHCP sunucusunun istemcilere dağıtabileceği IP adresi aralığıdır. Her scope belirli bir ağ segmenti için tanımlanır.</p>
 
             <h4>DHCP Scope Oluşturma</h4>
-            <div class="code-block">
-                <pre>
-# DHCP sunucusu kurulumu
-Install-WindowsFeature -Name DHCP -IncludeManagementTools
-
-# DHCP yetkilendirme
-Add-DhcpServerInDC -DnsName "dc01.contoso.local" -IPAddress "192.168.1.10"
-
-# Yeni scope oluşturma
-Add-DhcpServerv4Scope -Name "IT_Department" -StartRange "192.168.1.100" -EndRange "192.168.1.200" -SubnetMask "255.255.255.0" -State Active
-
-# Scope seçeneklerini yapılandırma
-Set-DhcpServerv4OptionValue -ScopeId "192.168.1.0" -DnsServer "192.168.1.10","8.8.8.8" -DnsDomain "contoso.local"
-Set-DhcpServerv4OptionValue -ScopeId "192.168.1.0" -Router "192.168.1.1"
-
-# Scope bilgilerini görüntüleme
-Get-DhcpServerv4Scope
-
-# Belirli scope'un detaylarını görüntüleme
-Get-DhcpServerv4Scope -ScopeId "192.168.1.0"
-                </pre>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>DHCP Manager'ı Açma</strong>
+                <ul>
+                    <li><strong>Server Manager → Tools → DHCP:</strong> DHCP Manager'ı açın</li>
+                    <li><strong>Server'a sağ tık:</strong> "New Scope" seçin</li>
+                    <li><strong>Scope Name:</strong> "IT_Department" yazın</li>
+                    <li><strong>Description:</strong> "IT Departmanı için DHCP Scope" yazın</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>IP Adres Aralığı Belirleme</strong>
+                <ul>
+                    <li><strong>Start IP Address:</strong> 192.168.1.100</li>
+                    <li><strong>End IP Address:</strong> 192.168.1.200</li>
+                    <li><strong>Subnet Mask:</strong> 255.255.255.0</li>
+                    <li><strong>Exclusion Range:</strong> Gerekirse IP adreslerini hariç tutun</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Scope Seçenekleri</strong>
+                <ul>
+                    <li><strong>Router (Default Gateway):</strong> 192.168.1.1</li>
+                    <li><strong>DNS Servers:</strong> 192.168.1.10, 8.8.8.8</li>
+                    <li><strong>Domain Name:</strong> contoso.local</li>
+                    <li><strong>Scope'u etkinleştirin:</strong> "Yes, I want to activate this scope now"</li>
+                </ul>
             </div>
 
             <h4>DHCP Reservation (Rezervasyon)</h4>
             <p>DHCP Reservation, belirli bir MAC adresine sabit IP adresi atanmasını sağlar. Bu sayede sunucular ve yazıcılar gibi cihazlar her zaman aynı IP adresini alır.</p>
 
-            <div class="code-block">
-                <pre>
-# MAC adresini öğrenme (client'ta çalıştırın)
-Get-NetAdapter | Select-Object Name, MacAddress
-
-# Reservation oluşturma
-Add-DhcpServerv4Reservation -ScopeId "192.168.1.0" -IPAddress "192.168.1.50" -ClientId "00-15-5D-01-02-03" -Name "FileServer"
-
-# Reservation'ları listeleme
-Get-DhcpServerv4Reservation -ScopeId "192.168.1.0"
-
-# Reservation'ı silme
-Remove-DhcpServerv4Reservation -ScopeId "192.168.1.0" -IPAddress "192.168.1.50"
-                </pre>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>MAC Adresini Öğrenme</strong>
+                <ul>
+                    <li><strong>Client bilgisayarda:</strong> cmd açın</li>
+                    <li><strong>ipconfig /all komutunu çalıştırın:</strong> MAC adresini bulun</li>
+                    <li><strong>Physical Address:</strong> 00-15-5D-01-02-03 (örnek)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>DHCP Manager'da Reservation Oluşturma</strong>
+                <ul>
+                    <li><strong>DHCP Manager → Scope → Reservations:</strong> Reservations klasörüne sağ tık</li>
+                    <li><strong>New Reservation:</strong> "New Reservation" seçin</li>
+                    <li><strong>Reservation Name:</strong> "FileServer" yazın</li>
+                    <li><strong>IP Address:</strong> 192.168.1.50</li>
+                    <li><strong>MAC Address:</strong> 00-15-5D-01-02-03</li>
+                    <li><strong>Description:</strong> "Dosya sunucusu için rezervasyon"</li>
+                    <li><strong>Add tıklayın:</strong> Reservation oluşturulur</li>
+                </ul>
             </div>
 
             <h4>DHCP Scope Yönetimi</h4>
-            <div class="code-block">
-                <pre>
-# Scope'u etkinleştirme/devre dışı bırakma
-Set-DhcpServerv4Scope -ScopeId "192.168.1.0" -State Active
-Set-DhcpServerv4Scope -ScopeId "192.168.1.0" -State InActive
-
-# Scope istatistiklerini görüntüleme
-Get-DhcpServerv4ScopeStatistics -ScopeId "192.168.1.0"
-
-# Kiralanan IP adreslerini listeleme
-Get-DhcpServerv4Lease -ScopeId "192.168.1.0"
-
-# Belirli IP adresinin kiralama bilgilerini görüntüleme
-Get-DhcpServerv4Lease -IPAddress "192.168.1.100"
-
-# Kiralama süresini ayarlama (gün cinsinden)
-Set-DhcpServerv4Scope -ScopeId "192.168.1.0" -LeaseDuration (New-TimeSpan -Days 7)
-                </pre>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Scope Durumunu Kontrol Etme</strong>
+                <ul>
+                    <li><strong>DHCP Manager → Scope:</strong> Scope'a sağ tık</li>
+                    <li><strong>Properties:</strong> Scope özelliklerini açın</li>
+                    <li><strong>General Tab:</strong> Scope durumunu kontrol edin</li>
+                    <li><strong>Active/Inactive:</strong> Scope'u etkinleştirin/devre dışı bırakın</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Scope İstatistiklerini Görüntüleme</strong>
+                <ul>
+                    <li><strong>DHCP Manager → Scope → Address Leases:</strong> Kiralanan IP'leri görün</li>
+                    <li><strong>Scope'a sağ tık → Display Statistics:</strong> İstatistikleri görüntüleyin</li>
+                    <li><strong>Total Addresses:</strong> Toplam IP sayısı</li>
+                    <li><strong>In Use:</strong> Kullanımda olan IP'ler</li>
+                    <li><strong>Available:</strong> Kullanılabilir IP'ler</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Kiralama Süresini Ayarlama</strong>
+                <ul>
+                    <li><strong>Scope Properties → General Tab:</strong> Lease duration ayarlayın</li>
+                    <li><strong>Days:</strong> 7 (haftalık kiralama)</li>
+                    <li><strong>Hours:</strong> 24 (günlük kiralama)</li>
+                    <li><strong>Minutes:</strong> 60 (saatlik kiralama)</li>
+                    <li><strong>OK tıklayın:</strong> Ayarları kaydedin</li>
+                </ul>
             </div>
 
             <div class="note">
                 <strong>💡 Not:</strong> DHCP Reservation kullanırken MAC adresini doğru aldığınızdan emin olun. Yanlış MAC adresi ile reservation oluşturursanız, cihaz IP adresi alamayacaktır.
             </div>
 
-            <!-- İnteraktif Lab 5: DNS Kayıt Oluşturma -->
-            <div class="lab-container">
-                <h3>🧪 Lab 5: DNS Kayıt Oluşturma</h3>
-                <div class="lab-scenario">
-                    <p><strong>Senaryo:</strong> Şirketinizde yeni bir web sunucusu kuruldu. DNS sunucusunda kayıt oluşturmanız gerekiyor.</p>
-                    <p><strong>Görev:</strong> "webserver.contoso.local" için A kaydı oluşturun ve IP adresini 192.168.1.10 olarak ayarlayın.</p>
-                </div>
-                
-                <div class="lab-terminal">
-                    <div class="terminal-header">PowerShell - DNS Server</div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">PS C:\> Add-DnsServerResourceRecordA -Name "webserver" -ZoneName "contoso.local" -IPv4Address "192.168.1.10"</div>
-                        <input type="text" class="lab-input" id="dnsCommand" placeholder="DNS komutunu buraya yazın..." onkeypress="if(event.key==='Enter') executeDNSCommand()" />
-                        <button class="lab-button" onclick="executeDNSCommand()">Çalıştır</button>
-                    </div>
-                </div>
-                
-                <div class="lab-result" id="dnsResult"></div>
-                
-                <div class="lab-hints">
-                    <h4>💡 İpuçları:</h4>
-                    <ul>
-                        <li>Add-DnsServerResourceRecordA cmdlet'ini kullanın</li>
-                        <li>-Name: "webserver" (host adı)</li>
-                        <li>-ZoneName: "contoso.local" (zone adı)</li>
-                        <li>-IPv4Address: "192.168.1.10" (IP adresi)</li>
-                        <li>Örnek: Add-DnsServerResourceRecordA -Name "webserver" -ZoneName "contoso.local" -IPv4Address "192.168.1.10"</li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <div class="section" id="file-server">
@@ -3369,8 +3350,6 @@ New-GPO -Name "Folder_Redirection_Policy"
 # Group Policy Management Console'da:
 # User Configuration → Policies → Windows Settings → Folder Redirection → Documents
 
-# PowerShell ile Folder Redirection ayarları
-# (Bu ayarlar genellikle GPO üzerinden yapılır)
                 </pre>
             </div>
 
@@ -3391,17 +3370,17 @@ New-GPO -Name "Folder_Redirection_Policy"
             <p>Drive Mapping, ağ paylaşımlarını yerel sürücü harfi ile eşleştirme işlemidir.</p>
 
             <h4>Manuel Drive Mapping</h4>
-            <div class="code-block">
-                <pre>
-# PowerShell ile drive mapping
-New-PSDrive -Name "Z" -PSProvider FileSystem -Root "\\fileserver\IT_Documents" -Persist
-
-# Mevcut drive mapping'leri listeleme
-Get-PSDrive -PSProvider FileSystem
-
-# Drive mapping'i kaldırma
-Remove-PSDrive -Name "Z"
-                </pre>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>File Explorer ile Drive Mapping</strong>
+                <ul>
+                    <li><strong>File Explorer'ı açın:</strong> Windows + E</li>
+                    <li><strong>This PC'ye sağ tık:</strong> "Map network drive" seçin</li>
+                    <li><strong>Drive letter seçin:</strong> Z: (IT Documents için)</li>
+                    <li><strong>Folder path girin:</strong> \\fileserver\IT_Documents</li>
+                    <li><strong>"Reconnect at sign-in" işaretleyin:</strong> Otomatik bağlantı için</li>
+                    <li><strong>Finish tıklayın:</strong> Drive mapping tamamlanır</li>
+                </ul>
             </div>
 
             <h4>GPO ile Otomatik Drive Mapping</h4>
@@ -3427,10 +3406,6 @@ Remove-PSDrive -Name "Z"
 net use Z: \\fileserver\IT_Documents /persistent:yes
 net use Y: \\fileserver\Shared /persistent:yes
 
-# PowerShell login script
-# login_script.ps1
-New-PSDrive -Name "Z" -PSProvider FileSystem -Root "\\fileserver\IT_Documents" -Persist
-New-PSDrive -Name "Y" -PSProvider FileSystem -Root "\\fileserver\Shared" -Persist
                 </pre>
             </div>
 
@@ -4981,37 +4956,26 @@ Get-Printer | ForEach-Object {Write-Printer -Name $_.Name -InputObject "Test Pag
                 </tbody>
             </table>
 
-            <h4>Zimmet Takip PowerShell Scripti:</h4>
-            <div class="code-block">
-                <pre>
-# Bilgisayar envanter raporu
-$computers = Get-ADComputer -Filter * -Properties OperatingSystem, LastLogonDate
-$inventory = @()
-
-foreach ($computer in $computers) {
-    try {
-        $wmi = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $computer.Name -ErrorAction Stop
-        $disk = Get-WmiObject -Class Win32_LogicalDisk -ComputerName $computer.Name -ErrorAction Stop | Where-Object {$_.DriveType -eq 3}
-        
-        $computerInfo = [PSCustomObject]@{
-            ComputerName = $computer.Name
-            Manufacturer = $wmi.Manufacturer
-            Model = $wmi.Model
-            OperatingSystem = $computer.OperatingSystem
-            TotalRAM = [math]::Round($wmi.TotalPhysicalMemory / 1GB, 2)
-            TotalDisk = [math]::Round(($disk | Measure-Object Size -Sum).Sum / 1GB, 2)
-            LastLogon = $computer.LastLogonDate
-        }
-        $inventory += $computerInfo
-    }
-    catch {
-        Write-Warning "Bilgisayara erişilemedi: $($computer.Name)"
-    }
-}
-
-# Raporu CSV olarak kaydetme
-$inventory | Export-Csv "C:\Reports\HardwareInventory.csv" -NoTypeInformation
-                </pre>
+            <h4>Envanter Takip Yöntemleri:</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Manuel Envanter Alma</strong>
+                <ul>
+                    <li><strong>Excel tablosu oluşturun:</strong> Bilgisayar adı, kullanıcı, lokasyon, donanım</li>
+                    <li><strong>QR kod sistemi kurun:</strong> Her cihaza QR kod yapıştırın</li>
+                    <li><strong>Düzenli güncelleme:</strong> Aylık envanter kontrolü yapın</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Otomatik Envanter Araçları</strong>
+                <ul>
+                    <li><strong>System Center Configuration Manager:</strong> Microsoft'un envanter aracı</li>
+                    <li><strong>Lansweeper:</strong> Ağ tabanlı envanter yazılımı</li>
+                    <li><strong>Spiceworks:</strong> Ücretsiz IT yönetim aracı</li>
+                    <li><strong>PDQ Inventory:</strong> Windows odaklı envanter aracı</li>
+                </ul>
             </div>
 
             <h3>Envanter Takibi</h3>
@@ -5851,25 +5815,6 @@ $inventory | Export-Csv "C:\Reports\HardwareInventory.csv" -NoTypeInformation
                 </ul>
             </div>
 
-            <h4>💻 PowerShell ile Additional DC Kurulumu (Alternatif)</h4>
-            <div class="code-block">
-                <pre>
-# Additional DC kurulumu
-Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
-
-# Domain'e katılma
-Install-ADDSDomainController -DomainName "contoso.local" -InstallDns -Credential (Get-Credential)
-
-# Replication durumunu kontrol etme
-repadmin /showrepl
-
-# Domain Controller'ları listeleme
-Get-ADDomainController -Filter *
-
-# FSMO rolleri kontrol etme
-netdom query fsmo
-                </pre>
-            </div>
 
             <h3>FSMO Rolleri</h3>
             <p>FSMO (Flexible Single Master Operations), Active Directory'de özel işlevleri olan rollerdir.</p>
@@ -6039,25 +5984,6 @@ Move-ADDirectoryServerOperationMasterRole -Identity "DC02" -OperationMasterRole 
                 </ul>
             </div>
 
-            <h4>💻 PowerShell ile Site Yapılandırması (Alternatif)</h4>
-            <div class="code-block">
-                <pre>
-# Yeni site oluşturma
-New-ADReplicationSite -Name "Istanbul-Site"
-
-# Subnet oluşturma
-New-ADReplicationSubnet -Name "192.168.1.0/24" -Site "Istanbul-Site"
-
-# Site link oluşturma
-New-ADReplicationSiteLink -Name "Istanbul-Ankara" -SitesIncluded "Istanbul-Site", "Ankara-Site" -Cost 100 -ReplicationFrequencyInMinutes 15
-
-# Site link bridge oluşturma
-New-ADReplicationSiteLinkBridge -Name "Istanbul-Ankara-Bridge" -SiteLinksIncluded "Istanbul-Ankara"
-
-# Replication durumunu kontrol etme
-Get-ADReplicationConnection -Filter * | Select-Object Name, ReplicateFromDirectoryServer, ReplicateToDirectoryServer
-                </pre>
-            </div>
 
             <h3>Azure AD</h3>
             <p>Azure Active Directory, Microsoft'un bulut tabanlı kimlik ve erişim yönetimi hizmetidir.</p>
@@ -6120,29 +6046,6 @@ Get-ADReplicationConnection -Filter * | Select-Object Name, ReplicateFromDirecto
                 </ul>
             </div>
 
-            <h4>💻 PowerShell ile Azure AD Connect Yönetimi (Alternatif)</h4>
-            <div class="code-block">
-                <pre>
-# Azure AD Connect durumunu kontrol etme
-Get-ADSyncRunProfile
-Get-ADSyncRunStepResult
-
-# Azure AD modülünü yükleme
-Install-Module -Name AzureAD
-
-# Azure AD'ye bağlanma
-Connect-AzureAD
-
-# Kullanıcıları listeleme
-Get-AzureADUser
-
-# Grupları listeleme
-Get-AzureADGroup
-
-# Conditional Access policy oluşturma
-New-AzureADMSConditionalAccessPolicy -DisplayName "MFA Required" -State "enabled"
-                </pre>
-            </div>
 
             <h4>Azure AD PowerShell:</h4>
             <div class="code-block">
@@ -6274,28 +6177,6 @@ New-AzureADMSConditionalAccessPolicy -DisplayName "MFA Required" -State "enabled
                 <li><strong>OS Deployment:</strong> İşletim sistemi dağıtımı</li>
             </ul>
 
-            <h4>💻 PowerShell ile SCCM Yönetimi (Alternatif)</h4>
-            <div class="code-block">
-                <pre>
-# SCCM modülünü yükleme
-Import-Module "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1"
-
-# Site'a bağlanma
-Set-Location "ABC:"
-
-# Koleksiyonları listeleme
-Get-CMCollection
-
-# Yazılım paketlerini listeleme
-Get-CMPackage
-
-# Client'ları listeleme
-Get-CMDevice
-
-# Deployment oluşturma
-New-CMApplicationDeployment -Name "Office 365" -CollectionName "All Workstations"
-                </pre>
-            </div>
 
             <h3>Microsoft Intune</h3>
             <p>Microsoft Intune, bulut tabanlı mobil cihaz ve uygulama yönetimi hizmetidir.</p>
@@ -6387,28 +6268,6 @@ New-CMApplicationDeployment -Name "Office 365" -CollectionName "All Workstations
                 </div>
             </div>
 
-            <h4>💻 PowerShell ile Intune Yönetimi (Alternatif)</h4>
-            <div class="code-block">
-                <pre>
-# Intune PowerShell modülünü yükleme
-Install-Module -Name Microsoft.Graph.Intune
-
-# Intune'a bağlanma
-Connect-MSGraph
-
-# Cihazları listeleme
-Get-IntuneManagedDevice
-
-# Uygulama politikalarını listeleme
-Get-IntuneDeviceConfigurationPolicy
-
-# Compliance politikalarını listeleme
-Get-IntuneDeviceCompliancePolicy
-
-# Conditional Access politikalarını listeleme
-Get-IntuneConditionalAccessPolicy
-                </pre>
-            </div>
 
             <h3>Modern IT Yönetimi</h3>
             <p>Modern IT yönetimi, geleneksel on-premises yönetimden bulut tabanlı hibrit yönetime geçişi içerir.</p>
