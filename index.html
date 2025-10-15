@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IT Eğitim Dokümanı - Bölüm 1-2</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
@@ -55,6 +55,20 @@
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
+        }
+
+        .shortcuts-info {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .shortcuts-info p {
+            margin: 0;
+            color: rgba(255,255,255,0.9);
         }
 
         .section {
@@ -150,6 +164,7 @@
             margin: 20px 0;
             background-color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            table-layout: auto;
         }
 
         .table th, .table td {
@@ -280,6 +295,31 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Görsel optimizasyonu */
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Lazy loading için */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Görsel performansı */
+        .diagram-container {
+            contain: layout style paint;
         }
 
         /* Animasyonlar */
@@ -319,7 +359,7 @@
             top: 50%;
             right: 20px;
             transform: translateY(-50%);
-            width: 260px;
+            width: 280px;
             background: #ffffff;
             border-radius: 8px;
             padding: 20px;
@@ -328,6 +368,18 @@
             max-height: 80vh;
             overflow-y: auto;
             border: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 320px;
+                right: 10px;
+            }
+            
+            .search-container {
+                width: 350px;
+                max-width: 85vw;
+            }
         }
 
         .sidebar-title {
@@ -382,10 +434,10 @@
             background: #ffffff;
             color: #495057;
             border: 1px solid #e9ecef;
-            padding: 10px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             z-index: 1001;
             transition: all 0.2s ease;
@@ -394,6 +446,162 @@
         .sidebar-toggle:hover {
             background: #f8f9fa;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.2);
+            z-index: 1002;
+            transition: all 0.3s ease;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .progress-bar:hover .progress-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .vertical-nav {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .vertical-nav-title {
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: 1px solid #667eea;
+            padding-bottom: 5px;
+        }
+
+        .vertical-nav-sections {
+            max-height: 300px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .vertical-nav-sections::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .vertical-nav-sections::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+
+        .vertical-nav-sections::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 2px;
+        }
+
+        .nav-section {
+            padding: 4px 6px;
+            margin: 1px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 9px;
+            color: #555;
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-section:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border-left-color: #667eea;
+        }
+
+        .nav-section.active {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            border-left-color: #667eea;
+            font-weight: 600;
+        }
+
+        .vertical-nav-current {
+            margin-top: 8px;
+            padding: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 4px;
+            font-size: 8px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
         }
 
         .sidebar.hidden {
@@ -519,18 +727,70 @@
             color: #e0e0e0;
         }
 
+        .dark-mode .back-to-top {
+            background: #4a9eff;
+        }
+
+        .dark-mode .back-to-top:hover {
+            background: #3a8bef;
+        }
+
+        .dark-mode .progress-bar {
+            background: rgba(74, 158, 255, 0.2);
+        }
+
+        .dark-mode .progress-fill {
+            background: linear-gradient(90deg, #4a9eff, #6b73ff);
+        }
+
+        .dark-mode .progress-text {
+            background: #4a9eff;
+        }
+
+        .dark-mode .vertical-nav {
+            background: rgba(45, 45, 45, 0.95);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .vertical-nav-title {
+            color: #e0e0e0;
+            border-bottom-color: #4a9eff;
+        }
+
+        .dark-mode .nav-section {
+            color: #b0b0b0;
+        }
+
+        .dark-mode .nav-section:hover {
+            background: rgba(74, 158, 255, 0.1);
+            color: #4a9eff;
+            border-left-color: #4a9eff;
+        }
+
+        .dark-mode .nav-section.active {
+            background: rgba(74, 158, 255, 0.15);
+            color: #4a9eff;
+            border-left-color: #4a9eff;
+        }
+
+        .dark-mode .vertical-nav-current {
+            background: linear-gradient(135deg, #4a9eff, #6b73ff);
+        }
+
         /* Arama Fonksiyonu */
         .search-container {
             position: fixed;
             top: 20px;
-            left: 80px;
-            z-index: 1002;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1003;
             background: white;
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             border: 1px solid #e9ecef;
-            min-width: 300px;
+            width: 400px;
+            max-width: 90vw;
         }
 
         .search-input {
@@ -543,23 +803,56 @@
         }
 
         .search-results {
-            max-height: 200px;
+            max-height: 400px;
             overflow-y: auto;
-            border-top: 1px solid #e9ecef;
-            padding-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            margin-top: 10px;
         }
 
         .search-result {
-            padding: 6px 8px;
+            padding: 15px;
             cursor: pointer;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #6c757d;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
         }
 
         .search-result:hover {
             background: #f8f9fa;
+        }
+
+        .search-result:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-header {
+            margin-bottom: 8px;
+        }
+
+        .search-result-header strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .search-subtitle {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-left: 10px;
+            font-style: italic;
+        }
+
+        .search-result-content {
             color: #495057;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .search-result-content mark {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
         }
 
         .search-result.highlight {
@@ -574,16 +867,37 @@
             background: #ffffff;
             color: #495057;
             border: 1px solid #e9ecef;
-            padding: 10px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1003;
+            transition: all 0.2s ease;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 80px;
+            background: #ffffff;
+            color: #495057;
+            border: 1px solid #e9ecef;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             z-index: 1003;
             transition: all 0.2s ease;
         }
 
         .search-toggle:hover {
+            background: #f8f9fa;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .dark-mode-toggle:hover {
             background: #f8f9fa;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
@@ -618,6 +932,18 @@
             color: #ffc107;
         }
 
+        .dark-mode .search-result-header strong {
+            color: #4a9eff;
+        }
+
+        .dark-mode .search-subtitle {
+            color: #b0b0b0;
+        }
+
+        .dark-mode .search-result-content {
+            color: #e0e0e0;
+        }
+
         .dark-mode .search-toggle {
             background: #2d2d2d;
             color: #e0e0e0;
@@ -625,6 +951,16 @@
         }
 
         .dark-mode .search-toggle:hover {
+            background: #4a4a4a;
+        }
+
+        .dark-mode .dark-mode-toggle {
+            background: #2d2d2d;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        .dark-mode .dark-mode-toggle:hover {
             background: #4a4a4a;
         }
 
@@ -1655,7 +1991,7 @@
             color: #e0e0e0;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
             .container {
                 padding: 10px;
                 margin: 0;
@@ -1666,10 +2002,31 @@
             .header {
                 padding: 15px;
                 margin: 0;
+                flex-direction: column;
+                gap: 10px;
             }
             
             .header h1 {
-                font-size: 2em;
+                font-size: 1.8em;
+                text-align: center;
+            }
+
+            .shortcuts-info {
+                margin-top: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .header-controls {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .control-btn {
+                padding: 8px 12px;
+                font-size: 14px;
             }
             
             .section {
@@ -1679,42 +2036,162 @@
                 box-sizing: border-box;
             }
 
+            .section h2 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+            .section h3 {
+                font-size: 1.3em;
+                margin-bottom: 12px;
+            }
+
+            .section h4 {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+
             .tool-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .tool-container {
-                padding: 20px;
+                padding: 15px;
+                margin: 10px 0;
             }
 
             .sidebar {
-                width: 250px;
-                right: 10px;
+                width: 100%;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                max-height: 100vh;
+                overflow-y: auto;
+                border-radius: 0;
+                padding: 60px 20px 20px 20px;
+                transform: none;
             }
 
             .sidebar-toggle {
                 right: 10px;
                 top: 10px;
+                z-index: 1004;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .progress-bar {
+                height: 3px;
+            }
+
+            .progress-text {
+                top: 6px;
+                right: 15px;
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+
+            .vertical-nav {
+                display: none;
+            }
+
+            .search-container {
+                position: fixed;
+                top: 20px;
+                left: 10px;
+                width: 300px;
+                max-width: 80vw;
+                z-index: 1003;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                transform: none;
+            }
+
+            .search-input {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .search-results {
+                max-height: 60vh;
+                font-size: 14px;
+            }
+
+            .search-result {
+                padding: 12px;
+            }
+
+            .search-result-content {
+                font-size: 13px;
             }
 
             .code-block {
                 overflow-x: auto;
-                font-size: 14px;
+                font-size: 13px;
+                margin: 10px 0;
             }
 
             .code-block pre {
                 white-space: pre-wrap;
                 word-wrap: break-word;
+                padding: 10px;
             }
 
             .table {
                 overflow-x: auto;
-                display: block;
-                white-space: nowrap;
+                font-size: 14px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table th, .table td {
+                padding: 8px;
+                font-size: 13px;
+                min-width: 100px;
             }
 
             .diagram-container {
                 overflow-x: auto;
+                margin: 15px 0;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .diagram-container .mermaid {
+                min-width: 100%;
+            }
+
+            .diagram-title {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+
+            .scenario {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .scenario h4 {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+
+            .step {
+                padding: 12px;
+                margin: 10px 0;
+            }
+
+            .step-number {
+                font-size: 1.2em;
+                margin-right: 10px;
             }
 
             .quiz-container {
@@ -1722,8 +2199,9 @@
             }
 
             .quiz-option {
-                padding: 10px;
+                padding: 12px;
                 font-size: 14px;
+                margin: 8px 0;
             }
 
             .lab-container {
@@ -1732,14 +2210,83 @@
 
             .lab-terminal {
                 font-size: 12px;
+                padding: 10px;
             }
 
             .video-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .video-item {
                 margin: 10px 0;
+            }
+
+            .video-item iframe {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            .container {
+                padding: 5px;
+                margin: 0;
+            }
+            
+            .header {
+                padding: 8px;
+                flex-direction: row;
+                gap: 5px;
+            }
+            
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            .shortcuts-info {
+                margin-top: 8px;
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .control-btn {
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+            
+            .sidebar {
+                width: 100%;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+                padding: 40px 15px 15px 15px;
+                transform: none;
+                overflow-y: auto;
+            }
+
+            .search-container {
+                top: 10px;
+                left: 5px;
+                width: 200px;
+                max-width: 60vw;
+                transform: none;
+            }
+
+            .search-toggle {
+                left: 5px;
+                top: 5px;
+                padding: 4px 6px;
+                font-size: 10px;
+            }
+
+            .sidebar-toggle {
+                right: 5px;
+                top: 5px;
+                padding: 4px 6px;
+                z-index: 1004;
             }
         }
 
@@ -1751,10 +2298,33 @@
             
             .header {
                 padding: 10px;
+                flex-direction: column;
+                gap: 8px;
             }
             
             .header h1 {
-                font-size: 1.5em;
+                font-size: 1.4em;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+            .shortcuts-info {
+                margin-top: 8px;
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .header-controls {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .control-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+                min-width: auto;
             }
             
             .section {
@@ -1764,48 +2334,156 @@
 
             .section h2 {
                 font-size: 1.3em;
+                margin-bottom: 12px;
             }
 
             .section h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+
+            .section h4 {
                 font-size: 1.1em;
+                margin-bottom: 8px;
             }
 
             .code-block {
-                font-size: 12px;
-                padding: 10px;
-            }
-
-            .quiz-container {
-                padding: 10px;
-            }
-
-            .quiz-option {
+                font-size: 11px;
                 padding: 8px;
-                font-size: 12px;
+                margin: 8px 0;
             }
 
-            .lab-container {
-                padding: 10px;
-            }
-
-            .lab-terminal {
+            .code-block pre {
+                padding: 8px;
                 font-size: 11px;
             }
 
+            .search-container {
+                top: 10px;
+                left: 5px;
+                width: 250px;
+                max-width: 75vw;
+                transform: none;
+            }
+
+            .search-input {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .search-results {
+                max-height: 50vh;
+                font-size: 13px;
+            }
+
+            .search-result {
+                padding: 10px;
+            }
+
+            .search-result-content {
+                font-size: 12px;
+            }
+
+            .table {
+                font-size: 11px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table th, .table td {
+                padding: 6px;
+                font-size: 10px;
+                min-width: 90px;
+            }
+
+            .diagram-container {
+                margin: 10px 0;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .diagram-container .mermaid {
+                min-width: 100%;
+            }
+
+            .diagram-title {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .scenario {
+                padding: 12px;
+                margin: 12px 0;
+            }
+
+            .scenario h4 {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .step {
+                padding: 10px;
+                margin: 8px 0;
+            }
+
+            .step-number {
+                font-size: 1.1em;
+                margin-right: 8px;
+            }
+
+            .quiz-container {
+                padding: 12px;
+            }
+
+            .quiz-option {
+                padding: 10px;
+                font-size: 13px;
+                margin: 6px 0;
+            }
+
+            .lab-container {
+                padding: 12px;
+            }
+
+            .lab-terminal {
+                font-size: 10px;
+                padding: 8px;
+            }
+
+            .video-item iframe {
+                height: 180px;
+            }
+
             .sidebar {
-                width: 200px;
+                width: 100%;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+                padding: 50px 15px 15px 15px;
+                transform: none;
+                overflow-y: auto;
             }
 
             .sidebar-toggle {
                 right: 5px;
                 top: 5px;
-                padding: 8px;
+                padding: 6px 8px;
+                font-size: 12px;
+                z-index: 1004;
             }
 
             .search-toggle {
-                right: 50px;
-                top: 5px;
-                padding: 8px;
+                left: 10px;
+                top: 10px;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+
+            .dark-mode-toggle {
+                left: 60px;
+                top: 10px;
+                padding: 6px 8px;
+                font-size: 12px;
             }
 
             .search-container {
@@ -1826,11 +2504,148 @@
                 max-width: 1600px;
             }
         }
+
+        /* Gerçek mobil cihazlar için */
+        @media only screen and (max-width: 414px) {
+            .container {
+                padding: 3px;
+                margin: 0;
+            }
+            
+            .header {
+                padding: 8px;
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .header h1 {
+                font-size: 1.1em;
+                text-align: center;
+            }
+
+            .shortcuts-info {
+                margin-top: 5px;
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+
+            .control-btn {
+                padding: 3px 5px;
+                font-size: 9px;
+            }
+            
+            .search-toggle {
+                left: 5px;
+                top: 5px;
+                padding: 3px 5px;
+                font-size: 9px;
+            }
+
+            .dark-mode-toggle {
+                left: 50px;
+                top: 5px;
+                padding: 3px 5px;
+                font-size: 9px;
+            }
+
+            .sidebar-toggle {
+                right: 5px;
+                top: 5px;
+                padding: 3px 5px;
+                font-size: 9px;
+                z-index: 1004;
+            }
+
+            .search-container {
+                top: 5px;
+                left: 3px;
+                width: 180px;
+                max-width: 70vw;
+                transform: none;
+            }
+
+            .sidebar {
+                width: 100%;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+                padding: 35px 10px 10px 10px;
+                transform: none;
+                overflow-y: auto;
+            }
+
+            .table {
+                font-size: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table th, .table td {
+                padding: 4px;
+                font-size: 9px;
+                min-width: 80px;
+            }
+        }
+
+        /* iPhone ve küçük Android cihazlar */
+        @media only screen and (max-width: 375px) {
+            .search-container {
+                width: 160px;
+                max-width: 65vw;
+            }
+            
+            .search-toggle {
+                padding: 2px 4px;
+                font-size: 8px;
+            }
+
+            .dark-mode-toggle {
+                left: 45px;
+                top: 5px;
+                padding: 2px 4px;
+                font-size: 8px;
+            }
+
+            .sidebar-toggle {
+                right: 5px;
+                top: 5px;
+                padding: 2px 4px;
+                font-size: 8px;
+            }
+
+            .back-to-top {
+                bottom: 8px;
+                right: 8px;
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+
+            .progress-bar {
+                height: 2px;
+            }
+
+            .progress-text {
+                display: none;
+            }
+
+            .table {
+                font-size: 9px;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table th, .table td {
+                padding: 3px;
+                font-size: 8px;
+                min-width: 70px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Dark Mode Toggle -->
-    <button class="sidebar-toggle" onclick="toggleDarkMode()" title="Dark Mode" style="right: 80px;">
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Dark Mode">
         🌙
     </button>
 
@@ -1848,6 +2663,40 @@
     <div class="search-container hidden" id="searchContainer">
         <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
         <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">
+        ↑
+    </button>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Vertical Navigation Bar (Desktop Only) -->
+    <div class="vertical-nav" id="verticalNav">
+        <div class="vertical-nav-title" id="verticalNavTitle">Konular</div>
+        <div class="vertical-nav-sections">
+            <div class="nav-section" data-section="ag-temelleri">Ağ Temelleri</div>
+            <div class="nav-section" data-section="windows-server">Windows Server</div>
+            <div class="nav-section" data-section="active-directory">Active Directory</div>
+            <div class="nav-section" data-section="file-server">File Server</div>
+            <div class="nav-section" data-section="powershell">PowerShell</div>
+            <div class="nav-section" data-section="guvenlik">Güvenlik</div>
+            <div class="nav-section" data-section="siber-guvenlik">Siber Güvenlik</div>
+            <div class="nav-section" data-section="fortigate">FortiGate</div>
+            <div class="nav-section" data-section="helpdesk">Helpdesk</div>
+            <div class="nav-section" data-section="microsoft-365">Microsoft 365</div>
+            <div class="nav-section" data-section="mail-server">Mail Server</div>
+            <div class="nav-section" data-section="remote-management">Remote Management</div>
+            <div class="nav-section" data-section="troubleshooting">Troubleshooting</div>
+            <div class="nav-section" data-section="cloud-technologies">Cloud Technologies</div>
+            <div class="nav-section" data-section="automation">Automation</div>
+        </div>
+        <div class="vertical-nav-current" id="verticalNavCurrent">Ağ Temelleri</div>
     </div>
 
     <!-- Sidebar Navigation -->
@@ -1881,6 +2730,10 @@
         <div class="header">
             <h1>IT Eğitim Dokümanı</h1>
             <p>Bölüm 1-2: Temel IT Kavramları, Windows Server Yönetimi ve İleri Seviye Konular</p>
+            
+            <div class="shortcuts-info">
+                <p><strong>⌨️ Kısayollar:</strong> Ctrl+K (Arama) • Ctrl+M (Menü) • Ctrl+D (Dark Mode) • Alt+1-9 (Bölümler) • Home/End (Baş/Son)</p>
+            </div>
         </div>
 
         <div class="section" id="giris">
@@ -1915,6 +2768,7 @@
             <div class="note">
                 <strong>💡 Not:</strong> Modern sistem uzmanları, bulut teknolojileri (Azure, AWS) ve DevOps pratikleri konusunda da bilgi sahibi olmalıdır.
             </div>
+
         </div>
 
         <div class="section" id="ag-temelleri">
@@ -2407,6 +3261,57 @@ nslookup -type=any google.com
 
                 <div class="quiz-score" id="quizScore" style="display: none;"></div>
             </div>
+
+            <!-- Gerçek Hayat Senaryosu -->
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: Ağ Kesintisi Krizi</h4>
+                <p><strong>Problem:</strong> Şirketinizde sabah 09:00'da tüm ağ bağlantısı kesildi! 200 çalışan işe başlayamıyor, müşteri hizmetleri durdu!</p>
+                
+                <div class="step">
+                    <span class="step-number">🚨</span>
+                    <strong>Kritik Durum Analizi</strong>
+                    <ul>
+                        <li><strong>Çalışanlar:</strong> 200 kişi sisteme giremiyor</li>
+                        <li><strong>Müşteri hizmetleri:</strong> Telefon sistemi çalışmıyor</li>
+                        <li><strong>E-posta:</strong> Gelen/giden e-postalar durdu</li>
+                        <li><strong>Sunucular:</strong> Tüm sunucular erişilemez durumda</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🔍</span>
+                    <strong>Hızlı Teşhis Adımları</strong>
+                    <ul>
+                        <li><strong>1. Ping testi:</strong> ping 8.8.8.8 (internet bağlantısı)</li>
+                        <li><strong>2. Router kontrolü:</strong> ping 192.168.1.1 (yerel ağ)</li>
+                        <li><strong>3. Switch kontrolü:</strong> ping 192.168.1.10 (sunucu)</li>
+                        <li><strong>4. Fiziksel kontrol:</strong> Kablolar, LED'ler, güç</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">⚡</span>
+                    <strong>Hızlı Çözüm Stratejisi</strong>
+                    <ul>
+                        <li><strong>1. Router yeniden başlatma:</strong> 2 dakika</li>
+                        <li><strong>2. Switch kontrolü:</strong> 1 dakika</li>
+                        <li><strong>3. DHCP servisi kontrolü:</strong> 1 dakika</li>
+                        <li><strong>4. DNS sunucu kontrolü:</strong> 1 dakika</li>
+                        <li><strong>Toplam:</strong> 5 dakikada sistem aktif</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">💡</span>
+                    <strong>Önleyici Tedbirler</strong>
+                    <ul>
+                        <li><strong>UPS sistemi:</strong> Güç kesintilerine karşı</li>
+                        <li><strong>Yedek router:</strong> Hızlı değişim için</li>
+                        <li><strong>Monitoring:</strong> 7/24 ağ izleme</li>
+                        <li><strong>Dokümantasyon:</strong> Ağ topolojisi ve IP listesi</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="section" id="windows-server">
@@ -2701,6 +3606,57 @@ Add-Computer -DomainName $domain -Credential $credential -Restart
             <div class="warning">
                 <strong>⚠️ Dikkat:</strong> Domain join işlemi sırasında bilgisayar yeniden başlatılacaktır. Önemli verileri yedekleyin.
             </div>
+
+            <!-- Gerçek Hayat Senaryosu -->
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: Yeni Sunucu Kurulumu</h4>
+                <p><strong>Problem:</strong> Şirketiniz büyüdü ve yeni bir sunucuya ihtiyaç var. 100 çalışan için dosya sunucusu, e-posta sunucusu ve veritabanı sunucusu kurmanız gerekiyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">📋</span>
+                    <strong>Proje Planlama</strong>
+                    <ul>
+                        <li><strong>Donanım gereksinimleri:</strong> 32GB RAM, 1TB SSD, 2x CPU</li>
+                        <li><strong>İşletim sistemi:</strong> Windows Server 2022 Datacenter</li>
+                        <li><strong>Roller:</strong> File Server, Mail Server, Database Server</li>
+                        <li><strong>Süre:</strong> 1 gün kurulum + 1 gün test</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">⚙️</span>
+                    <strong>Kurulum Adımları</strong>
+                    <ul>
+                        <li><strong>1. Donanım kurulumu:</strong> Sunucuyu rack'e yerleştir</li>
+                        <li><strong>2. BIOS ayarları:</strong> Virtualization, Secure Boot</li>
+                        <li><strong>3. Windows Server kurulumu:</strong> 2 saat</li>
+                        <li><strong>4. Driver yükleme:</strong> Network, Storage, Graphics</li>
+                        <li><strong>5. Windows Update:</strong> Güvenlik güncellemeleri</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🔧</span>
+                    <strong>Rol Yapılandırması</strong>
+                    <ul>
+                        <li><strong>File Server:</strong> Paylaşımlı klasörler, NTFS izinleri</li>
+                        <li><strong>Mail Server:</strong> Exchange Server kurulumu</li>
+                        <li><strong>Database Server:</strong> SQL Server kurulumu</li>
+                        <li><strong>Backup:</strong> Otomatik yedekleme sistemi</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>Test ve Doğrulama</strong>
+                    <ul>
+                        <li><strong>Bağlantı testleri:</strong> Ping, RDP, HTTP</li>
+                        <li><strong>Performans testleri:</strong> CPU, RAM, Disk</li>
+                        <li><strong>Güvenlik testleri:</strong> Firewall, Antivirus</li>
+                        <li><strong>Kullanıcı testleri:</strong> Dosya erişimi, e-posta</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="section" id="active-directory">
@@ -2969,6 +3925,56 @@ Remove-GPLink -Name "IT_Workstation_Policy" -Target "OU=Workstations,DC=contoso,
                         <li>-Name parametresi tam adı alır</li>
                         <li>-SamAccountName kullanıcı adını belirler</li>
                         <li>Örnek: New-ADUser -Name "Ad Soyad" -SamAccountName "kullaniciadi"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Gerçek Hayat Senaryosu -->
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: 500 Kullanıcılı Şirket AD Kurulumu</h4>
+                <p><strong>Problem:</strong> Şirketinizde 500 çalışan var ve her birinin ayrı kullanıcı hesabı, e-posta adresi ve dosya erişim izinleri olması gerekiyor. Manuel olarak yapmak 2 hafta sürer!</p>
+                
+                <div class="step">
+                    <span class="step-number">📊</span>
+                    <strong>Proje Kapsamı</strong>
+                    <ul>
+                        <li><strong>Kullanıcı sayısı:</strong> 500 çalışan</li>
+                        <li><strong>Departmanlar:</strong> IT, HR, Finance, Sales, Marketing</li>
+                        <li><strong>Lokasyonlar:</strong> Merkez, Şube 1, Şube 2</li>
+                        <li><strong>Gereksinimler:</strong> E-posta, dosya erişimi, yazıcı izinleri</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🏗️</span>
+                    <strong>AD Yapısı Tasarımı</strong>
+                    <ul>
+                        <li><strong>Forest:</strong> company.local</li>
+                        <li><strong>Domain:</strong> company.local</li>
+                        <li><strong>OU'lar:</strong> Departments, Locations, Service Accounts</li>
+                        <li><strong>Gruplar:</strong> IT_Admins, HR_Users, Finance_Users</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">⚡</span>
+                    <strong>PowerShell ile Otomasyon</strong>
+                    <ul>
+                        <li><strong>CSV dosyası:</strong> Kullanıcı bilgilerini içerir</li>
+                        <li><strong>Toplu oluşturma:</strong> 500 kullanıcı 30 dakikada</li>
+                        <li><strong>Grup üyelikleri:</strong> Departmana göre otomatik</li>
+                        <li><strong>E-posta hesapları:</strong> Exchange ile entegre</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>Test ve Doğrulama</strong>
+                    <ul>
+                        <li><strong>Giriş testleri:</strong> Her departmandan test</li>
+                        <li><strong>İzin testleri:</strong> Dosya erişimi kontrolü</li>
+                        <li><strong>E-posta testleri:</strong> Gelen/giden e-posta</li>
+                        <li><strong>Performans testleri:</strong> 500 kullanıcı aynı anda</li>
                     </ul>
                 </div>
             </div>
@@ -3412,13 +4418,157 @@ net use Y: \\fileserver\Shared /persistent:yes
             <div class="note">
                 <strong>💡 İpucu:</strong> Drive mapping'ler için tutarlı sürücü harfleri kullanın. Örneğin: Z: IT Documents, Y: Shared, X: Projects gibi.
             </div>
+
+            <!-- Gerçek Hayat Senaryosu -->
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: Dosya Paylaşımı Güvenlik Krizi</h4>
+                <p><strong>Problem:</strong> Şirketinizde kritik dosyalar herkes tarafından görülebiliyor! HR dosyaları, mali raporlar ve müşteri bilgileri güvenli değil. Acil güvenlik yapılandırması gerekiyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">🚨</span>
+                    <strong>Güvenlik Açığı Analizi</strong>
+                    <ul>
+                        <li><strong>HR dosyaları:</strong> Tüm çalışanlar görebiliyor</li>
+                        <li><strong>Mali raporlar:</strong> Sadece muhasebe görmeli</li>
+                        <li><strong>Müşteri bilgileri:</strong> Sadece satış ekibi görmeli</li>
+                        <li><strong>IT dokümanları:</strong> Sadece IT departmanı görmeli</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🔒</span>
+                    <strong>Güvenlik Yapılandırması</strong>
+                    <ul>
+                        <li><strong>NTFS İzinleri:</strong> Dosya seviyesinde erişim kontrolü</li>
+                        <li><strong>Share İzinleri:</strong> Ağ erişimi kontrolü</li>
+                        <li><strong>Gruplar:</strong> HR_Users, Finance_Users, Sales_Users</li>
+                        <li><strong>Audit Logging:</strong> Kim neye erişti takibi</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">📁</span>
+                    <strong>Klasör Yapısı Düzenleme</strong>
+                    <ul>
+                        <li><strong>HR:</strong> Sadece HR_Users grubu</li>
+                        <li><strong>Finance:</strong> Sadece Finance_Users grubu</li>
+                        <li><strong>Sales:</strong> Sadece Sales_Users grubu</li>
+                        <li><strong>IT:</strong> Sadece IT_Admins grubu</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>Test ve Doğrulama</strong>
+                    <ul>
+                        <li><strong>Erişim testleri:</strong> Her gruptan test</li>
+                        <li><strong>Red testleri:</strong> Yetkisiz erişim engelleme</li>
+                        <li><strong>Audit testleri:</strong> Log kayıtları kontrolü</li>
+                        <li><strong>Kullanıcı eğitimi:</strong> Yeni erişim kuralları</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="section" id="powershell">
             <h2>7. PowerShell Eğitimi</h2>
             
-            <h3>PowerShell Temelleri</h3>
-            <p>PowerShell, Windows Server yönetimi için güçlü bir komut satırı aracıdır. Modern Windows sistemlerinde varsayılan olarak bulunur.</p>
+            <h3>PowerShell Nedir ve Neden Kullanırız?</h3>
+            <p>PowerShell, Windows Server yönetiminde <strong>manuel işlemleri otomatikleştiren</strong> güçlü bir araçtır. Gerçek hayatta IT uzmanları PowerShell'i şu durumlarda kullanır:</p>
+
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: 500 Kullanıcılı Şirket</h4>
+                <p><strong>Problem:</strong> Şirketinize 50 yeni çalışan katıldı. Her birine Active Directory hesabı oluşturmanız gerekiyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">❌</span>
+                    <strong>Manuel Yöntem (2-3 gün sürer)</strong>
+                    <ul>
+                        <li>Active Directory Users and Computers aç</li>
+                        <li>Her kullanıcı için: Sağ tık → New User</li>
+                        <li>50 kullanıcı × 5 dakika = 250 dakika</li>
+                        <li>Hata yapma riski yüksek</li>
+                        <li>Tekrarlayan işlemler</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>PowerShell Yöntemi (5 dakika sürer)</strong>
+                    <ul>
+                        <li>CSV dosyasından kullanıcı bilgilerini oku</li>
+                        <li>Tek script ile 50 kullanıcı oluştur</li>
+                        <li>Otomatik hata kontrolü</li>
+                        <li>Rapor oluştur</li>
+                        <li>Gelecekte tekrar kullanılabilir</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# PowerShell ile 50 kullanıcı oluşturma (5 dakika)
+$users = Import-Csv "C:\Users\new_employees.csv"
+foreach ($user in $users) {
+    New-ADUser -Name $user.Name -SamAccountName $user.Username -Department $user.Department -Enabled $true
+    Write-Host "✅ Kullanıcı oluşturuldu: $($user.Name)"
+}
+Write-Host "🎉 50 kullanıcı başarıyla oluşturuldu!"
+                    </pre>
+                </div>
+            </div>
+
+            <h3>PowerShell'in Gerçek Hayattaki Kullanım Alanları</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>🔄 Otomasyon (Automation)</strong>
+                <p><strong>Ne yapar:</strong> Tekrarlayan işlemleri otomatikleştirir</p>
+                <p><strong>Örnek:</strong> Her gün sistem durumunu kontrol eden script</p>
+                <ul>
+                    <li>Disk alanı kontrolü</li>
+                    <li>Servis durumu kontrolü</li>
+                    <li>Yedekleme işlemleri</li>
+                    <li>Log temizleme</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>📊 Raporlama (Reporting)</strong>
+                <p><strong>Ne yapar:</strong> Büyük veri setlerinden anlamlı raporlar oluşturur</p>
+                <p><strong>Örnek:</strong> 1000 bilgisayarın envanter raporu</p>
+                <ul>
+                    <li>Donanım bilgileri</li>
+                    <li>Yüklü yazılımlar</li>
+                    <li>Lisans durumu</li>
+                    <li>Güvenlik güncellemeleri</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>🔧 Toplu İşlemler (Bulk Operations)</strong>
+                <p><strong>Ne yapar:</strong> Aynı işlemi yüzlerce nesne üzerinde uygular</p>
+                <p><strong>Örnek:</strong> 500 kullanıcının şifresini değiştirme</p>
+                <ul>
+                    <li>Toplu kullanıcı oluşturma</li>
+                    <li>Grup üyelikleri</li>
+                    <li>İzin değişiklikleri</li>
+                    <li>Yazılım yükleme</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>🛡️ Güvenlik (Security)</strong>
+                <p><strong>Ne yapar:</strong> Güvenlik açıklarını tespit eder ve düzeltir</p>
+                <p><strong>Örnek:</strong> Güvenlik açığı taraması</p>
+                <ul>
+                    <li>Zayıf şifreler</li>
+                    <li>Eski yazılımlar</li>
+                    <li>Güvenlik güncellemeleri</li>
+                    <li>Erişim logları</li>
+                </ul>
+            </div>
             
             <div class="diagram-container fade-in">
                 <div class="diagram-title">⚡ PowerShell Komut Yapısı</div>
@@ -3456,8 +4606,100 @@ net use Y: \\fileserver\Shared /persistent:yes
                 <li><strong>PowerShell 7.x:</strong> En güncel sürüm</li>
             </ul>
 
-            <h3>Değişkenler</h3>
-            <p>PowerShell'de değişkenler $ işareti ile başlar ve otomatik olarak tür belirleme yapar.</p>
+            <h3>PowerShell Temel Kavramları - Gerçek Hayat Örnekleri</h3>
+            <p>PowerShell'i öğrenirken en önemli şey, <strong>neden</strong> ve <strong>ne zaman</strong> kullanacağımızı bilmektir.</p>
+
+            <div class="scenario">
+                <h4>📧 Senaryo 1: E-posta Sunucusu Sorun Giderme</h4>
+                <p><strong>Problem:</strong> E-posta sunucusunda sorun var. Hangi servislerin çalıştığını kontrol etmeniz gerekiyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Manuel Yöntem (10 dakika)</strong>
+                    <ul>
+                        <li>Services.msc aç</li>
+                        <li>Her servisi tek tek kontrol et</li>
+                        <li>Durumları not al</li>
+                        <li>Rapor oluştur</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>PowerShell Yöntemi (30 saniye)</strong>
+                    <div class="code-block">
+                        <pre>
+# E-posta ile ilgili servisleri kontrol et
+$emailServices = @("SMTP", "POP3", "IMAP", "Exchange")
+foreach ($service in $emailServices) {
+    $status = Get-Service -Name "*$service*" | Select-Object Name, Status
+    Write-Host "📧 $($service): $($status.Status)"
+}
+
+# Çıktı:
+# 📧 SMTP: Running
+# 📧 POP3: Stopped
+# 📧 IMAP: Running
+# 📧 Exchange: Running
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>💾 Senaryo 2: Disk Alanı Kontrolü</h4>
+                <p><strong>Problem:</strong> 50 sunucunun disk alanını kontrol etmeniz gerekiyor. Hangi sunucularda alan azalıyor?</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Manuel Yöntem (2-3 saat)</strong>
+                    <ul>
+                        <li>Her sunucuya RDP ile bağlan</li>
+                        <li>Disk alanını kontrol et</li>
+                        <li>Sonuçları Excel'e yaz</li>
+                        <li>Rapor oluştur</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>PowerShell Yöntemi (5 dakika)</strong>
+                    <div class="code-block">
+                        <pre>
+# Tüm sunucuların disk alanını kontrol et
+$servers = @("DC01", "DC02", "FS01", "WEB01", "SQL01")
+$diskReport = @()
+
+foreach ($server in $servers) {
+    $disks = Get-WmiObject -ComputerName $server -Class Win32_LogicalDisk
+    foreach ($disk in $disks) {
+        $freeSpaceGB = [math]::Round($disk.FreeSpace / 1GB, 2)
+        $totalSpaceGB = [math]::Round($disk.Size / 1GB, 2)
+        $percentFree = [math]::Round(($disk.FreeSpace / $disk.Size) * 100, 2)
+        
+        $diskReport += [PSCustomObject]@{
+            Server = $server
+            Drive = $disk.DeviceID
+            FreeSpaceGB = $freeSpaceGB
+            TotalSpaceGB = $totalSpaceGB
+            PercentFree = $percentFree
+            Status = if ($percentFree -lt 20) { "⚠️ DİKKAT" } else { "✅ OK" }
+        }
+    }
+}
+
+# Raporu CSV olarak kaydet
+$diskReport | Export-Csv "C:\Reports\DiskSpaceReport.csv" -NoTypeInformation
+
+# Kritik durumları göster
+$diskReport | Where-Object { $_.Status -eq "⚠️ DİKKAT" } | Format-Table
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>PowerShell Değişkenleri - Gerçek Hayat Kullanımı</h3>
+            <p>Değişkenler, PowerShell'de <strong>veri saklamak</strong> ve <strong>tekrar kullanmak</strong> için kullanılır.</p>
 
             <div class="code-block">
                 <pre>
@@ -3556,9 +4798,301 @@ do {
                 </pre>
             </div>
 
-            <h3>Active Directory Yönetimi Örnekleri</h3>
+            <h3>Gerçek Hayat PowerShell Senaryoları</h3>
+            <p>PowerShell'in gerçek dünyada nasıl kullanıldığını gösteren pratik örnekler:</p>
 
-            <h4>Toplu Kullanıcı Oluşturma</h4>
+            <div class="scenario">
+                <h4>🏢 Senaryo 3: Şirket Birleşmesi - Kullanıcı Geçişi</h4>
+                <p><strong>Durum:</strong> İki şirket birleşiyor. 200 kullanıcıyı yeni domain'e taşımanız gerekiyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Problem Analizi</strong>
+                    <ul>
+                        <li>Eski domain: company1.local</li>
+                        <li>Yeni domain: mergedcompany.local</li>
+                        <li>200 kullanıcı hesabı</li>
+                        <li>Kullanıcı bilgileri korunmalı</li>
+                        <li>Grup üyelikleri taşınmalı</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>PowerShell Çözümü</strong>
+                    <div class="code-block">
+                        <pre>
+# 1. Eski domain'den kullanıcı bilgilerini export et
+$oldUsers = Get-ADUser -Filter * -Properties * -Server "company1.local"
+$userData = @()
+
+foreach ($user in $oldUsers) {
+    $userData += [PSCustomObject]@{
+        Name = $user.Name
+        SamAccountName = $user.SamAccountName
+        Email = $user.EmailAddress
+        Department = $user.Department
+        Title = $user.Title
+        Manager = $user.Manager
+        Groups = (Get-ADPrincipalGroupMembership $user.SamAccountName).Name -join ";"
+    }
+}
+
+# CSV olarak kaydet
+$userData | Export-Csv "C:\Migration\Users_Export.csv" -NoTypeInformation
+
+# 2. Yeni domain'de kullanıcıları oluştur
+$newUsers = Import-Csv "C:\Migration\Users_Export.csv"
+foreach ($user in $newUsers) {
+    # Kullanıcı oluştur
+    $password = ConvertTo-SecureString "TempP@ssw0rd123" -AsPlainText -Force
+    New-ADUser -Name $user.Name -SamAccountName $user.SamAccountName -UserPrincipalName "$($user.SamAccountName)@mergedcompany.local" -AccountPassword $password -Enabled $true -Department $user.Department -Title $user.Title -Server "mergedcompany.local"
+    
+    # Grup üyeliklerini ekle
+    $groups = $user.Groups -split ";"
+    foreach ($group in $groups) {
+        if ($group -and (Get-ADGroup -Filter {Name -eq $group} -Server "mergedcompany.local")) {
+            Add-ADGroupMember -Identity $group -Members $user.SamAccountName -Server "mergedcompany.local"
+        }
+    }
+    
+    Write-Host "✅ Kullanıcı taşındı: $($user.Name)"
+}
+
+Write-Host "🎉 200 kullanıcı başarıyla taşındı!"
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🛡️ Senaryo 4: Güvenlik Açığı Taraması</h4>
+                <p><strong>Durum:</strong> Şirketinizde güvenlik açığı taraması yapmanız gerekiyor. Hangi kullanıcıların şifreleri zayıf?</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Güvenlik Kontrol Listesi</strong>
+                    <ul>
+                        <li>Zayıf şifreler (123456, password, admin)</li>
+                        <li>Eski şifreler (90 günden eski)</li>
+                        <li>Hesap kilitleme durumu</li>
+                        <li>Son giriş tarihleri</li>
+                        <li>Yönetici hesapları</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>PowerShell Güvenlik Scripti</strong>
+                    <div class="code-block">
+                        <pre>
+# Güvenlik açığı taraması
+$securityReport = @()
+$users = Get-ADUser -Filter * -Properties PasswordLastSet, LastLogonDate, LockedOut, Enabled
+
+foreach ($user in $users) {
+    $securityIssues = @()
+    
+    # 1. Eski şifre kontrolü (90 gün)
+    $passwordAge = (Get-Date) - $user.PasswordLastSet
+    if ($passwordAge.Days -gt 90) {
+        $securityIssues += "⚠️ Şifre 90 günden eski ($($passwordAge.Days) gün)"
+    }
+    
+    # 2. Uzun süre giriş yapmamış (30 gün)
+    if ($user.LastLogonDate) {
+        $lastLogonAge = (Get-Date) - $user.LastLogonDate
+        if ($lastLogonAge.Days -gt 30) {
+            $securityIssues += "⚠️ 30 günden fazla giriş yapmamış"
+        }
+    }
+    
+    # 3. Hesap kilitli
+    if ($user.LockedOut) {
+        $securityIssues += "🔒 Hesap kilitli"
+    }
+    
+    # 4. Devre dışı hesap
+    if (-not $user.Enabled) {
+        $securityIssues += "❌ Hesap devre dışı"
+    }
+    
+    # 5. Yönetici hesabı kontrolü
+    $isAdmin = Get-ADPrincipalGroupMembership $user.SamAccountName | Where-Object {$_.Name -like "*Admin*" -or $_.Name -like "*Domain Admins*"}
+    if ($isAdmin) {
+        $securityIssues += "👑 Yönetici hesabı"
+    }
+    
+    if ($securityIssues.Count -gt 0) {
+        $securityReport += [PSCustomObject]@{
+            Username = $user.SamAccountName
+            Name = $user.Name
+            Issues = $securityIssues -join "; "
+            RiskLevel = if ($securityIssues.Count -gt 3) { "🔴 YÜKSEK" } elseif ($securityIssues.Count -gt 1) { "🟡 ORTA" } else { "🟢 DÜŞÜK" }
+        }
+    }
+}
+
+# Raporu kaydet
+$securityReport | Export-Csv "C:\Security\SecurityAuditReport.csv" -NoTypeInformation
+
+# Yüksek riskli hesapları göster
+$securityReport | Where-Object { $_.RiskLevel -eq "🔴 YÜKSEK" } | Format-Table -AutoSize
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>📊 Senaryo 5: Otomatik Raporlama Sistemi</h4>
+                <p><strong>Durum:</strong> Her hafta yöneticilere sistem durumu raporu göndermeniz gerekiyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Rapor İçeriği</strong>
+                    <ul>
+                        <li>Sistem durumu (CPU, RAM, Disk)</li>
+                        <li>Servis durumları</li>
+                        <li>Yeni kullanıcılar</li>
+                        <li>Güvenlik olayları</li>
+                        <li>Yedekleme durumu</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Otomatik Rapor Scripti</strong>
+                    <div class="code-block">
+                        <pre>
+# Haftalık sistem raporu
+$reportDate = Get-Date -Format "yyyy-MM-dd"
+$reportPath = "C:\Reports\WeeklyReport_$reportDate.html"
+
+# 1. Sistem durumu
+$systemInfo = Get-ComputerInfo | Select-Object TotalPhysicalMemory, WindowsVersion, LastBootUpTime
+$diskInfo = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object DeviceID, @{Name="SizeGB";Expression={[math]::Round($_.Size/1GB,2)}}, @{Name="FreeGB";Expression={[math]::Round($_.FreeSpace/1GB,2)}}
+
+# 2. Servis durumları
+$criticalServices = @("Spooler", "DNS", "DHCP", "ADWS", "KDC")
+$serviceStatus = @()
+foreach ($service in $criticalServices) {
+    $svc = Get-Service -Name $service -ErrorAction SilentlyContinue
+    if ($svc) {
+        $serviceStatus += [PSCustomObject]@{
+            Service = $service
+            Status = $svc.Status
+            StartType = $svc.StartType
+        }
+    }
+}
+
+# 3. Yeni kullanıcılar (son 7 gün)
+$newUsers = Get-ADUser -Filter {WhenCreated -gt (Get-Date).AddDays(-7)} -Properties WhenCreated | Select-Object Name, SamAccountName, WhenCreated
+
+# 4. Güvenlik olayları
+$securityEvents = Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625; StartTime=(Get-Date).AddDays(-7)} -MaxEvents 10 | Select-Object TimeCreated, Id, LevelDisplayName
+
+# HTML rapor oluştur
+$htmlReport = @"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Haftalık Sistem Raporu - $reportDate</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #2E86AB; color: white; padding: 20px; text-align: center; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .critical { color: red; font-weight: bold; }
+        .warning { color: orange; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Haftalık Sistem Raporu</h1>
+        <p>Rapor Tarihi: $reportDate</p>
+    </div>
+    
+    <div class="section">
+        <h2>💻 Sistem Bilgileri</h2>
+        <p><strong>Toplam RAM:</strong> $([math]::Round($systemInfo.TotalPhysicalMemory/1GB,2)) GB</p>
+        <p><strong>Windows Sürümü:</strong> $($systemInfo.WindowsVersion)</p>
+        <p><strong>Son Yeniden Başlatma:</strong> $($systemInfo.LastBootUpTime)</p>
+    </div>
+    
+    <div class="section">
+        <h2>💾 Disk Durumu</h2>
+        <table>
+            <tr><th>Sürücü</th><th>Toplam (GB)</th><th>Boş (GB)</th><th>Kullanım %</th></tr>
+"@
+
+foreach ($disk in $diskInfo) {
+    $usagePercent = [math]::Round((($disk.SizeGB - $disk.FreeGB) / $disk.SizeGB) * 100, 2)
+    $status = if ($usagePercent -gt 90) { "critical" } elseif ($usagePercent -gt 80) { "warning" } else { "success" }
+    $htmlReport += "<tr><td>$($disk.DeviceID)</td><td>$($disk.SizeGB)</td><td>$($disk.FreeGB)</td><td class='$status'>$usagePercent%</td></tr>"
+}
+
+$htmlReport += @"
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>⚙️ Kritik Servisler</h2>
+        <table>
+            <tr><th>Servis</th><th>Durum</th><th>Başlatma Türü</th></tr>
+"@
+
+foreach ($service in $serviceStatus) {
+    $statusClass = if ($service.Status -eq "Running") { "success" } else { "critical" }
+    $htmlReport += "<tr><td>$($service.Service)</td><td class='$statusClass'>$($service.Status)</td><td>$($service.StartType)</td></tr>"
+}
+
+$htmlReport += @"
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>👥 Yeni Kullanıcılar (Son 7 Gün)</h2>
+        <p><strong>Toplam:</strong> $($newUsers.Count) yeni kullanıcı</p>
+        <table>
+            <tr><th>İsim</th><th>Kullanıcı Adı</th><th>Oluşturulma Tarihi</th></tr>
+"@
+
+foreach ($user in $newUsers) {
+    $htmlReport += "<tr><td>$($user.Name)</td><td>$($user.SamAccountName)</td><td>$($user.WhenCreated)</td></tr>"
+}
+
+$htmlReport += @"
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>🛡️ Güvenlik Olayları</h2>
+        <p><strong>Son 7 günde:</strong> $($securityEvents.Count) başarısız giriş denemesi</p>
+    </div>
+</body>
+</html>
+"@
+
+# Raporu kaydet
+$htmlReport | Out-File -FilePath $reportPath -Encoding UTF8
+
+# E-posta gönder (opsiyonel)
+# Send-MailMessage -To "admin@company.com" -Subject "Haftalık Sistem Raporu - $reportDate" -Body "Rapor ektedir." -Attachments $reportPath
+
+Write-Host "✅ Haftalık rapor oluşturuldu: $reportPath"
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Active Directory Yönetimi - Gerçek Hayat Örnekleri</h3>
+            <p>Active Directory yönetiminde PowerShell'in gücünü gösteren pratik örnekler:</p>
+
+            <h4>Toplu Kullanıcı Oluşturma - Gerçek Senaryo</h4>
             <div class="code-block">
                 <pre>
 # CSV dosyasından kullanıcı oluşturma
@@ -3748,6 +5282,54 @@ Write-Host "Tüm kullanıcılar başarıyla oluşturuldu!"
                     </ul>
                 </div>
             </div>
+
+            <!-- Etkileşimli PowerShell Quiz -->
+            <div class="quiz-container">
+                <div class="quiz-title">🧠 PowerShell Quiz</div>
+                
+                <div class="quiz-question" id="psQuiz1">
+                    <h4>Soru 1: Aşağıdakilerden hangisi geçerli bir PowerShell cmdlet'idir?</h4>
+                    <ul class="quiz-options">
+                        <li class="quiz-option" onclick="selectAnswer(this, 'A')">A) Get-Process</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'B')">B) GetProcess</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'C')">C) get-process</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'D')">D) GET-PROCESS</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-question" id="psQuiz2">
+                    <h4>Soru 2: PowerShell'de değişken tanımlamak için hangi karakter kullanılır?</h4>
+                    <ul class="quiz-options">
+                        <li class="quiz-option" onclick="selectAnswer(this, 'A')">A) @</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'B')">B) $</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'C')">C) #</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'D')">D) %</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-question" id="psQuiz3">
+                    <h4>Soru 3: Aşağıdakilerden hangisi PowerShell döngü komutudur?</h4>
+                    <ul class="quiz-options">
+                        <li class="quiz-option" onclick="selectAnswer(this, 'A')">A) for</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'B')">B) foreach</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'C')">C) while</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'D')">D) Hepsi</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-question" id="psQuiz4">
+                    <h4>Soru 4: PowerShell'de Active Directory kullanıcısı oluşturmak için hangi modül gerekir?</h4>
+                    <ul class="quiz-options">
+                        <li class="quiz-option" onclick="selectAnswer(this, 'A')">A) ActiveDirectory</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'B')">B) ADDS</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'C')">C) DomainController</li>
+                        <li class="quiz-option" onclick="selectAnswer(this, 'D')">D) UserManagement</li>
+                    </ul>
+                </div>
+
+                <button class="quiz-submit-btn" onclick="checkQuizAnswers('psQuiz')">Cevapları Kontrol Et</button>
+                <div class="quiz-result" id="psQuizResult"></div>
+            </div>
         </div>
 
         <div class="section" id="guvenlik">
@@ -3779,18 +5361,410 @@ Set-Service -Name "AppLocker" -StartupType Automatic
             </div>
 
             <h3>AppLocker Kuralları</h3>
+            <p>AppLocker kuralları, uygulamaların çalıştırılmasını kontrol etmek için farklı kriterlere dayanır. Her kural türü farklı güvenlik seviyeleri sağlar.</p>
 
-            <h4>Executable Kuralları</h4>
-            <div class="code-block">
-                <pre>
-# Executable kuralı oluşturma (PowerShell ile)
-# Sadece Program Files'dan uygulamalar çalışsın
-New-AppLockerPolicy -RuleType Publisher, Hash, Path -RuleAction Allow -User Everyone -Optimize
+            <h4>Kural Türleri ve Güvenlik Seviyeleri</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Kural Türü</th>
+                        <th>Güvenlik Seviyesi</th>
+                        <th>Açıklama</th>
+                        <th>Kullanım Alanı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Publisher</strong></td>
+                        <td>🟢 Yüksek</td>
+                        <td>Dijital sertifika ile doğrulama</td>
+                        <td>Kurumsal uygulamalar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hash</strong></td>
+                        <td>🟡 Orta</td>
+                        <td>Dosya hash değeri ile doğrulama</td>
+                        <td>Belirli dosya versiyonları</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Path</strong></td>
+                        <td>🔴 Düşük</td>
+                        <td>Dosya yolu ile doğrulama</td>
+                        <td>Hızlı test ve geliştirme</td>
+                    </tr>
+                </tbody>
+            </table>
 
-# Belirli uygulamayı engelleme
+            <h4>Executable Kuralları - Detaylı Uygulama</h4>
+            <p>Executable kuralları, .exe dosyalarının çalıştırılmasını kontrol eder. Bu kurallar, malware koruması için kritik öneme sahiptir.</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Publisher Kuralı Oluşturma (En Güvenli)</strong>
+                <p>Publisher kuralları, dijital sertifika ile imzalanmış uygulamaları tanır. Bu, en güvenli yöntemdir çünkü sahte uygulamalar sertifika sahibi olamaz.</p>
+                
+                <div class="code-block">
+                    <pre>
+# Publisher kuralı oluşturma
+# Sadece Microsoft imzalı uygulamalar çalışsın
+New-AppLockerPolicy -RuleType Publisher -RuleAction Allow -User Everyone -Optimize
+
+# Belirli yayıncıyı engelleme
 # Group Policy Management Console'da:
 # Computer Configuration → Policies → Windows Settings → Security Settings → Application Control Policies → AppLocker → Executable Rules
-                </pre>
+# "Create New Rule" → "Publisher" → "Deny" → "Next"
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Hash Kuralı Oluşturma (Orta Güvenlik)</strong>
+                <p>Hash kuralları, dosyanın içeriğine dayalı benzersiz bir parmak izi oluşturur. Dosya değişirse hash de değişir.</p>
+                
+                <div class="code-block">
+                    <pre>
+# Hash kuralı oluşturma
+# Belirli bir uygulamanın sadece bu versiyonu çalışsın
+New-AppLockerPolicy -RuleType Hash -RuleAction Allow -User Everyone -Optimize
+
+# PowerShell ile hash hesaplama
+Get-FileHash -Path "C:\Program Files\Notepad++\notepad++.exe" -Algorithm SHA256
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Path Kuralı Oluşturma (Hızlı Test)</strong>
+                <p>Path kuralları, dosya yoluna dayalıdır. En hızlı yöntemdir ama güvenlik açısından en zayıftır.</p>
+                
+                <div class="code-block">
+                    <pre>
+# Path kuralı oluşturma
+# Sadece Program Files'dan uygulamalar çalışsın
+New-AppLockerPolicy -RuleType Path -RuleAction Allow -User Everyone -Optimize
+
+# Belirli klasörü engelleme
+# C:\Temp klasöründen hiçbir uygulama çalışmasın
+                    </pre>
+                </div>
+            </div>
+
+            <h3>Gerçek Hayat Siber Güvenlik Senaryoları</h3>
+            <p>Siber güvenlik konularının gerçek dünyada nasıl uygulandığını gösteren pratik örnekler:</p>
+
+            <div class="scenario">
+                <h4>🏢 Senaryo 1: E-ticaret Sitesi Güvenlik Açığı</h4>
+                <p><strong>Durum:</strong> Bir e-ticaret sitesinde müşteri kredi kartı bilgileri çalındı. Güvenlik açığı nasıl tespit edilir ve önlenir?</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Güvenlik Açığı Tespiti</strong>
+                    <ul>
+                        <li><strong>SQL Injection:</strong> Veritabanı sorgularına müdahale</li>
+                        <li><strong>XSS (Cross-Site Scripting):</strong> Kötü amaçlı script enjeksiyonu</li>
+                        <li><strong>CSRF (Cross-Site Request Forgery):</strong> Sahte istek gönderimi</li>
+                        <li><strong>Session Hijacking:</strong> Oturum çalma</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# SQL Injection örneği
+# Kötü kod (güvenlik açığı):
+$query = "SELECT * FROM users WHERE username = '" . $_POST['username'] . "' AND password = '" . $_POST['password'] . "'";
+
+# Saldırganın girdiği veri:
+# Username: admin'--
+# Password: anything
+# Sonuç: SELECT * FROM users WHERE username = 'admin'--' AND password = 'anything'
+# '--' yorum satırı oluşturur, şifre kontrolü atlanır
+
+# Güvenli kod:
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+$stmt->execute([$_POST['username'], $_POST['password']]);
+                    </pre>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Güvenlik Önlemleri</strong>
+                    <ul>
+                        <li><strong>Input Validation:</strong> Tüm girdileri doğrula</li>
+                        <li><strong>Parameterized Queries:</strong> Hazırlanmış sorgular kullan</li>
+                        <li><strong>HTTPS:</strong> Tüm veri iletimini şifrele</li>
+                        <li><strong>WAF:</strong> Web Application Firewall kullan</li>
+                        <li><strong>Regular Updates:</strong> Sistemleri güncel tut</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🏥 Senaryo 2: Hastane Ransomware Saldırısı</h4>
+                <p><strong>Durum:</strong> Bir hastanede ransomware saldırısı gerçekleşti. Tüm hasta verileri şifrelendi. Nasıl müdahale edilir?</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>İlk Müdahale (İlk 1 Saat)</strong>
+                    <ul>
+                        <li><strong>Network Isolation:</strong> Etkilenen sistemleri ağdan ayır</li>
+                        <li><strong>Backup Verification:</strong> Yedeklerin bütünlüğünü kontrol et</li>
+                        <li><strong>Threat Assessment:</strong> Saldırının kapsamını belirle</li>
+                        <li><strong>Communication:</strong> Yönetim ve yetkilileri bilgilendir</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Kurtarma Süreci</strong>
+                    <ul>
+                        <li><strong>Backup Restore:</strong> Temiz yedeklerden geri yükleme</li>
+                        <li><strong>System Rebuild:</strong> Etkilenen sistemleri yeniden kur</li>
+                        <li><strong>Security Hardening:</strong> Güvenlik önlemlerini güçlendir</li>
+                        <li><strong>Monitoring:</strong> Sürekli izleme sistemi kur</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# Ransomware tespiti için PowerShell script
+# Şüpheli dosya uzantılarını tara
+Get-ChildItem -Path "C:\" -Recurse -Include "*.encrypted", "*.locked", "*.crypt" | 
+    ForEach-Object {
+        Write-Host "Şüpheli dosya bulundu: $($_.FullName)"
+        # Dosyayı karantinaya al
+        Move-Item $_.FullName -Destination "C:\Quarantine\"
+    }
+
+# Ransomware önleme için dosya izleme
+$watcher = New-Object System.IO.FileSystemWatcher
+$watcher.Path = "C:\CriticalData\"
+$watcher.Filter = "*.*"
+$watcher.EnableRaisingEvents = $true
+
+Register-ObjectEvent -InputObject $watcher -EventName "Changed" -Action {
+    # Dosya değişikliklerini logla
+    Write-EventLog -LogName "Security" -Source "RansomwareMonitor" -EventId 1001 -Message "Dosya değişikliği tespit edildi: $($Event.SourceEventArgs.FullPath)"
+}
+                    </pre>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🏦 Senaryo 3: Banka Phishing Saldırısı</h4>
+                <p><strong>Durum:</strong> Müşteriler sahte e-postalar alıyor ve banka hesaplarına erişim bilgileri çalınıyor. Nasıl önlenir?</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Phishing Tespiti</strong>
+                    <ul>
+                        <li><strong>Email Analysis:</strong> E-posta başlıklarını ve içeriğini analiz et</li>
+                        <li><strong>URL Inspection:</strong> Şüpheli linkleri kontrol et</li>
+                        <li><strong>Attachment Scanning:</strong> Ekleri virüs taramasından geçir</li>
+                        <li><strong>Sender Verification:</strong> Gönderici adresini doğrula</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# Phishing e-postası tespiti için PowerShell script
+# Şüpheli e-posta özelliklerini tara
+$suspiciousKeywords = @("urgent", "verify", "account", "suspended", "click here", "immediately")
+$suspiciousDomains = @("bank-security.com", "verify-account.net", "secure-login.org")
+
+# E-posta içeriğini analiz et
+$emailContent = Get-Content "C:\Emails\suspicious_email.txt" -Raw
+$suspiciousScore = 0
+
+foreach ($keyword in $suspiciousKeywords) {
+    if ($emailContent -match $keyword) {
+        $suspiciousScore++
+    }
+}
+
+if ($suspiciousScore -gt 3) {
+    Write-Host "YÜKSEK RİSK: Bu e-posta phishing olabilir!"
+    # E-postayı karantinaya al
+    Move-Item "C:\Emails\suspicious_email.txt" -Destination "C:\Quarantine\"
+}
+                    </pre>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Kullanıcı Eğitimi</strong>
+                    <ul>
+                        <li><strong>Security Awareness:</strong> Düzenli güvenlik eğitimleri</li>
+                        <li><strong>Phishing Simulation:</strong> Sahte phishing e-postaları gönder</li>
+                        <li><strong>Reporting System:</strong> Şüpheli e-postaları bildirme sistemi</li>
+                        <li><strong>Multi-Factor Authentication:</strong> Çok faktörlü kimlik doğrulama</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Güvenlik Araçları ve Teknolojileri</h3>
+            <p>Modern siber güvenlik için kullanılan temel araçlar:</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>SIEM (Security Information and Event Management)</strong>
+                <p>Güvenlik olaylarını toplama, analiz etme ve raporlama sistemi:</p>
+                <ul>
+                    <li><strong>Splunk:</strong> Log analizi ve korelasyon</li>
+                    <li><strong>ELK Stack:</strong> Elasticsearch, Logstash, Kibana</li>
+                    <li><strong>IBM QRadar:</strong> Enterprise SIEM çözümü</li>
+                    <li><strong>Microsoft Sentinel:</strong> Cloud-native SIEM</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>EDR (Endpoint Detection and Response)</strong>
+                <p>Uç nokta güvenliği ve tehdit tespiti:</p>
+                <ul>
+                    <li><strong>CrowdStrike Falcon:</strong> AI tabanlı tehdit tespiti</li>
+                    <li><strong>Microsoft Defender ATP:</strong> Windows entegrasyonu</li>
+                    <li><strong>Carbon Black:</strong> VMware entegrasyonu</li>
+                    <li><strong>SentinelOne:</strong> Otonom güvenlik platformu</li>
+                </ul>
+            </div>
+
+            <h3>Gerçek Hayat Senaryoları</h3>
+            <p>AppLocker'ın gerçek dünyada nasıl kullanıldığını gösteren pratik örnekler:</p>
+
+            <div class="scenario">
+                <h4>🏢 Senaryo 1: Kurumsal Güvenlik Politikası</h4>
+                <p><strong>Durum:</strong> 500 çalışanlı bir şirkette, sadece IT departmanı tarafından onaylanan uygulamaların çalıştırılması isteniyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Güvenlik Politikası Oluşturma</strong>
+                    <ul>
+                        <li>Sadece Program Files ve Program Files (x86) klasörlerinden uygulamalar çalışsın</li>
+                        <li>Temp klasörlerinden hiçbir uygulama çalışmasın</li>
+                        <li>USB'den çalıştırılan uygulamalar engellensin</li>
+                        <li>Yöneticiler için istisna kuralları oluşturulsun</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# Kurumsal AppLocker politikası
+# 1. Sadece onaylı konumlardan uygulamalar
+New-AppLockerPolicy -RuleType Path -RuleAction Allow -User Everyone -Optimize
+
+# 2. Temp klasörlerini engelleme
+# Group Policy'de: Computer Configuration → Policies → Windows Settings → Security Settings → Application Control Policies → AppLocker → Executable Rules
+# "Create New Rule" → "Path" → "Deny" → "Browse Folders" → "C:\Temp" → "Next"
+
+# 3. USB'den çalıştırmayı engelleme
+# "Create New Rule" → "Path" → "Deny" → "Browse Folders" → "D:\" → "Next"
+# "Create New Rule" → "Path" → "Deny" → "Browse Folders" → "E:\" → "Next"
+                    </pre>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🎓 Senaryo 2: Eğitim Kurumu Güvenliği</h4>
+                <p><strong>Durum:</strong> Bir üniversitede, öğrenci bilgisayarlarında sadece eğitim amaçlı uygulamaların çalıştırılması isteniyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Eğitim Uygulamaları Listesi</strong>
+                    <ul>
+                        <li>Microsoft Office (Word, Excel, PowerPoint)</li>
+                        <li>Visual Studio Code</li>
+                        <li>Chrome, Firefox (sadece belirli versiyonlar)</li>
+                        <li>Adobe Creative Suite (lisanslı)</li>
+                        <li>Matlab, AutoCAD (eğitim lisansı)</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# Eğitim kurumu AppLocker politikası
+# 1. Microsoft Office uygulamalarına izin
+# Publisher: Microsoft Corporation
+# Product: Microsoft Office
+
+# 2. Belirli tarayıcı versiyonlarına izin
+# Chrome: Sadece 90.x versiyonları
+# Firefox: Sadece 88.x versiyonları
+
+# 3. Oyun uygulamalarını engelleme
+# Steam, Epic Games, Origin gibi platformları engelle
+                    </pre>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🏥 Senaryo 3: Sağlık Kurumu Güvenliği</h4>
+                <p><strong>Durum:</strong> Hastanede, hasta verilerinin güvenliği için çok sıkı uygulama kontrolü gerekiyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>HIPAA Uyumluluğu</strong>
+                    <ul>
+                        <li>Sadece onaylı tıbbi yazılımlar çalışsın</li>
+                        <li>Kişisel veri işleyen uygulamalar engellensin</li>
+                        <li>Cloud depolama uygulamaları engellensin</li>
+                        <li>Chat uygulamaları engellensin</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre>
+# Sağlık kurumu AppLocker politikası
+# 1. Sadece onaylı tıbbi yazılımlar
+# Publisher: Onaylı tıbbi yazılım sağlayıcıları
+# Hash: Belirli versiyonların hash değerleri
+
+# 2. Veri sızıntısını önleme
+# Dropbox, Google Drive, OneDrive engelle
+# WhatsApp, Telegram, Skype engelle
+# TeamViewer, AnyDesk gibi remote access araçları engelle
+                    </pre>
+                </div>
+            </div>
+
+            <h3>AppLocker Test ve Doğrulama</h3>
+            <p>AppLocker kurallarının doğru çalıştığını test etmek için:</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Test Uygulaması Oluşturma</strong>
+                <p>Basit bir test uygulaması oluşturup farklı konumlardan çalıştırarak kuralları test edin.</p>
+                
+                <div class="code-block">
+                    <pre>
+# Test uygulaması oluşturma (PowerShell)
+# Test.exe adında basit bir uygulama oluştur
+@"
+using System;
+class Program {
+    static void Main() {
+        Console.WriteLine("Test uygulaması çalışıyor!");
+        Console.ReadKey();
+    }
+}
+"@ | Out-File -FilePath "Test.cs" -Encoding UTF8
+
+# C# derleyici ile exe oluştur
+csc Test.cs
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Kural Test Süreci</strong>
+                <ul>
+                    <li>Test uygulamasını farklı konumlara kopyalayın</li>
+                    <li>Her konumdan çalıştırmayı deneyin</li>
+                    <li>Event Viewer'da AppLocker loglarını kontrol edin</li>
+                    <li>Beklenen davranışı doğrulayın</li>
+                </ul>
             </div>
 
             <h4>Windows Installer Kuralları</h4>
@@ -3987,7 +5961,46 @@ Disable-BitLocker -MountPoint "C:"
             </div>
 
             <h3>Threat Modeling (Tehdit Modelleme)</h3>
-            <p>Threat modeling, sisteminizin karşılaşabileceği tehditleri önceden belirleme ve bunlara karşı önlem alma sürecidir.</p>
+            <p>Threat modeling, sisteminizin karşılaşabileceği tehditleri önceden belirleme ve bunlara karşı önlem alma sürecidir. Bu süreç, güvenlik açıklarını sistem tasarım aşamasında tespit etmenizi sağlar.</p>
+
+            <h4>Threat Modeling Süreci</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Asset Identification (Varlık Belirleme)</strong>
+                <p>Sisteminizdeki kritik varlıkları belirleyin:</p>
+                <ul>
+                    <li><strong>Veri:</strong> Müşteri bilgileri, finansal veriler, ticari sırlar</li>
+                    <li><strong>Sistemler:</strong> Sunucular, veritabanları, ağ altyapısı</li>
+                    <li><strong>Uygulamalar:</strong> Web uygulamaları, API'ler, mobil uygulamalar</li>
+                    <li><strong>İnsan Kaynakları:</strong> Kullanıcı hesapları, yetkiler, erişim seviyeleri</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Threat Identification (Tehdit Belirleme)</strong>
+                <p>Her varlık için olası tehditleri belirleyin:</p>
+                <ul>
+                    <li><strong>Dış Tehditler:</strong> Hacker'lar, rakipler, hacktivistler</li>
+                    <li><strong>İç Tehditler:</strong> Kötü niyetli çalışanlar, ihmalkar kullanıcılar</li>
+                    <li><strong>Doğal Tehditler:</strong> Doğal afetler, donanım arızaları</li>
+                    <li><strong>Teknolojik Tehditler:</strong> Yazılım açıkları, güvenlik güncellemeleri</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Risk Assessment (Risk Değerlendirmesi)</strong>
+                <p>Her tehdit için risk seviyesini hesaplayın:</p>
+                <div class="formula">
+                    <strong>Risk = Olasılık × Etki</strong>
+                </div>
+                <ul>
+                    <li><strong>Olasılık:</strong> Tehdidin gerçekleşme ihtimali (1-5)</li>
+                    <li><strong>Etki:</strong> Tehdit gerçekleşirse oluşacak zarar (1-5)</li>
+                    <li><strong>Risk Skoru:</strong> 1-25 arası (1-5: Düşük, 6-15: Orta, 16-25: Yüksek)</li>
+                </ul>
+            </div>
             
             <div class="diagram-container fade-in">
                 <div class="diagram-title">🎯 STRIDE Tehdit Modeli</div>
@@ -4242,6 +6255,254 @@ Disable-BitLocker -MountPoint "C:"
                         style DynamicNAT fill:#f3e5f5
                         style PAT fill:#fce4ec
                     </div>
+            </div>
+
+            <h3>FortiGate Temel Yapılandırması</h3>
+            <p>FortiGate firewall'ın temel yapılandırması ve güvenlik politikalarının oluşturulması:</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>İlk Kurulum ve Erişim</strong>
+                <p>FortiGate cihazına ilk erişim ve temel yapılandırma:</p>
+                
+                <div class="code-block">
+                    <pre>
+# FortiGate'e ilk erişim
+# 1. Konsol kablosu ile bağlantı
+# 2. Varsayılan IP: 192.168.1.99
+# 3. Varsayılan kullanıcı: admin
+# 4. Varsayılan şifre: (boş)
+
+# Web arayüzüne erişim
+https://192.168.1.99
+
+# SSH erişimi
+ssh admin@192.168.1.99
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Interface Yapılandırması</strong>
+                <p>FortiGate'de ağ arayüzlerinin yapılandırılması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# Interface yapılandırması
+config system interface
+    edit "port1"
+        set vdom "root"
+        set ip 192.168.1.1 255.255.255.0
+        set allowaccess ping https ssh snmp
+        set type physical
+        set role lan
+    next
+    edit "port2"
+        set vdom "root"
+        set ip 203.0.113.1 255.255.255.252
+        set allowaccess ping
+        set type physical
+        set role wan
+    next
+end
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Static Route Yapılandırması</strong>
+                <p>FortiGate'de statik yönlendirme kurallarının oluşturulması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# Static route yapılandırması
+config router static
+    edit 1
+        set dst 0.0.0.0 0.0.0.0
+        set gateway 203.0.113.2
+        set device "port2"
+    next
+    edit 2
+        set dst 10.0.0.0 255.0.0.0
+        set gateway 192.168.1.10
+        set device "port1"
+    next
+end
+                    </pre>
+                </div>
+            </div>
+
+            <h3>Firewall Policy Oluşturma</h3>
+            <p>FortiGate'de güvenlik politikalarının oluşturulması ve yönetimi:</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Address Object Oluşturma</strong>
+                <p>Güvenlik politikalarında kullanılacak adres nesnelerinin tanımlanması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# Address object oluşturma
+config firewall address
+    edit "Internal_Network"
+        set subnet 192.168.1.0 255.255.255.0
+    next
+    edit "DMZ_Network"
+        set subnet 10.0.0.0 255.255.255.0
+    next
+    edit "Internet"
+        set subnet 0.0.0.0 0.0.0.0
+    next
+    edit "Web_Server"
+        set type ipmask
+        set ip 10.0.0.10 255.255.255.255
+    next
+end
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Service Object Oluşturma</strong>
+                <p>Güvenlik politikalarında kullanılacak servis nesnelerinin tanımlanması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# Service object oluşturma
+config firewall service custom
+    edit "HTTP"
+        set tcp-portrange 80
+    next
+    edit "HTTPS"
+        set tcp-portrange 443
+    next
+    edit "SSH"
+        set tcp-portrange 22
+    next
+    edit "RDP"
+        set tcp-portrange 3389
+    next
+    edit "SQL_Server"
+        set tcp-portrange 1433
+    next
+end
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Firewall Policy Oluşturma</strong>
+                <p>Güvenlik politikalarının oluşturulması ve uygulanması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# Firewall policy oluşturma
+config firewall policy
+    edit 1
+        set name "LAN_to_Internet"
+        set srcintf "port1"
+        set dstintf "port2"
+        set srcaddr "Internal_Network"
+        set dstaddr "Internet"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+    edit 2
+        set name "Internet_to_DMZ"
+        set srcintf "port2"
+        set dstintf "port3"
+        set srcaddr "Internet"
+        set dstaddr "Web_Server"
+        set action accept
+        set schedule "always"
+        set service "HTTP" "HTTPS"
+        set logtraffic all
+    next
+    edit 3
+        set name "Deny_All"
+        set srcintf "any"
+        set dstintf "any"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action deny
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+end
+                    </pre>
+                </div>
+            </div>
+
+            <h3>VPN Yapılandırması</h3>
+            <p>FortiGate'de VPN bağlantılarının kurulması:</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>IPSec VPN Kurulumu</strong>
+                <p>Site-to-site IPSec VPN bağlantısının yapılandırılması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# IPSec VPN yapılandırması
+config vpn ipsec phase1-interface
+    edit "VPN_to_Branch"
+        set interface "port2"
+        set peertype any
+        set net-device disable
+        set mode main
+        set proposal aes128-sha256 aes256-sha256
+        set dhgrp 2 5
+        set remote-gw 203.0.114.1
+        set psksecret "MySecretKey123"
+    next
+end
+
+config vpn ipsec phase2-interface
+    edit "VPN_to_Branch"
+        set phase1name "VPN_to_Branch"
+        set proposal aes128-sha256 aes256-sha256
+        set dhgrp 2 5
+        set auto-negotiate enable
+    next
+end
+                    </pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>SSL VPN Kurulumu</strong>
+                <p>Remote access SSL VPN bağlantısının yapılandırılması:</p>
+                
+                <div class="code-block">
+                    <pre>
+# SSL VPN yapılandırması
+config vpn ssl web-portal
+    edit "Remote_Access"
+        set tunnel-mode enable
+        set ip-mode range
+        set ip-pools "SSL_VPN_Pool"
+        set split-tunneling enable
+        set split-tunneling-routing-address "Internal_Network"
+    next
+end
+
+config firewall address
+    edit "SSL_VPN_Pool"
+        set type iprange
+        set start-ip 192.168.100.1
+        set end-ip 192.168.100.100
+    next
+end
+                    </pre>
+                </div>
             </div>
 
             <h4>NAT Türleri:</h4>
@@ -4756,22 +7017,405 @@ execute log display
                     </ul>
                 </div>
             </div>
+
+            <!-- Gerçek Hayat Senaryosu -->
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: Siber Saldırı ve Firewall Yapılandırması</h4>
+                <p><strong>Problem:</strong> Şirketinizde siber saldırı tespit edildi! Dışarıdan gelen zararlı trafik, iç ağınıza sızıyor. Acil güvenlik yapılandırması gerekiyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">🚨</span>
+                    <strong>Saldırı Analizi</strong>
+                    <ul>
+                        <li><strong>Tehdit türü:</strong> DDoS saldırısı + malware</li>
+                        <li><strong>Kaynak IP'ler:</strong> 50+ farklı ülkeden</li>
+                        <li><strong>Hedef portlar:</strong> 80, 443, 22, 3389</li>
+                        <li><strong>Etkilenen servisler:</strong> Web sunucusu, RDP, SSH</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🛡️</span>
+                    <strong>FortiGate Güvenlik Yapılandırması</strong>
+                    <ul>
+                        <li><strong>Firewall Policy:</strong> Sadece gerekli trafiğe izin</li>
+                        <li><strong>IPS (Intrusion Prevention):</strong> Zararlı trafiği engelle</li>
+                        <li><strong>Web Filter:</strong> Kötü amaçlı siteleri engelle</li>
+                        <li><strong>Geo-blocking:</strong> Şüpheli ülkeleri engelle</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🔒</span>
+                    <strong>Güvenlik Kuralları</strong>
+                    <ul>
+                        <li><strong>RDP erişimi:</strong> Sadece IT IP'lerinden</li>
+                        <li><strong>SSH erişimi:</strong> Sadece yönetici IP'lerinden</li>
+                        <li><strong>Web trafiği:</strong> Sadece port 80/443</li>
+                        <li><strong>E-posta trafiği:</strong> Sadece port 25/587/993</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">📊</span>
+                    <strong>Monitoring ve Raporlama</strong>
+                    <ul>
+                        <li><strong>Real-time monitoring:</strong> Anlık tehdit takibi</li>
+                        <li><strong>Log analizi:</strong> Saldırı kaynaklarını tespit</li>
+                        <li><strong>Alert sistemi:</strong> Kritik olaylarda uyarı</li>
+                        <li><strong>Raporlama:</strong> Güvenlik durumu raporu</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="section" id="helpdesk">
             <h2>13. Helpdesk & IT Support</h2>
             
-            <h3>Helpdesk Nedir?</h3>
-            <p>Helpdesk, kullanıcıların teknik sorunlarını çözen ve IT desteği sağlayan merkezi birimdir. Etkili bir helpdesk sistemi, kurumsal verimliliği artırır.</p>
+            <h3>Helpdesk Nedir ve Neden Önemlidir?</h3>
+            <p>Helpdesk, kullanıcıların teknik sorunlarını çözen ve IT desteği sağlayan merkezi birimdir. Modern iş dünyasında, <strong>verimliliği artıran</strong> ve <strong>kullanıcı memnuniyetini sağlayan</strong> kritik bir hizmettir.</p>
 
-            <h4>Helpdesk Sorumlulukları:</h4>
-            <ul>
-                <li>Kullanıcı sorunlarını çözme</li>
-                <li>Teknik destek sağlama</li>
-                <li>Donanım/yazılım kurulumu</li>
-                <li>Envanter takibi</li>
-                <li>Dokümantasyon oluşturma</li>
-            </ul>
+            <div class="diagram-container fade-in">
+                <div class="diagram-title">🎯 Helpdesk İş Akışı</div>
+                <div class="mermaid">
+                    graph TD
+                        User["👤 Kullanıcı<br/>Problem Bildirimi"] --> Ticket["🎫 Ticket Oluşturma<br/>Otomatik Ticket ID"]
+                        Ticket --> Triage["🔍 Triage<br/>Öncelik Belirleme"]
+                        
+                        Triage --> P1["🚨 P1 - Critical<br/>Sistem Çökmesi<br/>5 dakika"]
+                        Triage --> P2["⚠️ P2 - High<br/>Önemli Sorun<br/>2 saat"]
+                        Triage --> P3["📋 P3 - Medium<br/>Normal Sorun<br/>1 gün"]
+                        Triage --> P4["📝 P4 - Low<br/>Küçük Sorun<br/>3 gün"]
+                        
+                        P1 --> Assign1["👨‍💻 Uzman Atama<br/>Senior Engineer"]
+                        P2 --> Assign2["👨‍💻 Uzman Atama<br/>Engineer"]
+                        P3 --> Assign3["👨‍💻 Uzman Atama<br/>Support Agent"]
+                        P4 --> Assign4["👨‍💻 Uzman Atama<br/>Support Agent"]
+                        
+                        Assign1 --> Solve1["🔧 Çözüm<br/>Hızlı Müdahale"]
+                        Assign2 --> Solve2["🔧 Çözüm<br/>Detaylı Analiz"]
+                        Assign3 --> Solve3["🔧 Çözüm<br/>Standart Prosedür"]
+                        Assign4 --> Solve4["🔧 Çözüm<br/>Rutin İşlem"]
+                        
+                        Solve1 --> Close["✅ Kapatma<br/>Çözüm Doğrulama"]
+                        Solve2 --> Close
+                        Solve3 --> Close
+                        Solve4 --> Close
+                        
+                        Close --> KB["📚 Knowledge Base<br/>Çözüm Dokümantasyonu"]
+                        Close --> Survey["📊 Memnuniyet Anketi<br/>Kullanıcı Geri Bildirimi"]
+                        
+                        style User fill:#e1f5fe
+                        style Ticket fill:#e8f5e8
+                        style P1 fill:#ffebee
+                        style P2 fill:#fff3e0
+                        style P3 fill:#f3e5f5
+                        style P4 fill:#e0f2f1
+                        style Close fill:#e8f5e8
+                        style KB fill:#f1f8e9
+                        style Survey fill:#fce4ec
+                    </div>
+            </div>
+
+            <div class="diagram-container fade-in">
+                <div class="diagram-title">📊 Helpdesk Metrikleri ve KPI'lar</div>
+                <div class="mermaid">
+                    graph LR
+                        Metrics["📊 Helpdesk Metrikleri"] --> Time["⏱️ Zaman Metrikleri"]
+                        Metrics --> Volume["📈 Hacim Metrikleri"]
+                        Metrics --> Quality["⭐ Kalite Metrikleri"]
+                        Metrics --> Cost["💰 Maliyet Metrikleri"]
+                        
+                        Time --> T1["First Response Time<br/>İlk Yanıt Süresi"]
+                        Time --> T2["Resolution Time<br/>Çözüm Süresi"]
+                        Time --> T3["Mean Time to Repair<br/>Ortalama Onarım Süresi"]
+                        
+                        Volume --> V1["Tickets per Day<br/>Günlük Ticket Sayısı"]
+                        Volume --> V2["Tickets per Agent<br/>Ajan Başına Ticket"]
+                        Volume --> V3["Backlog Size<br/>Bekleyen Ticket Sayısı"]
+                        
+                        Quality --> Q1["First Call Resolution<br/>İlk Çağrıda Çözüm"]
+                        Quality --> Q2["Customer Satisfaction<br/>Müşteri Memnuniyeti"]
+                        Quality --> Q3["Escalation Rate<br/>Yükseltme Oranı"]
+                        
+                        Cost --> C1["Cost per Ticket<br/>Ticket Başına Maliyet"]
+                        Cost --> C2["Cost per Resolution<br/>Çözüm Başına Maliyet"]
+                        Cost --> C3["ROI<br/>Yatırım Getirisi"]
+                        
+                        style Metrics fill:#e1f5fe
+                        style Time fill:#e8f5e8
+                        style Volume fill:#fff3e0
+                        style Quality fill:#f3e5f5
+                        style Cost fill:#fce4ec
+                    </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: 1000 Çalışanlı Şirket</h4>
+                <p><strong>Problem:</strong> Şirketinizde günde ortalama 50 IT destek talebi geliyor. Bu talepleri nasıl yönetirsiniz?</p>
+                
+                <div class="step">
+                    <span class="step-number">❌</span>
+                    <strong>Geleneksel Yöntem (Kaos)</strong>
+                    <ul>
+                        <li>E-posta ile gelen talepler</li>
+                        <li>Telefon ile gelen acil durumlar</li>
+                        <li>Koridorda yakalanan IT uzmanları</li>
+                        <li>Öncelik sırası belirsizliği</li>
+                        <li>Çözülen sorunların takibi yok</li>
+                        <li>Tekrarlayan sorunlar</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>Profesyonel Helpdesk Sistemi</strong>
+                    <ul>
+                        <li>Merkezi ticket sistemi</li>
+                        <li>Öncelik sıralaması (Critical, High, Medium, Low)</li>
+                        <li>Otomatik atama sistemi</li>
+                        <li>Çözüm veritabanı (Knowledge Base)</li>
+                        <li>Performans metrikleri</li>
+                        <li>Kullanıcı memnuniyet anketleri</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Helpdesk Sorumlulukları - Detaylı Açıklama</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>🎯 Kullanıcı Sorunlarını Çözme</strong>
+                <p><strong>Ne yapar:</strong> Kullanıcıların karşılaştığı teknik sorunları tespit eder ve çözer</p>
+                <p><strong>Örnekler:</strong></p>
+                <ul>
+                    <li>Şifre sıfırlama</li>
+                    <li>Yazılım kurulumu</li>
+                    <li>Donanım arızaları</li>
+                    <li>Ağ bağlantı sorunları</li>
+                    <li>E-posta sorunları</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>🔧 Teknik Destek Sağlama</strong>
+                <p><strong>Ne yapar:</strong> Kullanıcılara teknik konularda rehberlik eder</p>
+                <p><strong>Yöntemler:</strong></p>
+                <ul>
+                    <li>Uzaktan erişim (TeamViewer, AnyDesk)</li>
+                    <li>Telefon desteği</li>
+                    <li>E-posta ile destek</li>
+                    <li>Yüz yüze destek</li>
+                    <li>Video konferans desteği</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>💻 Donanım/Yazılım Kurulumu</strong>
+                <p><strong>Ne yapar:</strong> Yeni sistemlerin kurulumunu ve yapılandırmasını yapar</p>
+                <p><strong>Görevler:</strong></p>
+                <ul>
+                    <li>Bilgisayar kurulumu</li>
+                    <li>İşletim sistemi yükleme</li>
+                    <li>Yazılım lisanslama</li>
+                    <li>Domain'e katılma</li>
+                    <li>Güvenlik yapılandırması</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>📋 Envanter Takibi</strong>
+                <p><strong>Ne yapar:</strong> Şirketin IT varlıklarını takip eder ve yönetir</p>
+                <p><strong>Takip Edilen Varlıklar:</strong></p>
+                <ul>
+                    <li>Bilgisayarlar (Desktop, Laptop)</li>
+                    <li>Yazıcılar ve çok fonksiyonlu cihazlar</li>
+                    <li>Sunucular</li>
+                    <li>Ağ cihazları (Switch, Router, Firewall)</li>
+                    <li>Yazılım lisansları</li>
+                    <li>Mobil cihazlar</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>📚 Dokümantasyon Oluşturma</strong>
+                <p><strong>Ne yapar:</strong> Çözüm süreçlerini dokümante eder ve paylaşır</p>
+                <p><strong>Dokümantasyon Türleri:</strong></p>
+                <ul>
+                    <li>Çözüm kılavuzları (How-to guides)</li>
+                    <li>Sık sorulan sorular (FAQ)</li>
+                    <li>Teknik spesifikasyonlar</li>
+                    <li>Kullanıcı eğitim materyalleri</li>
+                    <li>Sorun giderme adımları</li>
+                </ul>
+            </div>
+
+            <h3>Gerçek Hayat Helpdesk Senaryoları</h3>
+            <p>Helpdesk uzmanlarının günlük olarak karşılaştığı gerçek problemler ve çözümleri:</p>
+
+            <div class="scenario">
+                <h4>🚨 Senaryo 1: Kritik Sistem Çökmesi</h4>
+                <p><strong>Durum:</strong> Sabah 9:00'da tüm kullanıcılar e-posta sistemine erişemiyor. CEO'nun önemli bir toplantısı var!</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>İlk Müdahale (İlk 5 Dakika)</strong>
+                    <ul>
+                        <li><strong>Ticket oluştur:</strong> "CRITICAL: E-posta sistemi çöktü"</li>
+                        <li><strong>Öncelik:</strong> P1 - Critical</li>
+                        <li><strong>Etkilenen kullanıcı sayısı:</strong> 1000+</li>
+                        <li><strong>İş etkisi:</strong> Tüm e-posta trafiği durdu</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Hızlı Teşhis</strong>
+                    <div class="code-block">
+                        <pre>
+# Exchange Server durumunu kontrol et
+Get-Service -Name "*Exchange*" | Select-Object Name, Status
+
+# Disk alanını kontrol et
+Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | 
+    Select-Object DeviceID, @{Name="FreeSpaceGB";Expression={[math]::Round($_.FreeSpace/1GB,2)}}
+
+# Event Log'ları kontrol et
+Get-WinEvent -LogName Application -MaxEvents 10 | Where-Object {$_.LevelDisplayName -eq "Error"}
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Çözüm Süreci</strong>
+                    <ul>
+                        <li><strong>5 dakika:</strong> Exchange servislerini yeniden başlat</li>
+                        <li><strong>10 dakika:</strong> Disk alanı temizle (log dosyaları)</li>
+                        <li><strong>15 dakika:</strong> Sistem tamamen çalışır duruma geldi</li>
+                        <li><strong>20 dakika:</strong> Kullanıcıları bilgilendir</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Post-Mortem Analizi</strong>
+                    <ul>
+                        <li><strong>Kök neden:</strong> Disk alanı %100 doldu</li>
+                        <li><strong>Önleyici tedbir:</strong> Otomatik log temizleme scripti</li>
+                        <li><strong>Monitoring:</strong> Disk alanı uyarı sistemi</li>
+                        <li><strong>Dokümantasyon:</strong> Acil durum prosedürü güncellendi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>👤 Senaryo 2: Kullanıcı Hesap Kilitleme</h4>
+                <p><strong>Durum:</strong> Kullanıcı "Şifremi unuttum" diyor ve hesabı kilitli. Acil işi var!</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Kimlik Doğrulama</strong>
+                    <ul>
+                        <li>Kullanıcının kimliğini doğrula (ID, telefon, yönetici onayı)</li>
+                        <li>Güvenlik sorularını kontrol et</li>
+                        <li>Son giriş tarihini kontrol et</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Hesap Kilidini Açma</strong>
+                    <div class="code-block">
+                        <pre>
+# Kullanıcı hesabını kontrol et
+Get-ADUser -Identity "jdoe" -Properties LockedOut, LastBadPasswordAttempt
+
+# Hesap kilidini aç
+Unlock-ADAccount -Identity "jdoe"
+
+# Geçici şifre oluştur
+$tempPassword = -join ((33..126) | Get-Random -Count 12 | ForEach-Object {[char]$_})
+Set-ADAccountPassword -Identity "jdoe" -NewPassword (ConvertTo-SecureString $tempPassword -AsPlainText -Force)
+
+# Kullanıcıyı bilgilendir
+Write-Host "Geçici şifre: $tempPassword"
+Write-Host "İlk girişte şifre değiştirmesi zorunlu!"
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Güvenlik Önlemleri</strong>
+                    <ul>
+                        <li>Geçici şifre gönder (güvenli kanal ile)</li>
+                        <li>İlk girişte şifre değiştirme zorunluluğu</li>
+                        <li>2FA etkinleştirme önerisi</li>
+                        <li>Güvenlik eğitimi planlama</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🖥️ Senaryo 3: Yeni Çalışan Onboarding</h4>
+                <p><strong>Durum:</strong> Pazartesi 10 yeni çalışan işe başlıyor. Her birine bilgisayar ve hesap hazırlanması gerekiyor.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Hazırlık Süreci (Cuma)</strong>
+                    <ul>
+                        <li>Donanım envanterini kontrol et</li>
+                        <li>Yazılım lisanslarını hazırla</li>
+                        <li>Kullanıcı hesaplarını oluştur</li>
+                        <li>E-posta hesaplarını yapılandır</li>
+                        <li>Güvenlik politikalarını uygula</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Otomatik Hesap Oluşturma</strong>
+                    <div class="code-block">
+                        <pre>
+# CSV dosyasından toplu kullanıcı oluşturma
+$newEmployees = Import-Csv "C:\Onboarding\new_employees.csv"
+
+foreach ($employee in $newEmployees) {
+    # Kullanıcı hesabı oluştur
+    $password = ConvertTo-SecureString "TempP@ssw0rd123" -AsPlainText -Force
+    New-ADUser -Name $employee.Name -SamAccountName $employee.Username -UserPrincipalName "$($employee.Username)@company.com" -AccountPassword $password -Enabled $true -Department $employee.Department -Title $employee.Title
+    
+    # E-posta hesabı oluştur
+    Enable-Mailbox -Identity $employee.Username -Database "Mailbox Database"
+    
+    # Grup üyeliklerini ekle
+    Add-ADGroupMember -Identity "Domain Users" -Members $employee.Username
+    Add-ADGroupMember -Identity "Dept_$($employee.Department)" -Members $employee.Username
+    
+    Write-Host "✅ Kullanıcı hazırlandı: $($employee.Name)"
+}
+
+Write-Host "🎉 Tüm kullanıcılar başarıyla oluşturuldu!"
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Pazartesi Sabahı</strong>
+                    <ul>
+                        <li>Bilgisayarları masalara yerleştir</li>
+                        <li>Kullanıcı hesaplarını test et</li>
+                        <li>E-posta erişimini doğrula</li>
+                        <li>Yazılım kurulumlarını tamamla</li>
+                        <li>Kullanıcı eğitimini planla</li>
+                    </ul>
+                </div>
+            </div>
 
             <h3>RDP (Remote Desktop Protocol) Sorunları</h3>
             <p>RDP, Windows sistemlerde uzaktan erişim için kullanılan protokoldür. Yaygın sorunlar ve çözümleri:</p>
@@ -5431,8 +8075,79 @@ Get-Printer | ForEach-Object {Write-Printer -Name $_.Name -InputObject "Test Pag
         <div class="section" id="mail-server">
             <h2>15. Mail Server Yönetimi</h2>
             
-            <h3>Mail Server Nedir?</h3>
-            <p>Mail server, e-posta gönderme, alma ve depolama işlemlerini gerçekleştiren sunucu yazılımıdır. SMTP, POP3, IMAP protokollerini kullanarak e-posta trafiğini yönetir.</p>
+            <h3>Mail Server Nedir ve Neden Önemlidir?</h3>
+            <p>Mail server, e-posta gönderme, alma ve depolama işlemlerini gerçekleştiren sunucu yazılımıdır. Modern iş dünyasında <strong>iletişimin kalbi</strong> olan e-posta sistemlerini yönetir.</p>
+
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: E-posta Sistemi Çökmesi</h4>
+                <p><strong>Problem:</strong> Şirketinizin e-posta sunucusu çöktü. 500 çalışan e-posta gönderemiyor. Müşterilerden gelen önemli e-postalar gelmiyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">❌</span>
+                    <strong>E-posta Olmadan İş Hayatı (Kaos)</strong>
+                    <ul>
+                        <li>Müşteri iletişimi kesildi</li>
+                        <li>İç iletişim durdu</li>
+                        <li>Önemli belgeler ulaşmıyor</li>
+                        <li>Randevular iptal oluyor</li>
+                        <li>Satış süreçleri durdu</li>
+                        <li>Müşteri memnuniyetsizliği</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>Profesyonel Mail Server Yönetimi</strong>
+                    <ul>
+                        <li>Yüksek erişilebilirlik (%99.9 uptime)</li>
+                        <li>Otomatik yedekleme sistemi</li>
+                        <li>Spam ve virüs koruması</li>
+                        <li>Yedek sunucu (failover)</li>
+                        <li>7/24 monitoring</li>
+                        <li>Hızlı kurtarma prosedürleri</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Mail Server'ın İş Hayatındaki Önemi</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>📧 İletişim Merkezi</strong>
+                <p><strong>Ne yapar:</strong> Tüm resmi iletişimin merkezi noktası</p>
+                <ul>
+                    <li>Müşteri iletişimi</li>
+                    <li>İç departman koordinasyonu</li>
+                    <li>Resmi belge alışverişi</li>
+                    <li>Randevu ve toplantı koordinasyonu</li>
+                    <li>Bildirim ve duyurular</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>💼 İş Süreçleri</strong>
+                <p><strong>Ne yapar:</strong> Kritik iş süreçlerinin ayrılmaz parçası</p>
+                <ul>
+                    <li>Satış süreçleri (teklif, sözleşme)</li>
+                    <li>Müşteri desteği</li>
+                    <li>Proje yönetimi</li>
+                    <li>Muhasebe ve faturalama</li>
+                    <li>İnsan kaynakları süreçleri</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>🛡️ Güvenlik ve Uyumluluk</strong>
+                <p><strong>Ne yapar:</strong> Hassas bilgilerin güvenli iletimi</p>
+                <ul>
+                    <li>Şifreli e-posta iletimi</li>
+                    <li>Spam ve phishing koruması</li>
+                    <li>Virüs taraması</li>
+                    <li>E-posta arşivleme</li>
+                    <li>Yasal uyumluluk (GDPR, KVKK)</li>
+                </ul>
+            </div>
             
             <div class="diagram-container fade-in">
                 <div class="diagram-title">📧 Mail Server Protokolleri</div>
@@ -5472,6 +8187,168 @@ Get-Printer | ForEach-Object {Write-Printer -Name $_.Name -InputObject "Test Pag
                 <li><strong>Zimbra:</strong> Açık kaynak mail ve collaboration platformu</li>
                 <li><strong>hMailServer:</strong> Windows tabanlı ücretsiz mail server</li>
             </ul>
+
+            <h3>Gerçek Hayat Mail Server Senaryoları</h3>
+            <p>Mail server yönetiminde karşılaşılan gerçek problemler ve çözümleri:</p>
+
+            <div class="scenario">
+                <h4>📧 Senaryo 1: Spam Saldırısı</h4>
+                <p><strong>Durum:</strong> Şirketinizin e-posta sunucusuna günde 100,000 spam e-posta geliyor. Sunucu yavaşladı, gerçek e-postalar gecikiyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Problem Tespiti</strong>
+                    <ul>
+                        <li>Sunucu CPU kullanımı %95</li>
+                        <li>Disk I/O çok yüksek</li>
+                        <li>E-posta kuyruğu 50,000 mesaj</li>
+                        <li>Kullanıcılar e-posta alamıyor</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Hızlı Çözüm</strong>
+                    <div class="code-block">
+                        <pre>
+# Exchange Server spam filtreleme yapılandırması
+# 1. Connection Filtering etkinleştir
+Set-ContentFilterConfig -Enabled $true -QuarantineMessages $true
+
+# 2. IP Block List ekle
+Add-IPBlockListProvider -Name "SpamHaus" -LookupDomain "zen.spamhaus.org" -AnyMatch $true
+
+# 3. Recipient Filtering etkinleştir
+Set-RecipientFilterConfig -Enabled $true -BlockListEnabled $true
+
+# 4. Spam e-postaları temizle
+Get-Queue | Where-Object {$_.Identity -like "*spam*"} | Remove-Queue -Force
+
+# 5. Kullanıcı e-posta limitlerini ayarla
+Set-Mailbox -Identity "user@company.com" -MaxSendSize 10MB -MaxReceiveSize 10MB
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Uzun Vadeli Çözüm</strong>
+                    <ul>
+                        <li>Profesyonel anti-spam çözümü (Barracuda, Proofpoint)</li>
+                        <li>Cloud-based spam filtering (Office 365 ATP)</li>
+                        <li>E-posta gateway cihazı</li>
+                        <li>Kullanıcı eğitimi (phishing awareness)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>💾 Senaryo 2: Mailbox Boyut Sorunu</h4>
+                <p><strong>Durum:</strong> CEO'nun mailbox'ı 50GB'a ulaştı. E-posta gönderemiyor, önemli e-postaları kaybediyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Problem Analizi</strong>
+                    <div class="code-block">
+                        <pre>
+# Mailbox boyutunu kontrol et
+Get-MailboxStatistics -Identity "ceo@company.com" | Select-Object DisplayName, TotalItemSize, ItemCount
+
+# En büyük klasörleri bul
+Get-MailboxFolderStatistics -Identity "ceo@company.com" | Sort-Object FolderSize -Descending | Select-Object -First 10
+
+# Eski e-postaları bul (2 yıldan eski)
+Get-MailboxSearch -Name "OldEmails" -SourceMailboxes "ceo@company.com" -StartDate (Get-Date).AddYears(-2) -EndDate (Get-Date).AddYears(-1)
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Çözüm Stratejisi</strong>
+                    <ul>
+                        <li><strong>Arşivleme:</strong> Eski e-postaları arşiv mailbox'a taşı</li>
+                        <li><strong>Temizlik:</strong> Gereksiz e-postaları sil</li>
+                        <li><strong>Klasörleme:</strong> E-postaları düzenli klasörlere ayır</li>
+                        <li><strong>Otomatikleştirme:</strong> E-posta yönetim kuralları oluştur</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Uygulama</strong>
+                    <div class="code-block">
+                        <pre>
+# 1. Arşiv mailbox oluştur
+New-Mailbox -Name "CEO-Archive" -Archive -UserPrincipalName "ceo-archive@company.com"
+
+# 2. Eski e-postaları arşivle (2 yıldan eski)
+New-MailboxSearch -Name "CEO-Archive-Search" -SourceMailboxes "ceo@company.com" -TargetMailbox "CEO-Archive" -StartDate (Get-Date).AddYears(-2) -EndDate (Get-Date).AddYears(-1)
+
+# 3. Mailbox boyut limitini artır
+Set-Mailbox -Identity "ceo@company.com" -ProhibitSendQuota 100GB -ProhibitSendReceiveQuota 110GB -IssueWarningQuota 90GB
+
+# 4. Otomatik temizlik kuralı oluştur
+New-InboxRule -Name "Auto-Delete-Spam" -Mailbox "ceo@company.com" -SubjectContainsWords "spam" -DeleteMessage $true
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <h4>🔒 Senaryo 3: E-posta Güvenlik Açığı</h4>
+                <p><strong>Durum:</strong> Şirketinizin e-posta sunucusuna phishing saldırısı düzenlendi. 50 kullanıcının hesabı ele geçirildi!</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Acil Müdahale</strong>
+                    <ul>
+                        <li>Etkilenen hesapları tespit et</li>
+                        <li>Hesapları geçici olarak kilitle</li>
+                        <li>Şifreleri zorla değiştir</li>
+                        <li>E-posta trafiğini izle</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Güvenlik Önlemleri</strong>
+                    <div class="code-block">
+                        <pre>
+# 1. Etkilenen hesapları kilitle
+$compromisedUsers = @("user1@company.com", "user2@company.com", "user3@company.com")
+foreach ($user in $compromisedUsers) {
+    Set-Mailbox -Identity $user -AccountDisabled $true
+    Write-Host "Hesap kilitlendi: $user"
+}
+
+# 2. E-posta güvenlik politikalarını güçlendir
+Set-TransportConfig -ExternalMailRoutingDomain "company.com" -ExternalMailRoutingDomain "company.local"
+
+# 3. SPF kaydını güncelle
+# DNS'de: v=spf1 include:_spf.company.com ~all
+
+# 4. DKIM imzalama etkinleştir
+New-DkimSigningConfig -DomainName "company.com" -Enabled $true
+
+# 5. DMARC politikası oluştur
+# DNS'de: v=DMARC1; p=quarantine; rua=mailto:dmarc@company.com
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Kurtarma Süreci</strong>
+                    <ul>
+                        <li>Kullanıcı hesaplarını yeniden etkinleştir</li>
+                        <li>Yeni güçlü şifreler oluştur</li>
+                        <li>2FA (Two-Factor Authentication) etkinleştir</li>
+                        <li>Kullanıcı eğitimi düzenle</li>
+                        <li>Güvenlik politikalarını güncelle</li>
+                    </ul>
+                </div>
+            </div>
 
             <h3>Microsoft Exchange Server Kurulumu</h3>
             <p>Microsoft Exchange Server, enterprise ortamlar için en yaygın kullanılan mail server çözümüdür.</p>
@@ -6328,6 +9205,46 @@ New-AzureADMSConditionalAccessPolicy -DisplayName "MFA Required" -State "enabled
             
             <h3>PowerShell Advanced Scripting (Gelişmiş PowerShell)</h3>
             <p>Gelişmiş PowerShell scripting, IT operasyonlarını otomatikleştirmek için güçlü araçlar sağlar.</p>
+
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: 1000 Bilgisayarlı Şirket Otomasyonu</h4>
+                <p><strong>Problem:</strong> Şirketinizde 1000 bilgisayar var. Her ay manuel olarak güvenlik güncellemeleri, disk temizliği ve raporlama yapıyorsunuz. Bu işlemler 3 gün sürüyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">❌</span>
+                    <strong>Manuel Yöntem (Zaman Kaybı)</strong>
+                    <ul>
+                        <li>Her bilgisayara tek tek bağlanma: 2 saat</li>
+                        <li>Güvenlik güncellemelerini kontrol etme: 4 saat</li>
+                        <li>Disk temizliği yapma: 6 saat</li>
+                        <li>Rapor hazırlama: 2 saat</li>
+                        <li><strong>Toplam:</strong> 14 saat (3 gün)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>PowerShell Otomasyonu (Hızlı ve Güvenilir)</strong>
+                    <ul>
+                        <li>Toplu bağlantı ve komut çalıştırma: 5 dakika</li>
+                        <li>Otomatik güvenlik güncellemesi: 10 dakika</li>
+                        <li>Otomatik disk temizliği: 15 dakika</li>
+                        <li>Otomatik rapor oluşturma: 2 dakika</li>
+                        <li><strong>Toplam:</strong> 32 dakika</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">💰</span>
+                    <strong>Zaman ve Maliyet Tasarrufu</strong>
+                    <ul>
+                        <li><strong>Zaman tasarrufu:</strong> 13.5 saat (3 gün → 32 dakika)</li>
+                        <li><strong>Hata oranı:</strong> %90 azalma</li>
+                        <li><strong>Maliyet tasarrufu:</strong> 2 IT uzmanı × 3 gün = 6 günlük iş</li>
+                        <li><strong>Sonuç:</strong> Aylık 6 günlük iş tasarrufu</li>
+                    </ul>
+                </div>
+            </div>
             
             <h4>🖥️ Grafik Arayüzü ile PowerShell ISE Kullanımı</h4>
             <div class="step">
@@ -6667,8 +9584,47 @@ foreach ($server in $servers) {
         <div class="section" id="cloud-teknolojileri">
             <h2>18. Cloud Teknolojileri</h2>
             
-            <h3>Cloud Computing Nedir?</h3>
-            <p>Cloud computing, bilgi işlem kaynaklarının (sunucular, depolama, veritabanları, ağ, yazılım) internet üzerinden talep üzerine sağlanmasıdır.</p>
+            <h3>Cloud Computing Nedir ve Neden Önemlidir?</h3>
+            <p>Cloud computing, bilgi işlem kaynaklarının (sunucular, depolama, veritabanları, ağ, yazılım) internet üzerinden talep üzerine sağlanmasıdır. Modern iş dünyasında <strong>dijital dönüşümün temeli</strong> olan cloud teknolojileri, işletmelerin esneklik, ölçeklenebilirlik ve maliyet avantajları sağlar.</p>
+
+            <div class="scenario">
+                <h4>🏢 Gerçek Hayat Senaryosu: E-ticaret Sitesi Büyümesi</h4>
+                <p><strong>Problem:</strong> E-ticaret siteniz Black Friday'de 10 kat daha fazla trafik alacak. On-premises sunucularınız bu yükü kaldıramayacak!</p>
+                
+                <div class="step">
+                    <span class="step-number">❌</span>
+                    <strong>On-Premises Çözüm (Pahalı ve Riskli)</strong>
+                    <ul>
+                        <li>Yeni sunucular satın almak (100,000 TL)</li>
+                        <li>3-6 ay kurulum süreci</li>
+                        <li>Black Friday sonrası boşta kalacak sunucular</li>
+                        <li>Yedekleme ve güvenlik maliyetleri</li>
+                        <li>Teknik personel ihtiyacı</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">✅</span>
+                    <strong>Cloud Çözümü (Esnek ve Ekonomik)</strong>
+                    <ul>
+                        <li>AWS Auto Scaling ile otomatik genişleme</li>
+                        <li>Load Balancer ile trafik dağıtımı</li>
+                        <li>CDN ile global hızlandırma</li>
+                        <li>Sadece kullanılan kaynak için ödeme</li>
+                        <li>24/7 monitoring ve otomatik yedekleme</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">💰</span>
+                    <strong>Maliyet Karşılaştırması</strong>
+                    <ul>
+                        <li><strong>On-Premises:</strong> 100,000 TL + 50,000 TL/yıl</li>
+                        <li><strong>Cloud:</strong> 5,000 TL/ay (sadece kullanım süresince)</li>
+                        <li><strong>Sonuç:</strong> %80 maliyet tasarrufu</li>
+                    </ul>
+                </div>
+            </div>
             
             <div class="diagram-container fade-in">
                 <div class="diagram-title">☁️ Cloud Computing Modelleri</div>
@@ -6909,6 +9865,56 @@ foreach ($server in $servers) {
             
             <h3>Event Viewer ile Log Analizi</h3>
             <p><strong>Neden:</strong> Windows Server'da oluşan tüm olaylar Event Viewer'da kaydedilir. Bu loglar, sistem sorunlarını tespit etmek ve çözmek için kritik öneme sahiptir.</p>
+
+            <div class="scenario">
+                <h4>🚨 Gerçek Hayat Senaryosu: Kritik Sunucu Çökmesi</h4>
+                <p><strong>Problem:</strong> Şirketinizin ana sunucusu gece 02:00'da çöktü! 500 çalışan sabah işe geldiğinde sisteme giremiyor. Acil müdahale gerekiyor!</p>
+                
+                <div class="step">
+                    <span class="step-number">🚨</span>
+                    <strong>Kritik Durum Analizi</strong>
+                    <ul>
+                        <li><strong>Çalışanlar:</strong> 500 kişi sisteme giremiyor</li>
+                        <li><strong>İş kaybı:</strong> Dakikada 10,000 TL zarar</li>
+                        <li><strong>Müşteri şikayetleri:</strong> E-posta ve dosya erişimi yok</li>
+                        <li><strong>Yönetim baskısı:</strong> Hemen çözüm bekleniyor</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">🔍</span>
+                    <strong>Event Viewer ile Sorun Tespiti</strong>
+                    <ul>
+                        <li><strong>Application Log:</strong> "SQL Server service stopped unexpectedly"</li>
+                        <li><strong>System Log:</strong> "Disk 0: Critical error detected"</li>
+                        <li><strong>Security Log:</strong> "Multiple failed login attempts"</li>
+                        <li><strong>Sonuç:</strong> Hard disk arızası + SQL Server çökmesi</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">⚡</span>
+                    <strong>Hızlı Çözüm Stratejisi</strong>
+                    <ul>
+                        <li><strong>1. Acil:</strong> Yedek sunucuya geçiş (15 dakika)</li>
+                        <li><strong>2. Veri:</strong> Son backup'tan veri geri yükleme (30 dakika)</li>
+                        <li><strong>3. Servis:</strong> SQL Server'ı yeniden başlatma (10 dakika)</li>
+                        <li><strong>4. Test:</strong> Sistem testleri (15 dakika)</li>
+                        <li><strong>Toplam:</strong> 70 dakikada sistem aktif</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">💡</span>
+                    <strong>Önleyici Tedbirler</strong>
+                    <ul>
+                        <li><strong>Monitoring:</strong> 7/24 sistem izleme</li>
+                        <li><strong>Backup:</strong> Günlük otomatik yedekleme</li>
+                        <li><strong>Redundancy:</strong> Yedek sunucu hazır tutma</li>
+                        <li><strong>Alerting:</strong> Anlık uyarı sistemi</li>
+                    </ul>
+                </div>
+            </div>
             
             <h4>🖥️ Event Viewer Kullanımı</h4>
             <div class="step">
@@ -7487,6 +10493,17 @@ nmap -O 192.168.1.10
                 <li>Siber güvenlik temel prensiplerini uygulayabilecek</li>
             </ul>
 
+            <h3>⌨️ Klavye Kısayolları:</h3>
+            <div class="highlight">
+                <p><strong>Ctrl + K:</strong> Arama kutusunu aç</p>
+                <p><strong>Ctrl + M:</strong> Konular menüsünü aç/kapat</p>
+                <p><strong>Ctrl + D:</strong> Dark mode'u aç/kapat</p>
+                <p><strong>Alt + 1-9:</strong> Bölümlere hızlı git</p>
+                <p><strong>Home:</strong> Sayfa başına git</p>
+                <p><strong>End:</strong> Sayfa sonuna git</p>
+                <p><strong>ESC:</strong> Arama kutusunu kapat</p>
+            </div>
+
             <h3>📚 Ek Kaynaklar:</h3>
             <ul>
                 <li>Microsoft Learn: Windows Server 2022, Azure, Microsoft 365</li>
@@ -7807,38 +10824,288 @@ Not: Bu simüle edilmiş bir testtir. Gerçek hız testi için speedtest.net kul
             }
         }
 
+        // Sayfada herhangi bir yere tıklanınca arama kutusunu kapat
+        document.addEventListener('click', function(event) {
+            const searchContainer = document.getElementById('searchContainer');
+            const searchToggle = document.querySelector('[onclick="toggleSearch()"]');
+            
+            // Eğer tıklanan element arama kutusu veya arama butonu değilse
+            if (!searchContainer.contains(event.target) && !searchToggle.contains(event.target)) {
+                if (!searchContainer.classList.contains('hidden')) {
+                    searchContainer.classList.add('hidden');
+                }
+            }
+        });
+
+        // ESC tuşu ile arama kutusunu kapat
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const searchContainer = document.getElementById('searchContainer');
+                if (!searchContainer.classList.contains('hidden')) {
+                    searchContainer.classList.add('hidden');
+                }
+            }
+        });
+
+        // Klavye navigasyonu
+        document.addEventListener('keydown', function(event) {
+            // Ctrl + K ile arama kutusunu açma
+            if (event.ctrlKey && event.key === 'k') {
+                event.preventDefault();
+                const searchContainer = document.getElementById('searchContainer');
+                const searchInput = document.getElementById('searchInput');
+                if (searchContainer && searchInput) {
+                    searchContainer.classList.remove('hidden');
+                    searchInput.focus();
+                }
+            }
+            
+            // Ctrl + M ile sidebar'ı açma/kapama
+            if (event.ctrlKey && event.key === 'm') {
+                event.preventDefault();
+                toggleSidebar();
+            }
+            
+            // Ctrl + D ile dark mode toggle
+            if (event.ctrlKey && event.key === 'd') {
+                event.preventDefault();
+                toggleDarkMode();
+            }
+            
+            // Alt + 1-9 ile bölümlere gitme
+            if (event.altKey && event.key >= '1' && event.key <= '9') {
+                event.preventDefault();
+                const sectionNumber = parseInt(event.key);
+                const sections = [
+                    'ag-temelleri', 'windows-server', 'active-directory', 'file-server',
+                    'powershell', 'guvenlik', 'siber-guvenlik', 'fortigate', 'helpdesk'
+                ];
+                if (sections[sectionNumber - 1]) {
+                    scrollToSection(sections[sectionNumber - 1]);
+                }
+            }
+            
+            // Home tuşu ile başa gitme
+            if (event.key === 'Home') {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+        // End tuşu ile sona gitme
+        if (event.key === 'End') {
+            event.preventDefault();
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    });
+
+    // Back to Top Button Functionality
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Show/Hide Back to Top Button based on scroll position
+    window.addEventListener('scroll', function() {
+        const backToTopButton = document.getElementById('backToTop');
+        if (backToTopButton) {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        }
+    });
+
+    // Progress Bar Functionality
+    function updateProgressBar() {
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        
+        if (progressFill && progressText) {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            progressFill.style.width = scrollPercent + '%';
+            progressText.textContent = Math.round(scrollPercent) + '%';
+        }
+    }
+
+    // Update progress bar on scroll
+    window.addEventListener('scroll', updateProgressBar);
+    
+    // Update progress bar on page load
+    window.addEventListener('load', updateProgressBar);
+
+    // Vertical Navigation Functionality
+    function updateVerticalNav() {
+        const sections = document.querySelectorAll('.section');
+        const navSections = document.querySelectorAll('.nav-section');
+        const currentSection = document.getElementById('verticalNavCurrent');
+        
+        let currentActive = null;
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top;
+            const sectionHeight = rect.height;
+            
+            // Eğer bölüm ekranın üst yarısında görünüyorsa
+            if (sectionTop <= window.innerHeight / 2 && sectionTop + sectionHeight > window.innerHeight / 2) {
+                currentActive = section.getAttribute('id');
+            }
+        });
+        
+        // Aktif bölümü güncelle
+        navSections.forEach(navSection => {
+            navSection.classList.remove('active');
+            if (navSection.getAttribute('data-section') === currentActive) {
+                navSection.classList.add('active');
+                if (currentSection) {
+                    currentSection.textContent = navSection.textContent;
+                }
+            }
+        });
+    }
+
+    // Vertical nav section click handler
+    function setupVerticalNav() {
+        const navSections = document.querySelectorAll('.nav-section');
+        
+        navSections.forEach(navSection => {
+            navSection.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                scrollToSection(sectionId);
+            });
+        });
+    }
+
+    // Update vertical nav on scroll
+    window.addEventListener('scroll', updateVerticalNav);
+    
+    // Setup vertical nav on page load
+    window.addEventListener('load', function() {
+        setupVerticalNav();
+        updateVerticalNav();
+    });
+
         function performSearch() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchInput = document.getElementById('searchInput');
             const searchResults = document.getElementById('searchResults');
+            
+            if (!searchInput || !searchResults) {
+                return;
+            }
+            
+            const searchTerm = searchInput.value.toLowerCase();
             
             if (searchTerm.length < 2) {
                 searchResults.innerHTML = '';
                 return;
             }
 
-            // Tüm metin içeriğini ara
-            const sections = document.querySelectorAll('.section');
+            // Kelime bazlı arama - daha spesifik elementler
+            const allElements = document.querySelectorAll('h2, h3, h4, p, li, .code-block pre, .scenario p, .step p');
             const results = [];
             
-            sections.forEach(section => {
-                const text = section.textContent.toLowerCase();
+            allElements.forEach(element => {
+                const text = element.textContent.toLowerCase();
                 if (text.includes(searchTerm)) {
-                    const title = section.querySelector('h2').textContent;
-                    const id = section.getAttribute('id');
-                    results.push({ title, id, text });
+                    // En yakın bölüm başlığını bul
+                    const section = element.closest('.section');
+                    if (section) {
+                        const sectionTitle = section.querySelector('h2')?.textContent || 'Bölüm';
+                        const sectionId = section.getAttribute('id');
+                        
+                        // Alt başlığı bul
+                        const subTitle = element.tagName === 'H3' ? element.textContent : 
+                                       element.tagName === 'H4' ? element.textContent :
+                                       element.closest('h3')?.textContent || 
+                                       element.closest('h4')?.textContent || '';
+                        
+                        // Eşleşen metni vurgula
+                        const highlightedText = highlightSearchTerm(element.textContent, searchTerm);
+                        
+                        // Zaten eklenmiş mi kontrol et
+                        const existingResult = results.find(r => r.sectionId === sectionId && r.subTitle === subTitle);
+                        if (!existingResult) {
+                            results.push({
+                                sectionTitle,
+                                sectionId,
+                                subTitle,
+                                text: highlightedText,
+                                element: element,
+                                searchTerm: searchTerm
+                            });
+                        }
+                    }
                 }
             });
 
             // Sonuçları göster
             if (results.length > 0) {
-                searchResults.innerHTML = results.map(result => 
-                    `<div class="search-result" onclick="scrollToSection('${result.id}')">
-                        <strong>${result.title}</strong><br>
-                        <small>${result.text.substring(0, 100)}...</small>
+                searchResults.innerHTML = results.map((result, index) => 
+                    `<div class="search-result" onclick="scrollToSearchResult(${index})">
+                        <div class="search-result-header">
+                            <strong>${result.sectionTitle}</strong>
+                            ${result.subTitle ? `<span class="search-subtitle">${result.subTitle}</span>` : ''}
+                        </div>
+                        <div class="search-result-content">${result.text.substring(0, 150)}...</div>
                     </div>`
                 ).join('');
+                
+                // Sonuçları global değişkende sakla
+                window.searchResults = results;
             } else {
                 searchResults.innerHTML = '<div class="search-result">Sonuç bulunamadı</div>';
+            }
+        }
+
+        function highlightSearchTerm(text, searchTerm) {
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        function scrollToSearchResult(resultIndex) {
+            if (window.searchResults && window.searchResults[resultIndex]) {
+                const result = window.searchResults[resultIndex];
+                const element = result.element;
+                
+                if (!element) {
+                    return;
+                }
+                
+                // Önce bölüme git
+                scrollToSection(result.sectionId);
+                
+                // Sonra tam elementi bul ve ona git
+                setTimeout(() => {
+                    if (element && element.scrollIntoView) {
+                        element.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                        
+                        // Sadece küçük bir vurgulama yap
+                        const originalBg = element.style.backgroundColor;
+                        const originalBorder = element.style.border;
+                        
+                        element.style.backgroundColor = '#fff3cd';
+                        element.style.border = '2px solid #ffc107';
+                        element.style.borderRadius = '4px';
+                        element.style.transition = 'all 0.3s ease';
+                        
+                        setTimeout(() => {
+                            if (element) {
+                                element.style.backgroundColor = originalBg;
+                                element.style.border = originalBorder;
+                            }
+                        }, 3000);
+                    }
+                }, 500);
             }
         }
 
