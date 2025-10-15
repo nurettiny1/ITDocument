@@ -41,10 +41,67 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
+            padding: 20px 30px;
             text-align: center;
             margin-bottom: 30px;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            position: relative;
+        }
+
+        .header-nav {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px 30px;
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky-header.show {
+            transform: translateY(0);
+        }
+
+        .sticky-header .header-nav {
+            position: static;
+            justify-content: flex-end;
+        }
+
+        .header-nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-nav-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
         }
 
         .header h1 {
@@ -521,88 +578,6 @@
             transform: translateY(0);
         }
 
-        .vertical-nav {
-            position: fixed;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            width: 100px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            z-index: 999;
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .vertical-nav-title {
-            font-size: 10px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-            text-align: center;
-            border-bottom: 1px solid #667eea;
-            padding-bottom: 5px;
-        }
-
-        .vertical-nav-sections {
-            max-height: 300px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-        }
-
-        .vertical-nav-sections::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .vertical-nav-sections::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 2px;
-        }
-
-        .vertical-nav-sections::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 2px;
-        }
-
-        .nav-section {
-            padding: 4px 6px;
-            margin: 1px 0;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 9px;
-            color: #555;
-            transition: all 0.2s ease;
-            border-left: 2px solid transparent;
-        }
-
-        .nav-section:hover {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            border-left-color: #667eea;
-        }
-
-        .nav-section.active {
-            background: rgba(102, 126, 234, 0.15);
-            color: #667eea;
-            border-left-color: #667eea;
-            font-weight: 600;
-        }
-
-        .vertical-nav-current {
-            margin-top: 8px;
-            padding: 5px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 4px;
-            font-size: 8px;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
-        }
 
         .sidebar.hidden {
             transform: translateY(-50%) translateX(300px);
@@ -747,35 +722,6 @@
             background: #4a9eff;
         }
 
-        .dark-mode .vertical-nav {
-            background: rgba(45, 45, 45, 0.95);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .dark-mode .vertical-nav-title {
-            color: #e0e0e0;
-            border-bottom-color: #4a9eff;
-        }
-
-        .dark-mode .nav-section {
-            color: #b0b0b0;
-        }
-
-        .dark-mode .nav-section:hover {
-            background: rgba(74, 158, 255, 0.1);
-            color: #4a9eff;
-            border-left-color: #4a9eff;
-        }
-
-        .dark-mode .nav-section.active {
-            background: rgba(74, 158, 255, 0.15);
-            color: #4a9eff;
-            border-left-color: #4a9eff;
-        }
-
-        .dark-mode .vertical-nav-current {
-            background: linear-gradient(135deg, #4a9eff, #6b73ff);
-        }
 
         /* Arama Fonksiyonu */
         .search-container {
@@ -1998,6 +1944,25 @@
                 width: 100%;
                 max-width: 100%;
             }
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .header-nav {
+                top: 15px;
+                right: 20px;
+                gap: 8px;
+            }
+
+            .sticky-header {
+                padding: 8px 20px;
+            }
+
+            .header-nav-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
             
             .header {
                 padding: 15px;
@@ -2100,21 +2065,18 @@
                 padding: 3px 6px;
             }
 
-            .vertical-nav {
-                display: none;
-            }
 
             .search-container {
                 position: fixed;
                 top: 20px;
-                left: 10px;
+                left: 50%;
+                transform: translateX(-50%);
                 width: 300px;
                 max-width: 80vw;
                 z-index: 1003;
                 background: white;
                 border-radius: 8px;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                transform: none;
             }
 
             .search-input {
@@ -2269,23 +2231,24 @@
 
             .search-container {
                 top: 10px;
-                left: 5px;
+                left: 50%;
+                transform: translateX(-50%);
                 width: 200px;
                 max-width: 60vw;
-                transform: none;
             }
 
             .search-toggle {
                 left: 5px;
                 top: 5px;
-                padding: 4px 6px;
-                font-size: 10px;
+                padding: 8px 12px;
+                font-size: 14px;
             }
 
             .sidebar-toggle {
                 right: 5px;
                 top: 5px;
-                padding: 4px 6px;
+                padding: 8px 12px;
+                font-size: 14px;
                 z-index: 1004;
             }
         }
@@ -2294,6 +2257,18 @@
             .container {
                 padding: 5px;
                 margin: 0;
+            }
+
+            .header-nav {
+                top: 10px;
+                right: 15px;
+                gap: 6px;
+                z-index: 1001;
+            }
+
+            .header-nav-btn {
+                padding: 5px 8px;
+                font-size: 11px;
             }
             
             .header {
@@ -2360,10 +2335,10 @@
 
             .search-container {
                 top: 10px;
-                left: 5px;
+                left: 50%;
+                transform: translateX(-50%);
                 width: 250px;
                 max-width: 75vw;
-                transform: none;
             }
 
             .search-input {
@@ -2467,8 +2442,8 @@
             .sidebar-toggle {
                 right: 5px;
                 top: 5px;
-                padding: 6px 8px;
-                font-size: 12px;
+                padding: 8px 12px;
+                font-size: 14px;
                 z-index: 1004;
             }
 
@@ -2496,12 +2471,14 @@
         @media (min-width: 1200px) {
             .container {
                 max-width: 1400px;
+                width: 100%;
             }
         }
 
         @media (min-width: 1600px) {
             .container {
                 max-width: 1600px;
+                width: 100%;
             }
         }
 
@@ -2510,6 +2487,18 @@
             .container {
                 padding: 3px;
                 margin: 0;
+            }
+
+            .header-nav {
+                top: 8px;
+                right: 10px;
+                gap: 5px;
+                z-index: 1001;
+            }
+
+            .header-nav-btn {
+                padding: 4px 6px;
+                font-size: 10px;
             }
             
             .header {
@@ -2537,31 +2526,31 @@
             .search-toggle {
                 left: 5px;
                 top: 5px;
-                padding: 3px 5px;
-                font-size: 9px;
+                padding: 8px 12px;
+                font-size: 14px;
             }
 
             .dark-mode-toggle {
-                left: 50px;
+                left: 60px;
                 top: 5px;
-                padding: 3px 5px;
-                font-size: 9px;
+                padding: 8px 12px;
+                font-size: 14px;
             }
 
             .sidebar-toggle {
                 right: 5px;
                 top: 5px;
-                padding: 3px 5px;
-                font-size: 9px;
+                padding: 8px 12px;
+                font-size: 14px;
                 z-index: 1004;
             }
 
             .search-container {
                 top: 5px;
-                left: 3px;
+                left: 50%;
+                transform: translateX(-50%);
                 width: 180px;
                 max-width: 70vw;
-                transform: none;
             }
 
             .sidebar {
@@ -2591,27 +2580,29 @@
         /* iPhone ve küçük Android cihazlar */
         @media only screen and (max-width: 375px) {
             .search-container {
+                left: 50%;
+                transform: translateX(-50%);
                 width: 160px;
                 max-width: 65vw;
             }
             
             .search-toggle {
-                padding: 2px 4px;
-                font-size: 8px;
+                padding: 8px 12px;
+                font-size: 14px;
             }
 
             .dark-mode-toggle {
-                left: 45px;
+                left: 60px;
                 top: 5px;
-                padding: 2px 4px;
-                font-size: 8px;
+                padding: 8px 12px;
+                font-size: 14px;
             }
 
             .sidebar-toggle {
                 right: 5px;
                 top: 5px;
-                padding: 2px 4px;
-                font-size: 8px;
+                padding: 8px 12px;
+                font-size: 14px;
             }
 
             .back-to-top {
@@ -2644,20 +2635,21 @@
     </style>
 </head>
 <body>
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Dark Mode">
-        🌙
-    </button>
 
-    <!-- Search Toggle -->
-    <button class="search-toggle" onclick="toggleSearch()" title="Arama">
-        🔍
-    </button>
-
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()" title="Konular Menüsü">
-        ≡
-    </button>
+    <!-- Sticky Header (Scroll'da görünür) -->
+    <div class="sticky-header" id="stickyHeader">
+        <div class="header-nav">
+            <button class="header-nav-btn" onclick="toggleSearch()" title="Arama">
+                🔍 Arama
+            </button>
+            <button class="header-nav-btn" onclick="toggleSidebar()" title="Menü">
+                ☰ Menü
+            </button>
+            <button class="header-nav-btn" onclick="toggleDarkMode()" title="Dark Mode">
+                🌙 Dark
+            </button>
+        </div>
+    </div>
 
     <!-- Search Container -->
     <div class="search-container hidden" id="searchContainer">
@@ -2676,28 +2668,6 @@
         <div class="progress-text" id="progressText">0%</div>
     </div>
 
-    <!-- Vertical Navigation Bar (Desktop Only) -->
-    <div class="vertical-nav" id="verticalNav">
-        <div class="vertical-nav-title" id="verticalNavTitle">Konular</div>
-        <div class="vertical-nav-sections">
-            <div class="nav-section" data-section="ag-temelleri">Ağ Temelleri</div>
-            <div class="nav-section" data-section="windows-server">Windows Server</div>
-            <div class="nav-section" data-section="active-directory">Active Directory</div>
-            <div class="nav-section" data-section="file-server">File Server</div>
-            <div class="nav-section" data-section="powershell">PowerShell</div>
-            <div class="nav-section" data-section="guvenlik">Güvenlik</div>
-            <div class="nav-section" data-section="siber-guvenlik">Siber Güvenlik</div>
-            <div class="nav-section" data-section="fortigate">FortiGate</div>
-            <div class="nav-section" data-section="helpdesk">Helpdesk</div>
-            <div class="nav-section" data-section="microsoft-365">Microsoft 365</div>
-            <div class="nav-section" data-section="mail-server">Mail Server</div>
-            <div class="nav-section" data-section="remote-management">Remote Management</div>
-            <div class="nav-section" data-section="troubleshooting">Troubleshooting</div>
-            <div class="nav-section" data-section="cloud-technologies">Cloud Technologies</div>
-            <div class="nav-section" data-section="automation">Automation</div>
-        </div>
-        <div class="vertical-nav-current" id="verticalNavCurrent">Ağ Temelleri</div>
-    </div>
 
     <!-- Sidebar Navigation -->
     <div class="sidebar" id="sidebar">
@@ -2728,6 +2698,18 @@
 
     <div class="container">
         <div class="header">
+            <div class="header-nav">
+                <button class="header-nav-btn" onclick="toggleSearch()" title="Arama">
+                    🔍 Arama
+                </button>
+                <button class="header-nav-btn" onclick="toggleSidebar()" title="Menü">
+                    ☰ Menü
+                </button>
+                <button class="header-nav-btn" onclick="toggleDarkMode()" title="Dark Mode">
+                    🌙 Dark
+                </button>
+            </div>
+            
             <h1>IT Eğitim Dokümanı</h1>
             <p>Bölüm 1-2: Temel IT Kavramları, Windows Server Yönetimi ve İleri Seviye Konular</p>
             
@@ -4999,7 +4981,7 @@ $htmlReport = @"
 <head>
     <title>Haftalık Sistem Raporu - $reportDate</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
         .header { background-color: #2E86AB; color: white; padding: 20px; text-align: center; }
         .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
         .critical { color: red; font-weight: bold; }
@@ -5403,8 +5385,8 @@ Set-Service -Name "AppLocker" -StartupType Automatic
                 <strong>Publisher Kuralı Oluşturma (En Güvenli)</strong>
                 <p>Publisher kuralları, dijital sertifika ile imzalanmış uygulamaları tanır. Bu, en güvenli yöntemdir çünkü sahte uygulamalar sertifika sahibi olamaz.</p>
                 
-                <div class="code-block">
-                    <pre>
+            <div class="code-block">
+                <pre>
 # Publisher kuralı oluşturma
 # Sadece Microsoft imzalı uygulamalar çalışsın
 New-AppLockerPolicy -RuleType Publisher -RuleAction Allow -User Everyone -Optimize
@@ -5413,7 +5395,7 @@ New-AppLockerPolicy -RuleType Publisher -RuleAction Allow -User Everyone -Optimi
 # Group Policy Management Console'da:
 # Computer Configuration → Policies → Windows Settings → Security Settings → Application Control Policies → AppLocker → Executable Rules
 # "Create New Rule" → "Publisher" → "Deny" → "Next"
-                    </pre>
+                </pre>
                 </div>
             </div>
 
@@ -6502,7 +6484,7 @@ config firewall address
     next
 end
                     </pre>
-                </div>
+                    </div>
             </div>
 
             <h4>NAT Türleri:</h4>
@@ -7164,7 +7146,7 @@ execute log display
                         <li>Öncelik sırası belirsizliği</li>
                         <li>Çözülen sorunların takibi yok</li>
                         <li>Tekrarlayan sorunlar</li>
-                    </ul>
+            </ul>
                 </div>
 
                 <div class="step">
@@ -10939,57 +10921,21 @@ Not: Bu simüle edilmiş bir testtir. Gerçek hız testi için speedtest.net kul
     // Update progress bar on page load
     window.addEventListener('load', updateProgressBar);
 
-    // Vertical Navigation Functionality
-    function updateVerticalNav() {
-        const sections = document.querySelectorAll('.section');
-        const navSections = document.querySelectorAll('.nav-section');
-        const currentSection = document.getElementById('verticalNavCurrent');
-        
-        let currentActive = null;
-        
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top;
-            const sectionHeight = rect.height;
-            
-            // Eğer bölüm ekranın üst yarısında görünüyorsa
-            if (sectionTop <= window.innerHeight / 2 && sectionTop + sectionHeight > window.innerHeight / 2) {
-                currentActive = section.getAttribute('id');
+    // Sticky Header Functionality
+    function updateStickyHeader() {
+        const stickyHeader = document.getElementById('stickyHeader');
+        if (stickyHeader) {
+            if (window.pageYOffset > 100) {
+                stickyHeader.classList.add('show');
+            } else {
+                stickyHeader.classList.remove('show');
             }
-        });
-        
-        // Aktif bölümü güncelle
-        navSections.forEach(navSection => {
-            navSection.classList.remove('active');
-            if (navSection.getAttribute('data-section') === currentActive) {
-                navSection.classList.add('active');
-                if (currentSection) {
-                    currentSection.textContent = navSection.textContent;
-                }
-            }
-        });
+        }
     }
 
-    // Vertical nav section click handler
-    function setupVerticalNav() {
-        const navSections = document.querySelectorAll('.nav-section');
-        
-        navSections.forEach(navSection => {
-            navSection.addEventListener('click', function() {
-                const sectionId = this.getAttribute('data-section');
-                scrollToSection(sectionId);
-            });
-        });
-    }
+    // Update sticky header on scroll
+    window.addEventListener('scroll', updateStickyHeader);
 
-    // Update vertical nav on scroll
-    window.addEventListener('scroll', updateVerticalNav);
-    
-    // Setup vertical nav on page load
-    window.addEventListener('load', function() {
-        setupVerticalNav();
-        updateVerticalNav();
-    });
 
         function performSearch() {
             const searchInput = document.getElementById('searchInput');
