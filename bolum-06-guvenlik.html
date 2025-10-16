@@ -64,98 +64,193 @@
             <h1>🔒 Güvenlik & AppLocker</h1>
             
             <div class="intro-section">
-                <h2>🎯 Windows Güvenlik Temelleri</h2>
-                <p>Windows güvenlik özellikleri, sisteminizi tehditlere karşı korur. Bu bölümde Windows Defender, AppLocker, BitLocker ve diğer güvenlik araçlarını öğreneceksiniz.</p>
+                <h2>🎯 Windows Güvenlik Neden Kritik?</h2>
+                <p>Windows güvenlik, modern işletmelerin hayatta kalması için zorunludur. <strong>Neden Windows güvenlik önemli?</strong></p>
+                
+                <div class="why-security">
+                    <h4>🔍 Windows Güvenliğin Faydaları:</h4>
+                    <ul>
+                        <li><strong>Veri Koruması:</strong> Hassas bilgileri koruma</li>
+                        <li><strong>İş Sürekliliği:</strong> Saldırılardan sonra hızla toparlanma</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Saldırı maliyeti milyonlarca lira</li>
+                        <li><strong>Müşteri Güveni:</strong> Güvenli sistem = güvenilir şirket</li>
+                        <li><strong>Yasal Uyumluluk:</strong> GDPR, KVKK gibi yasal gereklilikler</li>
+                    </ul>
+                </div>
+                
+                <div class="security-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu: Ransomware Saldırısı</h4>
+                    <p><strong>Durum:</strong> 500 çalışanlı şirkette güvenlik önlemleri yetersiz</p>
+                    <p><strong>Saldırı:</strong> E-posta eki ile gelen ransomware</p>
+                    <p><strong>Sonuç:</strong> Tüm dosyalar şifrelendi, 2 günlük iş durması, 1 milyon lira kayıp</p>
+                    <p><strong>Çözüm:</strong> Kapsamlı Windows güvenlik stratejisi</p>
+                </div>
             </div>
 
             <div class="security-layers">
-                <h2>🛡️ Güvenlik Katmanları</h2>
+                <h2>🛡️ Güvenlik Katmanları - Neden Her Biri Gerekli?</h2>
                 
                 <div class="layer-grid">
                     <div class="layer-card">
                         <h3>🔐 Kimlik Doğrulama</h3>
-                        <ul>
-                            <li>Kullanıcı hesapları</li>
-                            <li>Şifre politikaları</li>
-                            <li>Multi-factor authentication</li>
-                            <li>Biometric authentication</li>
-                        </ul>
+                        <div class="layer-details">
+                            <p><strong>Neden önemli:</strong> İlk savunma hattı - kim olduğunuzu doğrular</p>
+                            <h4>Gerçek Hayat Örneği:</h4>
+                            <p>Çalışan şifresi çalındı, saldırgan sisteme giriş yaptı</p>
+                            <p><strong>Çözüm:</strong> Multi-factor authentication ile ek güvenlik</p>
+                            <ul>
+                                <li><strong>Kullanıcı hesapları:</strong> Güçlü şifre politikaları</li>
+                                <li><strong>MFA:</strong> SMS, Authenticator app, Biometric</li>
+                                <li><strong>Biometric:</strong> Windows Hello, Fingerprint</li>
+                                <li><strong>Smart Card:</strong> Fiziksel kimlik doğrulama</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="layer-card">
                         <h3>🛡️ Antivirus & Antimalware</h3>
-                        <ul>
-                            <li>Windows Defender</li>
-                            <li>Real-time protection</li>
-                            <li>Cloud-delivered protection</li>
-                            <li>Behavioral monitoring</li>
-                        </ul>
+                        <div class="layer-details">
+                            <p><strong>Neden önemli:</strong> Zararlı yazılımları tespit eder ve engeller</p>
+                            <h4>Gerçek Hayat Örneği:</h4>
+                            <p>USB'den gelen virüs tüm sistemi etkiledi</p>
+                            <p><strong>Çözüm:</strong> Windows Defender ile proaktif koruma</p>
+                            <ul>
+                                <li><strong>Windows Defender:</strong> Ücretsiz, güçlü koruma</li>
+                                <li><strong>Real-time protection:</strong> Anlık tehdit tespiti</li>
+                                <li><strong>Cloud-delivered:</strong> Güncel tehdit bilgileri</li>
+                                <li><strong>Behavioral monitoring:</strong> Şüpheli davranış tespiti</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="layer-card">
                         <h3>🔥 Güvenlik Duvarı</h3>
-                        <ul>
-                            <li>Windows Firewall</li>
-                            <li>Inbound/Outbound rules</li>
-                            <li>Application filtering</li>
-                            <li>Network isolation</li>
-                        </ul>
+                        <div class="layer-details">
+                            <p><strong>Neden önemli:</strong> Ağ trafiğini kontrol eder, zararlı bağlantıları engeller</p>
+                            <h4>Gerçek Hayat Örneği:</h4>
+                            <p>Hacker açık porttan sisteme sızdı</p>
+                            <p><strong>Çözüm:</strong> Windows Firewall ile port kontrolü</p>
+                            <ul>
+                                <li><strong>Windows Firewall:</strong> Gelen/giden trafik kontrolü</li>
+                                <li><strong>Inbound/Outbound rules:</strong> Detaylı trafik kuralları</li>
+                                <li><strong>Application filtering:</strong> Uygulama bazlı kontrol</li>
+                                <li><strong>Network isolation:</strong> Ağ segmentasyonu</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="layer-card">
                         <h3>🔒 Şifreleme</h3>
-                        <ul>
-                            <li>BitLocker</li>
-                            <li>EFS (Encrypting File System)</li>
-                            <li>SSL/TLS</li>
-                            <li>VPN encryption</li>
-                        </ul>
+                        <div class="layer-details">
+                            <p><strong>Neden önemli:</strong> Veri çalınsa bile okunamaz hale getirir</p>
+                            <h4>Gerçek Hayat Örneği:</h4>
+                            <p>Laptop çalındı, şifrelenmemiş veriler sızdı</p>
+                            <p><strong>Çözüm:</strong> BitLocker ile disk şifreleme</p>
+                            <ul>
+                                <li><strong>BitLocker:</strong> Tüm disk şifreleme</li>
+                                <li><strong>EFS:</strong> Dosya bazlı şifreleme</li>
+                                <li><strong>SSL/TLS:</strong> Ağ trafiği şifreleme</li>
+                                <li><strong>VPN encryption:</strong> Uzaktan erişim güvenliği</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="windows-defender">
-                <h2>🛡️ Windows Defender</h2>
+                <h2>🛡️ Windows Defender - Detaylı Kullanım Rehberi</h2>
                 
-                <h3>Defender Özellikleri</h3>
+                <h3>Defender Özellikleri - Neden Her Biri Gerekli?</h3>
                 <div class="defender-features">
                     <div class="feature-category">
                         <h4>🔍 Real-time Protection</h4>
-                        <ul>
-                            <li>Dosya ve program taraması</li>
-                            <li>E-posta ve web koruması</li>
-                            <li>Otomatik tehdit kaldırma</li>
-                            <li>Cloud-delivered protection</li>
-                        </ul>
+                        <div class="feature-details">
+                            <p><strong>Neden önemli:</strong> Zararlı yazılımları anında tespit eder</p>
+                            <h4>Gerçek Hayat Örneği:</h4>
+                            <p>Çalışan zararlı e-posta eki açtı, Defender anında engelledi</p>
+                            <p><strong>Sonuç:</strong> Sistem korundu, veri kaybı olmadı</p>
+                            <ul>
+                                <li><strong>Dosya taraması:</strong> Her dosya açıldığında kontrol</li>
+                                <li><strong>E-posta koruması:</strong> Zararlı eki engelleme</li>
+                                <li><strong>Web koruması:</strong> Tehlikeli siteleri engelleme</li>
+                                <li><strong>Otomatik kaldırma:</strong> Tehditleri otomatik temizleme</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="feature-category">
                         <h4>📊 Threat Intelligence</h4>
-                        <ul>
-                            <li>Machine learning tabanlı tespit</li>
-                            <li>Behavioral analysis</li>
-                            <li>Heuristic detection</li>
-                            <li>Signature-based detection</li>
-                        </ul>
+                        <div class="feature-details">
+                            <p><strong>Neden önemli:</strong> Yeni tehditleri öğrenir ve adapte olur</p>
+                            <h4>Gerçek Hayat Örneği:</h4>
+                            <p>Yeni ransomware türü ortaya çıktı, Defender güncellendi</p>
+                            <p><strong>Sonuç:</strong> Tüm sistemler otomatik korundu</p>
+                            <ul>
+                                <li><strong>Machine learning:</strong> Yapay zeka ile tehdit tespiti</li>
+                                <li><strong>Behavioral analysis:</strong> Şüpheli davranış tespiti</li>
+                                <li><strong>Heuristic detection:</strong> Bilinmeyen tehdit tespiti</li>
+                                <li><strong>Signature-based:</strong> Bilinen tehdit tespiti</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <h3>PowerShell ile Defender Yönetimi</h3>
-                <div class="code-block">
-                    <pre><code># Defender durumunu kontrol et
+                <h3>PowerShell ile Defender Yönetimi - Pratik Örnekler</h3>
+                <div class="defender-powershell">
+                    <div class="powershell-scenario">
+                        <h4>🏢 Senaryo 1: Güvenlik Taraması</h4>
+                        <p><strong>Durum:</strong> Şüpheli dosya tespit edildi, hızlı tarama gerekli</p>
+                        <div class="code-block">
+                            <pre><code># 1. Defender durumunu kontrol et
 Get-MpComputerStatus
 
-# Tarama başlat
+# 2. Hızlı tarama başlat
 Start-MpScan -ScanType QuickScan
 
-# Tam tarama
+# 3. Tarama sonucunu kontrol et
+Get-MpThreatDetection | Where-Object {$_.DetectionTime -gt (Get-Date).AddHours(-1)}
+
+# 4. Tehdit varsa detaylı bilgi al
+Get-MpThreatDetection | Select-Object ThreatName, Severity, DetectionTime</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="powershell-scenario">
+                        <h4>🏢 Senaryo 2: Tehdit Analizi</h4>
+                        <p><strong>Durum:</strong> Sistem yavaşladı, tehdit analizi gerekli</p>
+                        <div class="code-block">
+                            <pre><code># 1. Tam sistem taraması
 Start-MpScan -ScanType FullScan
 
-# Tehdit geçmişini görüntüle
-Get-MpThreatDetection
+# 2. Tehdit geçmişini analiz et
+Get-MpThreatDetection | Sort-Object DetectionTime -Descending | Select-Object -First 10
 
-# Real-time protection'ı etkinleştir/devre dışı bırak
+# 3. Engellenen tehditleri kontrol et
+Get-MpThreatDetection | Where-Object {$_.ActionSuccess -eq $true}
+
+# 4. Real-time protection durumunu kontrol et
+Get-MpPreference | Select-Object DisableRealtimeMonitoring</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="powershell-scenario">
+                        <h4>🏢 Senaryo 3: Güvenlik Yapılandırması</h4>
+                        <p><strong>Durum:</strong> Yeni güvenlik politikaları uygulanacak</p>
+                        <div class="code-block">
+                            <pre><code># 1. Real-time protection'ı etkinleştir
 Set-MpPreference -DisableRealtimeMonitoring $false
+
+# 2. Cloud-delivered protection'ı etkinleştir
+Set-MpPreference -MAPSReporting Advanced
+
+# 3. Behavioral monitoring'ı etkinleştir
+Set-MpPreference -DisableBehaviorMonitoring $false
+
+# 4. Güvenlik güncellemelerini kontrol et
+Update-MpSignature</code></pre>
+                        </div>
+                    </div>
+                </div>
 
 # Cloud-delivered protection'ı etkinleştir
 Set-MpPreference -MAPSReporting Advanced</code></pre>
@@ -163,138 +258,316 @@ Set-MpPreference -MAPSReporting Advanced</code></pre>
             </div>
 
             <div class="applocker">
-                <h2>🔒 AppLocker</h2>
+                <h2>🔒 AppLocker - Uygulama Kontrolü</h2>
                 
-                <h3>AppLocker Nedir?</h3>
-                <p>AppLocker, hangi uygulamaların sistemde çalışabileceğini kontrol eden bir güvenlik özelliğidir. Executable dosyalar, scriptler ve Windows Installer paketlerini yönetir.</p>
+                <h3>AppLocker Nedir ve Neden Gerekli?</h3>
+                <div class="applocker-explanation">
+                    <p><strong>AppLocker nedir:</strong> Hangi uygulamaların sistemde çalışabileceğini kontrol eden güvenlik özelliği</p>
+                    <p><strong>Neden gerekli:</strong> Zararlı yazılımları engeller, sadece güvenli uygulamalara izin verir</p>
+                    
+                    <h4>🏢 Gerçek Hayat Örneği:</h4>
+                    <p><strong>Problem:</strong> Çalışan bilinmeyen uygulama indirdi, sistem zarar gördü</p>
+                    <p><strong>Sonuç:</strong> Veri kaybı, sistem yeniden kurulumu gerekli</p>
+                    <p><strong>Çözüm:</strong> AppLocker ile sadece onaylı uygulamalara izin</p>
+                </div>
 
-                <h3>AppLocker Kuralları</h3>
+                <h3>AppLocker Kuralları - Pratik Senaryolar</h3>
                 <div class="applocker-rules">
                     <div class="rule-type">
-                        <h4>📱 Executable Rules</h4>
-                        <p>EXE ve COM dosyalarını kontrol eder</p>
+                        <h4>📱 Executable Rules - EXE Dosya Kontrolü</h4>
+                        <div class="rule-details">
+                            <p><strong>Neden önemli:</strong> Zararlı EXE dosyalarını engeller</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Çalışan zararlı EXE dosyası indirdi</p>
+                            <p><strong>Çözüm:</strong> Sadece güvenli klasörlerden EXE çalıştırmaya izin</p>
+                        </div>
                         <div class="code-block">
-                            <pre><code># PowerShell ile executable kuralı oluşturma
+                            <pre><code># Senaryo 1: Sadece Program Files'tan EXE çalıştır
 New-AppLockerPolicy -RuleType Path -Action Allow -Path "C:\Program Files\*" -User Everyone
 
-# Belirli uygulamayı engelle
-New-AppLockerPolicy -RuleType Path -Action Deny -Path "C:\Temp\malware.exe" -User Everyone</code></pre>
+# Senaryo 2: Temp klasöründen EXE engelle
+New-AppLockerPolicy -RuleType Path -Action Deny -Path "C:\Temp\*" -User Everyone
+
+# Senaryo 3: Sadece imzalı uygulamalara izin ver
+New-AppLockerPolicy -RuleType Publisher -Action Allow -Publisher "Microsoft Corporation" -User Everyone</code></pre>
                         </div>
                     </div>
 
                     <div class="rule-type">
-                        <h4>📜 Script Rules</h4>
-                        <p>PowerShell, VBScript, JavaScript dosyalarını kontrol eder</p>
+                        <h4>📜 Script Rules - Script Dosya Kontrolü</h4>
+                        <div class="rule-details">
+                            <p><strong>Neden önemli:</strong> Zararlı scriptleri engeller</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Çalışan zararlı PowerShell scripti çalıştırdı</p>
+                            <p><strong>Çözüm:</strong> Sadece IT ekibine script çalıştırma izni</p>
+                        </div>
                         <div class="code-block">
-                            <pre><code># Script kuralı oluşturma
+                            <pre><code># Senaryo 1: IT ekibine script izni
 New-AppLockerPolicy -RuleType Path -Action Allow -Path "C:\Scripts\*" -User ITAdmins
 
-# PowerShell scriptlerini kısıtla
-New-AppLockerPolicy -RuleType Path -Action Deny -Path "*.ps1" -User RegularUsers</code></pre>
+# Senaryo 2: Normal kullanıcılara script engelle
+New-AppLockerPolicy -RuleType Path -Action Deny -Path "*.ps1" -User RegularUsers
+
+# Senaryo 3: Sadece imzalı scriptlere izin
+New-AppLockerPolicy -RuleType Publisher -Action Allow -Publisher "Microsoft Corporation" -User ITAdmins</code></pre>
                         </div>
                     </div>
 
                     <div class="rule-type">
-                        <h4>📦 Installer Rules</h4>
-                        <p>MSI ve MSP dosyalarını kontrol eder</p>
+                        <h4>📦 Installer Rules - Kurulum Dosya Kontrolü</h4>
+                        <div class="rule-details">
+                            <p><strong>Neden önemli:</strong> Yetkisiz yazılım kurulumunu engeller</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Çalışan yetkisiz yazılım kurdu</p>
+                            <p><strong>Çözüm:</strong> Sadece IT ekibine kurulum izni</p>
+                        </div>
                         <div class="code-block">
-                            <pre><code># Installer kuralı oluşturma
+                            <pre><code># Senaryo 1: IT ekibine kurulum izni
 New-AppLockerPolicy -RuleType Path -Action Allow -Path "C:\Software\*" -User ITAdmins
 
-# Sadece imzalı installer'lara izin ver
+# Senaryo 2: Sadece imzalı installer'lara izin ver
 New-AppLockerPolicy -RuleType Publisher -Action Allow -Publisher "Microsoft Corporation" -User Everyone</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <h3>AppLocker Yapılandırması</h3>
+                <h3>AppLocker Yapılandırması - Adım Adım Rehber</h3>
                 <div class="applocker-config">
                     <div class="config-step">
                         <h4>1. AppLocker Servisini Etkinleştir</h4>
+                        <div class="step-details">
+                            <p><strong>Neden gerekli:</strong> AppLocker çalışması için servis aktif olmalı</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> AppLocker kuralları çalışmıyor</p>
+                            <p><strong>Çözüm:</strong> Servisi etkinleştir ve otomatik başlat</p>
+                        </div>
                         <div class="code-block">
                             <pre><code># AppLocker servisini başlat
 Start-Service -Name "AppIDSvc"
 
 # Servisi otomatik başlat
-Set-Service -Name "AppIDSvc" -StartupType Automatic</code></pre>
+Set-Service -Name "AppIDSvc" -StartupType Automatic
+
+# Servis durumunu kontrol et
+Get-Service -Name "AppIDSvc"</code></pre>
                         </div>
                     </div>
 
                     <div class="config-step">
                         <h4>2. GPO ile AppLocker Kuralları Uygula</h4>
+                        <div class="step-details">
+                            <p><strong>Neden gerekli:</strong> Tüm bilgisayarlarda aynı kurallar uygulanmalı</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Her bilgisayarda ayrı ayrı kurallar uygulamak zor</p>
+                            <p><strong>Çözüm:</strong> GPO ile merkezi yönetim</p>
+                        </div>
                         <div class="code-block">
                             <pre><code># AppLocker politikasını GPO'ya uygula
 Set-AppLockerPolicy -XmlPolicy (Get-Content "C:\AppLockerPolicy.xml" -Raw)
 
 # Mevcut kuralları görüntüle
-Get-AppLockerPolicy -Effective</code></pre>
+Get-AppLockerPolicy -Effective
+
+# Kuralları test et
+Test-AppLockerPolicy -Path "C:\TestApp.exe" -User "TestUser"</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="config-step">
+                        <h4>3. AppLocker Kurallarını Test Et</h4>
+                        <div class="step-details">
+                            <p><strong>Neden gerekli:</strong> Kuralların doğru çalıştığından emin olmak</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Kurallar çalışmıyor, kullanıcılar şikayet ediyor</p>
+                            <p><strong>Çözüm:</strong> Test ortamında kuralları doğrula</p>
+                        </div>
+                        <div class="code-block">
+                            <pre><code># Kuralları test et
+Test-AppLockerPolicy -Path "C:\Program Files\TestApp\test.exe" -User "RegularUser"
+
+# AppLocker olaylarını kontrol et
+Get-WinEvent -LogName "Microsoft-Windows-AppLocker/EXE and DLL" | Select-Object -First 10
+
+# Kuralları raporla
+Get-AppLockerPolicy -Effective | Export-Csv "C:\AppLockerReport.csv"</code></pre>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="bitlocker">
-                <h2>🔐 BitLocker</h2>
+                <h2>🔐 BitLocker - Disk Şifreleme</h2>
                 
-                <h3>BitLocker Özellikleri</h3>
+                <h3>BitLocker Nedir ve Neden Gerekli?</h3>
+                <div class="bitlocker-explanation">
+                    <p><strong>BitLocker nedir:</strong> Tüm disk içeriğini şifreleyen güvenlik özelliği</p>
+                    <p><strong>Neden gerekli:</strong> Laptop çalınsa bile veriler okunamaz</p>
+                    
+                    <h4>🏢 Gerçek Hayat Örneği:</h4>
+                    <p><strong>Problem:</strong> Laptop çalındı, şifrelenmemiş veriler sızdı</p>
+                    <p><strong>Sonuç:</strong> Müşteri verileri çalındı, yasal sorunlar</p>
+                    <p><strong>Çözüm:</strong> BitLocker ile disk şifreleme</p>
+                </div>
+                
+                <h3>BitLocker Özellikleri - Detaylı Açıklama</h3>
                 <div class="bitlocker-features">
-                    <ul>
-                        <li><strong>Disk Şifreleme:</strong> Tüm disk içeriğini şifreler</li>
-                        <li><strong>TPM Desteği:</strong> Trusted Platform Module ile güvenlik</li>
-                        <li><strong>Recovery Key:</strong> Şifre kurtarma anahtarı</li>
-                        <li><strong>Auto-unlock:</strong> Otomatik şifre çözme</li>
-                    </ul>
+                    <div class="feature-details">
+                        <h4>🔒 Disk Şifreleme</h4>
+                        <p><strong>Ne yapar:</strong> Tüm disk içeriğini şifreler</p>
+                        <p><strong>Faydası:</strong> Veri çalınsa bile okunamaz</p>
+                        
+                        <h4>🛡️ TPM Desteği</h4>
+                        <p><strong>Ne yapar:</strong> Donanım seviyesinde güvenlik</p>
+                        <p><strong>Faydası:</strong> Şifre kırılması çok zor</p>
+                        
+                        <h4>🔑 Recovery Key</h4>
+                        <p><strong>Ne yapar:</strong> Şifre kurtarma anahtarı</p>
+                        <p><strong>Faydası:</strong> Şifre unutulsa bile kurtarma</p>
+                        
+                        <h4>⚡ Auto-unlock</h4>
+                        <p><strong>Ne yapar:</strong> Otomatik şifre çözme</p>
+                        <p><strong>Faydası:</strong> Kullanıcı deneyimi kolaylaşır</p>
+                    </div>
                 </div>
 
-                <h3>BitLocker Yapılandırması</h3>
-                <div class="code-block">
-                    <pre><code># BitLocker'ı etkinleştir
+                <h3>BitLocker Yapılandırması - Pratik Senaryolar</h3>
+                <div class="bitlocker-scenarios">
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 1: Yeni Laptop Şifreleme</h4>
+                        <p><strong>Durum:</strong> Yeni laptop alındı, şifreleme gerekli</p>
+                        <div class="code-block">
+                            <pre><code># 1. BitLocker'ı etkinleştir
 Enable-BitLocker -MountPoint "C:" -EncryptionMethod XtsAes256 -UsedSpaceOnly
 
-# Recovery key'i kaydet
+# 2. Recovery key'i kaydet
 $recoveryKey = (Get-BitLockerVolume -MountPoint "C:").KeyProtector | Where-Object {$_.KeyProtectorType -eq "RecoveryPassword"}
 $recoveryKey.RecoveryPassword | Out-File "C:\BitLockerRecoveryKey.txt"
 
-# BitLocker durumunu kontrol et
+# 3. Şifreleme durumunu kontrol et
+Get-BitLockerVolume</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 2: Şifreleme Durumu Kontrolü</h4>
+                        <p><strong>Durum:</strong> Tüm bilgisayarlarda şifreleme kontrolü</p>
+                        <div class="code-block">
+                            <pre><code># 1. Tüm disklerin şifreleme durumunu kontrol et
+Get-BitLockerVolume | Select-Object MountPoint, VolumeStatus, EncryptionPercentage
+
+# 2. Şifrelenmemiş diskleri bul
+Get-BitLockerVolume | Where-Object {$_.VolumeStatus -ne "FullyEncrypted"}
+
+# 3. Recovery key'leri kontrol et
+Get-BitLockerVolume | ForEach-Object {
+    $_.KeyProtector | Where-Object {$_.KeyProtectorType -eq "RecoveryPassword"}
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 3: Şifreleme Devre Dışı Bırakma</h4>
+                        <p><strong>Durum:</strong> Bilgisayar değiştirilecek, şifreleme kaldırılacak</p>
+                        <div class="code-block">
+                            <pre><code># 1. Şifrelemeyi devre dışı bırak
+Disable-BitLocker -MountPoint "C:"
+
+# 2. Şifreleme kaldırma durumunu kontrol et
 Get-BitLockerVolume
 
-# BitLocker'ı devre dışı bırak
-Disable-BitLocker -MountPoint "C:"</code></pre>
+# 3. Recovery key'leri temizle
+Remove-BitLockerKeyProtector -MountPoint "C:" -KeyProtectorId "RecoveryPassword"</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="windows-firewall">
-                <h2>🔥 Windows Firewall</h2>
+                <h2>🔥 Windows Firewall - Ağ Güvenliği</h2>
                 
-                <h3>Firewall Kuralları</h3>
+                <h3>Windows Firewall Nedir ve Neden Gerekli?</h3>
+                <div class="firewall-explanation">
+                    <p><strong>Windows Firewall nedir:</strong> Ağ trafiğini kontrol eden güvenlik duvarı</p>
+                    <p><strong>Neden gerekli:</strong> Zararlı ağ trafiğini engeller, sadece güvenli bağlantılara izin verir</p>
+                    
+                    <h4>🏢 Gerçek Hayat Örneği:</h4>
+                    <p><strong>Problem:</strong> Hacker açık porttan sisteme sızdı</p>
+                    <p><strong>Sonuç:</strong> Veri çalındı, sistem zarar gördü</p>
+                    <p><strong>Çözüm:</strong> Windows Firewall ile port kontrolü</p>
+                </div>
+                
+                <h3>Firewall Kuralları - Pratik Senaryolar</h3>
                 <div class="firewall-rules">
                     <div class="rule-category">
-                        <h4>📥 Inbound Rules</h4>
-                        <p>Gelen bağlantıları kontrol eder</p>
+                        <h4>📥 Inbound Rules - Gelen Trafik Kontrolü</h4>
+                        <div class="rule-details">
+                            <p><strong>Neden önemli:</strong> Dışarıdan gelen zararlı trafiği engeller</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Hacker RDP portuna saldırı yapıyor</p>
+                            <p><strong>Çözüm:</strong> Sadece güvenli IP'lerden RDP'ye izin ver</p>
+                        </div>
                         <div class="code-block">
-                            <pre><code># HTTP trafiğine izin ver
+                            <pre><code># Senaryo 1: HTTP trafiğine izin ver
 New-NetFirewallRule -DisplayName "Allow HTTP" -Direction Inbound -Protocol TCP -LocalPort 80 -Action Allow
 
-# RDP'yi sadece belirli IP'lerden kabul et
+# Senaryo 2: RDP'yi sadece IT IP'lerinden kabul et
 New-NetFirewallRule -DisplayName "Allow RDP from IT" -Direction Inbound -Protocol TCP -LocalPort 3389 -RemoteAddress "192.168.1.0/24" -Action Allow
 
-# Tüm gelen trafiği engelle
+# Senaryo 3: Tüm gelen trafiği engelle (güvenlik için)
 New-NetFirewallRule -DisplayName "Block All Inbound" -Direction Inbound -Action Block</code></pre>
                         </div>
                     </div>
 
                     <div class="rule-category">
-                        <h4>📤 Outbound Rules</h4>
-                        <p>Giden bağlantıları kontrol eder</p>
+                        <h4>📤 Outbound Rules - Giden Trafik Kontrolü</h4>
+                        <div class="rule-details">
+                            <p><strong>Neden önemli:</strong> Zararlı yazılımların dışarı bağlantı kurmasını engeller</p>
+                            <h4>Gerçek Hayat Senaryosu:</h4>
+                            <p><strong>Problem:</strong> Zararlı yazılım dışarı veri gönderiyor</p>
+                            <p><strong>Çözüm:</strong> Sadece gerekli trafiğe izin ver</p>
+                        </div>
                         <div class="code-block">
-                            <pre><code># HTTPS trafiğine izin ver
+                            <pre><code># Senaryo 1: HTTPS trafiğine izin ver
 New-NetFirewallRule -DisplayName "Allow HTTPS" -Direction Outbound -Protocol TCP -RemotePort 443 -Action Allow
 
-# DNS sorgularına izin ver
+# Senaryo 2: DNS sorgularına izin ver
 New-NetFirewallRule -DisplayName "Allow DNS" -Direction Outbound -Protocol UDP -RemotePort 53 -Action Allow
 
-# Sosyal medya sitelerini engelle
+# Senaryo 3: Sosyal medya sitelerini engelle
 New-NetFirewallRule -DisplayName "Block Social Media" -Direction Outbound -RemoteAddress "facebook.com", "twitter.com" -Action Block</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Firewall Yönetimi - Pratik Komutlar</h3>
+                <div class="firewall-management">
+                    <div class="management-scenario">
+                        <h4>🏢 Senaryo 1: Firewall Durumu Kontrolü</h4>
+                        <p><strong>Durum:</strong> Firewall çalışıyor mu kontrol et</p>
+                        <div class="code-block">
+                            <pre><code># Firewall durumunu kontrol et
+Get-NetFirewallProfile | Select-Object Name, Enabled
+
+# Aktif kuralları listele
+Get-NetFirewallRule | Where-Object {$_.Enabled -eq "True"} | Select-Object DisplayName, Direction, Action
+
+# Belirli portu kontrol et
+Get-NetFirewallRule | Where-Object {$_.DisplayName -like "*RDP*"}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="management-scenario">
+                        <h4>🏢 Senaryo 2: Firewall Kuralı Ekleme</h4>
+                        <p><strong>Durum:</strong> Yeni uygulama için kural ekle</p>
+                        <div class="code-block">
+                            <pre><code># Yeni uygulama için kural ekle
+New-NetFirewallRule -DisplayName "Allow NewApp" -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow
+
+# Kuralı test et
+Test-NetConnection -ComputerName "localhost" -Port 8080
+
+# Kuralı devre dışı bırak
+Disable-NetFirewallRule -DisplayName "Allow NewApp"</code></pre>
                         </div>
                     </div>
                 </div>
