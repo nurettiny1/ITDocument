@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FortiGate Firewall - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>FortiGate Firewall</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="fortigate">
+            <h1>🔥 FortiGate Firewall</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 FortiGate Neden Gerekli?</h2>
+                <p>FortiGate, modern ağ güvenliğinin vazgeçilmez parçasıdır. <strong>Neden FortiGate kullanmalıyız?</strong></p>
+                
+                <div class="why-fortigate">
+                    <h4>🔍 FortiGate'in Faydaları:</h4>
+                    <ul>
+                        <li><strong>Gelişmiş Güvenlik:</strong> Sadece port değil, uygulama seviyesinde koruma</li>
+                        <li><strong>Yüksek Performans:</strong> Gbps seviyesinde trafik işleme</li>
+                        <li><strong>Merkezi Yönetim:</strong> Tüm firewall'ları tek yerden yönetim</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Tek cihazda birden fazla güvenlik fonksiyonu</li>
+                        <li><strong>Otomasyon:</strong> Tehdit tespiti ve engelleme otomatik</li>
+                    </ul>
+                </div>
+                
+                <div class="fortigate-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 500 çalışanlı şirkette geleneksel firewall yetersiz</p>
+                    <p><strong>Sonuç:</strong> Zararlı yazılım saldırıları, veri sızıntıları</p>
+                    <p><strong>Çözüm:</strong> FortiGate NGFW ile kapsamlı koruma</p>
+                </div>
+            </div>
+
+            <div class="fortigate-features">
+                <h2>🚀 FortiGate Özellikleri</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>🛡️ Güvenlik Özellikleri</h3>
+                        <ul>
+                            <li>Stateful Packet Inspection (SPI)</li>
+                            <li>Intrusion Prevention System (IPS)</li>
+                            <li>Application Control</li>
+                            <li>Web Filtering</li>
+                            <li>Antivirus/Antimalware</li>
+                            <li>Sandboxing</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>🌐 Ağ Özellikleri</h3>
+                        <ul>
+                            <li>VPN (IPSec, SSL-VPN)</li>
+                            <li>Load Balancing</li>
+                            <li>Traffic Shaping</li>
+                            <li>SD-WAN</li>
+                            <li>Wireless Controller</li>
+                            <li>Switch Management</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>📊 Yönetim Özellikleri</h3>
+                        <ul>
+                            <li>FortiManager</li>
+                            <li>FortiAnalyzer</li>
+                            <li>FortiCloud</li>
+                            <li>REST API</li>
+                            <li>CLI/Web GUI</li>
+                            <li>Centralized Logging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fortigate-models">
+                <h2>🖥️ FortiGate Modelleri</h2>
+                
+                <div class="models-grid">
+                    <div class="model-card">
+                        <h3>🏠 SOHO Serisi</h3>
+                        <p>Küçük ofis ve ev ofisi için</p>
+                        <ul>
+                            <li><strong>FortiGate 30E:</strong> 10 kullanıcıya kadar</li>
+                            <li><strong>FortiGate 50E:</strong> 20 kullanıcıya kadar</li>
+                            <li><strong>FortiGate 60E:</strong> 50 kullanıcıya kadar</li>
+                        </ul>
+                    </div>
+
+                    <div class="model-card">
+                        <h3>🏢 SMB Serisi</h3>
+                        <p>Küçük ve orta ölçekli işletmeler için</p>
+                        <ul>
+                            <li><strong>FortiGate 100E:</strong> 100 kullanıcıya kadar</li>
+                            <li><strong>FortiGate 200E:</strong> 200 kullanıcıya kadar</li>
+                            <li><strong>FortiGate 500E:</strong> 500 kullanıcıya kadar</li>
+                        </ul>
+                    </div>
+
+                    <div class="model-card">
+                        <h3>🏭 Enterprise Serisi</h3>
+                        <p>Büyük işletmeler ve veri merkezleri için</p>
+                        <ul>
+                            <li><strong>FortiGate 1000E:</strong> 1000+ kullanıcı</li>
+                            <li><strong>FortiGate 3000E:</strong> Yüksek performans</li>
+                            <li><strong>FortiGate 5000E:</strong> Veri merkezi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="initial-configuration">
+                <h2>⚙️ İlk Yapılandırma</h2>
+                
+                <h3>Kurulum Adımları</h3>
+                <div class="config-steps">
+                    <div class="config-step">
+                        <h4>1. 🔌 Fiziksel Bağlantı</h4>
+                        <ul>
+                            <li>WAN portuna internet bağlantısı</li>
+                            <li>LAN portuna switch bağlantısı</li>
+                            <li>Management portuna yönetim bilgisayarı</li>
+                            <li>Güç kablosu bağlantısı</li>
+                        </ul>
+                    </div>
+
+                    <div class="config-step">
+                        <h4>2. 🌐 IP Yapılandırması</h4>
+                        <div class="code-block">
+                            <pre><code># Varsayılan IP: 192.168.1.99
+# Web arayüzüne erişim: https://192.168.1.99
+# Varsayılan kullanıcı: admin (şifre yok)
+
+# IP adresini değiştirme
+config system interface
+    edit "wan1"
+        set ip 203.0.113.1 255.255.255.0
+        set allowaccess ping https ssh
+    next
+end</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-step">
+                        <h4>3. 🔐 Güvenlik Ayarları</h4>
+                        <div class="code-block">
+                            <pre><code># Admin şifresini değiştir
+config system admin
+    edit "admin"
+        set password "NewPassword123!"
+    next
+end
+
+# HTTPS erişimini etkinleştir
+config system global
+    set admin-https-ssl-versions tlsv1-2
+    set admin-https-ssl-ciphers ECDHE-RSA-AES128-GCM-SHA256
+end</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="firewall-policies">
+                <h2>📋 Firewall Politikaları</h2>
+                
+                <h3>Politika Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># Temel firewall politikası
+config firewall policy
+    edit 1
+        set name "LAN to WAN"
+        set srcintf "lan"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+end
+
+# Web trafiğine izin ver
+config firewall policy
+    edit 2
+        set name "Allow HTTP/HTTPS"
+        set srcintf "lan"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "HTTP" "HTTPS"
+        set logtraffic all
+    next
+end
+
+# RDP trafiğini engelle
+config firewall policy
+    edit 3
+        set name "Block RDP"
+        set srcintf "lan"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action deny
+        set schedule "always"
+        set service "RDP"
+        set logtraffic all
+    next
+end</code></pre>
+                </div>
+
+                <h3>Politika Yönetimi</h3>
+                <div class="policy-management">
+                    <div class="management-topic">
+                        <h4>📊 Politika Sıralaması</h4>
+                        <p>Politikalar yukarıdan aşağıya doğru işlenir. İlk eşleşen kural uygulanır.</p>
+                    </div>
+
+                    <div class="management-topic">
+                        <h4>🔍 Politika Testi</h4>
+                        <div class="code-block">
+                            <pre><code># Politika testi
+diagnose firewall policy lookup
+    src-ip 192.168.1.100
+    dst-ip 8.8.8.8
+    dst-port 80
+    protocol 6
+
+# Politika sayısını görüntüle
+get firewall policy | grep edit | wc -l</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vpn-configuration">
+                <h2>🔐 VPN Yapılandırması</h2>
+                
+                <h3>IPSec VPN</h3>
+                <div class="code-block">
+                    <pre><code># IPSec VPN Phase 1
+config vpn ipsec phase1-interface
+    edit "VPN-to-Headquarters"
+        set interface "wan1"
+        set remote-gw 203.0.113.2
+        set psksecret "SharedSecret123!"
+        set proposal aes128-sha256
+        set dhgrp 14
+    next
+end
+
+# IPSec VPN Phase 2
+config vpn ipsec phase2-interface
+    edit "VPN-to-Headquarters"
+        set phase1name "VPN-to-Headquarters"
+        set proposal aes128-sha256
+        set dhgrp 14
+    next
+end
+
+# VPN politikası
+config firewall policy
+    edit 10
+        set name "VPN Traffic"
+        set srcintf "lan"
+        set dstintf "VPN-to-Headquarters"
+        set srcaddr "192.168.1.0/24"
+        set dstaddr "10.0.0.0/24"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+    next
+end</code></pre>
+                </div>
+
+                <h3>SSL-VPN</h3>
+                <div class="code-block">
+                    <pre><code># SSL-VPN portal oluşturma
+config vpn ssl web-portal
+    edit "Remote-Access"
+        set web-mode enable
+        set ip-pools "SSLVPN_POOL"
+        set split-tunneling enable
+        set split-tunneling-routing-address "192.168.1.0/24"
+    next
+end
+
+# SSL-VPN kullanıcı grubu
+config user group
+    edit "SSL-VPN-Users"
+        set member "remote-user1" "remote-user2"
+    next
+end
+
+# SSL-VPN politikası
+config firewall policy
+    edit 11
+        set name "SSL-VPN Access"
+        set srcintf "ssl.root"
+        set dstintf "lan"
+        set srcaddr "SSLVPN_POOL"
+        set dstaddr "192.168.1.0/24"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+    next
+end</code></pre>
+                </div>
+            </div>
+
+            <div class="security-features">
+                <h2>🛡️ Güvenlik Özellikleri</h2>
+                
+                <h3>Intrusion Prevention System (IPS)</h3>
+                <div class="code-block">
+                    <pre><code># IPS profil oluşturma
+config ips profile
+    edit "High-Security"
+        config signature
+            config main-class
+                edit "all"
+                    set action block
+                next
+            end
+        end
+    next
+end
+
+# IPS politikası
+config firewall policy
+    edit 20
+        set name "IPS Protection"
+        set srcintf "wan1"
+        set dstintf "lan"
+        set srcaddr "all"
+        set dstaddr "192.168.1.0/24"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set ips-sensor "High-Security"
+    next
+end</code></pre>
+                </div>
+
+                <h3>Web Filtering</h3>
+                <div class="code-block">
+                    <pre><code># Web filter profil oluşturma
+config webfilter profile
+    edit "Corporate-Filter"
+        config ftgd-wf
+            config filters
+                edit 1
+                    set category 26
+                    set action block
+                next
+                edit 2
+                    set category 57
+                    set action block
+                next
+            end
+        end
+    next
+end
+
+# Web filter politikası
+config firewall policy
+    edit 21
+        set name "Web Filtering"
+        set srcintf "lan"
+        set dstintf "wan1"
+        set srcaddr "192.168.1.0/24"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "HTTP" "HTTPS"
+        set webfilter-profile "Corporate-Filter"
+    next
+end</code></pre>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Çok Şubeli Şirket Ağ Güvenliği</h3>
+                    <p><strong>Şirket:</strong> 5 şubeli perakende zinciri</p>
+                    
+                    <h4>Ağ Topolojisi:</h4>
+                    <div class="network-topology">
+                        <div class="topology-level">
+                            <h5>🏢 Merkez Ofis</h5>
+                            <ul>
+                                <li><strong>FortiGate 500E:</strong> Ana firewall</li>
+                                <li><strong>FortiManager:</strong> Merkezi yönetim</li>
+                                <li><strong>FortiAnalyzer:</strong> Log analizi</li>
+                                <li><strong>Internet:</strong> 1 Gbps fiber</li>
+                            </ul>
+                        </div>
+
+                        <div class="topology-level">
+                            <h5>🏪 Şubeler</h5>
+                            <ul>
+                                <li><strong>FortiGate 100E:</strong> Her şubede</li>
+                                <li><strong>IPSec VPN:</strong> Merkez bağlantısı</li>
+                                <li><strong>Internet:</strong> 100 Mbps ADSL</li>
+                                <li><strong>WiFi:</strong> Müşteri erişimi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Güvenlik Politikaları:</h4>
+                    <div class="security-policies">
+                        <div class="policy-category">
+                            <h5>🔒 Merkez Güvenlik</h5>
+                            <ul>
+                                <li>Yüksek güvenlik IPS profili</li>
+                                <li>Web filtering (tüm kategoriler)</li>
+                                <li>Antivirus scanning</li>
+                                <li>Application control</li>
+                            </ul>
+                        </div>
+
+                        <div class="policy-category">
+                            <h5>🏪 Şube Güvenlik</h5>
+                            <ul>
+                                <li>Orta seviye güvenlik</li>
+                                <li>Web filtering (zararlı siteler)</li>
+                                <li>VPN-only merkez erişimi</li>
+                                <li>Guest WiFi ayrımı</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Günlük Operasyonlar:</h4>
+                    <div class="daily-operations">
+                        <div class="operation-time">
+                            <h5>🌅 Sabah (08:00-09:00)</h5>
+                            <ul>
+                                <li>Firewall durum kontrolü</li>
+                                <li>VPN bağlantı kontrolü</li>
+                                <li>Güvenlik log analizi</li>
+                                <li>Threat intelligence güncelleme</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌆 Gün İçi (09:00-17:00)</h5>
+                            <ul>
+                                <li>Real-time threat monitoring</li>
+                                <li>Policy güncellemeleri</li>
+                                <li>User access management</li>
+                                <li>Performance monitoring</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌙 Akşam (17:00-18:00)</h5>
+                            <ul>
+                                <li>Güvenlik raporları</li>
+                                <li>Backup verification</li>
+                                <li>Firmware güncellemeleri</li>
+                                <li>Ertesi gün planlaması</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="monitoring-logging">
+                <h2>📊 İzleme ve Loglama</h2>
+                
+                <h3>Log Yapılandırması</h3>
+                <div class="code-block">
+                    <pre><code># Log ayarları
+config log setting
+    set status enable
+    set log-http disable
+    set log-http-url disable
+    set log-http-content disable
+    set log-http-user-agent disable
+    set log-http-cookie disable
+    set log-http-referer disable
+    set log-http-header disable
+end
+
+# Syslog sunucusu
+config log syslogd setting
+    set status enable
+    set server "192.168.1.10"
+    set port 514
+    set mode udp
+end
+
+# Log politikası
+config firewall policy
+    edit 1
+        set name "LAN to WAN"
+        set logtraffic all
+        set logtraffic-start enable
+    next
+end</code></pre>
+                </div>
+
+                <h3>Performans İzleme</h3>
+                <div class="code-block">
+                    <pre><code># CPU kullanımı
+get system status
+
+# Bellek kullanımı
+get system memory
+
+# Ağ trafiği
+get system interface
+
+# VPN durumu
+get vpn ipsec tunnel
+
+# Firewall istatistikleri
+get firewall policy statistics</code></pre>
+                </div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🔍 Sorun Giderme</h2>
+                
+                <div class="troubleshooting-categories">
+                    <div class="trouble-category">
+                        <h3>🚨 Yaygın Sorunlar</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: VPN Bağlantısı Kurulamıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>IPSec Phase 1 durumunu kontrol et</li>
+                                    <li>Pre-shared key'i doğrula</li>
+                                    <li>Firewall politikalarını kontrol et</li>
+                                    <li>NAT traversal ayarlarını kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="issue-solution">
+                            <h4>Sorun: İnternet Erişimi Yok</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>WAN interface durumunu kontrol et</li>
+                                    <li>Default route'u kontrol et</li>
+                                    <li>DNS ayarlarını kontrol et</li>
+                                    <li>Firewall politikalarını kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trouble-category">
+                        <h3>🛠️ Faydalı Komutlar</h3>
+                        <div class="code-block">
+                            <pre><code># Sistem durumu
+get system status
+
+# Interface durumu
+get system interface
+
+# Routing tablosu
+get router info routing-table all
+
+# ARP tablosu
+get system arp
+
+# Ping testi
+execute ping 8.8.8.8
+
+# Traceroute
+execute traceroute 8.8.8.8
+
+# Log görüntüleme
+get log filter
+get log memory
+
+# Policy lookup
+diagnose firewall policy lookup</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>FortiGate firewall temellerini öğrendikten sonra, <a href="bolum-09-helpdesk.html">Helpdesk & IT Support</a> bölümüne geçerek teknik destek süreçlerini inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-09-helpdesk.html" class="btn btn-primary">🎧 Helpdesk →</a>
+                    <a href="bolum-07-siber-guvenlik.html" class="btn btn-secondary">← Siber Güvenlik</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

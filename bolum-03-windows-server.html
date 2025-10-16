@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Windows Server Kurulumu - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Windows Server Kurulumu</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="windows-server">
+            <h1>🖥️ Windows Server Kurulumu</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Windows Server Neden Gerekli?</h2>
+                <p>Windows Server, modern işletmelerin altyapısının temelidir. <strong>Neden Windows Server kullanmalıyız?</strong></p>
+                
+                <div class="why-windows-server">
+                    <h4>🔍 Windows Server'ın Faydaları:</h4>
+                    <ul>
+                        <li><strong>Merkezi Yönetim:</strong> Tüm sunucuları tek yerden yönetebilirsiniz</li>
+                        <li><strong>Güvenlik:</strong> Enterprise seviye güvenlik özellikleri</li>
+                        <li><strong>Ölçeklenebilirlik:</strong> İşletme büyüdükçe sistem büyür</li>
+                        <li><strong>Uyumluluk:</strong> Microsoft ekosistemi ile tam entegrasyon</li>
+                        <li><strong>Maliyet Etkinliği:</strong> Lisans maliyeti vs. performans dengesi</li>
+                    </ul>
+                </div>
+                
+                <div class="server-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 200 çalışanlı şirkette her departman kendi sunucusunu yönetiyor</p>
+                    <p><strong>Sonuç:</strong> Kaos, güvenlik açıkları, maliyet artışı</p>
+                    <p><strong>Çözüm:</strong> Windows Server ile merkezi altyapı</p>
+                </div>
+            </div>
+
+            <div class="server-editions">
+                <h2>📋 Windows Server Sürümleri - Hangi Sürümü Seçmeliyiz?</h2>
+                
+                <div class="edition-comparison">
+                    <h3>🔍 Sürüm Karşılaştırması</h3>
+                    <div class="comparison-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Özellik</th>
+                                    <th>Essentials</th>
+                                    <th>Standard</th>
+                                    <th>Datacenter</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Maksimum Kullanıcı</strong></td>
+                                    <td>25 kullanıcı</td>
+                                    <td>Sınırsız</td>
+                                    <td>Sınırsız</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VM Lisansı</strong></td>
+                                    <td>1 VM</td>
+                                    <td>2 VM</td>
+                                    <td>Sınırsız VM</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hyper-V</strong></td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Active Directory</strong></td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Maliyet (Yıllık)</strong></td>
+                                    <td>₺15,000</td>
+                                    <td>₺45,000</td>
+                                    <td>₺90,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="edition-selection">
+                    <h3>🎯 Hangi Sürümü Seçmeliyiz?</h3>
+                    
+                    <div class="selection-scenarios">
+                        <div class="scenario-card">
+                            <h4>🏠 Küçük İşletme (1-25 kullanıcı)</h4>
+                            <p><strong>Önerilen:</strong> Windows Server Essentials</p>
+                            <p><strong>Neden:</strong> Basit yönetim, düşük maliyet, otomatik yedekleme</p>
+                            <div class="code-block">
+                                <pre><code># Essentials için tipik kullanım
+- Dosya paylaşımı
+- E-posta sunucusu
+- Uzaktan erişim
+- Otomatik yedekleme</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card">
+                            <h4>🏢 Orta İşletme (26-500 kullanıcı)</h4>
+                            <p><strong>Önerilen:</strong> Windows Server Standard</p>
+                            <p><strong>Neden:</strong> VM desteği, AD, maliyet/performans dengesi</p>
+                            <div class="code-block">
+                                <pre><code># Standard için tipik kullanım
+- Active Directory Domain Controller
+- Hyper-V sanallaştırma
+- IIS web sunucusu
+- SQL Server</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card">
+                            <h4>🏭 Büyük İşletme (500+ kullanıcı)</h4>
+                            <p><strong>Önerilen:</strong> Windows Server Datacenter</p>
+                            <p><strong>Neden:</strong> Sınırsız VM, gelişmiş güvenlik, yüksek kullanılabilirlik</p>
+                            <div class="code-block">
+                                <pre><code># Datacenter için tipik kullanım
+- Çoklu VM ortamı
+- Failover clustering
+- Software-defined networking
+- Gelişmiş güvenlik</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="installation-process">
+                <h2>⚙️ Detaylı Kurulum Rehberi</h2>
+                
+                <div class="installation-overview">
+                    <h3>🎯 Kurulum Öncesi Hazırlık</h3>
+                    <p>Windows Server kurulumu kritik bir süreçtir. <strong>Neden dikkatli planlama gerekli?</strong></p>
+                    
+                    <div class="preparation-checklist">
+                        <h4>✅ Kurulum Öncesi Kontrol Listesi</h4>
+                        <ul>
+                            <li><strong>Donanım Uyumluluğu:</strong> HCL (Hardware Compatibility List) kontrolü</li>
+                            <li><strong>Lisans Planlaması:</strong> Hangi sürüm, kaç lisans gerekli</li>
+                            <li><strong>Ağ Planlaması:</strong> IP adresleri, domain adı, DNS</li>
+                            <li><strong>Güvenlik Planlaması:</strong> Firewall kuralları, güvenlik politikaları</li>
+                            <li><strong>Yedekleme Stratejisi:</strong> Sistem yedekleme planı</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>💻 Sistem Gereksinimleri - Gerçek Hayat Senaryoları</h3>
+                <div class="requirements-scenarios">
+                    <div class="scenario-card">
+                        <h4>🏠 Küçük Ofis (10-25 kullanıcı)</h4>
+                        <p><strong>Önerilen Donanım:</strong></p>
+                        <ul>
+                            <li><strong>İşlemci:</strong> Intel Xeon E3-1200 veya AMD Ryzen 5</li>
+                            <li><strong>RAM:</strong> 16 GB DDR4</li>
+                            <li><strong>Disk:</strong> 500 GB SSD (Sistem) + 2 TB HDD (Veri)</li>
+                            <li><strong>Ağ:</strong> Gigabit Ethernet</li>
+                            <li><strong>Maliyet:</strong> ₺25,000 - ₺35,000</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code># Küçük ofis için tipik kullanım
+- Active Directory Domain Controller
+- File Server
+- Print Server
+- Backup Server</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <h4>🏢 Orta İşletme (50-200 kullanıcı)</h4>
+                        <p><strong>Önerilen Donanım:</strong></p>
+                        <ul>
+                            <li><strong>İşlemci:</strong> Intel Xeon Silver 4200 serisi</li>
+                            <li><strong>RAM:</strong> 32-64 GB DDR4</li>
+                            <li><strong>Disk:</strong> 1 TB NVMe SSD + 4 TB HDD RAID</li>
+                            <li><strong>Ağ:</strong> 10 Gigabit Ethernet</li>
+                            <li><strong>Maliyet:</strong> ₺80,000 - ₺120,000</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code># Orta işletme için tipik kullanım
+- Multiple Domain Controllers
+- Hyper-V Host
+- SQL Server
+- Exchange Server</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <h4>🏭 Büyük İşletme (500+ kullanıcı)</h4>
+                        <p><strong>Önerilen Donanım:</strong></p>
+                        <ul>
+                            <li><strong>İşlemci:</strong> Intel Xeon Gold 6200 serisi (2x)</li>
+                            <li><strong>RAM:</strong> 128-256 GB DDR4</li>
+                            <li><strong>Disk:</strong> 2 TB NVMe SSD + 10 TB HDD RAID 10</li>
+                            <li><strong>Ağ:</strong> 25 Gigabit Ethernet</li>
+                            <li><strong>Maliyet:</strong> ₺200,000+</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code># Büyük işletme için tipik kullanım
+- Failover Cluster
+- Multiple Hyper-V Hosts
+- SQL Server Always On
+- Exchange DAG</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔧 Adım Adım Kurulum Süreci</h3>
+                <div class="detailed-installation">
+                    <div class="installation-step">
+                        <h4>1. 🖥️ Kurulum Medyası Hazırlama</h4>
+                        <p><strong>Neden önemli?</strong> Doğru medya = başarılı kurulum</p>
+                        
+                        <div class="step-details">
+                            <h5>📥 ISO İndirme</h5>
+                            <div class="code-block">
+                                <pre><code># Microsoft Volume Licensing Service Center
+# 1. Microsoft VLSC'ye giriş yap
+# 2. Windows Server 2022 seç
+# 3. ISO dosyasını indir (4-5 GB)
+# 4. SHA256 hash'ini doğrula</code></pre>
+                            </div>
+                            
+                            <h5>💾 USB Medya Oluşturma</h5>
+                            <div class="code-block">
+                                <pre><code># Rufus ile USB oluşturma
+# 1. Rufus'u indir ve çalıştır
+# 2. USB'yi seç (8GB+)
+# 3. ISO dosyasını seç
+# 4. GPT + UEFI seç
+# 5. "Start" butonuna bas</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installation-step">
+                        <h4>2. 🔧 BIOS/UEFI Yapılandırması</h4>
+                        <p><strong>Neden önemli?</strong> Doğru ayarlar = güvenli ve hızlı kurulum</p>
+                        
+                        <div class="step-details">
+                            <h5>⚙️ BIOS Ayarları</h5>
+                            <div class="code-block">
+                                <pre><code># BIOS/UEFI Ayarları
+1. Secure Boot: Enabled
+2. UEFI Mode: Enabled
+3. Legacy Boot: Disabled
+4. TPM 2.0: Enabled
+5. Virtualization: Enabled (Intel VT-x/AMD-V)
+6. Boot Order: USB First</code></pre>
+                            </div>
+                            
+                            <h5>🔒 Güvenlik Ayarları</h5>
+                            <div class="code-block">
+                                <pre><code># Güvenlik Ayarları
+1. Admin Password: Güçlü şifre
+2. Boot Password: Etkinleştir
+3. TPM: Enabled
+4. Secure Boot: Enabled
+5. Intel TXT: Enabled (varsa)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installation-step">
+                        <h4>3. 📀 Kurulum Başlatma</h4>
+                        <p><strong>Neden önemli?</strong> Doğru seçimler = sorunsuz kurulum</p>
+                        
+                        <div class="step-details">
+                            <h5>🚀 Kurulum Adımları</h5>
+                            <div class="code-block">
+                                <pre><code># Kurulum Süreci
+1. USB'den boot et
+2. "Install Now" seç
+3. Product Key gir (varsa)
+4. Edition seç (Standard/Datacenter)
+5. License terms kabul et
+6. "Custom: Install Windows only" seç</code></pre>
+                            </div>
+                            
+                            <h5>💾 Disk Bölümleme</h5>
+                            <div class="code-block">
+                                <pre><code># Disk Bölümleme Stratejisi
+# Küçük İşletme
+C: 100GB (Sistem)
+D: Kalan (Veri)
+
+# Orta İşletme  
+C: 200GB (Sistem)
+D: 500GB (Veri)
+E: 200GB (Logs)
+
+# Büyük İşletme
+C: 500GB (Sistem)
+D: 1TB (Veri)
+E: 500GB (Logs)
+F: 1TB (Backup)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installation-step">
+                        <h4>4. ⚙️ İlk Yapılandırma</h4>
+                        <p><strong>Neden önemli?</strong> Güvenli ve yönetilebilir sistem</p>
+                        
+                        <div class="step-details">
+                            <h5>🔐 Güvenlik Yapılandırması</h5>
+                            <div class="code-block">
+                                <pre><code># İlk Güvenlik Ayarları
+# 1. Administrator şifresi (karmaşık)
+# 2. Bilgisayar adı (anlamlı)
+# 3. Domain/Workgroup seçimi
+# 4. Windows Update etkinleştir
+# 5. Windows Defender etkinleştir</code></pre>
+                            </div>
+                            
+                            <h5>🌐 Ağ Yapılandırması</h5>
+                            <div class="code-block">
+                                <pre><code># Ağ Ayarları
+# 1. Statik IP adresi ata
+# 2. DNS sunucularını yapılandır
+# 3. Gateway ayarla
+# 4. Firewall kurallarını yapılandır
+# 5. Remote Desktop etkinleştir</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="server-roles">
+                <h2>🎭 Sunucu Rolleri - Hangi Rolleri Kurmalıyız?</h2>
+                <p>Windows Server'da rolleri seçmek kritik bir karardır. <strong>Neden doğru rol seçimi önemli?</strong></p>
+                
+                <div class="role-planning">
+                    <h3>🎯 Rol Planlama Stratejisi</h3>
+                    <div class="planning-scenarios">
+                        <div class="scenario-card">
+                            <h4>🏠 Küçük İşletme Rolleri</h4>
+                            <p><strong>Önerilen Roller:</strong></p>
+                            <ul>
+                                <li><strong>Active Directory Domain Services:</strong> Kullanıcı yönetimi</li>
+                                <li><strong>DNS Server:</strong> Domain çözümleme</li>
+                                <li><strong>File and Storage Services:</strong> Dosya paylaşımı</li>
+                                <li><strong>Print and Document Services:</strong> Yazıcı yönetimi</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># Küçük işletme için temel roller
+Install-WindowsFeature -Name AD-Domain-Services, DNS, File-Services, Print-Services -IncludeManagementTools</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card">
+                            <h4>🏢 Orta İşletme Rolleri</h4>
+                            <p><strong>Önerilen Roller:</strong></p>
+                            <ul>
+                                <li><strong>Active Directory Domain Services:</strong> Merkezi yönetim</li>
+                                <li><strong>DNS Server:</strong> Domain çözümleme</li>
+                                <li><strong>DHCP Server:</strong> IP yönetimi</li>
+                                <li><strong>Hyper-V:</strong> Sanallaştırma</li>
+                                <li><strong>IIS:</strong> Web servisleri</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># Orta işletme için gelişmiş roller
+Install-WindowsFeature -Name AD-Domain-Services, DNS, DHCP, Hyper-V, IIS -IncludeManagementTools</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card">
+                            <h4>🏭 Büyük İşletme Rolleri</h4>
+                            <p><strong>Önerilen Roller:</strong></p>
+                            <ul>
+                                <li><strong>Active Directory Domain Services:</strong> Merkezi yönetim</li>
+                                <li><strong>DNS Server:</strong> Domain çözümleme</li>
+                                <li><strong>DHCP Server:</strong> IP yönetimi</li>
+                                <li><strong>Hyper-V:</strong> Sanallaştırma</li>
+                                <li><strong>Failover Clustering:</strong> Yüksek kullanılabilirlik</li>
+                                <li><strong>Windows Server Update Services:</strong> Güncelleme yönetimi</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># Büyük işletme için enterprise roller
+Install-WindowsFeature -Name AD-Domain-Services, DNS, DHCP, Hyper-V, Failover-Clustering, UpdateServices -IncludeManagementTools</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="role-categories">
+                    <div class="role-category">
+                        <h3>🌐 Ağ Servisleri - Neden Gerekli?</h3>
+                        <p><strong>Ağ servisleri olmadan:</strong> Manuel IP yönetimi, DNS sorunları, ağ kaosu</p>
+                        
+                        <div class="role-list">
+                            <div class="role-item">
+                                <h4>DNS Server - Neden Kritik?</h4>
+                                <p><strong>Faydaları:</strong> Domain çözümleme, hızlı erişim, merkezi yönetim</p>
+                                
+                                <div class="installation-methods">
+                                    <h5>🖥️ GUI ile Kurulum (Kolay Yöntem)</h5>
+                                    <div class="gui-steps">
+                                        <ol>
+                                            <li><strong>Server Manager</strong> açın</li>
+                                            <li><strong>"Add roles and features"</strong> tıklayın</li>
+                                            <li><strong>"Role-based or feature-based installation"</strong> seçin</li>
+                                            <li><strong>"DNS Server"</strong> rolünü seçin</li>
+                                            <li><strong>"Add Features"</strong> tıklayın</li>
+                                            <li><strong>"Next"</strong> ile devam edin</li>
+                                            <li><strong>"Install"</strong> tıklayın</li>
+                                        </ol>
+                                    </div>
+                                    
+                                    <h5>⚡ PowerShell ile Kurulum (Hızlı Yöntem)</h5>
+                                    <div class="code-block">
+                                        <pre><code># DNS Server kurulumu
+Install-WindowsFeature -Name DNS -IncludeManagementTools
+
+# DNS zone oluşturma
+Add-DnsServerPrimaryZone -Name "company.local" -ZoneFile "company.local.dns"
+
+# A kaydı ekleme
+Add-DnsServerResourceRecordA -Name "server1" -ZoneName "company.local" -IPv4Address "192.168.1.10"
+
+# CNAME kaydı ekleme
+Add-DnsServerResourceRecordCName -Name "www" -ZoneName "company.local" -HostNameAlias "server1.company.local"</code></pre>
+                                    </div>
+                                    
+                                    <h5>🎯 GUI ile DNS Yönetimi</h5>
+                                    <div class="gui-steps">
+                                        <ol>
+                                            <li><strong>DNS Manager</strong> açın (dnsmgmt.msc)</li>
+                                            <li><strong>Forward Lookup Zones</strong> sağ tık</li>
+                                            <li><strong>"New Zone"</strong> seçin</li>
+                                            <li><strong>Zone name:</strong> company.local</li>
+                                            <li><strong>"Create a new file"</strong> seçin</li>
+                                            <li><strong>Dynamic updates:</strong> "Allow both"</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="role-item">
+                                <h4>DHCP Server - Neden Gerekli?</h4>
+                                <p><strong>Faydaları:</strong> Otomatik IP dağıtımı, merkezi yönetim, hata azaltma</p>
+                                
+                                <div class="installation-methods">
+                                    <h5>🖥️ GUI ile Kurulum (Kolay Yöntem)</h5>
+                                    <div class="gui-steps">
+                                        <ol>
+                                            <li><strong>Server Manager</strong> açın</li>
+                                            <li><strong>"Add roles and features"</strong> tıklayın</li>
+                                            <li><strong>"Role-based or feature-based installation"</strong> seçin</li>
+                                            <li><strong>"DHCP Server"</strong> rolünü seçin</li>
+                                            <li><strong>"Add Features"</strong> tıklayın</li>
+                                            <li><strong>"Next"</strong> ile devam edin</li>
+                                            <li><strong>"Install"</strong> tıklayın</li>
+                                        </ol>
+                                    </div>
+                                    
+                                    <h5>⚡ PowerShell ile Kurulum (Hızlı Yöntem)</h5>
+                                    <div class="code-block">
+                                        <pre><code># DHCP Server kurulumu
+Install-WindowsFeature -Name DHCP -IncludeManagementTools
+
+# DHCP scope oluşturma
+Add-DhcpServerv4Scope -Name "LAN" -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0
+
+# DHCP seçenekleri
+Set-DhcpServerv4OptionValue -OptionId 3 -Value "192.168.1.1" -ScopeId "192.168.1.0"
+Set-DhcpServerv4OptionValue -OptionId 6 -Value "192.168.1.10" -ScopeId "192.168.1.0"</code></pre>
+                                    </div>
+                                    
+                                    <h5>🎯 GUI ile DHCP Yönetimi</h5>
+                                    <div class="gui-steps">
+                                        <ol>
+                                            <li><strong>DHCP Manager</strong> açın (dhcpmgmt.msc)</li>
+                                            <li><strong>Server</strong> sağ tık → <strong>"New Scope"</strong></li>
+                                            <li><strong>Scope name:</strong> LAN</li>
+                                            <li><strong>IP range:</strong> 192.168.1.100 - 192.168.1.200</li>
+                                            <li><strong>Subnet mask:</strong> 255.255.255.0</li>
+                                            <li><strong>Router (Gateway):</strong> 192.168.1.1</li>
+                                            <li><strong>DNS Server:</strong> 192.168.1.10</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-category">
+                        <h3>👥 Dizin Servisleri - Neden Kritik?</h3>
+                        <p><strong>Active Directory olmadan:</strong> Kullanıcı kaosu, güvenlik açıkları, merkezi yönetim yok</p>
+                        
+                        <div class="role-list">
+                            <div class="role-item">
+                                <h4>Active Directory Domain Services - Neden Gerekli?</h4>
+                                <p><strong>Faydaları:</strong> Merkezi kullanıcı yönetimi, güvenlik, grup politikaları</p>
+                                
+                                <div class="installation-methods">
+                                    <h5>🖥️ GUI ile Kurulum (Kolay Yöntem)</h5>
+                                    <div class="gui-steps">
+                                        <ol>
+                                            <li><strong>Server Manager</strong> açın</li>
+                                            <li><strong>"Add roles and features"</strong> tıklayın</li>
+                                            <li><strong>"Role-based or feature-based installation"</strong> seçin</li>
+                                            <li><strong>"Active Directory Domain Services"</strong> rolünü seçin</li>
+                                            <li><strong>"Add Features"</strong> tıklayın</li>
+                                            <li><strong>"Next"</strong> ile devam edin</li>
+                                            <li><strong>"Install"</strong> tıklayın</li>
+                                            <li><strong>"Promote this server to a domain controller"</strong> tıklayın</li>
+                                            <li><strong>"Add a new forest"</strong> seçin</li>
+                                            <li><strong>Root domain name:</strong> company.local</li>
+                                            <li><strong>Safe Mode Password:</strong> Güçlü şifre girin</li>
+                                        </ol>
+                                    </div>
+                                    
+                                    <h5>⚡ PowerShell ile Kurulum (Hızlı Yöntem)</h5>
+                                    <div class="code-block">
+                                        <pre><code># AD DS rolü ekleme
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+
+# Domain Controller kurulumu
+Install-ADDSForest -DomainName "company.local" -SafeModeAdministratorPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force)
+
+# Kullanıcı oluşturma
+New-ADUser -SamAccountName "john.doe" -UserPrincipalName "john.doe@company.local" -Name "John Doe" -GivenName "John" -Surname "Doe" -Enabled $true -AccountPassword (ConvertTo-SecureString "TempPass123!" -AsPlainText -Force)
+
+# Grup oluşturma
+New-ADGroup -Name "IT Department" -GroupScope Global -GroupCategory Security</code></pre>
+                                    </div>
+                                    
+                                    <h5>🎯 GUI ile AD Yönetimi</h5>
+                                    <div class="gui-steps">
+                                        <ol>
+                                            <li><strong>Active Directory Users and Computers</strong> açın (dsa.msc)</li>
+                                            <li><strong>Users</strong> klasörüne sağ tık</li>
+                                            <li><strong>"New" → "User"</strong> seçin</li>
+                                            <li><strong>First name:</strong> John</li>
+                                            <li><strong>Last name:</strong> Doe</li>
+                                            <li><strong>User logon name:</strong> john.doe</li>
+                                            <li><strong>Password:</strong> Güçlü şifre</li>
+                                            <li><strong>"User must change password at next logon"</strong> işaretleyin</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-category">
+                        <h3>📁 Dosya Servisleri</h3>
+                        <div class="role-list">
+                            <div class="role-item">
+                                <h4>File and Storage Services</h4>
+                                <p>Dosya paylaşımı ve depolama yönetimi</p>
+                                <div class="code-block">
+                                    <pre><code># File Server rolü ekleme
+Install-WindowsFeature -Name FS-FileServer -IncludeManagementTools
+
+# Paylaşım oluşturma
+New-SmbShare -Name "Shared" -Path "C:\Shared" -FullAccess "Everyone"</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Orta Ölçekli Şirket Sunucu Altyapısı</h3>
+                    <p><strong>Şirket:</strong> 200 çalışanlı teknoloji firması</p>
+                    
+                    <h4>Sunucu Altyapısı:</h4>
+                    <div class="server-infrastructure">
+                        <div class="server-tier">
+                            <h5>🏢 Primary Data Center</h5>
+                            <ul>
+                                <li><strong>DC-01:</strong> Domain Controller (Windows Server 2022)</li>
+                                <li><strong>DC-02:</strong> Backup Domain Controller</li>
+                                <li><strong>FS-01:</strong> File Server (Windows Server 2022)</li>
+                                <li><strong>EX-01:</strong> Exchange Server 2019</li>
+                                <li><strong>WEB-01:</strong> IIS Web Server</li>
+                            </ul>
+                        </div>
+
+                        <div class="server-tier">
+                            <h5>🌐 Network Services</h5>
+                            <ul>
+                                <li><strong>DNS-01:</strong> Primary DNS Server</li>
+                                <li><strong>DNS-02:</strong> Secondary DNS Server</li>
+                                <li><strong>DHCP-01:</strong> DHCP Server</li>
+                                <li><strong>FW-01:</strong> FortiGate Firewall</li>
+                            </ul>
+                        </div>
+
+                        <div class="server-tier">
+                            <h5>☁️ Backup & Monitoring</h5>
+                            <ul>
+                                <li><strong>BACKUP-01:</strong> Backup Server</li>
+                                <li><strong>MON-01:</strong> Monitoring Server</li>
+                                <li><strong>LOG-01:</strong> Log Management Server</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Günlük Operasyonlar:</h4>
+                    <div class="daily-operations">
+                        <div class="operation-time">
+                            <h5>🌅 Sabah (08:00-09:00)</h5>
+                            <ul>
+                                <li>Sistem sağlık kontrolü</li>
+                                <li>Backup durumu kontrolü</li>
+                                <li>Event log analizi</li>
+                                <li>Disk alanı kontrolü</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌆 Gün İçi (09:00-17:00)</h5>
+                            <ul>
+                                <li>Kullanıcı destek talepleri</li>
+                                <li>Sistem performans izleme</li>
+                                <li>Güvenlik güncellemeleri</li>
+                                <li>Yeni kullanıcı oluşturma</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌙 Akşam (17:00-18:00)</h5>
+                            <ul>
+                                <li>Günlük backup işlemleri</li>
+                                <li>Sistem güncellemeleri</li>
+                                <li>Log dosyalarının arşivlenmesi</li>
+                                <li>Ertesi gün planlaması</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="management-tools">
+                <h2>🛠️ Yönetim Araçları</h2>
+                
+                <div class="tools-grid">
+                    <div class="tool-category">
+                        <h3>💻 Yerel Araçlar</h3>
+                        <ul>
+                            <li><strong>Server Manager:</strong> Sunucu rolleri yönetimi</li>
+                            <li><strong>Computer Management:</strong> Sistem yönetimi</li>
+                            <li><strong>Event Viewer:</strong> Log analizi</li>
+                            <li><strong>Performance Monitor:</strong> Performans izleme</li>
+                            <li><strong>Task Scheduler:</strong> Görev zamanlama</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🌐 Uzaktan Yönetim</h3>
+                        <ul>
+                            <li><strong>Remote Desktop:</strong> Uzaktan masaüstü</li>
+                            <li><strong>PowerShell Remoting:</strong> Komut satırı erişimi</li>
+                            <li><strong>Windows Admin Center:</strong> Web tabanlı yönetim</li>
+                            <li><strong>System Center:</strong> Enterprise yönetim</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>📊 İzleme Araçları</h3>
+                        <ul>
+                            <li><strong>Resource Monitor:</strong> Kaynak kullanımı</li>
+                            <li><strong>Network Monitor:</strong> Ağ trafiği analizi</li>
+                            <li><strong>Process Monitor:</strong> İşlem izleme</li>
+                            <li><strong>Performance Counters:</strong> Performans sayaçları</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-configuration">
+                <h2>🔒 Güvenlik Yapılandırması</h2>
+                
+                <h3>Temel Güvenlik Ayarları</h3>
+                <div class="security-steps">
+                    <div class="security-step">
+                        <h4>1. 🛡️ Windows Defender</h4>
+                        <div class="code-block">
+                            <pre><code># Windows Defender'ı etkinleştir
+Set-MpPreference -DisableRealtimeMonitoring $false
+
+# Güvenlik güncellemelerini kontrol et
+Get-WindowsUpdate -AcceptAll -Install -AutoReboot</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="security-step">
+                        <h4>2. 🔐 Güvenlik Duvarı</h4>
+                        <div class="code-block">
+                            <pre><code># Windows Firewall'ı etkinleştir
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+
+# Özel kural oluştur
+New-NetFirewallRule -DisplayName "Custom Rule" -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="security-step">
+                        <h4>3. 🔑 Kullanıcı Hesapları</h4>
+                        <div class="code-block">
+                            <pre><code># Administrator hesabını yeniden adlandır
+Rename-LocalUser -Name "Administrator" -NewName "AdminUser"
+
+# Guest hesabını devre dışı bırak
+Disable-LocalUser -Name "Guest"
+
+# Şifre politikası uygula
+net accounts /minpwlen:8 /maxpwage:90</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🔍 Sorun Giderme</h2>
+                
+                <div class="troubleshooting-categories">
+                    <div class="trouble-category">
+                        <h3>🚨 Yaygın Sorunlar</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: Sunucu Açılmıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>Fiziksel bağlantıları kontrol et</li>
+                                    <li>BIOS/UEFI ayarlarını kontrol et</li>
+                                    <li>Boot sırasını kontrol et</li>
+                                    <li>Hardware testleri yap</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="issue-solution">
+                            <h4>Sorun: Yavaş Performans</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>Task Manager ile CPU/RAM kullanımını kontrol et</li>
+                                    <li>Disk performansını analiz et</li>
+                                    <li>Gereksiz servisleri kapat</li>
+                                    <li>Antivirus taraması yap</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trouble-category">
+                        <h3>🛠️ Faydalı Komutlar</h3>
+                        <div class="code-block">
+                            <pre><code># Sistem bilgilerini görüntüle
+Get-ComputerInfo
+
+# Servis durumlarını kontrol et
+Get-Service | Where-Object {$_.Status -ne "Running"}
+
+# Disk kullanımını kontrol et
+Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, @{Name="Size(GB)";Expression={[math]::Round($_.Size/1GB,2)}}, @{Name="FreeSpace(GB)";Expression={[math]::Round($_.FreeSpace/1GB,2)}}
+
+# Event log'ları kontrol et
+Get-EventLog -LogName System -Newest 10
+
+# Ağ bağlantılarını kontrol et
+Get-NetAdapter | Where-Object {$_.Status -eq "Up"}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Windows Server kurulumunu tamamladıktan sonra, <a href="bolum-04-active-directory.html">Active Directory (AD DS)</a> bölümüne geçerek domain yönetimini öğrenebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-04-active-directory.html" class="btn btn-primary">👥 Active Directory →</a>
+                    <a href="bolum-02-ag-temelleri.html" class="btn btn-secondary">← Ağ Temelleri</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

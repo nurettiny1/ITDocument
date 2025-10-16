@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sorun Giderme - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Sorun Giderme</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="sorun-giderme">
+            <h1>🔍 Sorun Giderme</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Sorun Giderme Neden Kritik?</h2>
+                <p>Sorun giderme, IT sistemlerinin sürekliliğini sağlayan en önemli beceridir. <strong>Neden sorun giderme önemli?</strong></p>
+                
+                <div class="why-troubleshooting">
+                    <h4>🔍 Sorun Giderme'nin Faydaları:</h4>
+                    <ul>
+                        <li><strong>İş Sürekliliği:</strong> Sistem durması milyonlarca lira kayıp</li>
+                        <li><strong>Hızlı Çözüm:</strong> Sistematik yaklaşım ile hızlı tanı</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Dış destek maliyetlerinden kaçınma</li>
+                        <li><strong>Önleyici Bakım:</strong> Sorunları oluşmadan önce tespit</li>
+                        <li><strong>Müşteri Memnuniyeti:</strong> Hızlı çözüm = memnun kullanıcı</li>
+                    </ul>
+                </div>
+                
+                <div class="troubleshooting-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 1000 çalışanlı şirkette sistem yavaşlığı</p>
+                    <p><strong>Sonuç:</strong> Verimlilik kaybı, çalışan memnuniyetsizliği</p>
+                    <p><strong>Çözüm:</strong> Sistematik sorun giderme ile performans artışı</p>
+                </div>
+            </div>
+
+            <div class="troubleshooting-methodology">
+                <h2>🔧 Sorun Giderme Metodolojisi</h2>
+                
+                <div class="methodology-steps">
+                    <div class="step">
+                        <h3>1. 🎯 Problemi Tanımla</h3>
+                        <ul>
+                            <li>Sorunun ne olduğunu belirle</li>
+                            <li>Etkilenen sistemleri tespit et</li>
+                            <li>Sorunun kapsamını değerlendir</li>
+                            <li>Öncelik seviyesini belirle</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h3>2. 🔍 Bilgi Topla</h3>
+                        <ul>
+                            <li>Kullanıcı raporlarını analiz et</li>
+                            <li>Sistem loglarını incele</li>
+                            <li>Performans verilerini topla</li>
+                            <li>Değişiklik geçmişini kontrol et</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h3>3. 🧪 Hipotez Geliştir</h3>
+                        <ul>
+                            <li>Olası nedenleri listele</li>
+                            <li>En muhtemel nedeni belirle</li>
+                            <li>Test stratejisi oluştur</li>
+                            <li>Risk analizi yap</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h3>4. ⚡ Çözümü Test Et</h3>
+                        <ul>
+                            <li>Test ortamında dene</li>
+                            <li>Adım adım uygula</li>
+                            <li>Sonuçları değerlendir</li>
+                            <li>Geri alma planı hazırla</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h3>5. ✅ Çözümü Uygula</h3>
+                        <ul>
+                            <li>Üretim ortamında uygula</li>
+                            <li>Sonuçları doğrula</li>
+                            <li>Kullanıcı onayını al</li>
+                            <li>İzleme yap</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h3>6. 📚 Dokümante Et</h3>
+                        <ul>
+                            <li>Çözümü kaydet</li>
+                            <li>Bilgi tabanına ekle</li>
+                            <li>Dersleri çıkar</li>
+                            <li>Önleyici önlemler belirle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagnostic-tools">
+                <h2>🛠️ Tanılama Araçları</h2>
+                
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>📊 Event Viewer</h3>
+                        <p>Windows olay günlüklerini görüntüleme</p>
+                        <div class="code-block">
+                            <pre><code># Event Viewer'ı aç
+eventvwr.msc
+
+# PowerShell ile event log'ları görüntüle
+Get-WinEvent -LogName System | Select-Object -First 10
+Get-WinEvent -LogName Application | Where-Object {$_.LevelDisplayName -eq "Error"} | Select-Object -First 5
+
+# Belirli bir olayı filtrele
+Get-WinEvent -FilterHashtable @{LogName='System'; ID=1074} | Select-Object TimeCreated, Message
+
+# Event log'ları temizle
+Clear-EventLog -LogName System
+Clear-EventLog -LogName Application</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>📈 Performance Monitor</h3>
+                        <p>Sistem performansını izleme</p>
+                        <div class="code-block">
+                            <pre><code># Performance Monitor'ü aç
+perfmon.msc
+
+# PowerShell ile performans sayaçları
+Get-Counter -Counter "\Processor(_Total)\% Processor Time" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\Memory\Available MBytes" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\PhysicalDisk(_Total)\% Disk Time" -SampleInterval 1 -MaxSamples 5
+
+# Performans raporu oluştur
+Get-Counter -Counter "\Processor(_Total)\% Processor Time", "\Memory\Available MBytes", "\PhysicalDisk(_Total)\% Disk Time" | Export-Counter -Path "C:\perf-report.csv" -FileFormat CSV</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>🔍 Resource Monitor</h3>
+                        <p>Kaynak kullanımını detaylı izleme</p>
+                        <div class="code-block">
+                            <pre><code># Resource Monitor'ü aç
+resmon.exe
+
+# PowerShell ile kaynak kullanımı
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10
+Get-Service | Where-Object {$_.Status -eq "Running"} | Sort-Object Name</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>🌐 Network Monitor</h3>
+                        <p>Ağ trafiğini analiz etme</p>
+                        <div class="code-block">
+                            <pre><code># Ağ bağlantılarını kontrol et
+netstat -an | findstr :80
+netstat -an | findstr :443
+netstat -an | findstr :3389
+
+# Ağ adaptörlerini kontrol et
+Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+Get-NetIPConfiguration | Select-Object InterfaceAlias, IPv4Address, IPv4DefaultGateway
+
+# Ağ trafiğini test et
+Test-NetConnection -ComputerName "google.com" -Port 80
+Test-NetConnection -ComputerName "8.8.8.8" -Port 53</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="common-issues">
+                <h2>🚨 Yaygın Sorunlar ve Çözümleri</h2>
+                
+                <div class="issue-categories">
+                    <div class="issue-category">
+                        <h3>💻 Sistem Sorunları</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: Bilgisayar Yavaş Çalışıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>Task Manager'ı aç (Ctrl+Shift+Esc)</li>
+                                    <li>Yüksek CPU/Memory kullanan işlemleri kontrol et</li>
+                                    <li>Gereksiz programları kapat</li>
+                                    <li>Disk temizliği yap</li>
+                                    <li>Antivirus taraması çalıştır</li>
+                                    <li>Startup programlarını kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="issue-solution">
+                            <h4>Sorun: Mavi Ekran (BSOD)</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>Hata kodunu not et</li>
+                                    <li>Son yüklenen yazılımları kontrol et</li>
+                                    <li>Driver güncellemelerini kontrol et</li>
+                                    <li>System File Checker çalıştır (sfc /scannow)</li>
+                                    <li>Memory test yap</li>
+                                    <li>Gerekirse sistem geri yükleme yap</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-category">
+                        <h3>🌐 Ağ Sorunları</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: İnternet Bağlantısı Yok</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>Fiziksel bağlantıyı kontrol et</li>
+                                    <li>IP adresini kontrol et (ipconfig)</li>
+                                    <li>Gateway'e ping at</li>
+                                    <li>DNS ayarlarını kontrol et</li>
+                                    <li>Router'ı yeniden başlat</li>
+                                    <li>Network adapter'ı yeniden başlat</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="issue-solution">
+                            <h4>Sorun: RDP Bağlantısı Kurulamıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>RDP servisinin çalıştığını kontrol et</li>
+                                    <li>Firewall kurallarını kontrol et</li>
+                                    <li>Kullanıcı izinlerini kontrol et</li>
+                                    <li>Port ayarlarını kontrol et</li>
+                                    <li>Network connectivity'yi test et</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-category">
+                        <h3>📧 E-posta Sorunları</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: E-posta Gönderilemiyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>İnternet bağlantısını kontrol et</li>
+                                    <li>SMTP ayarlarını kontrol et</li>
+                                    <li>Antivirus programını kontrol et</li>
+                                    <li>Outlook'u yeniden başlat</li>
+                                    <li>E-posta hesabını yeniden yapılandır</li>
+                                    <li>Exchange server durumunu kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="log-analysis">
+                <h2>📊 Log Analizi</h2>
+                
+                <h3>Windows Event Logs</h3>
+                <div class="code-block">
+                    <pre><code># Sistem loglarını analiz et
+Get-WinEvent -LogName System | Where-Object {$_.LevelDisplayName -eq "Error"} | Select-Object TimeCreated, Id, LevelDisplayName, Message | Format-Table -AutoSize
+
+# Uygulama loglarını analiz et
+Get-WinEvent -LogName Application | Where-Object {$_.LevelDisplayName -eq "Error"} | Select-Object TimeCreated, Id, LevelDisplayName, Message | Format-Table -AutoSize
+
+# Güvenlik loglarını analiz et
+Get-WinEvent -LogName Security | Where-Object {$_.Id -eq 4625} | Select-Object TimeCreated, Message
+
+# Belirli bir zaman aralığındaki logları analiz et
+$StartTime = (Get-Date).AddDays(-1)
+$EndTime = Get-Date
+Get-WinEvent -FilterHashtable @{LogName='System'; StartTime=$StartTime; EndTime=$EndTime} | Where-Object {$_.LevelDisplayName -eq "Error"}</code></pre>
+                </div>
+
+                <h3>IIS Logs</h3>
+                <div class="code-block">
+                    <pre><code># IIS log dosyalarını analiz et
+$LogPath = "C:\inetpub\logs\LogFiles\W3SVC1"
+Get-ChildItem -Path $LogPath -Filter "*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | ForEach-Object {
+    Get-Content $_.FullName | Select-String "404" | Select-Object -First 10
+}
+
+# HTTP status kodlarını analiz et
+$LogContent = Get-Content "C:\inetpub\logs\LogFiles\W3SVC1\ex*.log" | Select-String "GET"
+$LogContent | ForEach-Object {
+    $_.Line -split " " | Select-Object -Index 8
+} | Group-Object | Sort-Object Count -Descending</code></pre>
+                </div>
+            </div>
+
+            <div class="performance-troubleshooting">
+                <h2>⚡ Performans Sorun Giderme</h2>
+                
+                <h3>CPU Kullanımı</h3>
+                <div class="code-block">
+                    <pre><code># Yüksek CPU kullanan işlemleri bul
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 Name, CPU, WorkingSet
+
+# CPU kullanımını sürekli izle
+while ($true) {
+    Get-Counter -Counter "\Processor(_Total)\% Processor Time" -SampleInterval 1 -MaxSamples 1
+    Start-Sleep -Seconds 5
+}
+
+# Belirli bir işlemin CPU kullanımını izle
+Get-Process -Name "chrome" | ForEach-Object {
+    Get-Counter -Counter "\Process($($_.ProcessName))\% Processor Time" -SampleInterval 1 -MaxSamples 5
+}</code></pre>
+                </div>
+
+                <h3>Memory Kullanımı</h3>
+                <div class="code-block">
+                    <pre><code># Memory kullanımını kontrol et
+Get-Counter -Counter "\Memory\Available MBytes" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\Memory\% Committed Bytes In Use" -SampleInterval 1 -MaxSamples 5
+
+# Yüksek memory kullanan işlemleri bul
+Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10 Name, WorkingSet, CPU
+
+# Memory kullanımını sürekli izle
+while ($true) {
+    $Memory = Get-Counter -Counter "\Memory\Available MBytes" -SampleInterval 1 -MaxSamples 1
+    Write-Host "Available Memory: $($Memory.CounterSamples[0].CookedValue) MB"
+    Start-Sleep -Seconds 5
+}</code></pre>
+                </div>
+
+                <h3>Disk Kullanımı</h3>
+                <div class="code-block">
+                    <pre><code># Disk kullanımını kontrol et
+Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, @{Name="Size(GB)";Expression={[math]::Round($_.Size/1GB,2)}}, @{Name="FreeSpace(GB)";Expression={[math]::Round($_.FreeSpace/1GB,2)}}, @{Name="PercentFree";Expression={[math]::Round(($_.FreeSpace/$_.Size)*100,2)}}
+
+# Disk performansını izle
+Get-Counter -Counter "\PhysicalDisk(_Total)\% Disk Time" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\PhysicalDisk(_Total)\Avg. Disk Queue Length" -SampleInterval 1 -MaxSamples 5
+
+# En büyük dosyaları bul
+Get-ChildItem -Path "C:\" -Recurse -File | Sort-Object Length -Descending | Select-Object -First 20 Name, @{Name="Size(GB)";Expression={[math]::Round($_.Length/1GB,2)}}, FullName</code></pre>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Kritik Sunucu Performans Sorunu</h3>
+                    <p><strong>Şirket:</strong> 500 çalışanlı e-ticaret firması</p>
+                    <p><strong>Sorun:</strong> Web sunucusu yavaş çalışıyor</p>
+                    
+                    <h4>Sorun Giderme Süreci:</h4>
+                    <div class="troubleshooting-timeline">
+                        <div class="timeline-event">
+                            <h5>🚨 09:00 - Sorun Tespiti</h5>
+                            <p>Kullanıcılar web sitesinin yavaş açıldığını bildirdi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔍 09:15 - İlk Analiz</h5>
+                            <p>CPU kullanımı %95, Memory kullanımı %90 tespit edildi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🧪 09:30 - Detaylı İnceleme</h5>
+                            <p>IIS log'larında 404 hatalarının arttığı görüldü</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔧 10:00 - Çözüm Uygulama</h5>
+                            <p>Gereksiz işlemler sonlandırıldı, IIS yeniden başlatıldı</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>✅ 10:30 - Normale Dönüş</h5>
+                            <p>Performans normale döndü, izleme devam ediyor</p>
+                        </div>
+                    </div>
+
+                    <h4>Alınan Dersler:</h4>
+                    <ul>
+                        <li>Proaktif izleme sisteminin önemi</li>
+                        <li>Log analizinin kritikliği</li>
+                        <li>Performans baseline'ının değeri</li>
+                        <li>Otomatik alerting sisteminin gerekliliği</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="preventive-measures">
+                <h2>🛡️ Önleyici Önlemler</h2>
+                
+                <div class="preventive-categories">
+                    <div class="preventive-category">
+                        <h3>📊 İzleme Sistemleri</h3>
+                        <ul>
+                            <li>Real-time monitoring</li>
+                            <li>Performance baselines</li>
+                            <li>Alert thresholds</li>
+                            <li>Automated reporting</li>
+                        </ul>
+                    </div>
+
+                    <div class="preventive-category">
+                        <h3>🔄 Düzenli Bakım</h3>
+                        <ul>
+                            <li>System updates</li>
+                            <li>Driver updates</li>
+                            <li>Security patches</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="preventive-category">
+                        <h3>📚 Dokümantasyon</h3>
+                        <ul>
+                            <li>System documentation</li>
+                            <li>Change logs</li>
+                            <li>Knowledge base</li>
+                            <li>Best practices</li>
+                        </ul>
+                    </div>
+
+                    <div class="preventive-category">
+                        <h3>👥 Eğitim</h3>
+                        <ul>
+                            <li>User training</li>
+                            <li>IT staff training</li>
+                            <li>Certification programs</li>
+                            <li>Knowledge sharing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Sorun giderme temellerini öğrendikten sonra, <a href="bolum-14-cloud-teknolojileri.html">Cloud Teknolojileri</a> bölümüne geçerek modern bulut çözümlerini inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-14-cloud-teknolojileri.html" class="btn btn-primary">☁️ Cloud Teknolojileri →</a>
+                    <a href="bolum-12-remote-management.html" class="btn btn-secondary">← Remote Management</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

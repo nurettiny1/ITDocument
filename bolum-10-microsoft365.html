@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Microsoft 365 Adminliği - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Microsoft 365 Adminliği</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="microsoft365">
+            <h1>☁️ Microsoft 365 Adminliği</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Microsoft 365 Neden Önemli?</h2>
+                <p>Microsoft 365, modern işletmelerin dijital dönüşümünün anahtarıdır. <strong>Neden Microsoft 365 kullanmalıyız?</strong></p>
+                
+                <div class="why-microsoft365">
+                    <h4>🔍 Microsoft 365'in Faydaları:</h4>
+                    <ul>
+                        <li><strong>Bulut Avantajları:</strong> Her yerden erişim, otomatik güncellemeler</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> On-premises sunucu maliyetleri yok</li>
+                        <li><strong>İşbirliği:</strong> Ekip çalışması için gelişmiş araçlar</li>
+                        <li><strong>Güvenlik:</strong> Enterprise seviye güvenlik özellikleri</li>
+                        <li><strong>Ölçeklenebilirlik:</strong> Kullanıcı sayısına göre esnek lisanslama</li>
+                    </ul>
+                </div>
+                
+                <div class="m365-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 300 çalışanlı şirkette on-premises sistemler yetersiz</p>
+                    <p><strong>Sonuç:</strong> Yavaş performans, yüksek maliyet, güvenlik açıkları</p>
+                    <p><strong>Çözüm:</strong> Microsoft 365 ile bulut geçişi</p>
+                </div>
+            </div>
+
+            <div class="m365-services">
+                <h2>🛠️ Microsoft 365 Servisleri</h2>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>📧 Exchange Online</h3>
+                        <p>Bulut tabanlı e-posta ve takvim servisi</p>
+                        <ul>
+                            <li>E-posta hosting</li>
+                            <li>Takvim ve kişiler</li>
+                            <li>Mailbox yönetimi</li>
+                            <li>Güvenlik ve compliance</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>📁 SharePoint Online</h3>
+                        <p>Doküman yönetimi ve işbirliği platformu</p>
+                        <ul>
+                            <li>Dosya paylaşımı</li>
+                            <li>Team sites</li>
+                            <li>Workflow automation</li>
+                            <li>Content management</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>💬 Teams</h3>
+                        <p>İşbirliği ve iletişim platformu</p>
+                        <ul>
+                            <li>Chat ve video konferans</li>
+                            <li>Dosya paylaşımı</li>
+                            <li>App entegrasyonu</li>
+                            <li>Meeting recording</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <h3>📊 Power Platform</h3>
+                        <p>Düşük kod/no-code geliştirme platformu</p>
+                        <ul>
+                            <li>Power Apps</li>
+                            <li>Power Automate</li>
+                            <li>Power BI</li>
+                            <li>Power Virtual Agents</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-centers">
+                <h2>🎛️ Yönetim Merkezleri</h2>
+                
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <h3>👑 Microsoft 365 Admin Center</h3>
+                        <p>Genel yönetim merkezi</p>
+                        <ul>
+                            <li>Kullanıcı yönetimi</li>
+                            <li>Lisans yönetimi</li>
+                            <li>Faturalandırma</li>
+                            <li>Servis durumu</li>
+                        </ul>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>📧 Exchange Admin Center</h3>
+                        <p>E-posta servis yönetimi</p>
+                        <ul>
+                            <li>Mailbox yönetimi</li>
+                            <li>Distribution groups</li>
+                            <li>Mail flow rules</li>
+                            <li>Compliance policies</li>
+                        </ul>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>🔒 Security & Compliance Center</h3>
+                        <p>Güvenlik ve uyumluluk yönetimi</p>
+                        <ul>
+                            <li>Threat management</li>
+                            <li>Data loss prevention</li>
+                            <li>Audit logs</li>
+                            <li>Retention policies</li>
+                        </ul>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>📊 Azure Active Directory</h3>
+                        <p>Kimlik ve erişim yönetimi</p>
+                        <ul>
+                            <li>User authentication</li>
+                            <li>Conditional access</li>
+                            <li>Multi-factor authentication</li>
+                            <li>Application management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-management">
+                <h2>👤 Kullanıcı Yönetimi</h2>
+                
+                <h3>Kullanıcı Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># PowerShell ile kullanıcı oluşturma
+Connect-MsolService
+
+# Yeni kullanıcı oluştur
+New-MsolUser -UserPrincipalName "john.doe@company.com" `
+    -DisplayName "John Doe" `
+    -FirstName "John" `
+    -LastName "Doe" `
+    -Password "TempPass123!" `
+    -ForceChangePassword $true
+
+# Lisans atama
+Set-MsolUserLicense -UserPrincipalName "john.doe@company.com" `
+    -AddLicenses "company:ENTERPRISEPACK"
+
+# Kullanıcı grubuna ekleme
+Add-MsolGroupMember -GroupObjectId "group-guid" `
+    -GroupMemberType "User" `
+    -GroupMemberObjectId "user-guid"</code></pre>
+                </div>
+
+                <h3>Toplu Kullanıcı Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># CSV dosyasından toplu kullanıcı oluşturma
+$users = Import-Csv -Path "C:\Users\new_users.csv"
+
+foreach ($user in $users) {
+    # Kullanıcı oluştur
+    New-MsolUser -UserPrincipalName $user.Email `
+        -DisplayName $user.FullName `
+        -FirstName $user.FirstName `
+        -LastName $user.LastName `
+        -Password "TempPass123!" `
+        -ForceChangePassword $true
+    
+    # Lisans ata
+    Set-MsolUserLicense -UserPrincipalName $user.Email `
+        -AddLicenses "company:ENTERPRISEPACK"
+    
+    Write-Host "Kullanıcı oluşturuldu: $($user.FullName)" -ForegroundColor Green
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="exchange-online">
+                <h2>📧 Exchange Online Yönetimi</h2>
+                
+                <h3>Mailbox Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># Exchange Online'a bağlan
+Connect-ExchangeOnline
+
+# Mailbox oluşturma
+New-Mailbox -UserPrincipalName "john.doe@company.com" `
+    -Alias "john.doe" `
+    -Name "John Doe" `
+    -DisplayName "John Doe" `
+    -Password (ConvertTo-SecureString "TempPass123!" -AsPlainText -Force)
+
+# Mailbox özelliklerini güncelleme
+Set-Mailbox -Identity "john.doe@company.com" `
+    -ProhibitSendQuota 2GB `
+    -ProhibitSendReceiveQuota 2.5GB `
+    -IssueWarningQuota 1.5GB
+
+# Distribution group oluşturma
+New-DistributionGroup -Name "IT Department" `
+    -DisplayName "IT Department" `
+    -Alias "IT-Dept" `
+    -ManagedBy "admin@company.com"
+
+# Distribution group'a üye ekleme
+Add-DistributionGroupMember -Identity "IT Department" `
+    -Member "john.doe@company.com"</code></pre>
+                </div>
+
+                <h3>Mail Flow Kuralları</h3>
+                <div class="code-block">
+                    <pre><code># Mail flow kuralı oluşturma
+New-TransportRule -Name "Block External Attachments" `
+    -FromScope "NotInOrganization" `
+    -AttachmentHasExecutableContent $true `
+    -RejectMessageReasonText "Executable attachments are not allowed from external senders"
+
+# Spam filtreleme kuralı
+New-TransportRule -Name "High Confidence Spam" `
+    -SetHeaderName "X-Spam-Level" `
+    -SetHeaderValue "High" `
+    -SclValue 5 `
+    -Quarantine $true</code></pre>
+                </div>
+            </div>
+
+            <div class="sharepoint-online">
+                <h2>📁 SharePoint Online Yönetimi</h2>
+                
+                <h3>Site Collection Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># SharePoint Online'a bağlan
+Connect-PnPOnline -Url "https://company.sharepoint.com" -Interactive
+
+# Site collection oluşturma
+New-PnPSite -Type TeamSite -Title "IT Department" `
+    -Alias "it-dept" `
+    -Description "IT Department collaboration site"
+
+# Site izinleri ayarlama
+Set-PnPWebPermission -Identity "IT Department" `
+    -User "john.doe@company.com" `
+    -AddRole "Full Control"
+
+# List oluşturma
+New-PnPList -Title "Project Documents" `
+    -Template DocumentLibrary `
+    -OnQuickLaunch</code></pre>
+                </div>
+
+                <h3>Doküman Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># Dosya yükleme
+Add-PnPFile -Path "C:\Documents\project.docx" `
+    -Folder "Shared Documents" `
+    -NewFileName "Project Plan.docx"
+
+# Dosya izinleri ayarlama
+Set-PnPListItemPermission -List "Documents" `
+    -Identity 1 `
+    -User "john.doe@company.com" `
+    -AddRole "Contribute"
+
+# Versioning etkinleştirme
+Set-PnPList -Identity "Documents" `
+    -EnableVersioning $true `
+    -MajorVersions 10</code></pre>
+                </div>
+            </div>
+
+            <div class="teams-management">
+                <h2>💬 Microsoft Teams Yönetimi</h2>
+                
+                <h3>Team Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># Teams'e bağlan
+Connect-MicrosoftTeams
+
+# Team oluşturma
+New-Team -DisplayName "IT Department" `
+    -Description "IT Department collaboration team" `
+    -Visibility "Private"
+
+# Team'e üye ekleme
+Add-TeamUser -GroupId "team-guid" `
+    -User "john.doe@company.com" `
+    -Role "Member"
+
+# Channel oluşturma
+New-TeamChannel -GroupId "team-guid" `
+    -DisplayName "General Discussion" `
+    -Description "General team discussions"</code></pre>
+                </div>
+
+                <h3>Teams Politikaları</h3>
+                <div class="code-block">
+                    <pre><code># Teams meeting politikası oluşturma
+New-CsTeamsMeetingPolicy -Identity "RestrictedMeetings" `
+    -AllowIPVideo $false `
+    -AllowAnonymousUsersToStartMeeting $false `
+    -AllowAnonymousUsersToJoinMeeting $false
+
+# Teams messaging politikası
+New-CsTeamsMessagingPolicy -Identity "RestrictedMessaging" `
+    -AllowUserChat $true `
+    -AllowUserDeleteMessage $false `
+    -AllowUserEditMessage $false</code></pre>
+                </div>
+            </div>
+
+            <div class="security-compliance">
+                <h2>🔒 Güvenlik ve Uyumluluk</h2>
+                
+                <h3>Multi-Factor Authentication</h3>
+                <div class="code-block">
+                    <pre><code># MFA'yı etkinleştir
+Set-MsolUser -UserPrincipalName "john.doe@company.com" `
+    -StrongAuthenticationRequired $true
+
+# MFA durumunu kontrol et
+Get-MsolUser -UserPrincipalName "john.doe@company.com" `
+    | Select-Object UserPrincipalName, StrongAuthenticationRequirements</code></pre>
+                </div>
+
+                <h3>Conditional Access</h3>
+                <div class="code-block">
+                    <pre><code># Conditional Access politikası oluşturma
+New-AzureADMSConditionalAccessPolicy -DisplayName "Require MFA for Admin" `
+    -State "Enabled" `
+    -Conditions @{
+        Users = @{
+            IncludeUsers = @("admin@company.com")
+        }
+        Applications = @{
+            IncludeApplications = @("All")
+        }
+        ClientAppTypes = @("Browser", "MobileAppsAndDesktopClients")
+    } `
+    -GrantControls @{
+        BuiltInControls = @("Mfa")
+    }</code></pre>
+                </div>
+
+                <h3>Data Loss Prevention (DLP)</h3>
+                <div class="code-block">
+                    <pre><code># DLP politikası oluşturma
+New-DlpCompliancePolicy -Name "Financial Data Protection" `
+    -Comment "Protect financial data from unauthorized sharing" `
+    -Mode "Enforce"
+
+# DLP kuralı oluşturma
+New-DlpComplianceRule -Name "Credit Card Detection" `
+    -Policy "Financial Data Protection" `
+    -ContentContainsSensitiveInformation @{
+        SensitiveInformation = @{
+            Name = "Credit Card Number"
+            MinCount = 1
+        }
+    } `
+    -BlockAccess $true</code></pre>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Hibrit Ortam Microsoft 365 Geçişi</h3>
+                    <p><strong>Şirket:</strong> 500 çalışanlı teknoloji firması</p>
+                    <p><strong>Durum:</strong> On-premises Exchange'den Office 365'e geçiş</p>
+                    
+                    <h4>Geçiş Süreci:</h4>
+                    <div class="migration-timeline">
+                        <div class="timeline-event">
+                            <h5>📋 1. Hafta - Planlama</h5>
+                            <ul>
+                                <li>Mevcut altyapı analizi</li>
+                                <li>Kullanıcı ve mailbox envanteri</li>
+                                <li>Geçiş stratejisi belirleme</li>
+                                <li>Test ortamı hazırlama</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔧 2. Hafta - Hazırlık</h5>
+                            <ul>
+                                <li>Office 365 tenant yapılandırması</li>
+                                <li>DNS kayıtları güncelleme</li>
+                                <li>Hybrid connection kurulumu</li>
+                                <li>Pilot kullanıcı seçimi</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🧪 3. Hafta - Pilot Test</h5>
+                            <ul>
+                                <li>Pilot kullanıcıların geçişi</li>
+                                <li>Fonksiyonel testler</li>
+                                <li>Performans değerlendirmesi</li>
+                                <li>Kullanıcı eğitimleri</li>
+                            </ul>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🚀 4. Hafta - Tam Geçiş</h5>
+                            <ul>
+                                <li>Tüm kullanıcıların geçişi</li>
+                                <li>Mail flow yönlendirmesi</li>
+                                <li>On-premises sunucu devre dışı</li>
+                                <li>Go-live desteği</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Geçiş Sonrası Operasyonlar:</h4>
+                    <div class="post-migration">
+                        <div class="operation-category">
+                            <h5>📊 Günlük İzleme</h5>
+                            <ul>
+                                <li>Mail flow durumu</li>
+                                <li>Kullanıcı erişim sorunları</li>
+                                <li>Performans metrikleri</li>
+                                <li>Güvenlik olayları</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-category">
+                            <h5>🔧 Haftalık Bakım</h5>
+                            <ul>
+                                <li>Lisans yönetimi</li>
+                                <li>Güvenlik politikaları güncelleme</li>
+                                <li>Backup verification</li>
+                                <li>Kullanıcı eğitimleri</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="monitoring-reporting">
+                <h2>📊 İzleme ve Raporlama</h2>
+                
+                <h3>Kullanım Raporları</h3>
+                <div class="code-block">
+                    <pre><code># Office 365 kullanım raporları
+Get-Report -ReportName "Office365ActiveUsers" `
+    -StartDate (Get-Date).AddDays(-30) `
+    -EndDate (Get-Date)
+
+# Exchange Online raporları
+Get-MailboxStatistics -Identity "john.doe@company.com" `
+    | Select-Object DisplayName, ItemCount, TotalItemSize
+
+# Teams kullanım raporları
+Get-TeamUser -GroupId "team-guid" `
+    | Select-Object User, Role, LastActivityDate</code></pre>
+                </div>
+
+                <h3>Güvenlik Raporları</h3>
+                <div class="code-block">
+                    <pre><code># Güvenlik olayları
+Get-AuditLog -StartDate (Get-Date).AddDays(-7) `
+    -EndDate (Get-Date) `
+    -Operations "UserLoggedIn"
+
+# Riskli kullanıcılar
+Get-AzureADUserRiskPolicy `
+    | Select-Object DisplayName, RiskLevel
+
+# MFA durumu
+Get-MsolUser -All `
+    | Where-Object {$_.StrongAuthenticationRequirements -ne $null} `
+    | Select-Object UserPrincipalName, StrongAuthenticationRequirements</code></pre>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Microsoft 365 adminliğini öğrendikten sonra, <a href="bolum-11-mail-server.html">Mail Server Yönetimi</a> bölümüne geçerek Exchange Server konularını inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-11-mail-server.html" class="btn btn-primary">📧 Mail Server →</a>
+                    <a href="bolum-09-helpdesk.html" class="btn btn-secondary">← Helpdesk</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Giriş ve Temel Kavramlar - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Giriş ve Temel Kavramlar</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="giris">
+            <h1>📚 Giriş ve Temel Kavramlar</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 IT Dünyasına Hoş Geldiniz</h2>
+                <p>Bu eğitim programı, IT dünyasında kariyer yapmak isteyenler için kapsamlı bir rehber niteliğindedir. Sistem yöneticiliği, ağ yönetimi, güvenlik ve modern IT teknolojileri konularında derinlemesine bilgi sahibi olacaksınız.</p>
+            </div>
+
+            <div class="learning-objectives">
+                <h2>🎓 Öğrenme Hedefleri</h2>
+                <ul>
+                    <li>IT alanında temel kavramları öğrenmek</li>
+                    <li>Sistem yöneticiliği rollerini anlamak</li>
+                    <li>Ağ teknolojilerinin temellerini kavramak</li>
+                    <li>Güvenlik prensiplerini öğrenmek</li>
+                    <li>Modern IT araçlarını kullanabilmek</li>
+                </ul>
+            </div>
+
+            <div class="career-paths">
+                <h2>🚀 Kariyer Yolları</h2>
+                <div class="career-grid">
+                    <div class="career-card">
+                        <h3>🖥️ Sistem Yöneticisi</h3>
+                        <p>Sunucu yönetimi, kullanıcı hesapları, backup ve restore işlemleri</p>
+                        <ul>
+                            <li>Windows Server yönetimi</li>
+                            <li>Active Directory yapılandırması</li>
+                            <li>PowerShell scripting</li>
+                        </ul>
+                    </div>
+                    <div class="career-card">
+                        <h3>🌐 Ağ Yöneticisi</h3>
+                        <p>Ağ altyapısı tasarımı, güvenlik duvarı yönetimi, ağ performansı</p>
+                        <ul>
+                            <li>TCP/IP protokolleri</li>
+                            <li>Router ve switch yönetimi</li>
+                            <li>VPN yapılandırması</li>
+                        </ul>
+                    </div>
+                    <div class="career-card">
+                        <h3>🔒 Siber Güvenlik Uzmanı</h3>
+                        <p>Güvenlik tehditlerini analiz etme, güvenlik politikaları oluşturma</p>
+                        <ul>
+                            <li>Penetration testing</li>
+                            <li>Incident response</li>
+                            <li>Security monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="career-card">
+                        <h3>☁️ Cloud Architect</h3>
+                        <p>Bulut altyapısı tasarımı, hibrit çözümler, DevOps süreçleri</p>
+                        <ul>
+                            <li>Azure/AWS yönetimi</li>
+                            <li>Container teknolojileri</li>
+                            <li>Infrastructure as Code</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="it-fundamentals">
+                <h2>🔧 IT Temel Kavramları</h2>
+                
+                <h3>💻 Donanım (Hardware)</h3>
+                <div class="concept-box">
+                    <h4>Sunucu Donanımları</h4>
+                    <ul>
+                        <li><strong>CPU:</strong> İşlemci gücü, çekirdek sayısı</li>
+                        <li><strong>RAM:</strong> Bellek kapasitesi, hızı</li>
+                        <li><strong>Storage:</strong> SSD/HDD, RAID yapılandırması</li>
+                        <li><strong>Network:</strong> Ağ kartları, bant genişliği</li>
+                    </ul>
+                </div>
+
+                <h3>🌐 Ağ Temelleri</h3>
+                <div class="concept-box">
+                    <h4>OSI Modeli</h4>
+                    <ol>
+                        <li><strong>Physical:</strong> Fiziksel bağlantı</li>
+                        <li><strong>Data Link:</strong> MAC adresleri</li>
+                        <li><strong>Network:</strong> IP adresleri, routing</li>
+                        <li><strong>Transport:</strong> TCP/UDP protokolleri</li>
+                        <li><strong>Session:</strong> Oturum yönetimi</li>
+                        <li><strong>Presentation:</strong> Veri formatı</li>
+                        <li><strong>Application:</strong> Uygulama katmanı</li>
+                    </ol>
+                </div>
+
+                <h3>🔒 Güvenlik Prensipleri</h3>
+                <div class="concept-box">
+                    <h4>CIA Triad</h4>
+                    <ul>
+                        <li><strong>Confidentiality (Gizlilik):</strong> Yetkisiz erişimi engelleme</li>
+                        <li><strong>Integrity (Bütünlük):</strong> Veri değişikliklerini kontrol etme</li>
+                        <li><strong>Availability (Erişilebilirlik):</strong> Sürekli hizmet sağlama</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Orta Ölçekli Şirket IT Altyapısı</h3>
+                    <p><strong>Şirket:</strong> 500 çalışanlı teknoloji firması</p>
+                    <p><strong>IT Altyapısı:</strong></p>
+                    <ul>
+                        <li>2 adet Domain Controller (Windows Server 2019)</li>
+                        <li>1 adet Exchange Server (Mail sistemi)</li>
+                        <li>1 adet File Server (Dosya paylaşımı)</li>
+                        <li>FortiGate Firewall (Güvenlik duvarı)</li>
+                        <li>Microsoft 365 (Office uygulamaları)</li>
+                    </ul>
+                    
+                    <h4>Günlük IT Operasyonları:</h4>
+                    <ol>
+                        <li><strong>Sabah 08:00:</strong> Sistem sağlık kontrolü</li>
+                        <li><strong>09:00-17:00:</strong> Kullanıcı destek talepleri</li>
+                        <li><strong>17:00-18:00:</strong> Backup işlemleri</li>
+                        <li><strong>Gece:</strong> Sistem güncellemeleri</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="learning-path">
+                <h2>📚 Öğrenme Yol Haritası</h2>
+                <div class="path-timeline">
+                    <div class="path-step">
+                        <h3>1. Hafta: Temel Kavramlar</h3>
+                        <p>IT dünyasına giriş, donanım, yazılım kavramları</p>
+                    </div>
+                    <div class="path-step">
+                        <h3>2-3. Hafta: Ağ Temelleri</h3>
+                        <p>OSI modeli, TCP/IP, subnetting, routing</p>
+                    </div>
+                    <div class="path-step">
+                        <h3>4-5. Hafta: Windows Server</h3>
+                        <p>Kurulum, yapılandırma, temel servisler</p>
+                    </div>
+                    <div class="path-step">
+                        <h3>6-7. Hafta: Active Directory</h3>
+                        <p>Domain Controller, kullanıcı yönetimi, grup politikaları</p>
+                    </div>
+                    <div class="path-step">
+                        <h3>8-9. Hafta: PowerShell</h3>
+                        <p>Scripting, otomasyon, cmdlet'ler</p>
+                    </div>
+                    <div class="path-step">
+                        <h3>10-11. Hafta: Güvenlik</h3>
+                        <p>Güvenlik tehditleri, koruma yöntemleri</p>
+                    </div>
+                    <div class="path-step">
+                        <h3>12. Hafta: Proje ve Değerlendirme</h3>
+                        <p>Gerçek proje uygulaması, sertifika hazırlığı</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tools-and-software">
+                <h2>🛠️ Kullanılacak Araçlar ve Yazılımlar</h2>
+                <div class="tools-grid">
+                    <div class="tool-category">
+                        <h3>💻 İşletim Sistemleri</h3>
+                        <ul>
+                            <li>Windows Server 2019/2022</li>
+                            <li>Windows 10/11 (Client)</li>
+                            <li>Linux (Ubuntu/CentOS)</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <h3>🌐 Ağ Araçları</h3>
+                        <ul>
+                            <li>Wireshark (Ağ analizi)</li>
+                            <li>PuTTY (SSH client)</li>
+                            <li>FortiGate (Firewall)</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <h3>⚡ Scripting</h3>
+                        <ul>
+                            <li>PowerShell</li>
+                            <li>Python</li>
+                            <li>Bash</li>
+                        </ul>
+                    </div>
+                    <div class="tool-category">
+                        <h3>☁️ Cloud Platformları</h3>
+                        <ul>
+                            <li>Microsoft Azure</li>
+                            <li>Amazon AWS</li>
+                            <li>Google Cloud Platform</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certification-info">
+                <h2>🏆 Sertifikasyon Bilgileri</h2>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <h3>Microsoft Sertifikaları</h3>
+                        <ul>
+                            <li><strong>AZ-104:</strong> Microsoft Azure Administrator</li>
+                            <li><strong>AZ-800:</strong> Windows Server Hybrid Administrator</li>
+                            <li><strong>MS-100:</strong> Microsoft 365 Identity and Services</li>
+                        </ul>
+                    </div>
+                    <div class="cert-card">
+                        <h3>CompTIA Sertifikaları</h3>
+                        <ul>
+                            <li><strong>Network+:</strong> Ağ yönetimi temelleri</li>
+                            <li><strong>Security+:</strong> Siber güvenlik temelleri</li>
+                            <li><strong>Server+:</strong> Sunucu yönetimi</li>
+                        </ul>
+                    </div>
+                    <div class="cert-card">
+                        <h3>Fortinet Sertifikaları</h3>
+                        <ul>
+                            <li><strong>NSE 4:</strong> FortiGate Security</li>
+                            <li><strong>NSE 5:</strong> FortiManager</li>
+                            <li><strong>NSE 6:</strong> FortiAnalyzer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Bu giriş bölümünü tamamladıktan sonra, <a href="bolum-02-ag-temelleri.html">Ağ Temelleri</a> bölümüne geçerek IT dünyasının temelini oluşturan ağ teknolojilerini öğrenmeye başlayabilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-02-ag-temelleri.html" class="btn btn-primary">🌐 Ağ Temelleri →</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

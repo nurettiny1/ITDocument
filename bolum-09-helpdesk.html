@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Helpdesk & IT Support - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Helpdesk & IT Support</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="helpdesk">
+            <h1>🎧 Helpdesk & IT Support</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Helpdesk Neden Kritik?</h2>
+                <p>Helpdesk, modern işletmelerin kalbidir. <strong>Neden Helpdesk önemli?</strong></p>
+                
+                <div class="why-helpdesk">
+                    <h4>🔍 Helpdesk'in Faydaları:</h4>
+                    <ul>
+                        <li><strong>Verimlilik Artışı:</strong> Çalışanlar sorun yaşamadan çalışır</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Sistem durması milyonlarca lira kayıp</li>
+                        <li><strong>Müşteri Memnuniyeti:</strong> Hızlı çözüm = memnun kullanıcı</li>
+                        <li><strong>Güvenlik:</strong> Teknik sorunlar güvenlik açığı yaratabilir</li>
+                        <li><strong>İş Sürekliliği:</strong> 7/24 çalışan sistemler</li>
+                    </ul>
+                </div>
+                
+                <div class="helpdesk-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 1000 çalışanlı şirkette IT sorunları çözülemiyor</p>
+                    <p><strong>Sonuç:</strong> Verimlilik kaybı, maliyet artışı, çalışan memnuniyetsizliği</p>
+                    <p><strong>Çözüm:</strong> Profesyonel Helpdesk ekibi ile 7/24 destek</p>
+                </div>
+            </div>
+
+            <div class="helpdesk-roles">
+                <h2>👥 Helpdesk Rolleri ve Sorumlulukları</h2>
+                
+                <div class="role-grid">
+                    <div class="role-card">
+                        <h3>🎧 Level 1 Support</h3>
+                        <h4>Sorumluluklar:</h4>
+                        <ul>
+                            <li>İlk seviye kullanıcı desteği</li>
+                            <li>Temel sorun giderme</li>
+                            <li>Ticket oluşturma ve yönlendirme</li>
+                            <li>Kullanıcı eğitimi</li>
+                        </ul>
+                        <h4>Gerekli Beceriler:</h4>
+                        <ul>
+                            <li>Windows işletim sistemi</li>
+                            <li>Office uygulamaları</li>
+                            <li>Temel ağ bilgisi</li>
+                            <li>Müşteri hizmetleri</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card">
+                        <h3>🔧 Level 2 Support</h3>
+                        <h4>Sorumluluklar:</h4>
+                        <ul>
+                            <li>Karmaşık teknik sorunlar</li>
+                            <li>Sistem yapılandırması</li>
+                            <li>Uygulama yönetimi</li>
+                            <li>Level 1'e rehberlik</li>
+                        </ul>
+                        <h4>Gerekli Beceriler:</h4>
+                        <ul>
+                            <li>Active Directory</li>
+                            <li>Exchange Server</li>
+                            <li>PowerShell temelleri</li>
+                            <li>Veritabanı yönetimi</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card">
+                        <h3>🏗️ Level 3 Support</h3>
+                        <h4>Sorumluluklar:</h4>
+                        <ul>
+                            <li>Kritik sistem sorunları</li>
+                            <li>Altyapı tasarımı</li>
+                            <li>Proje yönetimi</li>
+                            <li>Vendor koordinasyonu</li>
+                        </ul>
+                        <h4>Gerekli Beceriler:</h4>
+                        <ul>
+                            <li>Sunucu yönetimi</li>
+                            <li>Ağ altyapısı</li>
+                            <li>Güvenlik protokolleri</li>
+                            <li>Cloud teknolojileri</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>1000 Çalışanlı Şirket IT Destek Merkezi</h3>
+                    <p><strong>Şirket:</strong> Çok uluslu teknoloji firması</p>
+                    <p><strong>IT Destek Ekibi:</strong> 15 kişi</p>
+                    
+                    <h4>Günlük Operasyonlar:</h4>
+                    <div class="daily-operations">
+                        <div class="operation-shift">
+                            <h5>🌅 Sabah Vardiyası (08:00-16:00)</h5>
+                            <ul>
+                                <li>5 Level 1 Support</li>
+                                <li>2 Level 2 Support</li>
+                                <li>1 Level 3 Support</li>
+                                <li>Günlük 200-300 ticket</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-shift">
+                            <h5>🌆 Akşam Vardiyası (16:00-00:00)</h5>
+                            <ul>
+                                <li>3 Level 1 Support</li>
+                                <li>1 Level 2 Support</li>
+                                <li>1 Level 3 Support</li>
+                                <li>Günlük 100-150 ticket</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-shift">
+                            <h5>🌙 Gece Vardiyası (00:00-08:00)</h5>
+                            <ul>
+                                <li>2 Level 1 Support</li>
+                                <li>1 Level 2 Support</li>
+                                <li>Kritik sorunlar için on-call</li>
+                                <li>Günlük 20-50 ticket</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Yaygın Destek Talepleri:</h4>
+                    <div class="support-categories">
+                        <div class="category">
+                            <h5>💻 Donanım Sorunları (35%)</h5>
+                            <ul>
+                                <li>Bilgisayar açılmıyor</li>
+                                <li>Yavaş performans</li>
+                                <li>Yazıcı bağlantı sorunları</li>
+                                <li>Monitör sorunları</li>
+                            </ul>
+                        </div>
+
+                        <div class="category">
+                            <h5>🔐 Şifre ve Erişim (25%)</h5>
+                            <ul>
+                                <li>Şifre sıfırlama</li>
+                                <li>Hesap kilitleme</li>
+                                <li>Dosya erişim izinleri</li>
+                                <li>VPN bağlantı sorunları</li>
+                            </ul>
+                        </div>
+
+                        <div class="category">
+                            <h5>📧 E-posta Sorunları (20%)</h5>
+                            <ul>
+                                <li>E-posta gönderememe</li>
+                                <li>E-posta alınamama</li>
+                                <li>Ek dosya sorunları</li>
+                                <li>Takvim senkronizasyonu</li>
+                            </ul>
+                        </div>
+
+                        <div class="category">
+                            <h5>🌐 Ağ Bağlantısı (20%)</h5>
+                            <ul>
+                                <li>İnternet bağlantı sorunları</li>
+                                <li>Wi-Fi bağlantı problemleri</li>
+                                <li>Uzak masaüstü bağlantısı</li>
+                                <li>Dosya paylaşım sorunları</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="troubleshooting-methods">
+                <h2>🔍 Sorun Giderme Metodolojisi</h2>
+                
+                <h3>5 Adımlı Sorun Giderme Süreci</h3>
+                <div class="troubleshooting-steps">
+                    <div class="step">
+                        <h4>1. 🎯 Problemi Tanımla</h4>
+                        <ul>
+                            <li>Kullanıcıdan detaylı bilgi al</li>
+                            <li>Sorunun ne zaman başladığını öğren</li>
+                            <li>Hangi işlemlerin yapıldığını sor</li>
+                            <li>Hata mesajlarını kaydet</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. 🔍 Bilgi Topla</h4>
+                        <ul>
+                            <li>Sistem loglarını kontrol et</li>
+                            <li>Event Viewer'ı incele</li>
+                            <li>Performans monitörünü kullan</li>
+                            <li>Benzer sorunları araştır</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. 🧪 Çözüm Önerileri Geliştir</h4>
+                        <ul>
+                            <li>En basit çözümden başla</li>
+                            <li>Risk analizi yap</li>
+                            <li>Alternatif çözümler hazırla</li>
+                            <li>Test ortamında dene</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>4. ⚡ Çözümü Uygula</h4>
+                        <ul>
+                            <li>Kullanıcıyı bilgilendir</li>
+                            <li>Adım adım uygula</li>
+                            <li>Her adımı doğrula</li>
+                            <li>Geri alma planı hazırla</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>5. ✅ Doğrula ve Dokümante Et</h4>
+                        <ul>
+                            <li>Çözümün çalıştığını test et</li>
+                            <li>Kullanıcı onayını al</li>
+                            <li>Çözümü dokümante et</li>
+                            <li>Bilgi tabanına ekle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="common-issues">
+                <h2>🛠️ Yaygın Sorunlar ve Çözümleri</h2>
+                
+                <div class="issue-category">
+                    <h3>💻 Windows Sorunları</h3>
+                    <div class="issue-solution">
+                        <h4>Sorun: Bilgisayar Yavaş Çalışıyor</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>Görev Yöneticisi'ni aç (Ctrl+Shift+Esc)</li>
+                                <li>Yüksek CPU/Memory kullanan işlemleri kontrol et</li>
+                                <li>Gereksiz programları kapat</li>
+                                <li>Disk temizliği yap</li>
+                                <li>Antivirus taraması çalıştır</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="issue-solution">
+                        <h4>Sorun: Mavi Ekran (BSOD)</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>Hata kodunu not et</li>
+                                <li>Son yüklenen yazılımları kontrol et</li>
+                                <li>Driver güncellemelerini kontrol et</li>
+                                <li>System File Checker çalıştır (sfc /scannow)</li>
+                                <li>Gerekirse sistem geri yükleme yap</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="issue-category">
+                    <h3>🌐 Ağ Bağlantı Sorunları</h3>
+                    <div class="issue-solution">
+                        <h4>Sorun: İnternet Bağlantısı Yok</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>Fiziksel bağlantıyı kontrol et</li>
+                                <li>IP adresini kontrol et (ipconfig)</li>
+                                <li>Gateway'e ping at</li>
+                                <li>DNS ayarlarını kontrol et</li>
+                                <li>Router'ı yeniden başlat</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="issue-solution">
+                        <h4>Sorun: Wi-Fi Bağlantı Sorunu</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>Wi-Fi adaptörünü yeniden başlat</li>
+                                <li>Wi-Fi profillerini temizle</li>
+                                <li>Router'ı yeniden başlat</li>
+                                <li>Kanal değiştir</li>
+                                <li>Driver güncelle</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="issue-category">
+                    <h3>📧 E-posta Sorunları</h3>
+                    <div class="issue-solution">
+                        <h4>Sorun: E-posta Gönderilemiyor</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>İnternet bağlantısını kontrol et</li>
+                                <li>SMTP ayarlarını kontrol et</li>
+                                <li>Antivirus programını kontrol et</li>
+                                <li>Outlook'u yeniden başlat</li>
+                                <li>E-posta hesabını yeniden yapılandır</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="helpdesk-tools">
+                <h2>🛠️ Helpdesk Araçları</h2>
+                
+                <div class="tools-grid">
+                    <div class="tool-category">
+                        <h3>📋 Ticket Yönetimi</h3>
+                        <ul>
+                            <li><strong>ServiceNow:</strong> Enterprise service management</li>
+                            <li><strong>Jira Service Management:</strong> Atlassian'ın çözümü</li>
+                            <li><strong>Freshservice:</strong> Modern IT service desk</li>
+                            <li><strong>Zendesk:</strong> Müşteri hizmetleri platformu</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🖥️ Uzaktan Erişim</h3>
+                        <ul>
+                            <li><strong>TeamViewer:</strong> Uzaktan masaüstü erişimi</li>
+                            <li><strong>Remote Desktop:</strong> Windows RDP</li>
+                            <li><strong>AnyDesk:</strong> Hızlı uzaktan erişim</li>
+                            <li><strong>Chrome Remote Desktop:</strong> Web tabanlı erişim</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>📊 İzleme Araçları</h3>
+                        <ul>
+                            <li><strong>PRTG:</strong> Ağ izleme</li>
+                            <li><strong>Nagios:</strong> Sistem izleme</li>
+                            <li><strong>SolarWinds:</strong> IT infrastructure monitoring</li>
+                            <li><strong>Zabbix:</strong> Açık kaynak izleme</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🔧 Sistem Yönetimi</h3>
+                        <ul>
+                            <li><strong>Active Directory:</strong> Kullanıcı yönetimi</li>
+                            <li><strong>Group Policy:</strong> Sistem politikaları</li>
+                            <li><strong>PowerShell:</strong> Otomasyon ve scripting</li>
+                            <li><strong>SCCM:</strong> System Center Configuration Manager</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpis-metrics">
+                <h2>📈 KPI'lar ve Metrikler</h2>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3>⏱️ Zaman Metrikleri</h3>
+                        <ul>
+                            <li><strong>First Response Time:</strong> İlk yanıt süresi</li>
+                            <li><strong>Resolution Time:</strong> Çözüm süresi</li>
+                            <li><strong>Mean Time to Repair (MTTR):</strong> Ortalama onarım süresi</li>
+                            <li><strong>Service Level Agreement (SLA):</strong> Hizmet seviyesi anlaşması</li>
+                        </ul>
+                    </div>
+
+                    <div class="kpi-card">
+                        <h3>📊 Kalite Metrikleri</h3>
+                        <ul>
+                            <li><strong>First Call Resolution (FCR):</strong> İlk çağrıda çözüm oranı</li>
+                            <li><strong>Customer Satisfaction (CSAT):</strong> Müşteri memnuniyeti</li>
+                            <li><strong>Ticket Escalation Rate:</strong> Ticket yükseltme oranı</li>
+                            <li><strong>Knowledge Base Usage:</strong> Bilgi tabanı kullanımı</li>
+                        </ul>
+                    </div>
+
+                    <div class="kpi-card">
+                        <h3>📈 Performans Metrikleri</h3>
+                        <ul>
+                            <li><strong>Ticket Volume:</strong> Günlük ticket sayısı</li>
+                            <li><strong>Agent Utilization:</strong> Ajan kullanım oranı</li>
+                            <li><strong>Average Handle Time:</strong> Ortalama işlem süresi</li>
+                            <li><strong>Backlog:</strong> Bekleyen ticket sayısı</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mermaid">
+                    graph TD
+                        A["Ticket Girişi"] --> B["Kategorilendirme"]
+                        B --> C["Atama"]
+                        C --> D["İşleme"]
+                        D --> E["Çözüm"]
+                        E --> F["Kapatma"]
+                        F --> G["Değerlendirme"]
+                        
+                        D --> H["Escalation"]
+                        H --> I["Level 2/3"]
+                        I --> D
+                        
+                        E --> J["Kullanıcı Onayı"]
+                        J --> F
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>💡 En İyi Uygulamalar</h2>
+                
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <h3>🎧 Müşteri Hizmetleri</h3>
+                        <ul>
+                            <li>Empati kur, sabırlı ol</li>
+                            <li>Açık ve anlaşılır dil kullan</li>
+                            <li>Düzenli güncelleme ver</li>
+                            <li>Çözüm sonrası takip yap</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h3>📝 Dokümantasyon</h3>
+                        <ul>
+                            <li>Her çözümü kaydet</li>
+                            <li>Bilgi tabanını güncel tut</li>
+                            <li>FAQ'ları hazırla</li>
+                            <li>Video eğitimler oluştur</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h3>🔄 Süreç İyileştirme</h3>
+                        <ul>
+                            <li>Tekrarlayan sorunları analiz et</li>
+                            <li>Otomasyon fırsatlarını değerlendir</li>
+                            <li>Eğitim ihtiyaçlarını belirle</li>
+                            <li>Proaktif çözümler geliştir</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h3>👥 Ekip Yönetimi</h3>
+                        <ul>
+                            <li>Düzenli ekip toplantıları yap</li>
+                            <li>Bilgi paylaşımını teşvik et</li>
+                            <li>Sürekli eğitim sağla</li>
+                            <li>Performans geri bildirimi ver</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-helpdesk-scenarios">
+                <h2>🎫 Gerçek Hayat Helpdesk Senaryoları</h2>
+                
+                <div class="scenario-card">
+                    <h3>💼 Senaryo 1: Kritik Sistem Çökmesi</h3>
+                    <p><strong>Durum:</strong> 500+ çalışanlı şirket, ERP sistemi çöktü</p>
+                    <p><strong>Etki:</strong> Tüm iş süreçleri durdu, milyonlarca lira kayıp</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[User Report<br/>ERP System Down] --> B[Ticket Created<br/>Priority: Critical]
+                            B --> C[Initial Assessment<br/>System Status Check]
+                            C --> D[Root Cause Analysis<br/>Database Connection Lost]
+                            D --> E[Emergency Response<br/>Incident Team Activated]
+                            E --> F[System Recovery<br/>Database Restore]
+                            F --> G[Service Restoration<br/>Business Continuity]
+                            
+                            H[Communication Plan<br/>Stakeholder Updates] --> I[User Notification<br/>Status Updates]
+                            J[Documentation<br/>Incident Report] --> K[Lessons Learned<br/>Process Improvement]
+                    </div>
+                    
+                    <div class="ticket-timeline">
+                        <h4>Ticket Zaman Çizelgesi:</h4>
+                        <ul>
+                            <li><strong>09:15:</strong> Ticket oluşturuldu (Priority: Critical)</li>
+                            <li><strong>09:16:</strong> Helpdesk analisti atandı</li>
+                            <li><strong>09:20:</strong> İlk değerlendirme tamamlandı</li>
+                            <li><strong>09:25:</strong> Sistem yöneticisi devreye girdi</li>
+                            <li><strong>09:30:</strong> Kök neden tespit edildi</li>
+                            <li><strong>10:00:</strong> Acil çözüm uygulandı</li>
+                            <li><strong>10:30:</strong> Sistem normale döndü</li>
+                            <li><strong>11:00:</strong> Ticket kapatıldı</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Helpdesk ticket management
+# 1. Ticket oluşturma
+$ticket = @{
+    ID = "HD-2024-001"
+    Title = "ERP System Down - Critical"
+    Priority = "Critical"
+    Category = "System Failure"
+    Reporter = "john.doe@company.com"
+    Assignee = "it.support@company.com"
+    Status = "Open"
+    Created = Get-Date
+    SLA = "1 hour"
+}
+
+# 2. Ticket atama
+Assign-Ticket -TicketId "HD-2024-001" -Assignee "senior.admin@company.com"
+
+# 3. Durum güncelleme
+Update-TicketStatus -TicketId "HD-2024-001" -Status "In Progress" -Comment "Investigating database connection issues"
+
+# 4. Çözüm uygulama
+$solution = @{
+    TicketId = "HD-2024-001"
+    Solution = "Database connection restored, system rebooted"
+    ResolutionTime = "1 hour 15 minutes"
+    Status = "Resolved"
+}
+
+# 5. Ticket kapatma
+Close-Ticket -TicketId "HD-2024-001" -Resolution $solution</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🔐 Senaryo 2: Güvenlik Olayı</h3>
+                    <p><strong>Durum:</strong> Şüpheli login denemeleri, potansiyel güvenlik ihlali</p>
+                    <p><strong>Etki:</strong> Sistem güvenliği tehdit altında</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[Security Alert<br/>Suspicious Login Attempts] --> B[Ticket Created<br/>Priority: High]
+                            B --> C[Security Analysis<br/>Log Investigation]
+                            C --> D[Threat Assessment<br/>Risk Evaluation]
+                            D --> E[Incident Response<br/>Security Team]
+                            E --> F[Containment<br/>Account Lockout]
+                            F --> G[Investigation<br/>Forensic Analysis]
+                            G --> H[Resolution<br/>Security Measures]
+                            
+                            I[User Notification<br/>Password Reset] --> J[Security Training<br/>Awareness Program]
+                            K[Policy Update<br/>Security Guidelines] --> L[Monitoring Enhancement<br/>Threat Detection]
+                    </div>
+                    
+                    <div class="security-response">
+                        <h4>Güvenlik Müdahale Adımları:</h4>
+                        <ul>
+                            <li><strong>Immediate Response:</strong> Hesap kilitleme, şifre sıfırlama</li>
+                            <li><strong>Investigation:</strong> Log analizi, tehdit değerlendirmesi</li>
+                            <li><strong>Containment:</strong> Etkilenen sistemleri izole etme</li>
+                            <li><strong>Recovery:</strong> Güvenlik önlemlerini güçlendirme</li>
+                            <li><strong>Prevention:</strong> Eğitim ve farkındalık artırma</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Security incident response
+# 1. Güvenlik olayı tespit
+$securityEvent = Get-EventLog -LogName Security -After (Get-Date).AddHours(-1) | 
+    Where-Object {$_.EventID -eq 4625 -and $_.Message -like "*Failed*"}
+
+# 2. Hesap kilitleme
+$compromisedUser = "suspicious.user@company.com"
+Set-ADAccountLockout -Identity $compromisedUser -LockedOut $true
+
+# 3. Şifre sıfırlama
+$newPassword = Generate-SecurePassword -Length 12
+Set-ADAccountPassword -Identity $compromisedUser -NewPassword $newPassword
+
+# 4. Güvenlik grubu kontrolü
+$userGroups = Get-ADPrincipalGroupMembership -Identity $compromisedUser
+foreach ($group in $userGroups) {
+    if ($group.Name -like "*Admin*" -or $group.Name -like "*Power*") {
+        Remove-ADGroupMember -Identity $group.Name -Members $compromisedUser
+        Write-Warning "Removed $($compromisedUser) from privileged group: $($group.Name)"
+    }
+}
+
+# 5. Güvenlik raporu oluşturma
+$securityReport = @{
+    IncidentId = "SEC-2024-001"
+    User = $compromisedUser
+    Action = "Account locked and password reset"
+    Groups = $userGroups.Name
+    Timestamp = Get-Date
+    Status = "Resolved"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>📱 Senaryo 3: Mobil Cihaz Yönetimi</h3>
+                    <p><strong>Durum:</strong> 200+ mobil cihaz, güvenlik politikaları uygulanması</p>
+                    <p><strong>Gereksinim:</strong> MDM (Mobile Device Management) kurulumu</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[Mobile Device<br/>Enrollment Request] --> B[Ticket Created<br/>Priority: Medium]
+                            B --> C[Device Assessment<br/>Compatibility Check]
+                            C --> D[Policy Application<br/>Security Configuration]
+                            D --> E[User Training<br/>Device Usage Guidelines]
+                            E --> F[Monitoring Setup<br/>Compliance Tracking]
+                            F --> G[Ongoing Support<br/>Maintenance & Updates]
+                            
+                            H[Device Inventory<br/>Asset Management] --> I[Compliance Reporting<br/>Security Status]
+                            J[User Support<br/>Technical Assistance] --> K[Knowledge Base<br/>Self-Service Portal]
+                    </div>
+                    
+                    <div class="mobile-management">
+                        <h4>Mobil Cihaz Yönetimi Özellikleri:</h4>
+                        <ul>
+                            <li><strong>Device Enrollment:</strong> Otomatik cihaz kaydı</li>
+                            <li><strong>Policy Enforcement:</strong> Güvenlik politikaları</li>
+                            <li><strong>App Management:</strong> Uygulama yönetimi</li>
+                            <li><strong>Remote Wipe:</strong> Uzaktan veri silme</li>
+                            <li><strong>Compliance Monitoring:</strong> Uyumluluk izleme</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Mobile Device Management
+# 1. Cihaz kaydı
+$device = @{
+    DeviceId = "MD-2024-001"
+    User = "mobile.user@company.com"
+    Type = "iOS"
+    Model = "iPhone 14"
+    OSVersion = "17.0"
+    Status = "Enrolled"
+}
+
+# 2. Güvenlik politikası uygulama
+$securityPolicy = @{
+    DeviceId = $device.DeviceId
+    PasscodeRequired = $true
+    PasscodeLength = 6
+    BiometricEnabled = $true
+    AppInstallation = "Restricted"
+    CameraEnabled = $false
+    LocationServices = $true
+}
+
+# 3. Uygulama yönetimi
+$allowedApps = @("Microsoft Teams", "Outlook", "OneDrive", "Company App")
+$blockedApps = @("Social Media", "Gaming", "Entertainment")
+
+# 4. Compliance kontrolü
+$complianceStatus = Get-DeviceCompliance -DeviceId $device.DeviceId
+if (-not $complianceStatus.Compliant) {
+    Send-ComplianceAlert -DeviceId $device.DeviceId -User $device.User
+}
+
+# 5. Remote wipe (gerekirse)
+if ($device.Status -eq "Compromised") {
+    Invoke-RemoteWipe -DeviceId $device.DeviceId -Reason "Security breach"
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="helpdesk-metrics">
+                <h2>📊 Helpdesk Metrikleri ve KPI'lar</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>⏱️ Zaman Metrikleri</h3>
+                        <ul>
+                            <li><strong>First Response Time:</strong> İlk yanıt süresi</li>
+                            <li><strong>Resolution Time:</strong> Çözüm süresi</li>
+                            <li><strong>SLA Compliance:</strong> SLA uyumluluğu</li>
+                            <li><strong>Average Handle Time:</strong> Ortalama işlem süresi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3>📈 Performans Metrikleri</h3>
+                        <ul>
+                            <li><strong>Ticket Volume:</strong> Ticket sayısı</li>
+                            <li><strong>Resolution Rate:</strong> Çözüm oranı</li>
+                            <li><strong>First Call Resolution:</strong> İlk çağrıda çözüm</li>
+                            <li><strong>Customer Satisfaction:</strong> Müşteri memnuniyeti</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3>🎯 Kalite Metrikleri</h3>
+                        <ul>
+                            <li><strong>Ticket Quality:</strong> Ticket kalitesi</li>
+                            <li><strong>Knowledge Base Usage:</strong> Bilgi tabanı kullanımı</li>
+                            <li><strong>Escalation Rate:</strong> Yükseltme oranı</li>
+                            <li><strong>Repeat Tickets:</strong> Tekrarlayan ticketlar</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3>👥 Ekip Metrikleri</h3>
+                        <ul>
+                            <li><strong>Agent Productivity:</strong> Ajan verimliliği</li>
+                            <li><strong>Workload Distribution:</strong> İş yükü dağılımı</li>
+                            <li><strong>Training Hours:</strong> Eğitim saatleri</li>
+                            <li><strong>Skill Development:</strong> Beceri gelişimi</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="kpi-dashboard">
+                    <h3>📊 KPI Dashboard Örneği</h3>
+                    <div class="code-block">
+                        <pre><code># Helpdesk KPI Dashboard
+$helpdeskKPIs = @{
+    # Zaman metrikleri
+    FirstResponseTime = "15 minutes"
+    AverageResolutionTime = "2 hours"
+    SLACompliance = "95%"
+    
+    # Performans metrikleri
+    TotalTickets = 1250
+    ResolvedTickets = 1180
+    ResolutionRate = "94.4%"
+    FirstCallResolution = "78%"
+    CustomerSatisfaction = "4.2/5"
+    
+    # Kalite metrikleri
+    TicketQuality = "92%"
+    KnowledgeBaseUsage = "65%"
+    EscalationRate = "12%"
+    RepeatTickets = "8%"
+    
+    # Ekip metrikleri
+    AgentProductivity = "85%"
+    WorkloadBalance = "Good"
+    TrainingHours = "40 hours/month"
+    SkillDevelopment = "Advanced"
+}
+
+# Rapor oluşturma
+$report = Generate-HelpdeskReport -KPIs $helpdeskKPIs -Period "Monthly"
+Export-Report -Report $report -Format "PDF" -Path "C:\Reports\Helpdesk-Monthly.pdf"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="helpdesk-automation">
+                <h2>🤖 Helpdesk Otomasyonu</h2>
+                
+                <div class="automation-categories">
+                    <div class="automation-card">
+                        <h3>🔄 Otomatik Ticket Yönetimi</h3>
+                        <ul>
+                            <li><strong>Auto-Assignment:</strong> Otomatik ticket atama</li>
+                            <li><strong>Priority Escalation:</strong> Öncelik yükseltme</li>
+                            <li><strong>SLA Monitoring:</strong> SLA takibi</li>
+                            <li><strong>Auto-Resolution:</strong> Otomatik çözüm</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="automation-card">
+                        <h3>📧 Otomatik İletişim</h3>
+                        <ul>
+                            <li><strong>Email Notifications:</strong> Email bildirimleri</li>
+                            <li><strong>Status Updates:</strong> Durum güncellemeleri</li>
+                            <li><strong>Reminder Alerts:</strong> Hatırlatma uyarıları</li>
+                            <li><strong>Escalation Notifications:</strong> Yükseltme bildirimleri</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="automation-card">
+                        <h3>🔍 Otomatik Sorun Tespiti</h3>
+                        <ul>
+                            <li><strong>System Monitoring:</strong> Sistem izleme</li>
+                            <li><strong>Proactive Alerts:</strong> Proaktif uyarılar</li>
+                            <li><strong>Pattern Recognition:</strong> Desen tanıma</li>
+                            <li><strong>Predictive Analysis:</strong> Tahmin analizi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="automation-card">
+                        <h3>📚 Bilgi Yönetimi</h3>
+                        <ul>
+                            <li><strong>Knowledge Base:</strong> Bilgi tabanı</li>
+                            <li><strong>Auto-Documentation:</strong> Otomatik dokümantasyon</li>
+                            <li><strong>Solution Suggestions:</strong> Çözüm önerileri</li>
+                            <li><strong>Learning System:</strong> Öğrenme sistemi</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="automation-examples">
+                    <h3>🛠️ Otomasyon Örnekleri</h3>
+                    <div class="code-block">
+                        <pre><code># Helpdesk automation scripts
+# 1. Otomatik ticket atama
+function Auto-AssignTicket {
+    param($ticket)
+    
+    $category = $ticket.Category
+    $priority = $ticket.Priority
+    
+    switch ($category) {
+        "Network" { $assignee = "network.team@company.com" }
+        "Security" { $assignee = "security.team@company.com" }
+        "Hardware" { $assignee = "hardware.team@company.com" }
+        "Software" { $assignee = "software.team@company.com" }
+        default { $assignee = "general.support@company.com" }
+    }
+    
+    Assign-Ticket -TicketId $ticket.Id -Assignee $assignee
+    Send-Notification -To $assignee -Message "New ticket assigned: $($ticket.Title)"
+}
+
+# 2. SLA monitoring
+function Monitor-SLA {
+    $overdueTickets = Get-Tickets -Status "Open" | 
+        Where-Object { $_.Created -lt (Get-Date).AddHours(-$_.SLA) }
+    
+    foreach ($ticket in $overdueTickets) {
+        Escalate-Ticket -TicketId $ticket.Id -Reason "SLA exceeded"
+        Send-Alert -To "manager@company.com" -Message "SLA exceeded for ticket: $($ticket.Id)"
+    }
+}
+
+# 3. Otomatik çözüm
+function Auto-ResolveTicket {
+    param($ticket)
+    
+    $solution = Get-KnowledgeBase -Keywords $ticket.Keywords
+    if ($solution) {
+        Apply-Solution -TicketId $ticket.Id -Solution $solution
+        Close-Ticket -TicketId $ticket.Id -Resolution "Auto-resolved using knowledge base"
+    }
+}
+
+# 4. Proaktif monitoring
+function Monitor-Systems {
+    $systems = Get-MonitoredSystems
+    foreach ($system in $systems) {
+        $health = Get-SystemHealth -SystemId $system.Id
+        if ($health.Status -eq "Critical") {
+            Create-Ticket -Title "System Alert: $($system.Name)" -Priority "High"
+        }
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Helpdesk ve IT Support temellerini öğrendikten sonra, <a href="bolum-10-microsoft365.html">Microsoft 365 Adminliği</a> bölümüne geçerek modern bulut teknolojilerini inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-10-microsoft365.html" class="btn btn-primary">☁️ Microsoft 365 →</a>
+                    <a href="bolum-08-fortigate.html" class="btn btn-secondary">← FortiGate</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

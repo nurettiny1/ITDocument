@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Siber Güvenlik - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Siber Güvenlik</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="siber-guvenlik">
+            <h1>🛡️ Siber Güvenlik</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Siber Güvenlik Neden Kritik?</h2>
+                <p>Siber güvenlik, modern işletmelerin hayatta kalması için zorunludur. <strong>Neden siber güvenlik önemli?</strong></p>
+                
+                <div class="why-cybersecurity">
+                    <h4>🔍 Siber Güvenliğin Faydaları:</h4>
+                    <ul>
+                        <li><strong>Veri Koruması:</strong> Hassas bilgileri koruma</li>
+                        <li><strong>İş Sürekliliği:</strong> Saldırılardan sonra hızla toparlanma</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Saldırı maliyeti milyonlarca lira</li>
+                        <li><strong>Müşteri Güveni:</strong> Güvenli sistem = güvenilir şirket</li>
+                        <li><strong>Yasal Uyumluluk:</strong> GDPR, KVKK gibi yasal gereklilikler</li>
+                    </ul>
+                </div>
+                
+                <div class="cybersecurity-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 1000 çalışanlı şirkette güvenlik önlemleri yetersiz</p>
+                    <p><strong>Sonuç:</strong> Ransomware saldırısı, 3 günlük iş durması, 2 milyon lira kayıp</p>
+                    <p><strong>Çözüm:</strong> Kapsamlı siber güvenlik stratejisi</p>
+                </div>
+            </div>
+
+            <div class="threat-landscape">
+                <h2>⚠️ Siber Tehdit Türleri</h2>
+                
+                <div class="threat-grid">
+                    <div class="threat-card">
+                        <h3>🦠 Malware</h3>
+                        <p>Kötü amaçlı yazılımlar</p>
+                        <ul>
+                            <li><strong>Virüs:</strong> Kendini kopyalayan zararlı kod</li>
+                            <li><strong>Worm:</strong> Ağ üzerinden yayılan zararlı yazılım</li>
+                            <li><strong>Trojan:</strong> Masum görünen zararlı yazılım</li>
+                            <li><strong>Ransomware:</strong> Fidye yazılımı</li>
+                        </ul>
+                    </div>
+
+                    <div class="threat-card">
+                        <h3>🎣 Phishing</h3>
+                        <p>Kimlik avcılığı saldırıları</p>
+                        <ul>
+                            <li><strong>E-posta Phishing:</strong> Sahte e-posta gönderimi</li>
+                            <li><strong>Spear Phishing:</strong> Hedefli kimlik avcılığı</li>
+                            <li><strong>Whaling:</strong> Üst düzey yöneticilere yönelik</li>
+                            <li><strong>Vishing:</strong> Sesli kimlik avcılığı</li>
+                        </ul>
+                    </div>
+
+                    <div class="threat-card">
+                        <h3>🔓 Social Engineering</h3>
+                        <p>İnsan faktörünü kullanan saldırılar</p>
+                        <ul>
+                            <li><strong>Pretexting:</strong> Sahte kimlik kullanma</li>
+                            <li><strong>Baiting:</strong> Cazip tekliflerle tuzağa düşürme</li>
+                            <li><strong>Tailgating:</strong> Fiziksel erişim sağlama</li>
+                            <li><strong>Quid Pro Quo:</strong> Karşılıklı fayda vaadi</li>
+                        </ul>
+                    </div>
+
+                    <div class="threat-card">
+                        <h3>🌐 Network Attacks</h3>
+                        <p>Ağ tabanlı saldırılar</p>
+                        <ul>
+                            <li><strong>DDoS:</strong> Hizmet dışı bırakma saldırısı</li>
+                            <li><strong>Man-in-the-Middle:</strong> Ortadaki adam saldırısı</li>
+                            <li><strong>DNS Spoofing:</strong> DNS sahteciliği</li>
+                            <li><strong>ARP Spoofing:</strong> ARP sahteciliği</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-framework">
+                <h2>🏗️ Güvenlik Çerçeveleri</h2>
+                
+                <h3>NIST Cybersecurity Framework</h3>
+                <div class="framework-steps">
+                    <div class="framework-step">
+                        <h4>1. 🔍 Identify (Tanımla)</h4>
+                        <ul>
+                            <li>Varlıkları belirle</li>
+                            <li>Riskleri değerlendir</li>
+                            <li>Güvenlik politikaları oluştur</li>
+                            <li>Güvenlik gereksinimlerini tanımla</li>
+                        </ul>
+                    </div>
+
+                    <div class="framework-step">
+                        <h4>2. 🛡️ Protect (Koruma)</h4>
+                        <ul>
+                            <li>Erişim kontrolü uygula</li>
+                            <li>Veri güvenliği sağla</li>
+                            <li>Güvenlik eğitimi ver</li>
+                            <li>Güvenlik araçları kur</li>
+                        </ul>
+                    </div>
+
+                    <div class="framework-step">
+                        <h4>3. 🔍 Detect (Tespit)</h4>
+                        <ul>
+                            <li>Sürekli izleme yap</li>
+                            <li>Anomali tespiti</li>
+                            <li>Güvenlik olaylarını analiz et</li>
+                            <li>Tehdit istihbaratı kullan</li>
+                        </ul>
+                    </div>
+
+                    <div class="framework-step">
+                        <h4>4. ⚡ Respond (Müdahale)</h4>
+                        <ul>
+                            <li>Olay müdahale planı</li>
+                            <li>Komunikasyon stratejisi</li>
+                            <li>Hasar tespiti</li>
+                            <li>Kurtarma işlemleri</li>
+                        </ul>
+                    </div>
+
+                    <div class="framework-step">
+                        <h4>5. 🔄 Recover (Kurtarma)</h4>
+                        <ul>
+                            <li>Yedekleme ve geri yükleme</li>
+                            <li>Hizmet sürekliliği</li>
+                            <li>Ders çıkarma</li>
+                            <li>Süreç iyileştirme</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-tools">
+                <h2>🛠️ Güvenlik Araçları</h2>
+                
+                <div class="tools-categories">
+                    <div class="tool-category">
+                        <h3>🔍 Vulnerability Assessment</h3>
+                        <ul>
+                            <li><strong>Nessus:</strong> Vulnerability scanner</li>
+                            <li><strong>OpenVAS:</strong> Açık kaynak vulnerability scanner</li>
+                            <li><strong>Qualys:</strong> Cloud-based security platform</li>
+                            <li><strong>Rapid7:</strong> Vulnerability management</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🛡️ Endpoint Protection</h3>
+                        <ul>
+                            <li><strong>CrowdStrike:</strong> EDR platform</li>
+                            <li><strong>SentinelOne:</strong> AI-powered endpoint security</li>
+                            <li><strong>Carbon Black:</strong> Endpoint detection and response</li>
+                            <li><strong>Microsoft Defender:</strong> Built-in Windows security</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🌐 Network Security</h3>
+                        <ul>
+                            <li><strong>Wireshark:</strong> Network protocol analyzer</li>
+                            <li><strong>Snort:</strong> Intrusion detection system</li>
+                            <li><strong>Suricata:</strong> Network security monitoring</li>
+                            <li><strong>Zeek:</strong> Network analysis framework</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>📊 SIEM & SOC</h3>
+                        <ul>
+                            <li><strong>Splunk:</strong> Security information and event management</li>
+                            <li><strong>IBM QRadar:</strong> SIEM platform</li>
+                            <li><strong>Elastic Security:</strong> Open source SIEM</li>
+                            <li><strong>Microsoft Sentinel:</strong> Cloud-native SIEM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="incident-response">
+                <h2>🚨 Olay Müdahale (Incident Response)</h2>
+                
+                <h3>Olay Müdahale Süreci</h3>
+                <div class="incident-steps">
+                    <div class="incident-step">
+                        <h4>1. 🔍 Preparation (Hazırlık)</h4>
+                        <ul>
+                            <li>Olay müdahale planı hazırla</li>
+                            <li>Ekip oluştur ve eğit</li>
+                            <li>Araçları hazırla</li>
+                            <li>İletişim protokolleri belirle</li>
+                        </ul>
+                    </div>
+
+                    <div class="incident-step">
+                        <h4>2. 🚨 Identification (Tespit)</h4>
+                        <ul>
+                            <li>Olayı tespit et</li>
+                            <li>Kapsamı belirle</li>
+                            <li>Öncelik seviyesini belirle</li>
+                            <li>İlgili tarafları bilgilendir</li>
+                        </ul>
+                    </div>
+
+                    <div class="incident-step">
+                        <h4>3. 🛡️ Containment (Sınırlama)</h4>
+                        <ul>
+                            <li>Hasarı sınırla</li>
+                            <li>Etkilenen sistemleri izole et</li>
+                            <li>Kanıtları koru</li>
+                            <li>Geçici çözümler uygula</li>
+                        </ul>
+                    </div>
+
+                    <div class="incident-step">
+                        <h4>4. 🔍 Eradication (Yok Etme)</h4>
+                        <ul>
+                            <li>Tehdidi tamamen kaldır</li>
+                            <li>Zararlı yazılımları temizle</li>
+                            <li>Güvenlik açıklarını kapat</li>
+                            <li>Sistemleri güncelle</li>
+                        </ul>
+                    </div>
+
+                    <div class="incident-step">
+                        <h4>5. 🔄 Recovery (Kurtarma)</h4>
+                        <ul>
+                            <li>Sistemleri normale döndür</li>
+                            <li>Hizmetleri yeniden başlat</li>
+                            <li>İzleme artır</li>
+                            <li>Kullanıcıları bilgilendir</li>
+                        </ul>
+                    </div>
+
+                    <div class="incident-step">
+                        <h4>6. 📚 Lessons Learned (Dersler)</h4>
+                        <ul>
+                            <li>Olayı analiz et</li>
+                            <li>Zayıflıkları belirle</li>
+                            <li>Süreçleri iyileştir</li>
+                            <li>Eğitim ihtiyaçlarını belirle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Ransomware Saldırısı ve Müdahale</h3>
+                    <p><strong>Şirket:</strong> 500 çalışanlı üretim firması</p>
+                    <p><strong>Saldırı:</strong> Ryuk Ransomware</p>
+                    
+                    <h4>Saldırı Süreci:</h4>
+                    <div class="attack-timeline">
+                        <div class="timeline-event">
+                            <h5>🌅 08:00 - İlk Tespit</h5>
+                            <p>IT ekibi, bazı dosyaların şifrelendiğini fark etti</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🚨 08:15 - Alarm</h5>
+                            <p>Ransomware uyarısı ve olay müdahale ekibi devreye girdi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🛡️ 08:30 - Sınırlama</h5>
+                            <p>Etkilenen sistemler izole edildi, ağ trafiği kesildi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔍 09:00 - Analiz</h5>
+                            <p>Saldırının kapsamı ve etkilenen sistemler belirlendi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔄 10:00 - Kurtarma</h5>
+                            <p>Yedeklerden geri yükleme işlemi başlatıldı</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>✅ 16:00 - Normale Dönüş</h5>
+                            <p>Sistemler normale döndü, güvenlik önlemleri artırıldı</p>
+                        </div>
+                    </div>
+
+                    <h4>Alınan Dersler:</h4>
+                    <ul>
+                        <li>Yedekleme stratejisinin önemi</li>
+                        <li>E-posta güvenliğinin kritikliği</li>
+                        <li>Kullanıcı eğitiminin gerekliliği</li>
+                        <li>Olay müdahale planının değeri</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="security-best-practices">
+                <h2>💡 Güvenlik En İyi Uygulamaları</h2>
+                
+                <div class="practices-grid">
+                    <div class="practice-category">
+                        <h3>👥 Kullanıcı Güvenliği</h3>
+                        <ul>
+                            <li>Güçlü şifre politikaları</li>
+                            <li>Multi-factor authentication</li>
+                            <li>Düzenli güvenlik eğitimleri</li>
+                            <li>Phishing simülasyonları</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>🖥️ Sistem Güvenliği</h3>
+                        <ul>
+                            <li>Düzenli güvenlik güncellemeleri</li>
+                            <li>Endpoint protection</li>
+                            <li>Network segmentation</li>
+                            <li>Vulnerability management</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>📊 Veri Güvenliği</h3>
+                            <ul>
+                                <li>Veri şifreleme</li>
+                                <li>Düzenli yedekleme</li>
+                                <li>Veri sınıflandırması</li>
+                                <li>Access control</li>
+                            </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>🌐 Ağ Güvenliği</h3>
+                        <ul>
+                            <li>Firewall yapılandırması</li>
+                            <li>Intrusion detection</li>
+                            <li>VPN kullanımı</li>
+                            <li>Network monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="compliance-standards">
+                <h2>📋 Uyumluluk Standartları</h2>
+                
+                <div class="standards-grid">
+                    <div class="standard-card">
+                        <h3>🔒 ISO 27001</h3>
+                        <p>Bilgi güvenliği yönetim sistemi standardı</p>
+                        <ul>
+                            <li>Risk yönetimi</li>
+                            <li>Güvenlik politikaları</li>
+                            <li>Sürekli iyileştirme</li>
+                            <li>Dokümantasyon</li>
+                        </ul>
+                    </div>
+
+                    <div class="standard-card">
+                        <h3>💳 PCI DSS</h3>
+                        <p>Ödeme kartı endüstrisi veri güvenliği standardı</p>
+                        <ul>
+                            <li>Kart sahibi verilerinin korunması</li>
+                            <li>Güvenli ağ ve sistemler</li>
+                            <li>Düzenli güvenlik testleri</li>
+                            <li>Erişim kontrolü</li>
+                        </ul>
+                    </div>
+
+                    <div class="standard-card">
+                        <h3>🏛️ SOX</h3>
+                        <p>Sarbanes-Oxley Act uyumluluğu</p>
+                        <ul>
+                            <li>Finansal raporlama doğruluğu</li>
+                            <li>İç kontrol sistemleri</li>
+                            <li>Bağımsız denetim</li>
+                            <li>Yönetici sorumluluğu</li>
+                        </ul>
+                    </div>
+
+                    <div class="standard-card">
+                        <h3>🇪🇺 GDPR</h3>
+                        <p>Genel Veri Koruma Yönetmeliği</p>
+                        <ul>
+                            <li>Kişisel veri koruması</li>
+                            <li>Veri işleme şeffaflığı</li>
+                            <li>Veri sahibi hakları</li>
+                            <li>Veri ihlali bildirimi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Siber güvenlik temellerini öğrendikten sonra, <a href="bolum-08-fortigate.html">FortiGate Firewall</a> bölümüne geçerek ağ güvenliği konularını inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-08-fortigate.html" class="btn btn-primary">🔥 FortiGate →</a>
+                    <a href="bolum-06-guvenlik.html" class="btn btn-secondary">← Güvenlik</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

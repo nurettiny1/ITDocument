@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cloud Teknolojileri - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Cloud Teknolojileri</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="cloud-teknolojileri">
+            <h1>☁️ Cloud Teknolojileri</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Cloud Teknolojileri Neden Önemli?</h2>
+                <p>Cloud teknolojileri, modern işletmelerin dijital dönüşümünün anahtarıdır. <strong>Neden cloud teknolojileri önemli?</strong></p>
+                
+                <div class="why-cloud">
+                    <h4>🔍 Cloud Teknolojilerinin Faydaları:</h4>
+                    <ul>
+                        <li><strong>Maliyet Tasarrufu:</strong> On-premises sunucu maliyetleri yok</li>
+                        <li><strong>Ölçeklenebilirlik:</strong> İhtiyaca göre kaynak artırma/azaltma</li>
+                        <li><strong>Esneklik:</strong> Her yerden erişim, mobil çalışma</li>
+                        <li><strong>Güvenlik:</strong> Enterprise seviye güvenlik özellikleri</li>
+                        <li><strong>Hız:</strong> Hızlı deployment, otomatik güncellemeler</li>
+                    </ul>
+                </div>
+                
+                <div class="cloud-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 200 çalışanlı şirkette on-premises sistemler yetersiz</p>
+                    <p><strong>Sonuç:</strong> Yüksek maliyet, düşük performans, güvenlik açıkları</p>
+                    <p><strong>Çözüm:</strong> Cloud migration ile modern altyapı</p>
+                </div>
+            </div>
+
+            <div class="cloud-models">
+                <h2>🏗️ Bulut Servis Modelleri</h2>
+                
+                <div class="model-grid">
+                    <div class="model-card">
+                        <h3>🖥️ IaaS (Infrastructure as a Service)</h3>
+                        <p>Temel altyapı hizmetleri</p>
+                        <ul>
+                            <li><strong>Örnekler:</strong> Azure VMs, AWS EC2, Google Compute Engine</li>
+                            <li><strong>Kontrol:</strong> İşletim sistemi, uygulamalar, veriler</li>
+                            <li><strong>Yönetim:</strong> Sanal makineler, depolama, ağ</li>
+                            <li><strong>Kullanım:</strong> Geliştirme, test, production</li>
+                        </ul>
+                    </div>
+
+                    <div class="model-card">
+                        <h3>⚙️ PaaS (Platform as a Service)</h3>
+                        <p>Platform hizmetleri</p>
+                        <ul>
+                            <li><strong>Örnekler:</strong> Azure App Service, AWS Elastic Beanstalk, Google App Engine</li>
+                            <li><strong>Kontrol:</strong> Uygulamalar, veriler</li>
+                            <li><strong>Yönetim:</strong> Runtime, middleware, database</li>
+                            <li><strong>Kullanım:</strong> Uygulama geliştirme, deployment</li>
+                        </ul>
+                    </div>
+
+                    <div class="model-card">
+                        <h3>📱 SaaS (Software as a Service)</h3>
+                        <p>Yazılım hizmetleri</p>
+                        <ul>
+                            <li><strong>Örnekler:</strong> Office 365, Salesforce, Google Workspace</li>
+                            <li><strong>Kontrol:</strong> Sadece veriler</li>
+                            <li><strong>Yönetim:</strong> Uygulama, altyapı, platform</li>
+                            <li><strong>Kullanım:</strong> End-user uygulamaları</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-deployment-models">
+                <h2>🌐 Bulut Dağıtım Modelleri</h2>
+                
+                <div class="deployment-grid">
+                    <div class="deployment-card">
+                        <h3>☁️ Public Cloud</h3>
+                        <p>Genel bulut hizmetleri</p>
+                        <ul>
+                            <li><strong>Avantajlar:</strong> Düşük maliyet, ölçeklenebilirlik</li>
+                            <li><strong>Dezavantajlar:</strong> Güvenlik endişeleri, kontrol sınırları</li>
+                            <li><strong>Örnekler:</strong> Azure, AWS, Google Cloud</li>
+                            <li><strong>Kullanım:</strong> Genel amaçlı uygulamalar</li>
+                        </ul>
+                    </div>
+
+                    <div class="deployment-card">
+                        <h3>🏢 Private Cloud</h3>
+                        <p>Özel bulut hizmetleri</p>
+                        <ul>
+                            <li><strong>Avantajlar:</strong> Yüksek güvenlik, tam kontrol</li>
+                            <li><strong>Dezavantajlar:</strong> Yüksek maliyet, karmaşık yönetim</li>
+                            <li><strong>Örnekler:</strong> VMware vCloud, OpenStack</li>
+                            <li><strong>Kullanım:</strong> Kritik uygulamalar</li>
+                        </ul>
+                    </div>
+
+                    <div class="deployment-card">
+                        <h3>🔀 Hybrid Cloud</h3>
+                        <p>Hibrit bulut çözümleri</p>
+                        <ul>
+                            <li><strong>Avantajlar:</strong> Esneklik, optimizasyon</li>
+                            <li><strong>Dezavantajlar:</strong> Karmaşık yönetim, entegrasyon</li>
+                            <li><strong>Örnekler:</strong> Azure Arc, AWS Outposts</li>
+                            <li><strong>Kullanım:</strong> Karmaşık işletmeler</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="microsoft-azure">
+                <h2>🔵 Microsoft Azure</h2>
+                
+                <h3>Azure Temel Servisleri</h3>
+                <div class="azure-services">
+                    <div class="service-category">
+                        <h4>💻 Compute Services</h4>
+                        <ul>
+                            <li><strong>Virtual Machines:</strong> IaaS sanal makineler</li>
+                            <li><strong>App Service:</strong> PaaS web uygulamaları</li>
+                            <li><strong>Azure Functions:</strong> Serverless computing</li>
+                            <li><strong>Container Instances:</strong> Container hosting</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h4>💾 Storage Services</h4>
+                        <ul>
+                            <li><strong>Blob Storage:</strong> Dosya depolama</li>
+                            <li><strong>File Storage:</strong> SMB paylaşımları</li>
+                            <li><strong>Queue Storage:</strong> Mesaj kuyrukları</li>
+                            <li><strong>Table Storage:</strong> NoSQL veritabanı</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h4>🌐 Networking Services</h4>
+                        <ul>
+                            <li><strong>Virtual Network:</strong> Sanal ağ</li>
+                            <li><strong>Load Balancer:</strong> Yük dengeleme</li>
+                            <li><strong>Application Gateway:</strong> Web uygulaması güvenliği</li>
+                            <li><strong>VPN Gateway:</strong> Site-to-site VPN</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Azure PowerShell Komutları</h3>
+                <div class="code-block">
+                    <pre><code># Azure'a bağlan
+Connect-AzAccount
+
+# Subscription'ı seç
+Set-AzContext -SubscriptionId "subscription-id"
+
+# Resource Group oluştur
+New-AzResourceGroup -Name "MyResourceGroup" -Location "East US"
+
+# Virtual Machine oluştur
+New-AzVm -ResourceGroupName "MyResourceGroup" -Name "MyVM" -Location "East US" -VirtualNetworkName "MyVNet" -SubnetName "MySubnet" -SecurityGroupName "MyNSG" -PublicIpAddressName "MyPublicIP" -OpenPorts 80,3389
+
+# Storage Account oluştur
+New-AzStorageAccount -ResourceGroupName "MyResourceGroup" -Name "mystorageaccount" -Location "East US" -SkuName "Standard_LRS"
+
+# Web App oluştur
+New-AzAppServicePlan -ResourceGroupName "MyResourceGroup" -Name "MyAppServicePlan" -Location "East US" -Tier "Free"
+New-AzWebApp -ResourceGroupName "MyResourceGroup" -Name "MyWebApp" -AppServicePlan "MyAppServicePlan"</code></pre>
+                </div>
+            </div>
+
+            <div class="amazon-aws">
+                <h2>🟠 Amazon Web Services (AWS)</h2>
+                
+                <h3>AWS Temel Servisleri</h3>
+                <div class="aws-services">
+                    <div class="service-category">
+                        <h4>💻 Compute Services</h4>
+                        <ul>
+                            <li><strong>EC2:</strong> Elastic Compute Cloud</li>
+                            <li><strong>Lambda:</strong> Serverless computing</li>
+                            <li><strong>ECS:</strong> Container service</li>
+                            <li><strong>Elastic Beanstalk:</strong> PaaS platform</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h4>💾 Storage Services</h4>
+                        <ul>
+                            <li><strong>S3:</strong> Simple Storage Service</li>
+                            <li><strong>EBS:</strong> Elastic Block Store</li>
+                            <li><strong>EFS:</strong> Elastic File System</li>
+                            <li><strong>Glacier:</strong> Archive storage</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h4>🌐 Networking Services</h4>
+                        <ul>
+                            <li><strong>VPC:</strong> Virtual Private Cloud</li>
+                            <li><strong>ELB:</strong> Elastic Load Balancer</li>
+                            <li><strong>CloudFront:</strong> CDN service</li>
+                            <li><strong>Route 53:</strong> DNS service</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>AWS CLI Komutları</h3>
+                <div class="code-block">
+                    <pre><code># AWS CLI yapılandırması
+aws configure
+
+# EC2 instance oluştur
+aws ec2 run-instances --image-id ami-0abcdef1234567890 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids sg-12345678 --subnet-id subnet-12345678
+
+# S3 bucket oluştur
+aws s3 mb s3://my-bucket-name
+
+# S3 dosya yükle
+aws s3 cp local-file.txt s3://my-bucket-name/
+
+# Lambda function oluştur
+aws lambda create-function --function-name my-function --runtime python3.8 --role arn:aws:iam::123456789012:role/lambda-role --handler index.handler --zip-file fileb://function.zip</code></pre>
+                </div>
+            </div>
+
+            <div class="google-cloud">
+                <h2>🔵 Google Cloud Platform (GCP)</h2>
+                
+                <h3>GCP Temel Servisleri</h3>
+                <div class="gcp-services">
+                    <div class="service-category">
+                        <h4>💻 Compute Services</h4>
+                        <ul>
+                            <li><strong>Compute Engine:</strong> Virtual machines</li>
+                            <li><strong>App Engine:</strong> PaaS platform</li>
+                            <li><strong>Cloud Functions:</strong> Serverless computing</li>
+                            <li><strong>Kubernetes Engine:</strong> Container orchestration</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h4>💾 Storage Services</h4>
+                        <ul>
+                            <li><strong>Cloud Storage:</strong> Object storage</li>
+                            <li><strong>Persistent Disk:</strong> Block storage</li>
+                            <li><strong>Cloud SQL:</strong> Managed database</li>
+                            <li><strong>BigQuery:</strong> Data warehouse</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h4>🌐 Networking Services</h4>
+                        <ul>
+                            <li><strong>VPC:</strong> Virtual Private Cloud</li>
+                            <li><strong>Cloud Load Balancing:</strong> Load balancing</li>
+                            <li><strong>Cloud CDN:</strong> Content delivery</li>
+                            <li><strong>Cloud DNS:</strong> DNS service</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-security">
+                <h2>🔒 Bulut Güvenliği</h2>
+                
+                <h3>Güvenlik Sorumlulukları</h3>
+                <div class="security-responsibilities">
+                    <div class="responsibility-level">
+                        <h4>☁️ Cloud Provider</h4>
+                        <ul>
+                            <li>Fiziksel güvenlik</li>
+                            <li>Altyapı güvenliği</li>
+                            <li>Platform güvenliği</li>
+                            <li>Compliance sertifikaları</li>
+                        </ul>
+                    </div>
+
+                    <div class="responsibility-level">
+                        <h4>🏢 Customer</h4>
+                        <ul>
+                            <li>Veri güvenliği</li>
+                            <li>Uygulama güvenliği</li>
+                            <li>Erişim kontrolü</li>
+                            <li>Güvenlik politikaları</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Güvenlik En İyi Uygulamaları</h3>
+                <div class="code-block">
+                    <pre><code># Azure Key Vault ile şifreleme
+New-AzKeyVault -VaultName "MyKeyVault" -ResourceGroupName "MyResourceGroup" -Location "East US"
+
+# Azure AD ile kimlik doğrulama
+New-AzADApplication -DisplayName "MyApp" -IdentifierUris "https://myapp.com"
+
+# AWS IAM ile erişim kontrolü
+aws iam create-user --user-name MyUser
+aws iam attach-user-policy --user-name MyUser --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+# GCP IAM ile erişim kontrolü
+gcloud iam service-accounts create my-service-account --display-name "My Service Account"
+gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:my-service-account@PROJECT_ID.iam.gserviceaccount.com" --role="roles/storage.objectViewer"</code></pre>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Hibrit Bulut Geçiş Projesi</h3>
+                    <p><strong>Şirket:</strong> 1000 çalışanlı finansal hizmetler firması</p>
+                    <p><strong>Proje:</strong> On-premises'den hibrit buluta geçiş</p>
+                    
+                    <h4>Geçiş Stratejisi:</h4>
+                    <div class="migration-strategy">
+                        <div class="strategy-phase">
+                            <h5>📋 1. Faz - Planlama (2 ay)</h5>
+                            <ul>
+                                <li>Mevcut altyapı analizi</li>
+                                <li>Bulut stratejisi belirleme</li>
+                                <li>Güvenlik gereksinimleri</li>
+                                <li>Maliyet analizi</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-phase">
+                            <h5>🔧 2. Faz - Hazırlık (3 ay)</h5>
+                            <ul>
+                                <li>Azure tenant yapılandırması</li>
+                                <li>Hibrit bağlantı kurulumu</li>
+                                <li>Güvenlik politikaları</li>
+                                <li>Pilot kullanıcı seçimi</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-phase">
+                            <h5>🧪 3. Faz - Pilot (2 ay)</h5>
+                            <ul>
+                                <li>Pilot kullanıcıların geçişi</li>
+                                <li>Fonksiyonel testler</li>
+                                <li>Performans değerlendirmesi</li>
+                                <li>Kullanıcı eğitimleri</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-phase">
+                            <h5>🚀 4. Faz - Tam Geçiş (6 ay)</h5>
+                            <ul>
+                                <li>Kademeli geçiş</li>
+                                <li>Veri migrasyonu</li>
+                                <li>Uygulama modernizasyonu</li>
+                                <li>Go-live desteği</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Kullanılan Bulut Servisleri:</h4>
+                    <div class="cloud-services-used">
+                        <div class="service-group">
+                            <h5>🔵 Azure Servisleri</h5>
+                            <ul>
+                                <li>Azure Active Directory</li>
+                                <li>Azure Virtual Machines</li>
+                                <li>Azure SQL Database</li>
+                                <li>Azure Storage</li>
+                                <li>Azure Backup</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-group">
+                            <h5>🏢 On-Premises</h5>
+                            <ul>
+                                <li>Active Directory</li>
+                                <li>Exchange Server</li>
+                                <li>File Server</li>
+                                <li>Database Server</li>
+                                <li>Backup Server</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-cost-optimization">
+                <h2>💰 Bulut Maliyet Optimizasyonu</h2>
+                
+                <h3>Maliyet Azaltma Stratejileri</h3>
+                <div class="cost-strategies">
+                    <div class="strategy-category">
+                        <h4>📊 Right-Sizing</h4>
+                        <ul>
+                            <li>VM boyutlarını optimize et</li>
+                            <li>Kullanılmayan kaynakları kapat</li>
+                            <li>Performans metriklerini izle</li>
+                            <li>Otomatik ölçeklendirme kullan</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-category">
+                        <h4>⏰ Reserved Instances</h4>
+                        <ul>
+                            <li>Uzun vadeli taahhütler</li>
+                            <li>%30-70 maliyet tasarrufu</li>
+                            <li>1-3 yıl süreli anlaşmalar</li>
+                            <li>Kullanım öngörüleri</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-category">
+                        <h4>🔄 Auto-Scaling</h4>
+                        <ul>
+                            <li>Otomatik ölçeklendirme</li>
+                            <li>Demand-based pricing</li>
+                            <li>Resource utilization</li>
+                            <li>Cost-performance balance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Maliyet İzleme Araçları</h3>
+                <div class="code-block">
+                    <pre><code># Azure maliyet analizi
+Get-AzConsumptionUsageDetail -BillingPeriodName "2023-01" | Select-Object InstanceName, UsageStart, UsageEnd, PretaxCost
+
+# AWS maliyet analizi
+aws ce get-cost-and-usage --time-period Start=2023-01-01,End=2023-01-31 --granularity MONTHLY --metrics BlendedCost
+
+# GCP maliyet analizi
+gcloud billing budgets list --billing-account=BILLING_ACCOUNT_ID</code></pre>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Cloud teknolojilerini öğrendikten sonra, <a href="bolum-15-otomasyon.html">Otomasyon ve Chatbots</a> bölümüne geçerek modern otomasyon çözümlerini inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-15-otomasyon.html" class="btn btn-primary">🤖 Otomasyon →</a>
+                    <a href="bolum-13-sorun-giderme.html" class="btn btn-secondary">← Sorun Giderme</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

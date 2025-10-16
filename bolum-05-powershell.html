@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PowerShell Eğitimi - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>PowerShell Eğitimi</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="powershell">
+            <h1>⚡ PowerShell Eğitimi</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 PowerShell'e Giriş</h2>
+                <p>PowerShell, Microsoft'un geliştirdiği güçlü bir komut satırı arayüzü ve scripting dilidir. Windows sistemlerinde otomasyon, yönetim ve sorun giderme işlemlerini kolaylaştırır.</p>
+            </div>
+
+            <div class="powershell-basics">
+                <h2>🔧 PowerShell Temelleri</h2>
+                
+                <h3>PowerShell Neden Kullanılır?</h3>
+                <p>PowerShell, IT yöneticilerinin hayatını kolaylaştırmak için tasarlanmıştır. <strong>Neden PowerShell kullanmalıyız?</strong></p>
+                
+                <div class="why-powershell">
+                    <h4>🔍 PowerShell'in Avantajları:</h4>
+                    <ul>
+                        <li><strong>Zaman Tasarrufu:</strong> 100 kullanıcı oluşturmayı 5 dakikada yapabilirsiniz</li>
+                        <li><strong>Hata Azaltma:</strong> Manuel işlemlerde %30 hata riski, PowerShell'de %5</li>
+                        <li><strong>Tekrarlanabilirlik:</strong> Aynı işlemi defalarca yapabilirsiniz</li>
+                        <li><strong>Raporlama:</strong> Sistem durumunu otomatik raporlayabilirsiniz</li>
+                        <li><strong>Uzaktan Yönetim:</strong> Fiziksel olarak sunucuya gitmeden yönetim</li>
+                    </ul>
+                </div>
+                
+                <div class="powershell-workflow">
+                    <h4>🔄 PowerShell Çalışma Mantığı:</h4>
+                    <p><strong>1. Problem Tanımlama:</strong> "100 yeni çalışan için hesap oluşturmam gerekiyor"</p>
+                    <p><strong>2. Çözüm Geliştirme:</strong> "CSV dosyasından okuyup otomatik oluşturayım"</p>
+                    <p><strong>3. Script Yazma:</strong> PowerShell komutlarını sıralama</p>
+                    <p><strong>4. Test Etme:</strong> Önce 1-2 kullanıcı ile deneme</p>
+                    <p><strong>5. Uygulama:</strong> Tüm kullanıcılar için çalıştırma</p>
+                </div>
+
+                <h3>🔧 PowerShell Temel Komutları - Hangi Yöntemi Seçmeliyiz?</h3>
+                <p>PowerShell'de işlemler için farklı yöntemler var. <strong>Neden farklı yöntemler kullanmalıyız?</strong></p>
+                
+                <div class="powershell-methods">
+                    <h4>🎯 PowerShell Yöntem Seçimi</h4>
+                    <div class="method-comparison">
+                        <div class="method-card">
+                            <h5>🖥️ GUI Alternatifi</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Tek seferlik işlemler, görsel doğrulama</p>
+                            <p><strong>Avantajları:</strong> Kolay öğrenme, görsel feedback</p>
+                            <p><strong>Dezavantajları:</strong> Yavaş, tekrarlanamaz</p>
+                        </div>
+                        
+                        <div class="method-card">
+                            <h5>⚡ PowerShell Cmdlet</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Hızlı işlemler, tek komut</p>
+                            <p><strong>Avantajları:</strong> Hızlı, güçlü</p>
+                            <p><strong>Dezavantajları:</strong> Öğrenme eğrisi</p>
+                        </div>
+                        
+                        <div class="method-card">
+                            <h5>🤖 PowerShell Script</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Tekrarlayan işlemler, otomasyon</p>
+                            <p><strong>Avantajları:</strong> Otomatik, ölçeklenebilir</p>
+                            <p><strong>Dezavantajları:</strong> Geliştirme zamanı</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cmdlet-examples">
+                    <div class="cmdlet-group">
+                        <h4>📁 Dosya ve Klasör İşlemleri - Her Yöntemle</h4>
+                        
+                        <div class="operation-methods">
+                            <h5>🖥️ Windows Explorer ile (GUI)</h5>
+                            <div class="gui-steps">
+                                <ol>
+                                    <li><strong>Windows Explorer</strong> açın</li>
+                                    <li><strong>C:\Users</strong> klasörüne gidin</li>
+                                    <li><strong>Ctrl+A</strong> ile tüm dosyaları seçin</li>
+                                    <li><strong>Sağ tık → Copy</strong> ile kopyalayın</li>
+                                    <li><strong>Hedef klasöre</strong> gidin ve <strong>Paste</strong> yapın</li>
+                                </ol>
+                            </div>
+                            
+                            <h5>⚡ PowerShell ile (Hızlı)</h5>
+                            <div class="code-block">
+                                <pre><code># Dosya listeleme
+Get-ChildItem
+Get-ChildItem -Path C:\Users -Recurse
+
+# Dosya kopyalama
+Copy-Item -Path "C:\source\file.txt" -Destination "C:\dest\"
+
+# Dosya silme
+Remove-Item -Path "C:\temp\oldfile.txt" -Force
+
+# Klasör oluşturma
+New-Item -ItemType Directory -Path "C:\NewFolder"
+
+# Dosya içeriği okuma
+Get-Content -Path "C:\logs\app.log" -Tail 50</code></pre>
+                            </div>
+                            
+                            <h5>🤖 PowerShell Script ile (Otomatik)</h5>
+                            <div class="code-block">
+                                <pre><code># Toplu dosya işlemleri scripti
+function Process-Files {
+    param(
+        [string]$SourcePath,
+        [string]$DestinationPath,
+        [int]$DaysOld = 30
+    )
+    
+    # Eski dosyaları bul ve taşı
+    $cutoffDate = (Get-Date).AddDays(-$DaysOld)
+    Get-ChildItem -Path $SourcePath -File | 
+        Where-Object {$_.LastWriteTime -lt $cutoffDate} |
+        Move-Item -Destination $DestinationPath -Force
+    
+    Write-Host "İşlem tamamlandı: $((Get-ChildItem $DestinationPath).Count) dosya taşındı"
+}
+
+# Script kullanımı
+Process-Files -SourcePath "C:\Temp" -DestinationPath "C:\Archive" -DaysOld 7</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cmdlet-group">
+                        <h4>💻 Sistem Bilgileri - Her Yöntemle</h4>
+                        
+                        <div class="operation-methods">
+                            <h5>🖥️ System Information ile (GUI)</h5>
+                            <div class="gui-steps">
+                                <ol>
+                                    <li><strong>Windows + R</strong> tuşlarına basın</li>
+                                    <li><strong>msinfo32</strong> yazın ve Enter'a basın</li>
+                                    <li><strong>System Summary</strong> bölümünde genel bilgiler</li>
+                                    <li><strong>Components → Processor</strong> işlemci bilgileri</li>
+                                    <li><strong>Components → Memory</strong> bellek bilgileri</li>
+                                    <li><strong>Components → Storage → Disks</strong> disk bilgileri</li>
+                                </ol>
+                            </div>
+                            
+                            <h5>⚡ PowerShell ile (Hızlı)</h5>
+                            <div class="code-block">
+                                <pre><code># Bilgisayar bilgileri
+Get-ComputerInfo
+
+# İşlemci bilgileri
+Get-WmiObject -Class Win32_Processor
+
+# Bellek bilgileri
+Get-WmiObject -Class Win32_PhysicalMemory
+
+# Disk bilgileri
+Get-WmiObject -Class Win32_LogicalDisk
+
+# Servis durumu
+Get-Service | Where-Object {$_.Status -eq "Running"}</code></pre>
+                            </div>
+                            
+                            <h5>🤖 PowerShell Script ile (Otomatik Rapor)</h5>
+                            <div class="code-block">
+                                <pre><code># Sistem sağlık raporu scripti
+function Get-SystemReport {
+    $report = @{
+        Timestamp = Get-Date
+        ComputerName = $env:COMPUTERNAME
+        OS = (Get-WmiObject -Class Win32_OperatingSystem).Caption
+        CPU = (Get-WmiObject -Class Win32_Processor).Name
+        Memory = [math]::Round((Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2)
+        Disk = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | 
+               ForEach-Object {
+                   [PSCustomObject]@{
+                       Drive = $_.DeviceID
+                       FreeSpace = [math]::Round($_.FreeSpace / 1GB, 2)
+                       TotalSpace = [math]::Round($_.Size / 1GB, 2)
+                   }
+               }
+        Services = (Get-Service | Where-Object {$_.Status -ne "Running"}).Count
+    }
+    
+    # Raporu dosyaya kaydet
+    $report | ConvertTo-Json -Depth 3 | Out-File -FilePath "C:\Reports\SystemReport.json"
+    Write-Host "Sistem raporu oluşturuldu: C:\Reports\SystemReport.json" -ForegroundColor Green
+}
+
+# Script çalıştırma
+Get-SystemReport</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cmdlet-group">
+                        <h4>🌐 Ağ İşlemleri - Her Yöntemle</h4>
+                        
+                        <div class="operation-methods">
+                            <h5>🖥️ Network and Sharing Center ile (GUI)</h5>
+                            <div class="gui-steps">
+                                <ol>
+                                    <li><strong>Control Panel</strong> açın</li>
+                                    <li><strong>Network and Internet → Network and Sharing Center</strong></li>
+                                    <li><strong>Change adapter settings</strong> tıklayın</li>
+                                    <li><strong>Ethernet</strong> bağlantısına sağ tık</li>
+                                    <li><strong>Properties</strong> → <strong>Internet Protocol Version 4 (TCP/IPv4)</strong></li>
+                                    <li><strong>Properties</strong> → IP adresini değiştirin</li>
+                                </ol>
+                            </div>
+                            
+                            <h5>⚡ PowerShell ile (Hızlı)</h5>
+                            <div class="code-block">
+                                <pre><code># IP yapılandırması
+Get-NetIPConfiguration
+
+# Ağ bağlantılarını test etme
+Test-NetConnection -ComputerName "google.com" -Port 80
+
+# DNS çözümleme
+Resolve-DnsName -Name "microsoft.com"
+
+# Ping işlemi
+Test-Connection -ComputerName "192.168.1.1" -Count 4</code></pre>
+                            </div>
+                            
+                            <h5>🤖 PowerShell Script ile (Ağ Tanılama)</h5>
+                            <div class="code-block">
+                                <pre><code># Ağ tanılama scripti
+function Test-NetworkHealth {
+    param(
+        [string[]]$Targets = @("google.com", "microsoft.com", "8.8.8.8")
+    )
+    
+    $results = @()
+    
+    foreach ($target in $Targets) {
+        $ping = Test-Connection -ComputerName $target -Count 1 -Quiet
+        $dns = try { Resolve-DnsName -Name $target -ErrorAction Stop } catch { $null }
+        
+        $results += [PSCustomObject]@{
+            Target = $target
+            Ping = if ($ping) { "✅ OK" } else { "❌ FAIL" }
+            DNS = if ($dns) { "✅ OK" } else { "❌ FAIL" }
+            Timestamp = Get-Date
+        }
+    }
+    
+    # Sonuçları raporla
+    $results | Format-Table -AutoSize
+    $results | Export-Csv -Path "C:\Reports\NetworkHealth.csv" -NoTypeInformation
+}
+
+# Script çalıştırma
+Test-NetworkHealth</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenarios">
+                <h2>🏢 Gerçek Hayat Senaryoları</h2>
+                
+                <div class="scenario">
+                    <h3>Senaryo 1: Toplu Kullanıcı Oluşturma</h3>
+                    <p><strong>Durum:</strong> Yeni şirket birleşmesi sonrası 50 yeni çalışan için Active Directory'de kullanıcı hesapları oluşturulması gerekiyor.</p>
+                    
+                    <h4>Manuel Yöntem (Geleneksel):</h4>
+                    <div class="manual-method">
+                        <p>❌ <strong>Zaman:</strong> 2-3 saat</p>
+                        <p>❌ <strong>Hata Riski:</strong> Yüksek</p>
+                        <p>❌ <strong>Tekrarlanabilirlik:</strong> Düşük</p>
+                        <ol>
+                            <li>Active Directory Users and Computers açılır</li>
+                            <li>Her kullanıcı için manuel olarak hesap oluşturulur</li>
+                            <li>Her hesap için ayrı ayrı özellikler ayarlanır</li>
+                            <li>Grup üyelikleri manuel olarak atanır</li>
+                        </ol>
+                    </div>
+
+                    <h4>PowerShell Yöntemi (Otomatik):</h4>
+                    <div class="powershell-method">
+                        <p>✅ <strong>Zaman:</strong> 5-10 dakika</p>
+                        <p>✅ <strong>Hata Riski:</strong> Düşük</p>
+                        <p>✅ <strong>Tekrarlanabilirlik:</strong> Yüksek</p>
+                        
+                        <div class="code-block">
+                            <pre><code># CSV dosyasından kullanıcı oluşturma
+$users = Import-Csv -Path "C:\Users\new_employees.csv"
+
+foreach ($user in $users) {
+    $password = ConvertTo-SecureString -String "TempPass123!" -AsPlainText -Force
+    
+    New-ADUser -SamAccountName $user.Username `
+               -Name $user.FullName `
+               -GivenName $user.FirstName `
+               -Surname $user.LastName `
+               -EmailAddress $user.Email `
+               -UserPrincipalName $user.Email `
+               -AccountPassword $password `
+               -Enabled $true `
+               -Path "OU=Users,DC=company,DC=com"
+    
+    # Departman grubuna ekleme
+    Add-ADGroupMember -Identity $user.Department -Members $user.Username
+    
+    Write-Host "Kullanıcı oluşturuldu: $($user.FullName)" -ForegroundColor Green
+}
+
+Write-Host "Toplu kullanıcı oluşturma tamamlandı!" -ForegroundColor Green</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <h3>Senaryo 2: Disk Alanı Temizleme</h3>
+                    <p><strong>Durum:</strong> File Server'da disk alanı %95'e ulaştı, acil temizlik gerekiyor.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Disk kullanımını analiz et
+$drives = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3}
+foreach ($drive in $drives) {
+    $freeSpace = [math]::Round($drive.FreeSpace / 1GB, 2)
+    $totalSpace = [math]::Round($drive.Size / 1GB, 2)
+    $percentFree = [math]::Round(($drive.FreeSpace / $drive.Size) * 100, 2)
+    
+    Write-Host "Drive $($drive.DeviceID) - Free: $freeSpace GB / $totalSpace GB ($percentFree%)"
+}
+
+# En büyük dosyaları bul
+Get-ChildItem -Path "C:\" -Recurse -File | 
+    Sort-Object Length -Descending | 
+    Select-Object -First 20 Name, @{Name="Size(GB)";Expression={[math]::Round($_.Length/1GB,2)}}, FullName
+
+# Eski log dosyalarını temizle (30 günden eski)
+$cutoffDate = (Get-Date).AddDays(-30)
+Get-ChildItem -Path "C:\Logs" -Recurse -File | 
+    Where-Object {$_.LastWriteTime -lt $cutoffDate} | 
+    Remove-Item -Force -Verbose
+
+# Temp dosyalarını temizle
+Get-ChildItem -Path "C:\Windows\Temp" -Recurse -File | 
+    Where-Object {$_.LastWriteTime -lt (Get-Date).AddDays(-7)} | 
+    Remove-Item -Force -Verbose</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <h3>Senaryo 3: Servis Durumu İzleme</h3>
+                    <p><strong>Durum:</strong> Kritik servislerin durumunu izleyip raporlama sistemi kurulması.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Kritik servisleri tanımla
+$criticalServices = @("Spooler", "DNS", "DHCP", "Active Directory Domain Services")
+
+# Servis durumlarını kontrol et
+$serviceStatus = @()
+foreach ($service in $criticalServices) {
+    $svc = Get-Service -Name $service -ErrorAction SilentlyContinue
+    if ($svc) {
+        $serviceStatus += [PSCustomObject]@{
+            ServiceName = $service
+            Status = $svc.Status
+            StartType = $svc.StartType
+            IsRunning = ($svc.Status -eq "Running")
+        }
+    }
+}
+
+# Durumu raporla
+$stoppedServices = $serviceStatus | Where-Object {$_.IsRunning -eq $false}
+if ($stoppedServices) {
+    Write-Warning "Durdurulmuş servisler bulundu:"
+    $stoppedServices | Format-Table -AutoSize
+    
+    # E-posta gönder (opsiyonel)
+    $body = $stoppedServices | ConvertTo-Html -Fragment
+    Send-MailMessage -To "admin@company.com" -Subject "Servis Uyarısı" -Body $body -SmtpServer "mail.company.com"
+} else {
+    Write-Host "Tüm kritik servisler çalışıyor." -ForegroundColor Green
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-powershell">
+                <h2>🚀 İleri Seviye PowerShell</h2>
+                
+                <h3>Fonksiyon Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># Kullanıcı oluşturma fonksiyonu
+function New-CompanyUser {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$FirstName,
+        
+        [Parameter(Mandatory=$true)]
+        [string]$LastName,
+        
+        [Parameter(Mandatory=$true)]
+        [string]$Department,
+        
+        [string]$Email = "$FirstName.$LastName@company.com"
+    )
+    
+    $username = "$FirstName.$LastName"
+    $fullName = "$FirstName $LastName"
+    $password = ConvertTo-SecureString -String "TempPass123!" -AsPlainText -Force
+    
+    try {
+        New-ADUser -SamAccountName $username `
+                   -Name $fullName `
+                   -GivenName $FirstName `
+                   -Surname $LastName `
+                   -EmailAddress $Email `
+                   -UserPrincipalName $Email `
+                   -AccountPassword $password `
+                   -Enabled $true `
+                   -Path "OU=Users,DC=company,DC=com"
+        
+        Add-ADGroupMember -Identity $Department -Members $username
+        
+        Write-Host "Kullanıcı başarıyla oluşturuldu: $fullName" -ForegroundColor Green
+        return $true
+    }
+    catch {
+        Write-Error "Kullanıcı oluşturulurken hata: $($_.Exception.Message)"
+        return $false
+    }
+}
+
+# Fonksiyonu kullanma
+New-CompanyUser -FirstName "Ahmet" -LastName "Yılmaz" -Department "IT"</code></pre>
+                </div>
+
+                <h3>Hata Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># Try-Catch-Finally bloğu
+try {
+    # Riskli işlem
+    $result = Get-Content -Path "C:\NonExistentFile.txt" -ErrorAction Stop
+    Write-Host "Dosya okundu: $result"
+}
+catch [System.IO.FileNotFoundException] {
+    Write-Warning "Dosya bulunamadı: $($_.Exception.Message)"
+}
+catch [System.UnauthorizedAccessException] {
+    Write-Error "Dosyaya erişim izni yok: $($_.Exception.Message)"
+}
+catch {
+    Write-Error "Beklenmeyen hata: $($_.Exception.Message)"
+}
+finally {
+    Write-Host "İşlem tamamlandı."
+}
+
+# Hata eylem tercihleri
+Get-ChildItem -Path "C:\" -ErrorAction SilentlyContinue  # Hataları sessizce geç
+Get-ChildItem -Path "C:\" -ErrorAction Stop             # Hata durumunda dur
+Get-ChildItem -Path "C:\" -ErrorAction Continue         # Hataları göster ama devam et</code></pre>
+                </div>
+
+                <h3>Pipeline ve Filtreleme</h3>
+                <div class="code-block">
+                    <pre><code># Pipeline kullanımı
+Get-Process | Where-Object {$_.CPU -gt 100} | Sort-Object CPU -Descending | Select-Object -First 10
+
+# Where-Object ile filtreleme
+Get-Service | Where-Object {$_.Status -eq "Running" -and $_.StartType -eq "Automatic"}
+
+# Select-Object ile seçim
+Get-Process | Select-Object Name, CPU, WorkingSet | Format-Table -AutoSize
+
+# Group-Object ile gruplama
+Get-Process | Group-Object ProcessName | Sort-Object Count -Descending
+
+# Measure-Object ile ölçüm
+Get-ChildItem -Path "C:\" -File | Measure-Object -Property Length -Sum</code></pre>
+                </div>
+            </div>
+
+            <div class="automation-examples">
+                <h2>🤖 Otomasyon Örnekleri</h2>
+                
+                <h3>Günlük Backup Scripti</h3>
+                <div class="code-block">
+                    <pre><code># Günlük backup scripti
+param(
+    [string]$SourcePath = "C:\ImportantData",
+    [string]$BackupPath = "D:\Backups",
+    [int]$RetentionDays = 30
+)
+
+$timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$backupFolder = Join-Path $BackupPath "Backup_$timestamp"
+
+try {
+    # Backup klasörü oluştur
+    New-Item -ItemType Directory -Path $backupFolder -Force
+    
+    # Dosyaları kopyala
+    Copy-Item -Path $SourcePath -Destination $backupFolder -Recurse -Force
+    
+    # Eski backup'ları temizle
+    $cutoffDate = (Get-Date).AddDays(-$RetentionDays)
+    Get-ChildItem -Path $BackupPath -Directory | 
+        Where-Object {$_.CreationTime -lt $cutoffDate} | 
+        Remove-Item -Recurse -Force
+    
+    # Log yaz
+    $logMessage = "$(Get-Date): Backup başarılı - $backupFolder"
+    Add-Content -Path "C:\Logs\backup.log" -Value $logMessage
+    
+    Write-Host "Backup tamamlandı: $backupFolder" -ForegroundColor Green
+}
+catch {
+    $errorMessage = "$(Get-Date): Backup hatası - $($_.Exception.Message)"
+    Add-Content -Path "C:\Logs\backup.log" -Value $errorMessage
+    Write-Error "Backup hatası: $($_.Exception.Message)"
+}</code></pre>
+                </div>
+
+                <h3>Sistem İzleme Scripti</h3>
+                <div class="code-block">
+                    <pre><code># Sistem sağlık izleme
+function Get-SystemHealth {
+    $health = @{
+        Timestamp = Get-Date
+        ComputerName = $env:COMPUTERNAME
+        CPU = Get-WmiObject -Class Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object -ExpandProperty Average
+        Memory = @{
+            Total = [math]::Round((Get-WmiObject -Class Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2)
+            Free = [math]::Round((Get-WmiObject -Class Win32_OperatingSystem).FreePhysicalMemory / 1MB, 2)
+        }
+        Disk = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | ForEach-Object {
+            [PSCustomObject]@{
+                Drive = $_.DeviceID
+                FreeSpace = [math]::Round($_.FreeSpace / 1GB, 2)
+                TotalSpace = [math]::Round($_.Size / 1GB, 2)
+                PercentFree = [math]::Round(($_.FreeSpace / $_.Size) * 100, 2)
+            }
+        }
+        Services = Get-Service | Where-Object {$_.Status -ne "Running"} | Select-Object Name, Status
+    }
+    
+    return $health
+}
+
+# Sağlık raporu oluştur
+$health = Get-SystemHealth
+
+# Kritik durumları kontrol et
+$alerts = @()
+if ($health.CPU -gt 80) { $alerts += "CPU kullanımı yüksek: $($health.CPU)%" }
+if ($health.Memory.Free -lt 1) { $alerts += "Bellek az: $($health.Memory.Free) GB" }
+if ($health.Disk.PercentFree -lt 10) { $alerts += "Disk alanı az: $($health.Disk.PercentFree)%" }
+if ($health.Services.Count -gt 0) { $alerts += "Durdurulmuş servisler: $($health.Services.Count)" }
+
+# Raporu kaydet
+$reportPath = "C:\Reports\SystemHealth_$(Get-Date -Format 'yyyyMMdd_HHmmss').json"
+$health | ConvertTo-Json -Depth 3 | Out-File -FilePath $reportPath
+
+if ($alerts.Count -gt 0) {
+    Write-Warning "Sistem uyarıları:"
+    $alerts | ForEach-Object { Write-Host "⚠️ $_" -ForegroundColor Yellow }
+} else {
+    Write-Host "✅ Sistem sağlıklı" -ForegroundColor Green
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>💡 PowerShell En İyi Uygulamaları</h2>
+                
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <h3>📝 Kod Yazma</h3>
+                        <ul>
+                            <li>Anlamlı değişken isimleri kullan</li>
+                            <li>Yorum satırları ekle</li>
+                            <li>Hata yönetimi yap</li>
+                            <li>Fonksiyonları küçük tut</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h3>🔒 Güvenlik</h3>
+                        <ul>
+                            <li>Execution Policy ayarlarını kontrol et</li>
+                            <li>Script imzalama kullan</li>
+                            <li>Hassas bilgileri şifrele</li>
+                            <li>Least privilege prensibi</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h3>⚡ Performans</h3>
+                        <ul>
+                            <li>Pipeline kullan</li>
+                            <li>Gereksiz döngülerden kaçın</li>
+                            <li>Büyük veri setlerini parçala</li>
+                            <li>Progress bar kullan</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-card">
+                        <h3>🧪 Test Etme</h3>
+                        <ul>
+                            <li>Test ortamında dene</li>
+                            <li>WhatIf parametresi kullan</li>
+                            <li>Verbose çıktı al</li>
+                            <li>Log dosyaları tut</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>PowerShell temellerini öğrendikten sonra, <a href="bolum-06-guvenlik.html">Güvenlik & AppLocker</a> bölümüne geçerek sistem güvenliği konularını inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-06-guvenlik.html" class="btn btn-primary">🔒 Güvenlik →</a>
+                    <a href="bolum-04-active-directory.html" class="btn btn-secondary">← Active Directory</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

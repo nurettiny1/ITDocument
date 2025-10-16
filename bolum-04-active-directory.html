@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Active Directory (AD DS) - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Active Directory (AD DS)</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="active-directory">
+            <h1>👥 Active Directory (AD DS)</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Active Directory Neden Gerekli?</h2>
+                <p>Active Directory, büyük organizasyonlarda kaosu önlemek için tasarlanmıştır. <strong>Neden Active Directory kullanmalıyız?</strong></p>
+                
+                <div class="why-ad">
+                    <h4>🔍 Active Directory'nin Faydaları:</h4>
+                    <ul>
+                        <li><strong>Merkezi Yönetim:</strong> 1000+ kullanıcıyı tek yerden yönetebilirsiniz</li>
+                        <li><strong>Güvenlik:</strong> Tüm erişimleri kontrol edebilirsiniz</li>
+                        <li><strong>Otomasyon:</strong> Tekrarlayan işlemleri otomatikleştirebilirsiniz</li>
+                        <li><strong>Ölçeklenebilirlik:</strong> Şirket büyüdükçe sistem büyür</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Manuel işlemler yerine otomasyon</li>
+                    </ul>
+                </div>
+                
+                <div class="ad-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 500 çalışanlı şirkette her departman kendi kullanıcılarını yönetiyor</p>
+                    <p><strong>Sonuç:</strong> Kaos, güvenlik açıkları, maliyet artışı</p>
+                    <p><strong>Çözüm:</strong> Active Directory ile merkezi yönetim</p>
+                </div>
+            </div>
+
+            <div class="ad-concepts">
+                <h2>📚 Temel Kavramlar</h2>
+                
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h3>🌐 Domain</h3>
+                        <p>Bir ağdaki bilgisayarların ve kaynakların mantıksal gruplandırması</p>
+                        <ul>
+                            <li>Merkezi yönetim</li>
+                            <li>Güvenlik sınırları</li>
+                            <li>DNS tabanlı isimlendirme</li>
+                            <li>Örnek: company.local</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>🏢 Domain Controller (DC)</h3>
+                        <p>Active Directory veritabanını barındıran sunucu</p>
+                        <ul>
+                            <li>Kullanıcı kimlik doğrulama</li>
+                            <li>Veri replikasyonu</li>
+                            <li>Güvenlik politikaları</li>
+                            <li>DNS servisleri</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>👤 User Account</h3>
+                        <p>Kullanıcıların sisteme erişimini sağlayan hesap</p>
+                        <ul>
+                            <li>Kimlik doğrulama</li>
+                            <li>Yetkilendirme</li>
+                            <li>Profil yönetimi</li>
+                            <li>Grup üyelikleri</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3>👥 Group</h3>
+                        <p>Kullanıcıları ve kaynakları gruplandırmak için kullanılan yapı</p>
+                        <ul>
+                            <li>Yetki yönetimi</li>
+                            <li>E-posta dağıtım listeleri</li>
+                            <li>Politika uygulama</li>
+                            <li>Kaynak erişimi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ad-installation">
+                <h2>⚙️ Active Directory Kurulumu - Hangi Yöntemi Seçmeliyiz?</h2>
+                <p>Active Directory kurulumu kritik bir süreçtir. <strong>Neden doğru yöntem seçimi önemli?</strong></p>
+                
+                <div class="ad-methods">
+                    <h4>🎯 AD Kurulum Yöntemleri</h4>
+                    <div class="method-comparison">
+                        <div class="method-card">
+                            <h5>🖥️ Server Manager ile (GUI)</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> İlk kurulum, görsel doğrulama</p>
+                            <p><strong>Avantajları:</strong> Kolay öğrenme, adım adım rehber</p>
+                            <p><strong>Dezavantajları:</strong> Yavaş, tekrarlanamaz</p>
+                        </div>
+                        
+                        <div class="method-card">
+                            <h5>⚡ PowerShell ile (Hızlı)</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Hızlı kurulum, script hazır</p>
+                            <p><strong>Avantajları:</strong> Hızlı, tekrarlanabilir</p>
+                            <p><strong>Dezavantajları:</strong> Öğrenme eğrisi</p>
+                        </div>
+                        
+                        <div class="method-card">
+                            <h5>🤖 Unattended ile (Otomatik)</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Toplu kurulum, otomasyon</p>
+                            <p><strong>Avantajları:</strong> Otomatik, ölçeklenebilir</p>
+                            <p><strong>Dezavantajları:</strong> Geliştirme zamanı</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>💻 Ön Gereksinimler - Gerçek Hayat Senaryoları</h3>
+                <div class="prerequisites-scenarios">
+                    <div class="scenario-card">
+                        <h4>🏠 Küçük İşletme (10-50 kullanıcı)</h4>
+                        <p><strong>Minimum Gereksinimler:</strong></p>
+                        <ul>
+                            <li><strong>OS:</strong> Windows Server 2022 Standard</li>
+                            <li><strong>RAM:</strong> 8 GB (16 GB önerilen)</li>
+                            <li><strong>Disk:</strong> 100 GB SSD (Sistem) + 500 GB HDD (Veri)</li>
+                            <li><strong>CPU:</strong> 2 çekirdek (4 çekirdek önerilen)</li>
+                            <li><strong>Network:</strong> Gigabit Ethernet</li>
+                            <li><strong>Maliyet:</strong> ₺15,000 - ₺25,000</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code># Küçük işletme için tipik kullanım
+- Single Domain Controller
+- File Server
+- Print Server
+- Basic Group Policies</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <h4>🏢 Orta İşletme (50-200 kullanıcı)</h4>
+                        <p><strong>Önerilen Gereksinimler:</strong></p>
+                        <ul>
+                            <li><strong>OS:</strong> Windows Server 2022 Standard</li>
+                            <li><strong>RAM:</strong> 16 GB (32 GB önerilen)</li>
+                            <li><strong>Disk:</strong> 200 GB SSD (Sistem) + 1 TB HDD (Veri)</li>
+                            <li><strong>CPU:</strong> 4 çekirdek (8 çekirdek önerilen)</li>
+                            <li><strong>Network:</strong> 10 Gigabit Ethernet</li>
+                            <li><strong>Maliyet:</strong> ₺40,000 - ₺60,000</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code># Orta işletme için tipik kullanım
+- Multiple Domain Controllers
+- DFS Replication
+- Advanced Group Policies
+- Certificate Services</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-card">
+                        <h4>🏭 Büyük İşletme (200+ kullanıcı)</h4>
+                        <p><strong>Enterprise Gereksinimler:</strong></p>
+                        <ul>
+                            <li><strong>OS:</strong> Windows Server 2022 Datacenter</li>
+                            <li><strong>RAM:</strong> 32 GB (64 GB önerilen)</li>
+                            <li><strong>Disk:</strong> 500 GB SSD (Sistem) + 2 TB HDD (Veri)</li>
+                            <li><strong>CPU:</strong> 8 çekirdek (16 çekirdek önerilen)</li>
+                            <li><strong>Network:</strong> 25 Gigabit Ethernet</li>
+                            <li><strong>Maliyet:</strong> ₺100,000+</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code># Büyük işletme için tipik kullanım
+- Multiple Domain Controllers
+- Read-Only Domain Controllers
+- Advanced Security Features
+- Federation Services</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔧 Adım Adım Kurulum - Her Yöntemle</h3>
+                <div class="detailed-installation">
+                    <div class="installation-step">
+                        <h4>1. 🖥️ Server Manager ile Kurulum (GUI)</h4>
+                        <p><strong>Neden GUI kullanmalıyız?</strong> Görsel doğrulama, adım adım rehber</p>
+                        
+                        <div class="step-details">
+                            <h5>📋 Server Manager'da Rol Ekleme</h5>
+                            <div class="gui-steps">
+                                <ol>
+                                    <li><strong>Server Manager</strong> açın</li>
+                                    <li><strong>"Add roles and features"</strong> tıklayın</li>
+                                    <li><strong>"Role-based or feature-based installation"</strong> seçin</li>
+                                    <li><strong>"Active Directory Domain Services"</strong> rolünü seçin</li>
+                                    <li><strong>"Add Features"</strong> tıklayın</li>
+                                    <li><strong>"Next"</strong> ile devam edin</li>
+                                    <li><strong>"Install"</strong> tıklayın</li>
+                                </ol>
+                            </div>
+                            
+                            <h5>🎯 Domain Controller'a Yükseltme</h5>
+                            <div class="gui-steps">
+                                <ol>
+                                    <li><strong>"Promote this server to a domain controller"</strong> tıklayın</li>
+                                    <li><strong>"Add a new forest"</strong> seçin</li>
+                                    <li><strong>Root domain name:</strong> company.local</li>
+                                    <li><strong>Forest functional level:</strong> Windows Server 2022</li>
+                                    <li><strong>Domain functional level:</strong> Windows Server 2022</li>
+                                    <li><strong>DSRM password:</strong> Güçlü şifre girin</li>
+                                    <li><strong>"Next"</strong> ile devam edin</li>
+                                    <li><strong>"Install"</strong> tıklayın</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installation-step">
+                        <h4>2. ⚡ PowerShell ile Kurulum (Hızlı)</h4>
+                        <p><strong>Neden PowerShell kullanmalıyız?</strong> Hızlı kurulum, tekrarlanabilir</p>
+                        
+                        <div class="step-details">
+                            <h5>🚀 PowerShell Komutları</h5>
+                            <div class="code-block">
+                                <pre><code># AD DS rolü ekleme
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+
+# Yeni forest oluşturma
+Install-ADDSForest -DomainName "company.local" `
+    -SafeModeAdministratorPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force) `
+    -InstallDns:$true `
+    -CreateDnsDelegation:$false
+
+# Mevcut domain'e DC ekleme
+Install-ADDSDomainController -DomainName "company.local" `
+    -SafeModeAdministratorPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force)</code></pre>
+                            </div>
+                            
+                            <h5>🔍 Kurulum Doğrulama</h5>
+                            <div class="code-block">
+                                <pre><code># Domain durumunu kontrol et
+Get-ADDomain
+
+# Forest durumunu kontrol et
+Get-ADForest
+
+# DC'leri listele
+Get-ADDomainController -Filter *
+
+# DNS kayıtlarını kontrol et
+Get-DnsServerResourceRecord -ZoneName "company.local"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installation-step">
+                        <h4>3. 🤖 Unattended Kurulum (Otomatik)</h4>
+                        <p><strong>Neden Unattended kullanmalıyız?</strong> Toplu kurulum, otomasyon</p>
+                        
+                        <div class="step-details">
+                            <h5>🚀 Otomatik Kurulum Scripti</h5>
+                            <div class="code-block">
+                                <pre><code># Otomatik AD kurulum scripti
+function Install-ADAutomated {
+    param(
+        [string]$DomainName,
+        [string]$SafeModePassword,
+        [string]$ForestMode = "Win2022",
+        [string]$DomainMode = "Win2022"
+    )
+    
+    try {
+        # AD DS rolü ekle
+        Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+        
+        # Domain Controller kur
+        Install-ADDSForest -DomainName $DomainName `
+            -SafeModeAdministratorPassword (ConvertTo-SecureString $SafeModePassword -AsPlainText -Force) `
+            -ForestMode $ForestMode `
+            -DomainMode $DomainMode `
+            -Force
+        
+        Write-Host "AD kurulumu başarılı: $DomainName" -ForegroundColor Green
+    }
+    catch {
+        Write-Error "AD kurulumu başarısız: $($_.Exception.Message)"
+    }
+}
+
+# Script kullanımı
+Install-ADAutomated -DomainName "company.local" -SafeModePassword "Password123!"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-management">
+                <h2>👤 Kullanıcı Yönetimi - Her Yöntemle</h2>
+                <p>Kullanıcı yönetimi AD'nin kalbidir. <strong>Neden farklı yöntemler kullanmalıyız?</strong></p>
+                
+                <div class="user-methods">
+                    <h4>🎯 Kullanıcı Yönetim Yöntemleri</h4>
+                    <div class="method-comparison">
+                        <div class="method-card">
+                            <h5>🖥️ AD Users and Computers (GUI)</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Tek kullanıcı, görsel yönetim</p>
+                            <p><strong>Avantajları:</strong> Kolay öğrenme, görsel feedback</p>
+                            <p><strong>Dezavantajları:</strong> Yavaş, tekrarlanamaz</p>
+                        </div>
+                        
+                        <div class="method-card">
+                            <h5>⚡ PowerShell ile (Hızlı)</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Hızlı işlemler, tek komut</p>
+                            <p><strong>Avantajları:</strong> Hızlı, güçlü</p>
+                            <p><strong>Dezavantajları:</strong> Öğrenme eğrisi</p>
+                        </div>
+                        
+                        <div class="method-card">
+                            <h5>🤖 PowerShell Script ile (Otomatik)</h5>
+                            <p><strong>Ne zaman kullanmalı:</strong> Toplu kullanıcı, otomasyon</p>
+                            <p><strong>Avantajları:</strong> Otomatik, ölçeklenebilir</p>
+                            <p><strong>Dezavantajları:</strong> Geliştirme zamanı</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>👤 Kullanıcı Oluşturma - Her Yöntemle</h3>
+                <div class="user-creation-methods">
+                    <div class="operation-methods">
+                        <h5>🖥️ AD Users and Computers ile (GUI)</h5>
+                        <div class="gui-steps">
+                            <ol>
+                                <li><strong>dsa.msc</strong> komutunu çalıştırın</li>
+                                <li><strong>Users</strong> klasörüne sağ tık</li>
+                                <li><strong>"New" → "User"</strong> seçin</li>
+                                <li><strong>First name:</strong> John</li>
+                                <li><strong>Last name:</strong> Doe</li>
+                                <li><strong>User logon name:</strong> john.doe</li>
+                                <li><strong>"Next"</strong> ile devam edin</li>
+                                <li><strong>Password:</strong> TempPass123!</li>
+                                <li><strong>"User must change password at next logon"</strong> işaretleyin</li>
+                                <li><strong>"Finish"</strong> tıklayın</li>
+                            </ol>
+                        </div>
+                        
+                        <h5>⚡ PowerShell ile (Hızlı)</h5>
+                        <div class="code-block">
+                            <pre><code># Temel kullanıcı oluşturma
+New-ADUser -SamAccountName "john.doe" `
+    -Name "John Doe" `
+    -GivenName "John" `
+    -Surname "Doe" `
+    -EmailAddress "john.doe@company.local" `
+    -UserPrincipalName "john.doe@company.local" `
+    -AccountPassword (ConvertTo-SecureString "TempPass123!" -AsPlainText -Force) `
+    -Enabled $true `
+    -Path "OU=Users,DC=company,DC=local"
+
+# Kullanıcıyı gruba ekleme
+Add-ADGroupMember -Identity "IT Department" -Members "john.doe"
+
+# Kullanıcı özelliklerini güncelleme
+Set-ADUser -Identity "john.doe" -Title "System Administrator" -Department "IT"</code></pre>
+                        </div>
+                        
+                        <h5>🤖 PowerShell Script ile (Otomatik)</h5>
+                        <div class="code-block">
+                            <pre><code># Toplu kullanıcı oluşturma scripti
+function New-BulkUsers {
+    param(
+        [string]$CSVPath = "C:\Users.csv"
+    )
+    
+    $users = Import-Csv -Path $CSVPath
+    
+    foreach ($user in $users) {
+        try {
+            New-ADUser -SamAccountName $user.Username `
+                -UserPrincipalName "$($user.Username)@company.local" `
+                -Name $user.FullName `
+                -GivenName $user.FirstName `
+                -Surname $user.LastName `
+                -DisplayName $user.FullName `
+                -Path "OU=Users,DC=company,DC=local" `
+                -AccountPassword (ConvertTo-SecureString $user.Password -AsPlainText -Force) `
+                -Enabled $true
+            
+            # Departman grubuna ekleme
+            Add-ADGroupMember -Identity $user.Department -Members $user.Username
+            
+            Write-Host "Kullanıcı oluşturuldu: $($user.FullName)" -ForegroundColor Green
+        }
+        catch {
+            Write-Error "Kullanıcı oluşturulamadı: $($user.FullName) - $($_.Exception.Message)"
+        }
+    }
+}
+
+# CSV dosyası örneği
+# Username,FirstName,LastName,FullName,Password,Department
+# john.doe,John,Doe,John Doe,TempPass123!,IT
+# jane.smith,Jane,Smith,Jane Smith,TempPass123!,HR
+
+# Script çalıştırma
+New-BulkUsers -CSVPath "C:\Users.csv"</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Toplu Kullanıcı Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># CSV dosyasından toplu kullanıcı oluşturma
+$users = Import-Csv -Path "C:\Users\new_users.csv"
+
+foreach ($user in $users) {
+    $password = ConvertTo-SecureString -String "TempPass123!" -AsPlainText -Force
+    
+    New-ADUser -SamAccountName $user.Username `
+               -Name $user.FullName `
+               -GivenName $user.FirstName `
+               -Surname $user.LastName `
+               -EmailAddress $user.Email `
+               -UserPrincipalName $user.Email `
+               -AccountPassword $password `
+               -Enabled $true `
+               -Path "OU=Users,DC=company,DC=local"
+    
+    # Departman grubuna ekleme
+    Add-ADGroupMember -Identity $user.Department -Members $user.Username
+    
+    Write-Host "Kullanıcı oluşturuldu: $($user.FullName)" -ForegroundColor Green
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="group-management">
+                <h2>👥 Grup Yönetimi</h2>
+                
+                <div class="group-types">
+                    <div class="group-type">
+                        <h3>🔒 Security Groups</h3>
+                        <p>Yetkilendirme ve güvenlik için kullanılır</p>
+                        <div class="code-block">
+                            <pre><code># Security group oluşturma
+New-ADGroup -Name "IT Administrators" `
+    -GroupCategory Security `
+    -GroupScope Global `
+    -Description "IT Department Administrators"
+
+# Kullanıcıları gruba ekleme
+Add-ADGroupMember -Identity "IT Administrators" -Members "john.doe", "jane.smith"
+
+# Grup üyelerini listeleme
+Get-ADGroupMember -Identity "IT Administrators"</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="group-type">
+                        <h3>📧 Distribution Groups</h3>
+                        <p>E-posta dağıtım listeleri için kullanılır</p>
+                        <div class="code-block">
+                            <pre><code># Distribution group oluşturma
+New-ADGroup -Name "All Employees" `
+    -GroupCategory Distribution `
+    -GroupScope Universal `
+    -Description "All company employees"
+
+# E-posta adresi atama
+Set-ADGroup -Identity "All Employees" -Add @{mail="all@company.local"}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Grup Kapsamları (Group Scopes)</h3>
+                <div class="scope-types">
+                    <div class="scope-type">
+                        <h4>🏠 Domain Local</h4>
+                        <ul>
+                            <li>Sadece aynı domain içinde kullanılabilir</li>
+                            <li>Kaynak izinleri için ideal</li>
+                            <li>Diğer domain'lerden üye alabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="scope-type">
+                        <h4>🌐 Global</h4>
+                        <ul>
+                            <li>Forest içinde her yerde kullanılabilir</li>
+                            <li>Kullanıcı grupları için ideal</li>
+                            <li>Sadece aynı domain'den üye alabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="scope-type">
+                        <h4>🌍 Universal</h4>
+                        <ul>
+                            <li>Forest içinde her yerde kullanılabilir</li>
+                            <li>Her domain'den üye alabilir</li>
+                            <li>En esnek grup türü</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="organizational-units">
+                <h2>📁 Organizational Units (OU)</h2>
+                
+                <h3>OU Oluşturma ve Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># OU oluşturma
+New-ADOrganizationalUnit -Name "IT Department" `
+    -Path "DC=company,DC=local" `
+    -Description "IT Department Users and Computers"
+
+New-ADOrganizationalUnit -Name "Users" `
+    -Path "OU=IT Department,DC=company,DC=local"
+
+New-ADOrganizationalUnit -Name "Computers" `
+    -Path "OU=IT Department,DC=company,DC=local"
+
+# Kullanıcıyı OU'ya taşıma
+Move-ADObject -Identity "CN=john.doe,CN=Users,DC=company,DC=local" `
+    -TargetPath "OU=Users,OU=IT Department,DC=company,DC=local"
+
+# OU'ları listeleme
+Get-ADOrganizationalUnit -Filter * | Format-Table Name, DistinguishedName</code></pre>
+                </div>
+
+                <div class="mermaid">
+                    graph TD
+                        A["company.local"] --> B["IT Department"]
+                        A --> C["HR Department"]
+                        A --> D["Finance Department"]
+                        B --> E["Users"]
+                        B --> F["Computers"]
+                        B --> G["Groups"]
+                        C --> H["Users"]
+                        C --> I["Computers"]
+                        D --> J["Users"]
+                        D --> K["Computers"]
+                </div>
+            </div>
+
+            <div class="group-policy">
+                <h2>📋 Group Policy</h2>
+                
+                <h3>GPO Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># GPO oluşturma
+New-GPO -Name "IT Security Policy" `
+    -Comment "Security settings for IT department"
+
+# GPO'yu OU'ya bağlama
+New-GPLink -Name "IT Security Policy" `
+    -Target "OU=IT Department,DC=company,DC=local"
+
+# GPO ayarlarını yapılandırma
+Set-GPRegistryValue -Name "IT Security Policy" `
+    -Key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
+    -ValueName "DisableCMD" `
+    -Value 1 `
+    -Type DWord</code></pre>
+                </div>
+
+                <h3>Yaygın GPO Ayarları</h3>
+                <div class="gpo-settings">
+                    <div class="gpo-category">
+                        <h4>🔒 Güvenlik Ayarları</h4>
+                        <ul>
+                            <li>Şifre politikaları</li>
+                            <li>Hesap kilitleme politikaları</li>
+                            <li>Oturum kapatma süreleri</li>
+                            <li>UAC ayarları</li>
+                        </ul>
+                    </div>
+
+                    <div class="gpo-category">
+                        <h4>🖥️ Masaüstü Ayarları</h4>
+                        <ul>
+                            <li>Wallpaper ayarları</li>
+                            <li>Başlat menüsü kısıtlamaları</li>
+                            <li>Denetim masası erişimi</li>
+                            <li>Registry kısıtlamaları</li>
+                        </ul>
+                    </div>
+
+                    <div class="gpo-category">
+                        <h4>🌐 Ağ Ayarları</h4>
+                        <ul>
+                            <li>Proxy ayarları</li>
+                            <li>Firewall kuralları</li>
+                            <li>DNS ayarları</li>
+                            <li>VPN yapılandırması</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>500 Çalışanlı Şirket AD Yapılandırması</h3>
+                    <p><strong>Şirket:</strong> Çok departmanlı teknoloji firması</p>
+                    
+                    <h4>AD Yapısı:</h4>
+                    <div class="ad-structure">
+                        <div class="structure-level">
+                            <h5>🏢 Forest: company.local</h5>
+                            <ul>
+                                <li><strong>DC-01:</strong> Primary Domain Controller</li>
+                                <li><strong>DC-02:</strong> Secondary Domain Controller</li>
+                                <li><strong>DC-03:</strong> Read-Only Domain Controller (RODC)</li>
+                            </ul>
+                        </div>
+
+                        <div class="structure-level">
+                            <h5>📁 Organizational Units</h5>
+                            <ul>
+                                <li><strong>IT Department:</strong> 50 kullanıcı</li>
+                                <li><strong>HR Department:</strong> 30 kullanıcı</li>
+                                <li><strong>Finance Department:</strong> 40 kullanıcı</li>
+                                <li><strong>Sales Department:</strong> 80 kullanıcı</li>
+                                <li><strong>Marketing Department:</strong> 60 kullanıcı</li>
+                                <li><strong>Operations:</strong> 240 kullanıcı</li>
+                            </ul>
+                        </div>
+
+                        <div class="structure-level">
+                            <h5>👥 Grup Yapısı</h5>
+                            <ul>
+                                <li><strong>IT Admins:</strong> Tam yetki</li>
+                                <li><strong>HR Users:</strong> HR sistemleri erişimi</li>
+                                <li><strong>Finance Users:</strong> Mali sistemler erişimi</li>
+                                <li><strong>Sales Team:</strong> CRM erişimi</li>
+                                <li><strong>All Employees:</strong> Genel e-posta listesi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Günlük AD Operasyonları:</h4>
+                    <div class="daily-operations">
+                        <div class="operation-time">
+                            <h5>🌅 Sabah (08:00-09:00)</h5>
+                            <ul>
+                                <li>DC sağlık kontrolü</li>
+                                <li>Replikasyon durumu kontrolü</li>
+                                <li>Yeni kullanıcı talepleri</li>
+                                <li>Şifre sıfırlama talepleri</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌆 Gün İçi (09:00-17:00)</h5>
+                            <ul>
+                                <li>Kullanıcı hesap yönetimi</li>
+                                <li>Grup üyelik güncellemeleri</li>
+                                <li>GPO yapılandırmaları</li>
+                                <li>Erişim izni yönetimi</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌙 Akşam (17:00-18:00)</h5>
+                            <ul>
+                                <li>Günlük backup işlemleri</li>
+                                <li>Log analizi</li>
+                                <li>Güvenlik raporları</li>
+                                <li>Ertesi gün planlaması</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🔍 Sorun Giderme</h2>
+                
+                <div class="troubleshooting-categories">
+                    <div class="trouble-category">
+                        <h3>🚨 Yaygın AD Sorunları</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: Kullanıcı Giriş Yapamıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>Hesabın aktif olup olmadığını kontrol et</li>
+                                    <li>Şifrenin doğru olup olmadığını kontrol et</li>
+                                    <li>Hesabın kilitli olup olmadığını kontrol et</li>
+                                    <li>DC'ye erişim olup olmadığını kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="issue-solution">
+                            <h4>Sorun: GPO Uygulanmıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>GPO'nun doğru OU'ya bağlı olduğunu kontrol et</li>
+                                    <li>GPO'nun etkin olduğunu kontrol et</li>
+                                    <li>Replikasyon durumunu kontrol et</li>
+                                    <li>gpupdate /force komutunu çalıştır</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trouble-category">
+                        <h3>🛠️ Faydalı Komutlar</h3>
+                        <div class="code-block">
+                            <pre><code># AD sağlık kontrolü
+dcdiag /v
+
+# Replikasyon durumu
+repadmin /showrepl
+
+# GPO durumu
+gpresult /r
+
+# Kullanıcı bilgileri
+Get-ADUser -Identity "john.doe" -Properties *
+
+# Grup üyeleri
+Get-ADGroupMember -Identity "IT Administrators"
+
+# DC listesi
+Get-ADDomainController -Filter *
+
+# OU yapısı
+Get-ADOrganizationalUnit -Filter * | Format-Table Name, DistinguishedName</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-scenarios">
+                <h2>🚀 Gelişmiş AD Senaryoları</h2>
+                
+                <div class="scenario-card">
+                    <h3>📊 Senaryo 1: Multi-Domain Forest Yapısı</h3>
+                    <p><strong>Durum:</strong> 5000+ çalışanlı holding şirketi, 5 farklı iş birimi</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[Root Forest<br/>contoso.com] --> B[IT Domain<br/>it.contoso.com]
+                            A --> C[Finance Domain<br/>finance.contoso.com]
+                            A --> D[HR Domain<br/>hr.contoso.com]
+                            A --> E[Operations Domain<br/>ops.contoso.com]
+                            A --> F[Management Domain<br/>mgmt.contoso.com]
+                            
+                            B --> B1[IT Users]
+                            B --> B2[IT Admins]
+                            B --> B3[IT Servers]
+                            
+                            C --> C1[Finance Users]
+                            C --> C2[Finance Admins]
+                            C --> C3[Finance Servers]
+                            
+                            D --> D1[HR Users]
+                            D --> D2[HR Admins]
+                            D --> D3[HR Servers]
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Forest Trust oluşturma
+New-ADTrust -Name "contoso.com" -Type "Forest" -Direction "Bidirectional"
+
+# Cross-domain kullanıcı erişimi
+$user = Get-ADUser -Identity "john.doe" -Server "it.contoso.com"
+$group = Get-ADGroup -Identity "FinanceUsers" -Server "finance.contoso.com"
+Add-ADGroupMember -Identity $group -Members $user
+
+# Cross-domain GPO uygulama
+$gpo = Get-GPO -Name "Security Policy"
+$gpo | New-GPLink -Target "OU=Finance,DC=finance,DC=contoso,DC=com"</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🔒 Senaryo 2: Güvenlik Odaklı AD Tasarımı</h3>
+                    <p><strong>Durum:</strong> Finansal kurum, yüksek güvenlik gereksinimleri</p>
+                    
+                    <div class="security-features">
+                        <h4>Güvenlik Katmanları:</h4>
+                        <ul>
+                            <li><strong>Privileged Access Management (PAM)</strong></li>
+                            <li><strong>Just-In-Time (JIT) Access</strong></li>
+                            <li><strong>Multi-Factor Authentication (MFA)</strong></li>
+                            <li><strong>Conditional Access Policies</strong></li>
+                            <li><strong>Advanced Threat Protection (ATP)</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Privileged Access Workstation (PAW) yapılandırması
+$pawOU = "OU=PAW,OU=Security,DC=contoso,DC=com"
+$pawUsers = Get-ADUser -Filter "Department -eq 'Security'" -SearchBase $pawOU
+
+# JIT Access yapılandırması
+foreach ($user in $pawUsers) {
+    # Geçici admin hakları ver
+    Add-ADGroupMember -Identity "Domain Admins" -Members $user
+    Start-Sleep -Seconds 300  # 5 dakika
+    Remove-ADGroupMember -Identity "Domain Admins" -Members $user -Confirm:$false
+}
+
+# MFA zorunluluğu
+$mfaPolicy = @{
+    Name = "MFA Required Policy"
+    Description = "Multi-Factor Authentication Required"
+    State = "Enabled"
+}
+New-AzureADPolicy @mfaPolicy</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🌐 Senaryo 3: Hybrid Cloud AD Entegrasyonu</h3>
+                    <p><strong>Durum:</strong> On-premises AD + Azure AD hibrit yapı</p>
+                    
+                    <div class="mermaid">
+                        graph LR
+                            A[On-Premises AD<br/>contoso.local] --> B[Azure AD Connect]
+                            B --> C[Azure AD<br/>contoso.onmicrosoft.com]
+                            C --> D[Office 365]
+                            C --> E[Azure Services]
+                            C --> F[Third-party Apps]
+                            
+                            A --> A1[Local Users]
+                            A --> A2[Local Groups]
+                            A --> A3[Local GPOs]
+                            
+                            C --> C1[Cloud Users]
+                            C --> C2[Cloud Groups]
+                            C --> C3[Cloud Policies]
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Azure AD Connect yapılandırması
+# 1. On-premises'den Azure'a senkronizasyon
+$syncConfig = @{
+    SourceAnchor = "objectGUID"
+    UserPrincipalName = "userPrincipalName"
+    Filtering = "OU=Users,DC=contoso,DC=local"
+}
+
+# 2. Password Hash Sync
+Enable-AzureADPasswordHashSync
+
+# 3. Seamless SSO yapılandırması
+$ssoConfig = @{
+    DomainName = "contoso.com"
+    EnableSSO = $true
+    EnablePasswordSync = $true
+}
+
+# 4. Conditional Access Policy
+$caPolicy = @{
+    DisplayName = "Require MFA for Admin"
+    State = "Enabled"
+    Conditions = @{
+        Users = @{
+            IncludeRoles = @("Global Administrator", "Security Administrator")
+        }
+        Applications = @{
+            IncludeApplications = @("All")
+        }
+    }
+    GrantControls = @{
+        RequireMultiFactorAuthentication = $true
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="troubleshooting-guide">
+                <h2>🔧 AD Troubleshooting Rehberi</h2>
+                
+                <div class="troubleshooting-section">
+                    <h3>❌ Yaygın AD Sorunları ve Çözümleri</h3>
+                    
+                    <div class="problem-solution">
+                        <h4>Problem 1: Kullanıcı Login Olamıyor</h4>
+                        <div class="problem-details">
+                            <p><strong>Semptomlar:</strong> "The user name or password is incorrect" hatası</p>
+                            <p><strong>Olası Nedenler:</strong></p>
+                            <ul>
+                                <li>Yanlış şifre</li>
+                                <li>Hesap kilitli</li>
+                                <li>Domain controller erişim sorunu</li>
+                                <li>DNS çözümleme hatası</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-steps">
+                            <h5>Çözüm Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Kullanıcı hesap durumunu kontrol et
+Get-ADUser -Identity "john.doe" -Properties LockedOut, Enabled, PasswordExpired
+
+# 2. Hesap kilidini aç
+Unlock-ADAccount -Identity "john.doe"
+
+# 3. DNS çözümlemesini test et
+nslookup contoso.com
+Test-NetConnection -ComputerName "DC01.contoso.com" -Port 389
+
+# 4. Domain controller erişimini test et
+Test-ComputerSecureChannel -Verbose
+
+# 5. Kullanıcı şifresini sıfırla
+Set-ADAccountPassword -Identity "john.doe" -NewPassword (ConvertTo-SecureString "NewPassword123!" -AsPlainText -Force)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-solution">
+                        <h4>Problem 2: GPO Uygulanmıyor</h4>
+                        <div class="problem-details">
+                            <p><strong>Semptomlar:</strong> Group Policy ayarları uygulanmıyor</p>
+                            <p><strong>Olası Nedenler:</strong></p>
+                            <ul>
+                                <li>GPO link edilmemiş</li>
+                                <li>Security filtering yanlış</li>
+                                <li>WMI filter sorunu</li>
+                                <li>Replication sorunu</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-steps">
+                            <h5>Çözüm Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. GPO durumunu kontrol et
+Get-GPO -Name "Security Policy" | Get-GPOReport -ReportType Html
+
+# 2. GPO link durumunu kontrol et
+Get-GPO -Name "Security Policy" | Get-GPLink
+
+# 3. Security filtering kontrol et
+Get-GPPermission -Name "Security Policy" -TargetName "Domain Users" -TargetType Group
+
+# 4. GPO'yu zorla uygula
+gpupdate /force
+
+# 5. Replication durumunu kontrol et
+repadmin /showrepl
+repadmin /syncall</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-solution">
+                        <h4>Problem 3: Replication Sorunları</h4>
+                        <div class="problem-details">
+                            <p><strong>Semptomlar:</strong> Değişiklikler diğer DC'lere replike olmuyor</p>
+                            <p><strong>Olası Nedenler:</strong></p>
+                            <ul>
+                                <li>Network bağlantı sorunu</li>
+                                <li>DNS çözümleme hatası</li>
+                                <li>Firewall engeli</li>
+                                <li>Kerberos authentication sorunu</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-steps">
+                            <h5>Çözüm Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Replication durumunu kontrol et
+repadmin /showrepl
+repadmin /replsummary
+
+# 2. Replication'ı zorla başlat
+repadmin /syncall /AdeP
+
+# 3. DNS kayıtlarını kontrol et
+nslookup _ldap._tcp.dc._msdcs.contoso.com
+
+# 4. Kerberos ticket'larını kontrol et
+klist tickets
+
+# 5. Replication metadata'yı temizle
+repadmin /removelingeringobjects DC01 DC02</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>💡 AD En İyi Uygulamaları</h2>
+                
+                <div class="practices-grid">
+                    <div class="practice-category">
+                        <h3>🏗️ Tasarım Prensipleri</h3>
+                        <ul>
+                            <li><strong>Single Forest, Multiple Domains:</strong> Karmaşıklığı azaltır</li>
+                            <li><strong>OU Yapısı:</strong> Coğrafi + Organizasyonel</li>
+                            <li><strong>Naming Convention:</strong> Tutarlı isimlendirme</li>
+                            <li><strong>Service Accounts:</strong> Ayrı hesaplar kullan</li>
+                            <li><strong>Admin Separation:</strong> Günlük vs. admin hesapları</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>🔒 Güvenlik Önlemleri</h3>
+                        <ul>
+                            <li><strong>Least Privilege:</strong> Minimum gerekli haklar</li>
+                            <li><strong>Regular Auditing:</strong> Düzenli denetim</li>
+                            <li><strong>Password Policies:</strong> Güçlü şifre politikaları</li>
+                            <li><strong>Account Lockout:</strong> Brute force koruması</li>
+                            <li><strong>Privileged Access:</strong> Ayrıcalıklı erişim yönetimi</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>📊 Monitoring ve Maintenance</h3>
+                        <ul>
+                            <li><strong>Health Checks:</strong> Düzenli sistem kontrolü</li>
+                            <li><strong>Backup Strategy:</strong> Sistemik yedekleme</li>
+                            <li><strong>Performance Monitoring:</strong> Performans izleme</li>
+                            <li><strong>Log Analysis:</strong> Log analizi</li>
+                            <li><strong>Disaster Recovery:</strong> Felaket kurtarma planı</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>🚀 Automation ve Efficiency</h3>
+                        <ul>
+                            <li><strong>PowerShell Scripts:</strong> Otomatik işlemler</li>
+                            <li><strong>Bulk Operations:</strong> Toplu işlemler</li>
+                            <li><strong>Self-Service:</strong> Kullanıcı self-servisi</li>
+                            <li><strong>Workflow Automation:</strong> İş akışı otomasyonu</li>
+                            <li><strong>Integration:</strong> Diğer sistemlerle entegrasyon</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Active Directory temellerini öğrendikten sonra, <a href="bolum-05-powershell.html">PowerShell Eğitimi</a> bölümüne geçerek AD yönetimini otomatikleştirebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-05-powershell.html" class="btn btn-primary">⚡ PowerShell →</a>
+                    <a href="bolum-03-windows-server.html" class="btn btn-secondary">← Windows Server</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

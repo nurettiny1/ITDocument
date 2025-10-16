@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Remote Management - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Remote Management</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="remote-management">
+            <h1>🔧 Remote Management</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Remote Management Neden Gerekli?</h2>
+                <p>Remote Management, modern IT yönetiminin vazgeçilmez parçasıdır. <strong>Neden uzaktan yönetim önemli?</strong></p>
+                
+                <div class="why-remote-management">
+                    <h4>🔍 Remote Management'ın Faydaları:</h4>
+                    <ul>
+                        <li><strong>Zaman Tasarrufu:</strong> Fiziksel olarak sunucuya gitmeye gerek yok</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Seyahat maliyetleri, zaman kaybı yok</li>
+                        <li><strong>Hızlı Müdahale:</strong> Sorunlara anında müdahale</li>
+                        <li><strong>7/24 Erişim:</strong> Her yerden, her zaman yönetim</li>
+                        <li><strong>Güvenlik:</strong> Şifreli bağlantılar ile güvenli erişim</li>
+                    </ul>
+                </div>
+                
+                <div class="remote-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 5 farklı şehirde sunucular var, IT ekibi sadece merkezde</p>
+                    <p><strong>Sonuç:</strong> Sorun çözümü gecikmeleri, yüksek maliyet</p>
+                    <p><strong>Çözüm:</strong> Remote Management ile merkezi yönetim</p>
+                </div>
+            </div>
+
+            <div class="remote-tools">
+                <h2>🛠️ Uzaktan Yönetim Araçları</h2>
+                
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>🖥️ Remote Desktop (RDP)</h3>
+                        <p>Windows uzaktan masaüstü erişimi</p>
+                        <ul>
+                            <li><strong>Port:</strong> 3389 (TCP)</li>
+                            <li><strong>Protokol:</strong> RDP</li>
+                            <li><strong>Kullanım:</strong> Grafik arayüz erişimi</li>
+                            <li><strong>Güvenlik:</strong> NLA, SSL/TLS</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>⚡ PowerShell Remoting</h3>
+                        <p>Windows PowerShell uzaktan erişimi</p>
+                        <ul>
+                            <li><strong>Port:</strong> 5985 (HTTP), 5986 (HTTPS)</li>
+                            <li><strong>Protokol:</strong> WS-Management</li>
+                            <li><strong>Kullanım:</strong> Komut satırı yönetimi</li>
+                            <li><strong>Güvenlik:</strong> Kerberos, SSL/TLS</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>🔐 SSH (Secure Shell)</h3>
+                        <p>Linux/Unix uzaktan erişimi</p>
+                        <ul>
+                            <li><strong>Port:</strong> 22 (TCP)</li>
+                            <li><strong>Protokol:</strong> SSH</li>
+                            <li><strong>Kullanım:</strong> Komut satırı erişimi</li>
+                            <li><strong>Güvenlik:</strong> Public key, Password</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>🌐 Web-based Management</h3>
+                        <p>Web arayüzü üzerinden yönetim</p>
+                        <ul>
+                            <li><strong>Port:</strong> 80 (HTTP), 443 (HTTPS)</li>
+                            <li><strong>Protokol:</strong> HTTP/HTTPS</li>
+                            <li><strong>Kullanım:</strong> Browser tabanlı erişim</li>
+                            <li><strong>Güvenlik:</strong> SSL/TLS, Authentication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rdp-configuration">
+                <h2>🖥️ Remote Desktop Yapılandırması</h2>
+                
+                <h3>RDP Etkinleştirme</h3>
+                <div class="code-block">
+                    <pre><code># PowerShell ile RDP'yi etkinleştir
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
+
+# RDP servisini başlat
+Start-Service -Name "TermService"
+
+# RDP servisini otomatik başlat
+Set-Service -Name "TermService" -StartupType Automatic
+
+# RDP portunu değiştir (güvenlik için)
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "PortNumber" -Value 3390
+
+# RDP kullanıcı izinlerini ayarla
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 1</code></pre>
+                </div>
+
+                <h3>RDP Güvenlik Ayarları</h3>
+                <div class="code-block">
+                    <pre><code># NLA (Network Level Authentication) etkinleştir
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 1
+
+# RDP şifreleme seviyesini ayarla
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "MinEncryptionLevel" -Value 3
+
+# RDP oturum süresini ayarla
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "MaxIdleTime" -Value 1800000
+
+# RDP bağlantı sayısını sınırla
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "MaxConnectionCount" -Value 2</code></pre>
+                </div>
+            </div>
+
+            <div class="powershell-remoting">
+                <h2>⚡ PowerShell Remoting</h2>
+                
+                <h3>PowerShell Remoting Etkinleştirme</h3>
+                <div class="code-block">
+                    <pre><code># PowerShell Remoting'i etkinleştir
+Enable-PSRemoting -Force
+
+# Trusted hosts listesine bilgisayar ekle
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "192.168.1.100" -Force
+
+# PowerShell Remoting servisini başlat
+Start-Service -Name "WinRM"
+
+# PowerShell Remoting servisini otomatik başlat
+Set-Service -Name "WinRM" -StartupType Automatic
+
+# PowerShell Remoting yapılandırmasını kontrol et
+Get-PSSessionConfiguration</code></pre>
+                </div>
+
+                <h3>Uzaktan PowerShell Komutları</h3>
+                <div class="code-block">
+                    <pre><code># Uzaktan PowerShell oturumu oluştur
+$session = New-PSSession -ComputerName "192.168.1.100" -Credential "domain\username"
+
+# Uzaktan komut çalıştır
+Invoke-Command -Session $session -ScriptBlock { Get-Process }
+
+# Uzaktan dosya kopyala
+Copy-Item -Path "C:\local\file.txt" -Destination "C:\remote\file.txt" -ToSession $session
+
+# Uzaktan script çalıştır
+Invoke-Command -Session $session -FilePath "C:\scripts\remote-script.ps1"
+
+# Uzaktan oturumu kapat
+Remove-PSSession -Session $session
+
+# Birden fazla bilgisayarda komut çalıştır
+Invoke-Command -ComputerName "server1", "server2", "server3" -ScriptBlock { Get-Service }</code></pre>
+                </div>
+            </div>
+
+            <div class="ssh-configuration">
+                <h2>🔐 SSH Yapılandırması</h2>
+                
+                <h3>Windows SSH Server</h3>
+                <div class="code-block">
+                    <pre><code># Windows SSH Server'ı yükle
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
+# SSH Server'ı başlat
+Start-Service -Name "sshd"
+
+# SSH Server'ı otomatik başlat
+Set-Service -Name "sshd" -StartupType Automatic
+
+# SSH Server yapılandırmasını düzenle
+notepad C:\ProgramData\ssh\sshd_config
+
+# SSH Server'ı yeniden başlat
+Restart-Service -Name "sshd"</code></pre>
+                </div>
+
+                <h3>SSH Key Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># SSH key çifti oluştur
+ssh-keygen -t rsa -b 4096 -C "user@company.com"
+
+# Public key'i uzak sunucuya kopyala
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@192.168.1.100
+
+# SSH ile bağlan
+ssh user@192.168.1.100
+
+# SSH config dosyası oluştur
+New-Item -Path "$env:USERPROFILE\.ssh\config" -ItemType File
+Add-Content -Path "$env:USERPROFILE\.ssh\config" -Value @"
+Host server1
+    HostName 192.168.1.100
+    User administrator
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+"@</code></pre>
+                </div>
+            </div>
+
+            <div class="remote-management-tools">
+                <h2>🛠️ Uzaktan Yönetim Araçları</h2>
+                
+                <div class="tools-categories">
+                    <div class="tool-category">
+                        <h3>💻 Masaüstü Uzaktan Erişim</h3>
+                        <ul>
+                            <li><strong>TeamViewer:</strong> Cross-platform uzaktan erişim</li>
+                            <li><strong>AnyDesk:</strong> Hızlı uzaktan erişim</li>
+                            <li><strong>Chrome Remote Desktop:</strong> Web tabanlı erişim</li>
+                            <li><strong>VNC:</strong> Virtual Network Computing</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🖥️ Sunucu Yönetimi</h3>
+                        <ul>
+                            <li><strong>Windows Admin Center:</strong> Web tabanlı sunucu yönetimi</li>
+                            <li><strong>System Center:</strong> Enterprise sunucu yönetimi</li>
+                            <li><strong>iLO/iDRAC:</strong> Hardware seviyesi yönetim</li>
+                            <li><strong>IPMI:</strong> Intelligent Platform Management Interface</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>🌐 Ağ Yönetimi</h3>
+                        <ul>
+                            <li><strong>SNMP:</strong> Simple Network Management Protocol</li>
+                            <li><strong>Telnet:</strong> Terminal emulation</li>
+                            <li><strong>SSH:</strong> Secure Shell</li>
+                            <li><strong>HTTPS:</strong> Web tabanlı yönetim</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-category">
+                        <h3>☁️ Bulut Yönetimi</h3>
+                        <ul>
+                            <li><strong>Azure Portal:</strong> Microsoft Azure yönetimi</li>
+                            <li><strong>AWS Console:</strong> Amazon Web Services yönetimi</li>
+                            <li><strong>Google Cloud Console:</strong> Google Cloud yönetimi</li>
+                            <li><strong>Kubernetes Dashboard:</strong> Container yönetimi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-considerations">
+                <h2>🔒 Güvenlik Konuları</h2>
+                
+                <h3>Uzaktan Erişim Güvenliği</h3>
+                <div class="security-measures">
+                    <div class="security-measure">
+                        <h4>🔐 Kimlik Doğrulama</h4>
+                        <ul>
+                            <li>Güçlü şifreler</li>
+                            <li>Multi-factor authentication</li>
+                            <li>Certificate-based authentication</li>
+                            <li>Biometric authentication</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-measure">
+                        <h4>🛡️ Ağ Güvenliği</h4>
+                        <ul>
+                            <li>VPN kullanımı</li>
+                            <li>Firewall kuralları</li>
+                            <li>IP whitelisting</li>
+                            <li>Port forwarding</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-measure">
+                        <h4>📊 İzleme ve Loglama</h4>
+                        <ul>
+                            <li>Connection logging</li>
+                            <li>Activity monitoring</li>
+                            <li>Audit trails</li>
+                            <li>Alert systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Güvenlik En İyi Uygulamaları</h3>
+                <div class="code-block">
+                    <pre><code># RDP güvenlik ayarları
+# 1. NLA etkinleştir
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 1
+
+# 2. RDP portunu değiştir
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "PortNumber" -Value 3390
+
+# 3. RDP kullanıcı izinlerini kısıtla
+net localgroup "Remote Desktop Users" /add "domain\specific-user"
+
+# 4. RDP oturum süresini sınırla
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "MaxIdleTime" -Value 1800000
+
+# 5. RDP bağlantı sayısını sınırla
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "MaxConnectionCount" -Value 2</code></pre>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Çok Lokasyonlu Şirket Uzaktan Yönetimi</h3>
+                    <p><strong>Şirket:</strong> 10 lokasyonlu perakende zinciri</p>
+                    
+                    <h4>Uzaktan Yönetim Altyapısı:</h4>
+                    <div class="remote-infrastructure">
+                        <div class="infrastructure-level">
+                            <h5>🏢 Merkez Ofis</h5>
+                            <ul>
+                                <li><strong>RDP Gateway:</strong> Uzaktan erişim gateway</li>
+                                <li><strong>VPN Server:</strong> Güvenli bağlantı</li>
+                                <li><strong>Management Server:</strong> Merkezi yönetim</li>
+                                <li><strong>Monitoring System:</strong> 7/24 izleme</li>
+                            </ul>
+                        </div>
+
+                        <div class="infrastructure-level">
+                            <h5>🏪 Şubeler</h5>
+                            <ul>
+                                <li><strong>RDP Client:</strong> Uzaktan erişim</li>
+                                <li><strong>VPN Client:</strong> Güvenli bağlantı</li>
+                                <li><strong>Local Admin:</strong> Yerel yönetim</li>
+                                <li><strong>Remote Tools:</strong> Uzaktan yönetim araçları</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Günlük Uzaktan Yönetim Operasyonları:</h4>
+                    <div class="daily-operations">
+                        <div class="operation-time">
+                            <h5>🌅 Sabah (08:00-09:00)</h5>
+                            <ul>
+                                <li>Tüm lokasyonların bağlantı durumu</li>
+                                <li>VPN bağlantı kontrolü</li>
+                                <li>RDP erişim testleri</li>
+                                <li>Sistem sağlık kontrolü</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌆 Gün İçi (09:00-17:00)</h5>
+                            <ul>
+                                <li>Uzaktan sorun giderme</li>
+                                <li>Sistem güncellemeleri</li>
+                                <li>Kullanıcı destek talepleri</li>
+                                <li>Performans izleme</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌙 Akşam (17:00-18:00)</h5>
+                            <ul>
+                                <li>Günlük raporlar</li>
+                                <li>Backup verification</li>
+                                <li>Güvenlik log analizi</li>
+                                <li>Ertesi gün planlaması</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🔍 Sorun Giderme</h2>
+                
+                <div class="troubleshooting-categories">
+                    <div class="trouble-category">
+                        <h3>🚨 Yaygın Sorunlar</h3>
+                        <div class="issue-solution">
+                            <h4>Sorun: RDP Bağlantısı Kurulamıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>RDP servisinin çalıştığını kontrol et</li>
+                                    <li>Firewall kurallarını kontrol et</li>
+                                    <li>Kullanıcı izinlerini kontrol et</li>
+                                    <li>Port ayarlarını kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="issue-solution">
+                            <h4>Sorun: PowerShell Remoting Çalışmıyor</h4>
+                            <div class="solution-steps">
+                                <ol>
+                                    <li>WinRM servisinin çalıştığını kontrol et</li>
+                                    <li>Trusted hosts ayarlarını kontrol et</li>
+                                    <li>Execution policy ayarlarını kontrol et</li>
+                                    <li>Network connectivity'yi kontrol et</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trouble-category">
+                        <h3>🛠️ Faydalı Komutlar</h3>
+                        <div class="code-block">
+                            <pre><code># RDP durumunu kontrol et
+Get-Service -Name "TermService"
+Get-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections"
+
+# PowerShell Remoting durumunu kontrol et
+Get-Service -Name "WinRM"
+Get-PSSessionConfiguration
+
+# SSH durumunu kontrol et
+Get-Service -Name "sshd"
+Get-ItemProperty -Path "HKLM:\System\CurrentControlSet\Services\sshd" -Name "Start"
+
+# Ağ bağlantısını test et
+Test-NetConnection -ComputerName "192.168.1.100" -Port 3389
+Test-NetConnection -ComputerName "192.168.1.100" -Port 5985
+
+# Uzaktan servis durumunu kontrol et
+Invoke-Command -ComputerName "192.168.1.100" -ScriptBlock { Get-Service -Name "TermService" }</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Remote management temellerini öğrendikten sonra, <a href="bolum-13-sorun-giderme.html">Sorun Giderme</a> bölümüne geçerek sistem tanılama konularını inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-13-sorun-giderme.html" class="btn btn-primary">🔍 Sorun Giderme →</a>
+                    <a href="bolum-11-mail-server.html" class="btn btn-secondary">← Mail Server</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

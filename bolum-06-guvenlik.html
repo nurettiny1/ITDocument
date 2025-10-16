@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Güvenlik & AppLocker - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Güvenlik & AppLocker</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="guvenlik">
+            <h1>🔒 Güvenlik & AppLocker</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Windows Güvenlik Temelleri</h2>
+                <p>Windows güvenlik özellikleri, sisteminizi tehditlere karşı korur. Bu bölümde Windows Defender, AppLocker, BitLocker ve diğer güvenlik araçlarını öğreneceksiniz.</p>
+            </div>
+
+            <div class="security-layers">
+                <h2>🛡️ Güvenlik Katmanları</h2>
+                
+                <div class="layer-grid">
+                    <div class="layer-card">
+                        <h3>🔐 Kimlik Doğrulama</h3>
+                        <ul>
+                            <li>Kullanıcı hesapları</li>
+                            <li>Şifre politikaları</li>
+                            <li>Multi-factor authentication</li>
+                            <li>Biometric authentication</li>
+                        </ul>
+                    </div>
+
+                    <div class="layer-card">
+                        <h3>🛡️ Antivirus & Antimalware</h3>
+                        <ul>
+                            <li>Windows Defender</li>
+                            <li>Real-time protection</li>
+                            <li>Cloud-delivered protection</li>
+                            <li>Behavioral monitoring</li>
+                        </ul>
+                    </div>
+
+                    <div class="layer-card">
+                        <h3>🔥 Güvenlik Duvarı</h3>
+                        <ul>
+                            <li>Windows Firewall</li>
+                            <li>Inbound/Outbound rules</li>
+                            <li>Application filtering</li>
+                            <li>Network isolation</li>
+                        </ul>
+                    </div>
+
+                    <div class="layer-card">
+                        <h3>🔒 Şifreleme</h3>
+                        <ul>
+                            <li>BitLocker</li>
+                            <li>EFS (Encrypting File System)</li>
+                            <li>SSL/TLS</li>
+                            <li>VPN encryption</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="windows-defender">
+                <h2>🛡️ Windows Defender</h2>
+                
+                <h3>Defender Özellikleri</h3>
+                <div class="defender-features">
+                    <div class="feature-category">
+                        <h4>🔍 Real-time Protection</h4>
+                        <ul>
+                            <li>Dosya ve program taraması</li>
+                            <li>E-posta ve web koruması</li>
+                            <li>Otomatik tehdit kaldırma</li>
+                            <li>Cloud-delivered protection</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-category">
+                        <h4>📊 Threat Intelligence</h4>
+                        <ul>
+                            <li>Machine learning tabanlı tespit</li>
+                            <li>Behavioral analysis</li>
+                            <li>Heuristic detection</li>
+                            <li>Signature-based detection</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>PowerShell ile Defender Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># Defender durumunu kontrol et
+Get-MpComputerStatus
+
+# Tarama başlat
+Start-MpScan -ScanType QuickScan
+
+# Tam tarama
+Start-MpScan -ScanType FullScan
+
+# Tehdit geçmişini görüntüle
+Get-MpThreatDetection
+
+# Real-time protection'ı etkinleştir/devre dışı bırak
+Set-MpPreference -DisableRealtimeMonitoring $false
+
+# Cloud-delivered protection'ı etkinleştir
+Set-MpPreference -MAPSReporting Advanced</code></pre>
+                </div>
+            </div>
+
+            <div class="applocker">
+                <h2>🔒 AppLocker</h2>
+                
+                <h3>AppLocker Nedir?</h3>
+                <p>AppLocker, hangi uygulamaların sistemde çalışabileceğini kontrol eden bir güvenlik özelliğidir. Executable dosyalar, scriptler ve Windows Installer paketlerini yönetir.</p>
+
+                <h3>AppLocker Kuralları</h3>
+                <div class="applocker-rules">
+                    <div class="rule-type">
+                        <h4>📱 Executable Rules</h4>
+                        <p>EXE ve COM dosyalarını kontrol eder</p>
+                        <div class="code-block">
+                            <pre><code># PowerShell ile executable kuralı oluşturma
+New-AppLockerPolicy -RuleType Path -Action Allow -Path "C:\Program Files\*" -User Everyone
+
+# Belirli uygulamayı engelle
+New-AppLockerPolicy -RuleType Path -Action Deny -Path "C:\Temp\malware.exe" -User Everyone</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="rule-type">
+                        <h4>📜 Script Rules</h4>
+                        <p>PowerShell, VBScript, JavaScript dosyalarını kontrol eder</p>
+                        <div class="code-block">
+                            <pre><code># Script kuralı oluşturma
+New-AppLockerPolicy -RuleType Path -Action Allow -Path "C:\Scripts\*" -User ITAdmins
+
+# PowerShell scriptlerini kısıtla
+New-AppLockerPolicy -RuleType Path -Action Deny -Path "*.ps1" -User RegularUsers</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="rule-type">
+                        <h4>📦 Installer Rules</h4>
+                        <p>MSI ve MSP dosyalarını kontrol eder</p>
+                        <div class="code-block">
+                            <pre><code># Installer kuralı oluşturma
+New-AppLockerPolicy -RuleType Path -Action Allow -Path "C:\Software\*" -User ITAdmins
+
+# Sadece imzalı installer'lara izin ver
+New-AppLockerPolicy -RuleType Publisher -Action Allow -Publisher "Microsoft Corporation" -User Everyone</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>AppLocker Yapılandırması</h3>
+                <div class="applocker-config">
+                    <div class="config-step">
+                        <h4>1. AppLocker Servisini Etkinleştir</h4>
+                        <div class="code-block">
+                            <pre><code># AppLocker servisini başlat
+Start-Service -Name "AppIDSvc"
+
+# Servisi otomatik başlat
+Set-Service -Name "AppIDSvc" -StartupType Automatic</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-step">
+                        <h4>2. GPO ile AppLocker Kuralları Uygula</h4>
+                        <div class="code-block">
+                            <pre><code># AppLocker politikasını GPO'ya uygula
+Set-AppLockerPolicy -XmlPolicy (Get-Content "C:\AppLockerPolicy.xml" -Raw)
+
+# Mevcut kuralları görüntüle
+Get-AppLockerPolicy -Effective</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bitlocker">
+                <h2>🔐 BitLocker</h2>
+                
+                <h3>BitLocker Özellikleri</h3>
+                <div class="bitlocker-features">
+                    <ul>
+                        <li><strong>Disk Şifreleme:</strong> Tüm disk içeriğini şifreler</li>
+                        <li><strong>TPM Desteği:</strong> Trusted Platform Module ile güvenlik</li>
+                        <li><strong>Recovery Key:</strong> Şifre kurtarma anahtarı</li>
+                        <li><strong>Auto-unlock:</strong> Otomatik şifre çözme</li>
+                    </ul>
+                </div>
+
+                <h3>BitLocker Yapılandırması</h3>
+                <div class="code-block">
+                    <pre><code># BitLocker'ı etkinleştir
+Enable-BitLocker -MountPoint "C:" -EncryptionMethod XtsAes256 -UsedSpaceOnly
+
+# Recovery key'i kaydet
+$recoveryKey = (Get-BitLockerVolume -MountPoint "C:").KeyProtector | Where-Object {$_.KeyProtectorType -eq "RecoveryPassword"}
+$recoveryKey.RecoveryPassword | Out-File "C:\BitLockerRecoveryKey.txt"
+
+# BitLocker durumunu kontrol et
+Get-BitLockerVolume
+
+# BitLocker'ı devre dışı bırak
+Disable-BitLocker -MountPoint "C:"</code></pre>
+                </div>
+            </div>
+
+            <div class="windows-firewall">
+                <h2>🔥 Windows Firewall</h2>
+                
+                <h3>Firewall Kuralları</h3>
+                <div class="firewall-rules">
+                    <div class="rule-category">
+                        <h4>📥 Inbound Rules</h4>
+                        <p>Gelen bağlantıları kontrol eder</p>
+                        <div class="code-block">
+                            <pre><code># HTTP trafiğine izin ver
+New-NetFirewallRule -DisplayName "Allow HTTP" -Direction Inbound -Protocol TCP -LocalPort 80 -Action Allow
+
+# RDP'yi sadece belirli IP'lerden kabul et
+New-NetFirewallRule -DisplayName "Allow RDP from IT" -Direction Inbound -Protocol TCP -LocalPort 3389 -RemoteAddress "192.168.1.0/24" -Action Allow
+
+# Tüm gelen trafiği engelle
+New-NetFirewallRule -DisplayName "Block All Inbound" -Direction Inbound -Action Block</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="rule-category">
+                        <h4>📤 Outbound Rules</h4>
+                        <p>Giden bağlantıları kontrol eder</p>
+                        <div class="code-block">
+                            <pre><code># HTTPS trafiğine izin ver
+New-NetFirewallRule -DisplayName "Allow HTTPS" -Direction Outbound -Protocol TCP -RemotePort 443 -Action Allow
+
+# DNS sorgularına izin ver
+New-NetFirewallRule -DisplayName "Allow DNS" -Direction Outbound -Protocol UDP -RemotePort 53 -Action Allow
+
+# Sosyal medya sitelerini engelle
+New-NetFirewallRule -DisplayName "Block Social Media" -Direction Outbound -RemoteAddress "facebook.com", "twitter.com" -Action Block</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Finansal Şirket Güvenlik Yapılandırması</h3>
+                    <p><strong>Şirket:</strong> 1000 çalışanlı finansal hizmetler firması</p>
+                    
+                    <h4>Güvenlik Gereksinimleri:</h4>
+                    <ul>
+                        <li>PCI DSS uyumluluğu</li>
+                        <li>SOX (Sarbanes-Oxley) uyumluluğu</li>
+                        <li>Müşteri verilerinin korunması</li>
+                        <li>7/24 güvenlik izleme</li>
+                    </ul>
+
+                    <h4>Uygulanan Güvenlik Önlemleri:</h4>
+                    <div class="security-measures">
+                        <div class="measure-category">
+                            <h5>🔐 Kimlik Doğrulama</h5>
+                            <ul>
+                                <li>Multi-factor authentication (MFA)</li>
+                                <li>Smart card authentication</li>
+                                <li>Biometric authentication</li>
+                                <li>Privileged access management</li>
+                            </ul>
+                        </div>
+
+                        <div class="measure-category">
+                            <h5>🛡️ Uygulama Güvenliği</h5>
+                            <ul>
+                                <li>AppLocker ile uygulama kısıtlamaları</li>
+                                <li>Whitelist tabanlı uygulama yönetimi</li>
+                                <li>Code signing requirements</li>
+                                <li>Application sandboxing</li>
+                            </ul>
+                        </div>
+
+                        <div class="measure-category">
+                            <h5>🔒 Veri Koruması</h5>
+                            <ul>
+                                <li>BitLocker ile disk şifreleme</li>
+                                <li>EFS ile dosya şifreleme</li>
+                                <li>Database encryption</li>
+                                <li>Secure file transfer</li>
+                            </ul>
+                        </div>
+
+                        <div class="measure-category">
+                            <h5>🔥 Ağ Güvenliği</h5>
+                            <ul>
+                                <li>Network segmentation</li>
+                                <li>Firewall rules</li>
+                                <li>VPN access control</li>
+                                <li>Intrusion detection system</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Günlük Güvenlik Operasyonları:</h4>
+                    <div class="daily-operations">
+                        <div class="operation-time">
+                            <h5>🌅 Sabah (08:00-09:00)</h5>
+                            <ul>
+                                <li>Güvenlik log analizi</li>
+                                <li>Threat intelligence güncelleme</li>
+                                <li>Güvenlik duvarı kural kontrolü</li>
+                                <li>Antivirus durum kontrolü</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌆 Gün İçi (09:00-17:00)</h5>
+                            <ul>
+                                <li>Real-time threat monitoring</li>
+                                <li>Security incident response</li>
+                                <li>User access review</li>
+                                <li>Security policy updates</li>
+                            </ul>
+                        </div>
+
+                        <div class="operation-time">
+                            <h5>🌙 Akşam (17:00-18:00)</h5>
+                            <ul>
+                                <li>Güvenlik raporları hazırlama</li>
+                                <li>Backup verification</li>
+                                <li>Security patch deployment</li>
+                                <li>Ertesi gün planlaması</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-monitoring">
+                <h2>📊 Güvenlik İzleme</h2>
+                
+                <h3>Event Log Analizi</h3>
+                <div class="code-block">
+                    <pre><code># Güvenlik olaylarını analiz et
+Get-WinEvent -LogName Security | Where-Object {$_.LevelDisplayName -eq "Error"} | Select-Object -First 10
+
+# Başarısız giriş denemelerini kontrol et
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} | Select-Object TimeCreated, Message
+
+# Privilege escalation olaylarını kontrol et
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4672} | Select-Object TimeCreated, Message
+
+# AppLocker olaylarını kontrol et
+Get-WinEvent -LogName "Microsoft-Windows-AppLocker/EXE and DLL" | Select-Object TimeCreated, Message</code></pre>
+                </div>
+
+                <h3>Güvenlik Raporları</h3>
+                <div class="security-reports">
+                    <div class="report-type">
+                        <h4>📈 Günlük Güvenlik Raporu</h4>
+                        <ul>
+                            <li>Threat detection summary</li>
+                            <li>Failed login attempts</li>
+                            <li>Blocked applications</li>
+                            <li>Firewall activity</li>
+                        </ul>
+                    </div>
+
+                    <div class="report-type">
+                        <h4>📊 Haftalık Güvenlik Raporu</h4>
+                        <ul>
+                            <li>Security policy compliance</li>
+                            <li>Vulnerability assessment</li>
+                            <li>User access review</li>
+                            <li>Incident response summary</li>
+                        </ul>
+                    </div>
+
+                    <div class="report-type">
+                        <h4>📋 Aylık Güvenlik Raporu</h4>
+                        <ul>
+                            <li>Security metrics trend</li>
+                            <li>Policy effectiveness</li>
+                            <li>Training recommendations</li>
+                            <li>Security roadmap updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-security-scenarios">
+                <h2>🚨 Gerçek Hayat Güvenlik Senaryoları</h2>
+                
+                <div class="scenario-card">
+                    <h3>🏢 Senaryo 1: Ransomware Saldırısı</h3>
+                    <p><strong>Durum:</strong> 1000+ çalışanlı şirket, kritik sistemler şifrelendi</p>
+                    <p><strong>Zarar:</strong> 3 günlük iş durması, 500,000$ fidye talebi</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[Phishing Email<br/>Malicious Attachment] --> B[User Clicks<br/>Malware Executes]
+                            B --> C[Lateral Movement<br/>Network Scan]
+                            C --> D[Privilege Escalation<br/>Admin Access]
+                            D --> E[Data Encryption<br/>Ransom Note]
+                            E --> F[Business Disruption<br/>Financial Loss]
+                            
+                            G[Backup Systems<br/>Offline Storage] --> H[Recovery Process<br/>System Restore]
+                            I[Security Team<br/>Incident Response] --> J[Threat Analysis<br/>Containment]
+                    </div>
+                    
+                    <div class="attack-timeline">
+                        <h4>Saldırı Zaman Çizelgesi:</h4>
+                        <ul>
+                            <li><strong>09:00:</strong> Phishing email alındı</li>
+                            <li><strong>09:15:</strong> Malicious attachment açıldı</li>
+                            <li><strong>09:30:</strong> Lateral movement başladı</li>
+                            <li><strong>10:00:</strong> Domain admin erişimi</li>
+                            <li><strong>10:30:</strong> Tüm sistemler şifrelendi</li>
+                            <li><strong>11:00:</strong> Ransom note görüntülendi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Ransomware tespit ve önleme
+# 1. Endpoint Detection and Response (EDR)
+Get-MpThreatDetection | Where-Object {$_.ThreatName -like "*ransomware*"}
+
+# 2. Network traffic monitoring
+Get-NetTCPConnection | Where-Object {$_.State -eq "Established" -and $_.RemotePort -eq 443}
+
+# 3. File system monitoring
+Get-ChildItem -Path "C:\" -Recurse -File | Where-Object {$_.Extension -eq ".encrypted"}
+
+# 4. Process monitoring
+Get-Process | Where-Object {$_.ProcessName -like "*crypt*" -or $_.ProcessName -like "*encrypt*"}
+
+# 5. Backup verification
+Get-WBBackupSet | Where-Object {$_.BackupTime -gt (Get-Date).AddDays(-1)}
+
+# 6. Incident response
+# a. Isolate infected systems
+# b. Preserve evidence
+# c. Restore from backup
+# d. Update security policies</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🏥 Senaryo 2: Hastane Veri Sızıntısı</h3>
+                    <p><strong>Durum:</strong> 500 yataklı hastane, hasta verileri çalındı</p>
+                    <p><strong>Etki:</strong> 50,000+ hasta kaydı, HIPAA ihlali</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[External Attacker<br/>Social Engineering] --> B[Compromised Credentials<br/>Phishing Attack]
+                            B --> C[Network Access<br/>VPN Connection]
+                            C --> D[Lateral Movement<br/>Privilege Escalation]
+                            D --> E[Database Access<br/>Patient Records]
+                            E --> F[Data Exfiltration<br/>Sensitive Information]
+                            
+                            G[Security Monitoring<br/>SIEM System] --> H[Anomaly Detection<br/>Unusual Activity]
+                            I[Compliance Team<br/>HIPAA Audit] --> J[Data Breach Report<br/>Regulatory Notification]
+                    </div>
+                    
+                    <div class="security-measures">
+                        <h4>Güvenlik Önlemleri:</h4>
+                        <ul>
+                            <li><strong>Multi-Factor Authentication:</strong> Tüm kritik sistemler</li>
+                            <li><strong>Network Segmentation:</strong> Hasta verileri izole</li>
+                            <li><strong>Data Encryption:</strong> At rest ve in transit</li>
+                            <li><strong>Access Logging:</strong> Tüm erişim kayıtları</li>
+                            <li><strong>Regular Audits:</strong> Aylık güvenlik denetimi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># HIPAA compliance monitoring
+# 1. Access control monitoring
+Get-EventLog -LogName Security -After (Get-Date).AddDays(-30) | 
+    Where-Object {$_.EventID -eq 4624 -and $_.Message -like "*patient*"}
+
+# 2. Data encryption verification
+Get-ChildItem -Path "C:\PatientData" -Recurse -File | 
+    ForEach-Object {
+        $encrypted = Test-Path "$($_.FullName).encrypted"
+        if (-not $encrypted) {
+            Write-Warning "Unencrypted file: $($_.FullName)"
+        }
+    }
+
+# 3. User access review
+Get-ADUser -Filter "Department -eq 'Medical'" | 
+    ForEach-Object {
+        $groups = Get-ADPrincipalGroupMembership -Identity $_.SamAccountName
+        if ($groups.Name -contains "PatientDataAccess") {
+            Write-Host "User $($_.SamAccountName) has patient data access"
+        }
+    }
+
+# 4. Backup verification
+Get-WBBackupSet | Where-Object {$_.BackupTime -gt (Get-Date).AddDays(-7)} | 
+    ForEach-Object {
+        $backupPath = $_.BackupTarget
+        $encrypted = Test-Path "$backupPath.encrypted"
+        if (-not $encrypted) {
+            Write-Warning "Backup not encrypted: $backupPath"
+        }
+    }</code></pre>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🏦 Senaryo 3: Finansal Kurum DDoS Saldırısı</h3>
+                    <p><strong>Durum:</strong> Banka web sitesi, 24 saat boyunca erişilemez</p>
+                    <p><strong>Etki:</strong> Milyonlarca müşteri, günlük işlemler durdu</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[Botnet Network<br/>100,000+ Infected Devices] --> B[Coordinated Attack<br/>Massive Traffic]
+                            B --> C[Target Server<br/>Banking Website]
+                            C --> D[Resource Exhaustion<br/>CPU/Memory/Network]
+                            D --> E[Service Unavailability<br/>Customer Impact]
+                            
+                            F[CDN Protection<br/>Cloudflare/AWS] --> G[Traffic Filtering<br/>DDoS Mitigation]
+                            H[Load Balancers<br/>Multiple Servers] --> I[Traffic Distribution<br/>Service Continuity]
+                            J[Monitoring Systems<br/>Real-time Alerts] --> K[Incident Response<br/>Rapid Recovery]
+                    </div>
+                    
+                    <div class="ddos-mitigation">
+                        <h4>DDoS Koruması Stratejileri:</h4>
+                        <ul>
+                            <li><strong>CDN Kullanımı:</strong> Cloudflare, AWS CloudFront</li>
+                            <li><strong>Load Balancing:</strong> Multiple server instances</li>
+                            <li><strong>Rate Limiting:</strong> Request throttling</li>
+                            <li><strong>Geographic Filtering:</strong> Country-based blocking</li>
+                            <li><strong>Behavioral Analysis:</strong> Anomaly detection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># DDoS protection configuration
+# 1. Nginx rate limiting
+http {
+    limit_req_zone $binary_remote_addr zone=login:10m rate=10r/m;
+    limit_req_zone $binary_remote_addr zone=api:10m rate=100r/m;
+    
+    server {
+        location /login {
+            limit_req zone=login burst=5 nodelay;
+        }
+        
+        location /api {
+            limit_req zone=api burst=20 nodelay;
+        }
+    }
+}
+
+# 2. Cloudflare configuration
+# Page Rules
+# - Cache Level: Cache Everything
+# - Browser Cache TTL: 1 month
+# - Security Level: High
+# - Challenge Passage: 1 hour
+
+# 3. AWS WAF rules
+{
+    "Rules": [
+        {
+            "Name": "RateLimitRule",
+            "Priority": 1,
+            "Statement": {
+                "RateBasedStatement": {
+                    "Limit": 2000,
+                    "AggregateKeyType": "IP"
+                }
+            },
+            "Action": {
+                "Block": {}
+            }
+        }
+    ]
+}
+
+# 4. Monitoring and alerting
+# CloudWatch metrics
+aws cloudwatch put-metric-alarm \
+    --alarm-name "HighRequestRate" \
+    --alarm-description "High request rate detected" \
+    --metric-name RequestCount \
+    --namespace AWS/ApplicationELB \
+    --statistic Sum \
+    --period 300 \
+    --threshold 10000 \
+    --comparison-operator GreaterThanThreshold</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-security-techniques">
+                <h2>🔐 Gelişmiş Güvenlik Teknikleri</h2>
+                
+                <div class="technique-section">
+                    <h3>🛡️ Zero Trust Security Model</h3>
+                    <p><strong>Prensip:</strong> "Never trust, always verify" - Hiçbir şeye güvenme, her zaman doğrula</p>
+                    
+                    <div class="mermaid">
+                        graph TD
+                            A[User Request<br/>Access Attempt] --> B[Identity Verification<br/>Multi-Factor Auth]
+                            B --> C[Device Trust<br/>Compliance Check]
+                            C --> D[Network Trust<br/>Location/Time Analysis]
+                            D --> E[Application Trust<br/>Least Privilege Access]
+                            E --> F[Data Trust<br/>Encryption/Classification]
+                            
+                            G[Continuous Monitoring<br/>Behavioral Analysis] --> H[Risk Assessment<br/>Real-time Scoring]
+                            I[Policy Engine<br/>Dynamic Policies] --> J[Access Decision<br/>Allow/Deny/Challenge]
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Zero Trust implementation
+# 1. Identity verification
+$user = Get-ADUser -Identity $username
+$mfaStatus = Get-MFAStatus -User $user
+$deviceCompliance = Get-DeviceCompliance -Device $deviceId
+
+# 2. Risk assessment
+$riskScore = 0
+if (-not $mfaStatus.Enabled) { $riskScore += 30 }
+if (-not $deviceCompliance.Compliant) { $riskScore += 40 }
+if ($user.LastLogonTime -lt (Get-Date).AddDays(-30)) { $riskScore += 20 }
+
+# 3. Conditional access
+if ($riskScore -gt 70) {
+    # Require additional verification
+    Send-MFAChallenge -User $user -Method "SMS"
+} elseif ($riskScore -gt 50) {
+    # Allow with restrictions
+    Grant-Access -User $user -Restrictions "Limited"
+} else {
+    # Full access
+    Grant-Access -User $user -Restrictions "None"
+}
+
+# 4. Continuous monitoring
+Start-Job -ScriptBlock {
+    while ($true) {
+        $sessions = Get-ActiveSessions
+        foreach ($session in $sessions) {
+            $behavior = Analyze-UserBehavior -Session $session
+            if ($behavior.RiskLevel -eq "High") {
+                Revoke-Session -SessionId $session.Id
+                Send-Alert -Message "High risk behavior detected"
+            }
+        }
+        Start-Sleep -Seconds 60
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="technique-section">
+                    <h3>🔍 Threat Hunting</h3>
+                    <p><strong>Amaç:</strong> Proaktif tehdit arama ve analiz</p>
+                    
+                    <div class="hunting-techniques">
+                        <h4>Tehdit Avcılığı Teknikleri:</h4>
+                        <ul>
+                            <li><strong>IOC (Indicators of Compromise):</strong> Zararlı aktivite göstergeleri</li>
+                            <li><strong>Behavioral Analysis:</strong> Anormal kullanıcı davranışları</li>
+                            <li><strong>Network Traffic Analysis:</strong> Şüpheli ağ trafiği</li>
+                            <li><strong>Endpoint Forensics:</strong> Sistem dosya analizi</li>
+                            <li><strong>Log Correlation:</strong> Çoklu kaynak log analizi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre><code># Threat hunting queries
+# 1. Suspicious PowerShell activity
+Get-WinEvent -FilterHashtable @{
+    LogName = 'Microsoft-Windows-PowerShell/Operational'
+    ID = 4104
+} | Where-Object {
+    $_.Message -like "*Invoke-Expression*" -or
+    $_.Message -like "*IEX*" -or
+    $_.Message -like "*DownloadString*"
+}
+
+# 2. Lateral movement detection
+Get-WinEvent -FilterHashtable @{
+    LogName = 'Security'
+    ID = 4624
+} | Where-Object {
+    $_.Message -like "*Logon Type: 3*" -and
+    $_.Message -like "*Source Network Address: 192.168.*"
+}
+
+# 3. Privilege escalation attempts
+Get-WinEvent -FilterHashtable @{
+    LogName = 'Security'
+    ID = 4672
+} | Where-Object {
+    $_.Message -like "*Privileges: SeDebugPrivilege*" -or
+    $_.Message -like "*Privileges: SeBackupPrivilege*"
+}
+
+# 4. Data exfiltration patterns
+Get-WinEvent -FilterHashtable @{
+    LogName = 'Microsoft-Windows-Sysmon/Operational'
+    ID = 3
+} | Where-Object {
+    $_.Message -like "*DestinationPort: 443*" -and
+    $_.Message -like "*ProcessName: powershell.exe*"
+}
+
+# 5. Anomaly detection
+$baseline = Get-UserBaseline -User $username -Days 30
+$current = Get-UserActivity -User $username -Days 1
+$anomalies = Compare-Activity -Baseline $baseline -Current $current
+if ($anomalies.Count -gt 5) {
+    Send-Alert -Message "Anomalous activity detected for user: $username"
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-incident-response">
+                <h2>🚨 Güvenlik Olay Müdahale Süreci</h2>
+                
+                <div class="incident-phases">
+                    <h3>📋 Olay Müdahale Aşamaları</h3>
+                    
+                    <div class="phase-card">
+                        <h4>1. Hazırlık (Preparation)</h4>
+                        <ul>
+                            <li>Güvenlik ekibi eğitimi</li>
+                            <li>Araç ve teknoloji hazırlığı</li>
+                            <li>İletişim planları</li>
+                            <li>Yedekleme stratejileri</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase-card">
+                        <h4>2. Tespit ve Analiz (Detection & Analysis)</h4>
+                        <ul>
+                            <li>Olay tespit sistemleri</li>
+                            <li>Log analizi</li>
+                            <li>Tehdit istihbaratı</li>
+                            <li>Etki değerlendirmesi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase-card">
+                        <h4>3. Sınırlama (Containment)</h4>
+                        <ul>
+                            <li>Etkilenen sistemleri izole etme</li>
+                            <li>Zararlı yazılımı temizleme</li>
+                            <li>Güvenlik açıklarını kapatma</li>
+                            <li>Geçici çözümler uygulama</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase-card">
+                        <h4>4. Yok Etme (Eradication)</h4>
+                        <ul>
+                            <li>Kök neden analizi</li>
+                            <li>Kalıcı çözümler</li>
+                            <li>Sistem güncellemeleri</li>
+                            <li>Güvenlik politikaları güncelleme</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase-card">
+                        <h4>5. İyileştirme (Recovery)</h4>
+                        <ul>
+                            <li>Sistemleri normale döndürme</li>
+                            <li>İş süreçlerini yeniden başlatma</li>
+                            <li>Performans izleme</li>
+                            <li>Kullanıcı eğitimi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase-card">
+                        <h4>6. Dersler (Lessons Learned)</h4>
+                        <ul>
+                            <li>Olay raporu hazırlama</li>
+                            <li>İyileştirme önerileri</li>
+                            <li>Eğitim ihtiyaçları</li>
+                            <li>Süreç güncellemeleri</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="incident-response-tools">
+                    <h3>🛠️ Olay Müdahale Araçları</h3>
+                    
+                    <div class="tool-category">
+                        <h4>📊 Monitoring ve Detection</h4>
+                        <ul>
+                            <li><strong>SIEM:</strong> Splunk, ELK Stack, QRadar</li>
+                            <li><strong>EDR:</strong> CrowdStrike, SentinelOne, Carbon Black</li>
+                            <li><strong>Network Monitoring:</strong> Wireshark, tcpdump</li>
+                            <li><strong>Log Analysis:</strong> Graylog, LogRhythm</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h4>🔍 Forensics ve Analysis</h4>
+                        <ul>
+                            <li><strong>Memory Analysis:</strong> Volatility, Rekall</li>
+                            <li><strong>Disk Analysis:</strong> Autopsy, Sleuth Kit</li>
+                            <li><strong>Network Analysis:</strong> NetworkMiner, Xplico</li>
+                            <li><strong>Malware Analysis:</strong> Cuckoo Sandbox, YARA</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tool-category">
+                        <h4>🚨 Communication ve Coordination</h4>
+                        <ul>
+                            <li><strong>Incident Management:</strong> Jira, ServiceNow</li>
+                            <li><strong>Communication:</strong> Slack, Microsoft Teams</li>
+                            <li><strong>Documentation:</strong> Confluence, SharePoint</li>
+                            <li><strong>Reporting:</strong> Power BI, Tableau</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Windows güvenlik temellerini öğrendikten sonra, <a href="bolum-07-siber-guvenlik.html">Siber Güvenlik</a> bölümüne geçerek daha gelişmiş güvenlik konularını inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-07-siber-guvenlik.html" class="btn btn-primary">🛡️ Siber Güvenlik →</a>
+                    <a href="bolum-05-powershell.html" class="btn btn-secondary">← PowerShell</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

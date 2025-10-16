@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mail Server Yönetimi - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Mail Server Yönetimi</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="mail-server">
+            <h1>📧 Mail Server Yönetimi</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Mail Server Neden Kritik?</h2>
+                <p>Mail Server, modern işletmelerin iletişim omurgasıdır. <strong>Neden mail server önemli?</strong></p>
+                
+                <div class="why-mail-server">
+                    <h4>🔍 Mail Server'ın Faydaları:</h4>
+                    <ul>
+                        <li><strong>İletişim Merkezi:</strong> Tüm iş iletişimi tek platformda</li>
+                        <li><strong>Güvenlik:</strong> Hassas bilgilerin güvenli iletimi</li>
+                        <li><strong>Verimlilik:</strong> Hızlı ve güvenilir mesajlaşma</li>
+                        <li><strong>Arşivleme:</strong> Önemli e-postaların saklanması</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Dış servis maliyetlerinden kaçınma</li>
+                    </ul>
+                </div>
+                
+                <div class="mail-scenario">
+                    <h4>🏢 Gerçek Hayat Senaryosu:</h4>
+                    <p><strong>Problem:</strong> 500 çalışanlı şirkette e-posta sistemi çöktü</p>
+                    <p><strong>Sonuç:</strong> 2 günlük iletişim kesintisi, iş kaybı</p>
+                    <p><strong>Çözüm:</strong> Güvenilir mail server altyapısı</p>
+                </div>
+            </div>
+
+            <div class="mail-protocols">
+                <h2>📡 E-posta Protokolleri</h2>
+                
+                <div class="protocol-grid">
+                    <div class="protocol-card">
+                        <h3>📤 SMTP (Simple Mail Transfer Protocol)</h3>
+                        <p>E-posta gönderme protokolü</p>
+                        <ul>
+                            <li><strong>Port:</strong> 25 (standart), 587 (TLS), 465 (SSL)</li>
+                            <li><strong>Görev:</strong> E-posta sunucuları arası iletişim</li>
+                            <li><strong>Kullanım:</strong> Outbound mail transfer</li>
+                            <li><strong>Güvenlik:</strong> STARTTLS, SSL/TLS</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-card">
+                        <h3>📥 POP3 (Post Office Protocol)</h3>
+                        <p>E-posta indirme protokolü</p>
+                        <ul>
+                            <li><strong>Port:</strong> 110 (standart), 995 (SSL)</li>
+                            <li><strong>Görev:</strong> E-postaları sunucudan indirme</li>
+                            <li><strong>Kullanım:</strong> Offline e-posta erişimi</li>
+                            <li><strong>Özellik:</strong> E-postalar sunucudan silinir</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-card">
+                        <h3>📨 IMAP (Internet Message Access Protocol)</h3>
+                        <p>E-posta senkronizasyon protokolü</p>
+                        <ul>
+                            <li><strong>Port:</strong> 143 (standart), 993 (SSL)</li>
+                            <li><strong>Görev:</strong> E-postaları sunucuda tutma</li>
+                            <li><strong>Kullanım:</strong> Multi-device erişim</li>
+                            <li><strong>Özellik:</strong> E-postalar sunucuda kalır</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-card">
+                        <h3>🌐 HTTP/HTTPS</h3>
+                        <p>Web tabanlı e-posta erişimi</p>
+                        <ul>
+                            <li><strong>Port:</strong> 80 (HTTP), 443 (HTTPS)</li>
+                            <li><strong>Görev:</strong> Web arayüzü üzerinden erişim</li>
+                            <li><strong>Kullanım:</strong> Outlook Web Access, OWA</li>
+                            <li><strong>Avantaj:</strong> Herhangi bir cihazdan erişim</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exchange-server">
+                <h2>📧 Exchange Server</h2>
+                
+                <h3>Exchange Server Sürümleri</h3>
+                <div class="exchange-versions">
+                    <div class="version-card">
+                        <h4>🏢 Exchange Server 2019</h4>
+                        <ul>
+                            <li>En son sürüm</li>
+                            <li>Windows Server 2019/2022</li>
+                            <li>Gelişmiş güvenlik özellikleri</li>
+                            <li>Yüksek performans</li>
+                        </ul>
+                    </div>
+
+                    <div class="version-card">
+                        <h4>🏭 Exchange Server 2016</h4>
+                        <ul>
+                            <li>Yaygın kullanılan sürüm</li>
+                            <li>Windows Server 2016/2019</li>
+                            <li>Hybrid deployment desteği</li>
+                            <li>Modern authentication</li>
+                        </ul>
+                    </div>
+
+                    <div class="version-card">
+                        <h4>☁️ Exchange Online</h4>
+                        <ul>
+                            <li>Microsoft 365 parçası</li>
+                            <li>Bulut tabanlı</li>
+                            <li>Otomatik güncellemeler</li>
+                            <li>Yüksek kullanılabilirlik</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Exchange Server Kurulumu</h3>
+                <div class="code-block">
+                    <pre><code># Exchange Server 2019 kurulumu
+# 1. Ön gereksinimler
+Install-WindowsFeature -Name ADLDS, NET-Framework-45-Features, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-ADDS, Web-Mgmt-Console, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext, Web-ISAPI-Filter, Web-Lgcy-Mgmt-Console, Web-Metabase, Web-Mgmt-Console, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth, Web-WMI, Windows-Identity-Foundation
+
+# 2. Exchange Server kurulumu
+# Setup.exe /IAcceptExchangeServerLicenseTerms /Mode:Install /Role:Mailbox
+
+# 3. Post-kurulum yapılandırması
+# Exchange Management Shell açılır ve gerekli ayarlar yapılır</code></pre>
+                </div>
+            </div>
+
+            <div class="mailbox-management">
+                <h2>📁 Mailbox Yönetimi</h2>
+                
+                <h3>Mailbox Oluşturma</h3>
+                <div class="code-block">
+                    <pre><code># Exchange Management Shell'de mailbox oluşturma
+New-Mailbox -UserPrincipalName "john.doe@company.com" `
+    -Alias "john.doe" `
+    -Name "John Doe" `
+    -DisplayName "John Doe" `
+    -Password (ConvertTo-SecureString "TempPass123!" -AsPlainText -Force) `
+    -Database "Mailbox Database 1"
+
+# Mevcut kullanıcı için mailbox oluşturma
+Enable-Mailbox -Identity "john.doe@company.com" `
+    -Database "Mailbox Database 1"
+
+# Mailbox özelliklerini güncelleme
+Set-Mailbox -Identity "john.doe@company.com" `
+    -ProhibitSendQuota 2GB `
+    -ProhibitSendReceiveQuota 2.5GB `
+    -IssueWarningQuota 1.5GB `
+    -RetainDeletedItemsFor 30.00:00:00</code></pre>
+                </div>
+
+                <h3>Distribution Group Yönetimi</h3>
+                <div class="code-block">
+                    <pre><code># Distribution group oluşturma
+New-DistributionGroup -Name "IT Department" `
+    -DisplayName "IT Department" `
+    -Alias "IT-Dept" `
+    -ManagedBy "admin@company.com" `
+    -MemberJoinRestriction "Closed" `
+    -MemberDepartRestriction "Closed"
+
+# Distribution group'a üye ekleme
+Add-DistributionGroupMember -Identity "IT Department" `
+    -Member "john.doe@company.com"
+
+# Distribution group üyelerini listeleme
+Get-DistributionGroupMember -Identity "IT Department"
+
+# Distribution group ayarları
+Set-DistributionGroup -Identity "IT Department" `
+    -RequireSenderAuthenticationEnabled $true `
+    -AcceptMessagesOnlyFromSendersOrMembers "admin@company.com"</code></pre>
+                </div>
+            </div>
+
+            <div class="mail-flow">
+                <h2>📤 Mail Flow Yönetimi</h2>
+                
+                <h3>Transport Rules</h3>
+                <div class="code-block">
+                    <pre><code># Mail flow kuralı oluşturma
+New-TransportRule -Name "Block External Attachments" `
+    -FromScope "NotInOrganization" `
+    -AttachmentHasExecutableContent $true `
+    -RejectMessageReasonText "Executable attachments are not allowed from external senders"
+
+# Spam filtreleme kuralı
+New-TransportRule -Name "High Confidence Spam" `
+    -SetHeaderName "X-Spam-Level" `
+    -SetHeaderValue "High" `
+    -SclValue 5 `
+    -Quarantine $true
+
+# E-posta yönlendirme kuralı
+New-TransportRule -Name "Forward CEO Emails" `
+    -From "ceo@company.com" `
+    -RedirectMessageTo "assistant@company.com"</code></pre>
+                </div>
+
+                <h3>Connector Yapılandırması</h3>
+                <div class="code-block">
+                    <pre><code># Send connector oluşturma
+New-SendConnector -Name "Internet Send Connector" `
+    -AddressSpaces "SMTP:*;1" `
+    -DNSRoutingEnabled $true `
+    -UseExternalDNSServersEnabled $true
+
+# Receive connector oluşturma
+New-ReceiveConnector -Name "Internet Receive Connector" `
+    -Usage "Internet" `
+    -Bindings "0.0.0.0:25" `
+    -RemoteIPRanges "0.0.0.0-255.255.255.255" `
+    -AuthMechanism "Tls, BasicAuth, BasicAuthRequireTLS"</code></pre>
+                </div>
+            </div>
+
+            <div class="security-features">
+                <h2>🔒 E-posta Güvenliği</h2>
+                
+                <h3>Anti-Spam Ayarları</h3>
+                <div class="code-block">
+                    <pre><code># Anti-spam ayarları
+Set-ContentFilterConfig -Enabled $true `
+    -QuarantineRetentionPeriod 15 `
+    -SpamQuarantineRetentionPeriod 15
+
+# IP Allow List
+Add-IPAllowListEntry -IPAddress "203.0.113.0/24" `
+    -Comment "Trusted Partner Network"
+
+# IP Block List
+Add-IPBlockListEntry -IPAddress "192.0.2.0/24" `
+    -Comment "Known Spam Source"
+
+# Sender reputation
+Set-SenderReputationConfig -Enabled $true `
+    -SrlBlockThreshold 7</code></pre>
+                </div>
+
+                <h3>Data Loss Prevention (DLP)</h3>
+                <div class="code-block">
+                    <pre><code># DLP politikası oluşturma
+New-DlpPolicy -Name "Financial Data Protection" `
+    -Mode "Enforce" `
+    -State "Enabled"
+
+# DLP kuralı oluşturma
+New-TransportRule -Name "Credit Card Detection" `
+    -DlpPolicy "Financial Data Protection" `
+    -MessageContainsDataClassification @{
+        Name = "Credit Card Number"
+        MinCount = 1
+    } `
+    -BlockAccess $true `
+    -RejectMessageReasonText "Credit card information is not allowed in emails"</code></pre>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>E-posta Sistemi Çökmesi ve Kurtarma</h3>
+                    <p><strong>Şirket:</strong> 1000 çalışanlı finansal hizmetler firması</p>
+                    <p><strong>Durum:</strong> Exchange Server 2016 çökmesi</p>
+                    
+                    <h4>Kriz Süreci:</h4>
+                    <div class="crisis-timeline">
+                        <div class="timeline-event">
+                            <h5>🚨 09:00 - İlk Tespit</h5>
+                            <p>Kullanıcılar e-posta erişim sorunu bildirdi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔍 09:15 - Tanılama</h5>
+                            <p>Exchange servislerinin durduğu tespit edildi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🛠️ 09:30 - Müdahale</h5>
+                            <p>Exchange servisleri yeniden başlatıldı</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>⚠️ 10:00 - Tekrar Çökme</h5>
+                            <p>Servisler tekrar durdu, donanım sorunu şüphesi</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>🔄 10:30 - Failover</h5>
+                            <p>DAG (Database Availability Group) failover</p>
+                        </div>
+
+                        <div class="timeline-event">
+                            <h5>✅ 11:00 - Normale Dönüş</h5>
+                            <p>E-posta servisleri normale döndü</p>
+                        </div>
+                    </div>
+
+                    <h4>Alınan Önlemler:</h4>
+                    <ul>
+                        <li>DAG yapılandırması güçlendirildi</li>
+                        <li>Monitoring sistemi iyileştirildi</li>
+                        <li>Backup stratejisi gözden geçirildi</li>
+                        <li>Disaster recovery planı güncellendi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="backup-recovery">
+                <h2>💾 Yedekleme ve Kurtarma</h2>
+                
+                <h3>Exchange Backup Stratejisi</h3>
+                <div class="backup-strategy">
+                    <div class="backup-type">
+                        <h4>🔄 DAG (Database Availability Group)</h4>
+                        <ul>
+                            <li>Real-time replication</li>
+                            <li>Otomatik failover</li>
+                            <li>Yüksek kullanılabilirlik</li>
+                            <li>Minimum RTO/RPO</li>
+                        </ul>
+                    </div>
+
+                    <div class="backup-type">
+                        <h4>💾 VSS Backup</h4>
+                        <ul>
+                            <li>Volume Shadow Copy Service</li>
+                            <li>Application-aware backup</li>
+                            <li>Point-in-time recovery</li>
+                            <li>Long-term retention</li>
+                        </ul>
+                    </div>
+
+                    <div class="backup-type">
+                        <h4>☁️ Cloud Backup</h4>
+                        <ul>
+                            <li>Microsoft 365 backup</li>
+                            <li>Third-party solutions</li>
+                            <li>Geographic redundancy</li>
+                            <li>Compliance requirements</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Kurtarma İşlemleri</h3>
+                <div class="code-block">
+                    <pre><code># Mailbox kurtarma
+New-Mailbox -Name "Recovered Mailbox" `
+    -UserPrincipalName "recovered@company.com" `
+    -Database "Mailbox Database 1"
+
+# Veritabanı kurtarma
+Mount-Database -Identity "Mailbox Database 1" `
+    -EdbFilePath "C:\Exchange\Mailbox Database 1\Mailbox Database 1.edb"
+
+# E-posta kurtarma
+New-MailboxRestoreRequest -SourceDatabase "Mailbox Database 1" `
+    -SourceStoreMailbox "John Doe" `
+    -TargetMailbox "john.doe@company.com"</code></pre>
+                </div>
+            </div>
+
+            <div class="monitoring-troubleshooting">
+                <h2>📊 İzleme ve Sorun Giderme</h2>
+                
+                <h3>Performans İzleme</h3>
+                <div class="code-block">
+                    <pre><code># Mailbox veritabanı durumu
+Get-MailboxDatabase -Status | Select-Object Name, DatabaseSize, AvailableNewMailboxSpace
+
+# E-posta kuyruğu durumu
+Get-Queue | Select-Object Identity, MessageCount, Status
+
+# Servis durumu
+Get-Service -Name "MSExchange*" | Select-Object Name, Status
+
+# Performans sayaçları
+Get-Counter -Counter "\MSExchange Database\Log Generation Checkpoint Depth" `
+    -SampleInterval 1 -MaxSamples 5</code></pre>
+                </div>
+
+                <h3>Yaygın Sorunlar ve Çözümleri</h3>
+                <div class="troubleshooting-issues">
+                    <div class="issue-category">
+                        <h4>📧 E-posta Gönderememe</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>SMTP servis durumunu kontrol et</li>
+                                <li>Send connector ayarlarını kontrol et</li>
+                                <li>DNS çözümlemesini kontrol et</li>
+                                <li>Firewall kurallarını kontrol et</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="issue-category">
+                        <h4>📥 E-posta Alamama</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>Receive connector ayarlarını kontrol et</li>
+                                <li>MX kayıtlarını kontrol et</li>
+                                <li>Anti-spam ayarlarını kontrol et</li>
+                                <li>Mailbox durumunu kontrol et</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="issue-category">
+                        <h4>🐌 Yavaş Performans</h4>
+                        <div class="solution-steps">
+                            <ol>
+                                <li>Disk alanını kontrol et</li>
+                                <li>Memory kullanımını kontrol et</li>
+                                <li>Database boyutunu kontrol et</li>
+                                <li>Log dosyalarını temizle</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Mail server yönetimini öğrendikten sonra, <a href="bolum-12-remote-management.html">Remote Management</a> bölümüne geçerek uzaktan yönetim konularını inceleyebilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-12-remote-management.html" class="btn btn-primary">🔧 Remote Management →</a>
+                    <a href="bolum-10-microsoft365.html" class="btn btn-secondary">← Microsoft 365</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

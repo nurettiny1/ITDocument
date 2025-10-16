@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ağ Temelleri - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Ağ Temelleri</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="ag-temelleri">
+            <h1>🌐 Ağ Temelleri</h1>
+            
+            <div class="intro-section">
+                <h2>🎯 Ağ Teknolojileri Neden Önemli?</h2>
+                <p>Ağ teknolojileri, modern iş dünyasının omurgasıdır. <strong>Neden ağ teknolojilerini öğrenmeliyiz?</strong></p>
+                
+                <div class="why-networking">
+                    <h4>🔍 Ağ Teknolojilerinin Faydaları:</h4>
+                    <ul>
+                        <li><strong>İletişim:</strong> Dünya çapında anlık iletişim</li>
+                        <li><strong>Veri Paylaşımı:</strong> Bilgileri hızla paylaşabilme</li>
+                        <li><strong>Maliyet Tasarrufu:</strong> Fiziksel toplantılar yerine online</li>
+                        <li><strong>Güvenlik:</strong> Verileri koruyarak paylaşma</li>
+                        <li><strong>Ölçeklenebilirlik:</strong> Büyüyen işletmeler için esneklik</li>
+                    </ul>
+                </div>
+                
+            </div>
+
+            <div class="osi-model">
+                <h2>📊 OSI Modeli - Basit Açıklama</h2>
+                <p>OSI modeli, ağ sorunlarını çözmek için tasarlanmıştır. <strong>Neden OSI modelini öğrenmeliyiz?</strong></p>
+                
+                <div class="why-osi">
+                    <h4>🔍 OSI Modelinin Faydaları:</h4>
+                    <ul>
+                        <li><strong>Sorun Tespiti:</strong> Hangi katmanda problem olduğunu bulabilirsiniz</li>
+                        <li><strong>Standartlaşma:</strong> Farklı üreticilerin cihazları uyumlu çalışır</li>
+                        <li><strong>Eğitim:</strong> Ağ teknolojilerini sistematik öğrenirsiniz</li>
+                        <li><strong>Sorun Çözme:</strong> Adım adım sorun çözme</li>
+                        <li><strong>Geliştirme:</strong> Yeni protokoller tasarlarken rehber</li>
+                    </ul>
+                </div>
+                
+
+                <div class="osi-details">
+                    <div class="osi-layer">
+                        <h3>7. Uygulama Katmanı</h3>
+                        <p><strong>Görev:</strong> Kullanıcı uygulamalarına ağ servisleri sağlar</p>
+                        <p><strong>Örnek:</strong> Web tarayıcısı ile web sitesine erişim</p>
+                    </div>
+
+                    <div class="osi-layer">
+                        <h3>6. Sunum Katmanı</h3>
+                        <p><strong>Görev:</strong> Veri formatını dönüştürür, şifreleme yapar</p>
+                        <p><strong>Örnek:</strong> HTTPS ile güvenli web bağlantısı</p>
+                    </div>
+
+                    <div class="osi-layer">
+                        <h3>5. Oturum Katmanı</h3>
+                        <p><strong>Görev:</strong> Oturumları yönetir, bağlantıları kontrol eder</p>
+                        <p><strong>Örnek:</strong> RDP bağlantısı kurma</p>
+                    </div>
+
+                    <div class="osi-layer">
+                        <h3>4. Taşıma Katmanı</h3>
+                        <p><strong>Görev:</strong> Veri segmentasyonu, hata kontrolü, akış kontrolü</p>
+                        <p><strong>Örnek:</strong> TCP ile güvenilir veri transferi</p>
+                    </div>
+
+                    <div class="osi-layer">
+                        <h3>3. Ağ Katmanı</h3>
+                        <p><strong>Görev:</strong> Yönlendirme, adresleme, paket yönlendirme</p>
+                        <p><strong>Örnek:</strong> IP adresi ile hedefe ulaşma</p>
+                    </div>
+
+                    <div class="osi-layer">
+                        <h3>2. Veri Bağlantı Katmanı</h3>
+                        <p><strong>Görev:</strong> Fiziksel adresleme, hata tespiti, akış kontrolü</p>
+                        <p><strong>Örnek:</strong> MAC adresi ile cihaz tanımlama</p>
+                    </div>
+
+                    <div class="osi-layer">
+                        <h3>1. Fiziksel Katman</h3>
+                        <p><strong>Görev:</strong> Fiziksel bağlantı, sinyal iletimi</p>
+                        <p><strong>Örnek:</strong> Ethernet kablosu ile bağlantı</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tcp-ip-model">
+                <h2>🌐 TCP/IP Modeli - Basit Açıklama</h2>
+                <p>TCP/IP modeli, OSI modelinin pratik uygulamasıdır ve 4 katmandan oluşur.</p>
+                
+                <div class="tcp-ip-layers">
+                    <div class="tcp-layer">
+                        <h3>Uygulama Katmanı</h3>
+                        <p>OSI 5-7 katmanlarının birleşimi</p>
+                        <p><strong>Örnek:</strong> Web tarayıcısı, e-posta, dosya transferi</p>
+                    </div>
+
+                    <div class="tcp-layer">
+                        <h3>Taşıma Katmanı</h3>
+                        <p>OSI 4. katmanına karşılık gelir</p>
+                        <p><strong>Örnek:</strong> TCP ile güvenilir veri transferi</p>
+                    </div>
+
+                    <div class="tcp-layer">
+                        <h3>İnternet Katmanı</h3>
+                        <p>OSI 3. katmanına karşılık gelir</p>
+                        <p><strong>Örnek:</strong> IP adresi ile hedefe ulaşma</p>
+                    </div>
+
+                    <div class="tcp-layer">
+                        <h3>Ağ Erişim Katmanı</h3>
+                        <p>OSI 1-2 katmanlarının birleşimi</p>
+                        <p><strong>Örnek:</strong> Ethernet kablosu ile bağlantı</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ip-addressing">
+                <h2>🔢 IP Adresleme - Basit Açıklama</h2>
+                
+                <h3>IPv4 Adres Yapısı</h3>
+                <div class="ip-structure">
+                    <p>IPv4 adresi 32 bit uzunluğunda, 4 oktetten oluşur:</p>
+                    <div class="ip-example">
+                        <code>192.168.1.1</code>
+                        <p>Her oktet 0-255 arası değer alabilir</p>
+                    </div>
+                </div>
+
+                <h3>IP Adres Sınıfları</h3>
+                <div class="ip-classes">
+                    <div class="ip-class">
+                        <h4>Class A (1.0.0.0 - 126.255.255.255)</h4>
+                        <ul>
+                            <li><strong>Network:</strong> İlk oktet</li>
+                            <li><strong>Host:</strong> Son 3 oktet</li>
+                            <li><strong>Subnet Mask:</strong> 255.0.0.0 (/8)</li>
+                            <li><strong>Örnek:</strong> 10.0.0.0/8</li>
+                        </ul>
+                    </div>
+
+                    <div class="ip-class">
+                        <h4>Class B (128.0.0.0 - 191.255.255.255)</h4>
+                        <ul>
+                            <li><strong>Network:</strong> İlk 2 oktet</li>
+                            <li><strong>Host:</strong> Son 2 oktet</li>
+                            <li><strong>Subnet Mask:</strong> 255.255.0.0 (/16)</li>
+                            <li><strong>Örnek:</strong> 172.16.0.0/16</li>
+                        </ul>
+                    </div>
+
+                    <div class="ip-class">
+                        <h4>Class C (192.0.0.0 - 223.255.255.255)</h4>
+                        <ul>
+                            <li><strong>Network:</strong> İlk 3 oktet</li>
+                            <li><strong>Host:</strong> Son oktet</li>
+                            <li><strong>Subnet Mask:</strong> 255.255.255.0 (/24)</li>
+                            <li><strong>Örnek:</strong> 192.168.1.0/24</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Subnetting Örnekleri</h3>
+                <div class="subnetting-examples">
+                    <div class="subnet-example">
+                        <h4>Örnek 1: /24 Network'ü /26'ya Bölme</h4>
+                        <p><strong>Network:</strong> 192.168.1.0/24</p>
+                        <p><strong>Subnet Mask:</strong> 255.255.255.192 (/26)</p>
+                        <p><strong>Subnet'ler:</strong></p>
+                        <ul>
+                            <li>192.168.1.0/26 (Host: 192.168.1.1 - 192.168.1.62)</li>
+                            <li>192.168.1.64/26 (Host: 192.168.1.65 - 192.168.1.126)</li>
+                            <li>192.168.1.128/26 (Host: 192.168.1.129 - 192.168.1.190)</li>
+                            <li>192.168.1.192/26 (Host: 192.168.1.193 - 192.168.1.254)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="network-protocols">
+                <h2>📡 Ağ Protokolleri</h2>
+                
+                <h3>TCP (Transmission Control Protocol)</h3>
+                <div class="protocol-info">
+                    <h4>Özellikler:</h4>
+                    <ul>
+                        <li><strong>Bağlantılı:</strong> 3-way handshake ile bağlantı kurar</li>
+                        <li><strong>Güvenilir:</strong> Veri kaybını önler, yeniden gönderir</li>
+                        <li><strong>Sıralı:</strong> Verileri doğru sırada iletir</li>
+                        <li><strong>Akış Kontrolü:</strong> Alıcının hızına göre gönderir</li>
+                    </ul>
+                    
+                    <h4>Kullanım Alanları:</h4>
+                    <ul>
+                        <li>Web browsing (HTTP/HTTPS)</li>
+                        <li>E-posta (SMTP)</li>
+                        <li>Dosya transferi (FTP)</li>
+                        <li>Uzaktan erişim (RDP, SSH)</li>
+                    </ul>
+                </div>
+
+                <h3>UDP (User Datagram Protocol)</h3>
+                <div class="protocol-info">
+                    <h4>Özellikler:</h4>
+                    <ul>
+                        <li><strong>Bağlantısız:</strong> Handshake yapmaz</li>
+                        <li><strong>Hızlı:</strong> Düşük gecikme</li>
+                        <li><strong>Basit:</strong> Az overhead</li>
+                        <li><strong>Güvenilmez:</strong> Veri kaybı olabilir</li>
+                    </ul>
+                    
+                    <h4>Kullanım Alanları:</h4>
+                    <ul>
+                        <li>Video streaming</li>
+                        <li>Online gaming</li>
+                        <li>DNS sorguları</li>
+                        <li>DHCP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="network-devices">
+                <h2>🔧 Ağ Cihazları</h2>
+                
+                <div class="device-grid">
+                    <div class="device-card">
+                        <h3>🔄 Hub</h3>
+                        <p><strong>Katman:</strong> Physical (Layer 1)</p>
+                        <p><strong>Görev:</strong> Tüm portlara sinyal gönderir</p>
+                        <p><strong>Avantaj:</strong> Basit, ucuz</p>
+                        <p><strong>Dezavantaj:</strong> Collision domain oluşturur</p>
+                    </div>
+
+                    <div class="device-card">
+                        <h3>🔀 Switch</h3>
+                        <p><strong>Katman:</strong> Data Link (Layer 2)</p>
+                        <p><strong>Görev:</strong> MAC adresine göre yönlendirir</p>
+                        <p><strong>Avantaj:</strong> Collision domain'i böler</p>
+                        <p><strong>Özellik:</strong> MAC tablosu tutar</p>
+                    </div>
+
+                    <div class="device-card">
+                        <h3>🛣️ Router</h3>
+                        <p><strong>Katman:</strong> Network (Layer 3)</p>
+                        <p><strong>Görev:</strong> IP adresine göre yönlendirir</p>
+                        <p><strong>Avantaj:</strong> Farklı network'leri bağlar</p>
+                        <p><strong>Özellik:</strong> Routing table kullanır</p>
+                    </div>
+
+                    <div class="device-card">
+                        <h3>🔥 Firewall</h3>
+                        <p><strong>Katman:</strong> Network/Application</p>
+                        <p><strong>Görev:</strong> Güvenlik filtreleme</p>
+                        <p><strong>Avantaj:</strong> Tehditleri engeller</p>
+                        <p><strong>Özellik:</strong> Policy tabanlı filtreleme</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <div class="scenario">
+                    <h3>Orta Ölçekli Şirket Ağ Altyapısı</h3>
+                    <p><strong>Şirket:</strong> 200 çalışanlı teknoloji firması</p>
+                    
+                    <h4>Ağ Topolojisi:</h4>
+                    <div class="network-topology">
+                        <div class="network-level">
+                            <h5>Internet Gateway</h5>
+                            <p>FortiGate Firewall (WAN bağlantısı)</p>
+                        </div>
+                        <div class="network-level">
+                            <h5>Core Switch</h5>
+                            <p>Cisco Catalyst 2960 (Ana switch)</p>
+                        </div>
+                        <div class="network-level">
+                            <h5>Access Switches</h5>
+                            <p>4 adet Cisco Catalyst 2960 (Kat switchleri)</p>
+                        </div>
+                        <div class="network-level">
+                            <h5>Servers</h5>
+                            <p>Domain Controller, File Server, Mail Server</p>
+                        </div>
+                    </div>
+
+                    <h4>IP Adresleme Planı:</h4>
+                    <ul>
+                        <li><strong>Server Network:</strong> 192.168.10.0/24</li>
+                        <li><strong>User Network:</strong> 192.168.20.0/24</li>
+                        <li><strong>Guest Network:</strong> 192.168.30.0/24</li>
+                        <li><strong>Management Network:</strong> 192.168.100.0/24</li>
+                    </ul>
+
+                    <h4>Günlük Ağ Operasyonları:</h4>
+                    <ol>
+                        <li><strong>Sabah 08:00:</strong> Ağ sağlık kontrolü</li>
+                        <li><strong>09:00-17:00:</strong> Kullanıcı bağlantı sorunları</li>
+                        <li><strong>17:00-18:00:</strong> Ağ performans analizi</li>
+                        <li><strong>Gece:</strong> Switch firmware güncellemeleri</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🔍 Ağ Sorun Giderme</h2>
+                
+                <h3>Yaygın Ağ Sorunları</h3>
+                <div class="troubleshooting-steps">
+                    <div class="trouble-step">
+                        <h4>1. Bağlantı Sorunu</h4>
+                        <p><strong>Semptom:</strong> İnternete erişim yok</p>
+                        <p><strong>Çözüm Adımları:</strong></p>
+                        <ol>
+                            <li>Fiziksel bağlantıyı kontrol et</li>
+                            <li>IP adresini kontrol et (ipconfig)</li>
+                            <li>Gateway'e ping at</li>
+                            <li>DNS ayarlarını kontrol et</li>
+                        </ol>
+                    </div>
+
+                    <div class="trouble-step">
+                        <h4>2. Yavaş Ağ Performansı</h4>
+                        <p><strong>Semptom:</strong> Yavaş dosya transferi</p>
+                        <p><strong>Çözüm Adımları:</strong></p>
+                        <ol>
+                            <li>Bant genişliğini ölç</li>
+                            <li>Collision'ları kontrol et</li>
+                            <li>Switch portlarını kontrol et</li>
+                            <li>Network utilization'ı analiz et</li>
+                        </ol>
+                    </div>
+
+                    <div class="trouble-step">
+                        <h4>3. DNS Sorunları</h4>
+                        <p><strong>Semptom:</strong> Web sitelerine erişim yok</p>
+                        <p><strong>Çözüm Adımları:</strong></p>
+                        <ol>
+                            <li>DNS server ayarlarını kontrol et</li>
+                            <li>nslookup ile DNS sorgusu yap</li>
+                            <li>DNS cache'i temizle</li>
+                            <li>Alternatif DNS server kullan</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>Faydalı Komutlar</h3>
+                <div class="command-examples">
+                    <div class="command-group">
+                        <h4>Windows Komutları</h4>
+                        <div class="code-block">
+                            <pre><code># IP yapılandırmasını görüntüle
+ipconfig /all
+
+# DNS cache'i temizle
+ipconfig /flushdns
+
+# Ağ bağlantısını test et
+ping google.com
+
+# Routing tablosunu görüntüle
+route print
+
+# ARP tablosunu görüntüle
+arp -a
+
+# Port bağlantılarını kontrol et
+netstat -an</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="command-group">
+                        <h4>Linux Komutları</h4>
+                        <div class="code-block">
+                            <pre><code># Ağ arayüzlerini görüntüle
+ip addr show
+
+# Routing tablosunu görüntüle
+ip route show
+
+# DNS sorgusu yap
+nslookup google.com
+
+# Port dinleme durumunu kontrol et
+netstat -tulpn
+
+# Ağ trafiğini analiz et
+tcpdump -i eth0</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenarios">
+                <h2>🏢 Gerçek Hayat Ağ Örnekleri</h2>
+                
+                <div class="scenario-card">
+                    <h3>🏢 Büyük Şirket Ağı</h3>
+                    <p><strong>Özellikler:</strong> Çok sayıda çalışan, farklı lokasyonlar</p>
+                    <p><strong>İhtiyaçlar:</strong> Hızlı internet, güvenli bağlantı, merkezi yönetim</p>
+                    <p><strong>Çözüm:</strong> Router, switch, firewall, VPN</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🏥 Hastane Ağı</h3>
+                    <p><strong>Özellikler:</strong> Kritik sistemler, yüksek güvenlik</p>
+                    <p><strong>İhtiyaçlar:</strong> 7/24 erişilebilirlik, hasta verileri güvenliği</p>
+                    <p><strong>Çözüm:</strong> Ayrı ağlar, güvenlik duvarı, yedekleme</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🏫 Üniversite Ağı</h3>
+                    <p><strong>Özellikler:</strong> Çok sayıda kullanıcı, yüksek bant genişliği</p>
+                    <p><strong>İhtiyaçlar:</strong> Hızlı internet, güvenlik, ölçeklenebilirlik</p>
+                    <p><strong>Çözüm:</strong> Güçlü router, switch, WiFi, güvenlik duvarı</p>
+                </div>
+            </div>
+
+            <div class="troubleshooting-guide">
+                <h2>🔧 Ağ Troubleshooting Rehberi</h2>
+                
+                <div class="troubleshooting-section">
+                    <h3>❌ Yaygın Ağ Sorunları ve Çözümleri</h3>
+                    
+                    <div class="problem-solution">
+                        <h4>Problem 1: Bağlantı Yok (No Connectivity)</h4>
+                        <div class="problem-details">
+                            <p><strong>Semptomlar:</strong> İnternet erişimi yok, ping çalışmıyor</p>
+                            <p><strong>Olası Nedenler:</strong></p>
+                            <ul>
+                                <li>Fiziksel bağlantı sorunu</li>
+                                <li>IP adresi yapılandırma hatası</li>
+                                <li>DNS çözümleme sorunu</li>
+                                <li>Gateway erişim sorunu</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-steps">
+                            <h5>Çözüm Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Fiziksel bağlantıyı kontrol et
+ip link show
+ethtool eth0
+
+# 2. IP yapılandırmasını kontrol et
+ip addr show
+ip route show
+
+# 3. DNS çözümlemesini test et
+nslookup google.com
+dig google.com
+
+# 4. Gateway erişimini test et
+ping 192.168.1.1
+traceroute 8.8.8.8
+
+# 5. Ağ servislerini yeniden başlat
+systemctl restart networking
+systemctl restart NetworkManager</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-solution">
+                        <h4>Problem 2: Yavaş Ağ Performansı</h4>
+                        <div class="problem-details">
+                            <p><strong>Semptomlar:</strong> Düşük hız, yüksek latency</p>
+                            <p><strong>Olası Nedenler:</strong></p>
+                            <ul>
+                                <li>Bant genişliği sınırlaması</li>
+                                <li>Network congestion</li>
+                                <li>Eski network equipment</li>
+                                <li>Malware/security issues</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-steps">
+                            <h5>Çözüm Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Bant genişliğini test et
+speedtest-cli
+iperf3 -c server.example.com
+
+# 2. Network trafiğini analiz et
+iftop
+nethogs
+netstat -i
+
+# 3. Latency'yi test et
+ping -c 10 8.8.8.8
+mtr 8.8.8.8
+
+# 4. Network utilization'ı kontrol et
+sar -n DEV 1 10
+cat /proc/net/dev
+
+# 5. QoS ayarlarını kontrol et
+tc qdisc show
+tc class show</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-solution">
+                        <h4>Problem 3: Intermittent Connectivity</h4>
+                        <div class="problem-details">
+                            <p><strong>Semptomlar:</strong> Aralıklı bağlantı kesintileri</p>
+                            <p><strong>Olası Nedenler:</strong></p>
+                            <ul>
+                                <li>Fiziksel kablolama sorunu</li>
+                                <li>Switch port sorunu</li>
+                                <li>DHCP lease sorunu</li>
+                                <li>Wireless interference</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-steps">
+                            <h5>Çözüm Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Fiziksel bağlantıyı kontrol et
+ethtool -S eth0
+ethtool -i eth0
+
+# 2. Switch port durumunu kontrol et
+show interface status
+show interface counters
+
+# 3. DHCP durumunu kontrol et
+dhclient -v
+cat /var/log/syslog | grep dhcp
+
+# 4. Wireless interference kontrol et
+iwlist scan
+iwconfig wlan0
+
+# 5. Network logs'u analiz et
+journalctl -u NetworkManager
+tail -f /var/log/syslog</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>💡 Ağ En İyi Uygulamaları</h2>
+                
+                <div class="practices-grid">
+                    <div class="practice-category">
+                        <h3>🏗️ Tasarım Prensipleri</h3>
+                        <ul>
+                            <li><strong>Hierarchical Design:</strong> Core, Distribution, Access</li>
+                            <li><strong>Redundancy:</strong> Dual paths, failover</li>
+                            <li><strong>Scalability:</strong> Future growth planning</li>
+                            <li><strong>Security:</strong> Defense in depth</li>
+                            <li><strong>Documentation:</strong> Network diagrams, configs</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>🔒 Güvenlik Önlemleri</h3>
+                        <ul>
+                            <li><strong>Network Segmentation:</strong> VLANs, subnets</li>
+                            <li><strong>Access Control:</strong> ACLs, firewalls</li>
+                            <li><strong>Monitoring:</strong> IDS/IPS, logging</li>
+                            <li><strong>Encryption:</strong> VPN, WPA3</li>
+                            <li><strong>Updates:</strong> Firmware, patches</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>📊 Performance Optimization</h3>
+                        <ul>
+                            <li><strong>QoS:</strong> Traffic prioritization</li>
+                            <li><strong>Load Balancing:</strong> Traffic distribution</li>
+                            <li><strong>Caching:</strong> DNS, web content</li>
+                            <li><strong>Compression:</strong> Data optimization</li>
+                            <li><strong>Monitoring:</strong> Performance metrics</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-category">
+                        <h3>🚀 Maintenance ve Operations</h3>
+                        <ul>
+                            <li><strong>Regular Backups:</strong> Configurations</li>
+                            <li><strong>Change Management:</strong> Controlled updates</li>
+                            <li><strong>Capacity Planning:</strong> Growth monitoring</li>
+                            <li><strong>Disaster Recovery:</strong> Business continuity</li>
+                            <li><strong>Training:</strong> Staff education</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <p>Ağ temellerini öğrendikten sonra, <a href="bolum-03-windows-server.html">Windows Server Kurulumu</a> bölümüne geçerek sunucu yönetimine başlayabilirsiniz.</p>
+                
+                <div class="action-buttons">
+                    <a href="bolum-03-windows-server.html" class="btn btn-primary">🖥️ Windows Server →</a>
+                    <a href="bolum-01-giris.html" class="btn btn-secondary">← Giriş</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
