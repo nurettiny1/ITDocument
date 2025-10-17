@@ -359,12 +359,263 @@ gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:my-se
                 </div>
             </div>
 
-            <div class="real-world-scenario">
-                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+            <div class="cloud-scenarios">
+                <h2>🏢 Gerçek Hayat Cloud Senaryoları</h2>
+                
                 <div class="scenario">
-                    <h3>Hibrit Bulut Geçiş Projesi</h3>
+                    <h3>🚀 Senaryo 1: Azure Virtual Machine Kurulumu ve Yönetimi</h3>
+                    <p><strong>Problem:</strong> 500 çalışanlı şirkette on-premises sunucu yetersiz</p>
+                    <p><strong>Çözüm:</strong> Azure VM ile hibrit altyapı kurulumu</p>
+                    <p><strong>Sonuç:</strong> %99.9 uptime, %40 maliyet tasarrufu</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Azure VM Kurulum Süreci:</h4>
+                        <div class="code-block">
+                            <pre><code># Azure VM kurulumu ve yönetimi
+# 1. Azure'a bağlan
+Connect-AzAccount
+Set-AzContext -SubscriptionId "your-subscription-id"
+
+# 2. Resource Group oluştur
+New-AzResourceGroup -Name "Production-RG" -Location "East US"
+
+# 3. Virtual Network oluştur
+$vnet = New-AzVirtualNetwork -ResourceGroupName "Production-RG" -Name "Production-VNet" -AddressPrefix "10.0.0.0/16" -Location "East US"
+$subnet = Add-AzVirtualNetworkSubnetConfig -Name "Production-Subnet" -VirtualNetwork $vnet -AddressPrefix "10.0.1.0/24"
+Set-AzVirtualNetwork -VirtualNetwork $vnet
+
+# 4. Network Security Group oluştur
+$nsg = New-AzNetworkSecurityGroup -ResourceGroupName "Production-RG" -Name "Production-NSG" -Location "East US"
+$rdpRule = New-AzNetworkSecurityRuleConfig -Name "RDP" -Description "Allow RDP" -Access Allow -Protocol Tcp -Direction Inbound -Priority 100 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 3389
+$httpRule = New-AzNetworkSecurityRuleConfig -Name "HTTP" -Description "Allow HTTP" -Access Allow -Protocol Tcp -Direction Inbound -Priority 200 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 80
+$httpsRule = New-AzNetworkSecurityRuleConfig -Name "HTTPS" -Description "Allow HTTPS" -Access Allow -Protocol Tcp -Direction Inbound -Priority 300 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 443
+$nsg.SecurityRules.Add($rdpRule)
+$nsg.SecurityRules.Add($httpRule)
+$nsg.SecurityRules.Add($httpsRule)
+Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg
+
+# 5. Public IP oluştur
+$publicIp = New-AzPublicIpAddress -ResourceGroupName "Production-RG" -Name "Production-PublicIP" -Location "East US" -AllocationMethod Static -Sku Standard
+
+# 6. Network Interface oluştur
+$nic = New-AzNetworkInterface -ResourceGroupName "Production-RG" -Name "Production-NIC" -Location "East US" -SubnetId $subnet.Id -PublicIpAddressId $publicIp.Id -NetworkSecurityGroupId $nsg.Id
+
+# 7. Virtual Machine oluştur
+$vmConfig = New-AzVMConfig -VMName "Production-VM" -VMSize "Standard_D2s_v3"
+$vmConfig = Set-AzVMOperatingSystem -VM $vmConfig -Windows -ComputerName "Production-VM" -Credential (Get-Credential) -ProvisionVMAgent -EnableAutoUpdate
+$vmConfig = Set-AzVMSourceImage -VM $vmConfig -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2019-Datacenter" -Version "latest"
+$vmConfig = Add-AzVMNetworkInterface -VM $vmConfig -Id $nic.Id
+$vmConfig = Set-AzVMOSDisk -VM $vmConfig -Name "Production-OSDisk" -VhdUri "https://mystorageaccount.blob.core.windows.net/vhds/Production-OSDisk.vhd" -CreateOption FromImage
+
+# 8. VM'i oluştur
+New-AzVM -ResourceGroupName "Production-RG" -Location "East US" -VM $vmConfig
+
+# 9. VM durumunu kontrol et
+Get-AzVM -ResourceGroupName "Production-RG" -Name "Production-VM" -Status
+
+# 10. VM'i başlat/durdur
+Start-AzVM -ResourceGroupName "Production-RG" -Name "Production-VM"
+Stop-AzVM -ResourceGroupName "Production-RG" -Name "Production-VM" -Force
+
+# 11. VM'i yeniden boyutlandır
+$vm = Get-AzVM -ResourceGroupName "Production-RG" -Name "Production-VM"
+$vm.HardwareProfile.VmSize = "Standard_D4s_v3"
+Update-AzVM -VM $vm -ResourceGroupName "Production-RG"
+
+# 12. VM backup'ı yapılandır
+$vault = New-AzRecoveryServicesVault -ResourceGroupName "Production-RG" -Name "Production-Vault" -Location "East US"
+Set-AzRecoveryServicesVaultContext -Vault $vault
+$policy = New-AzRecoveryServicesBackupProtectionPolicy -Name "Production-Policy" -WorkloadType "AzureVM" -BackupManagementType "AzureVM" -RetentionPolicy (New-AzRecoveryServicesBackupRetentionPolicyObject -DailyRetentionInDays 30) -SchedulePolicy (New-AzRecoveryServicesBackupSchedulePolicyObject -Daily -Time "02:00")
+Enable-AzRecoveryServicesBackupProtection -ResourceGroupName "Production-RG" -Name "Production-VM" -Policy $policy</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>☁️ Senaryo 2: AWS EC2 Instance Kurulumu ve Yönetimi</h3>
+                    <p><strong>Problem:</strong> 300 çalışanlı e-ticaret firmasında web sunucusu yetersiz</p>
+                    <p><strong>Çözüm:</strong> AWS EC2 ile scalable web altyapısı</p>
+                    <p><strong>Sonuç:</strong> %99.99 uptime, %50 maliyet tasarrufu</p>
+                    
+                    <div class="scenario-details">
+                        <h4>AWS EC2 Kurulum Süreci:</h4>
+                        <div class="code-block">
+                            <pre><code># AWS EC2 kurulumu ve yönetimi
+# 1. AWS CLI yapılandırması
+aws configure
+aws configure set region us-east-1
+
+# 2. Key Pair oluştur
+aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
+chmod 400 MyKeyPair.pem
+
+# 3. Security Group oluştur
+aws ec2 create-security-group --group-name MySecurityGroup --description "My security group"
+aws ec2 authorize-security-group-ingress --group-name MySecurityGroup --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-name MySecurityGroup --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-name MySecurityGroup --protocol tcp --port 443 --cidr 0.0.0.0/0
+
+# 4. VPC oluştur
+aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=MyVPC}]'
+aws ec2 create-subnet --vpc-id vpc-12345678 --cidr-block 10.0.1.0/24 --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=MySubnet}]'
+aws ec2 create-internet-gateway --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=MyIGW}]'
+aws ec2 attach-internet-gateway --vpc-id vpc-12345678 --internet-gateway-id igw-12345678
+
+# 5. Route Table oluştur
+aws ec2 create-route-table --vpc-id vpc-12345678 --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=MyRouteTable}]'
+aws ec2 create-route --route-table-id rtb-12345678 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-12345678
+aws ec2 associate-route-table --subnet-id subnet-12345678 --route-table-id rtb-12345678
+
+# 6. EC2 Instance oluştur
+aws ec2 run-instances --image-id ami-0abcdef1234567890 --count 1 --instance-type t3.medium --key-name MyKeyPair --security-group-ids sg-12345678 --subnet-id subnet-12345678 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=MyInstance}]'
+
+# 7. Instance durumunu kontrol et
+aws ec2 describe-instances --instance-ids i-1234567890abcdef0
+
+# 8. Instance'i başlat/durdur
+aws ec2 start-instances --instance-ids i-1234567890abcdef0
+aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+
+# 9. Instance'i yeniden boyutlandır
+aws ec2 modify-instance-attribute --instance-id i-1234567890abcdef0 --instance-type t3.large
+
+# 10. EBS Volume oluştur ve bağla
+aws ec2 create-volume --size 100 --volume-type gp3 --availability-zone us-east-1a --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=MyVolume}]'
+aws ec2 attach-volume --volume-id vol-12345678 --instance-id i-1234567890abcdef0 --device /dev/sdf
+
+# 11. Load Balancer oluştur
+aws elbv2 create-load-balancer --name MyLoadBalancer --subnets subnet-12345678 subnet-87654321 --security-groups sg-12345678
+aws elbv2 create-target-group --name MyTargetGroup --protocol HTTP --port 80 --vpc-id vpc-12345678
+aws elbv2 create-listener --load-balancer-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/MyLoadBalancer/1234567890123456 --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/MyTargetGroup/1234567890123456
+
+# 12. Auto Scaling Group oluştur
+aws autoscaling create-launch-configuration --launch-configuration-name MyLaunchConfig --image-id ami-0abcdef1234567890 --instance-type t3.medium --key-name MyKeyPair --security-groups sg-12345678
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name MyASG --launch-configuration-name MyLaunchConfig --min-size 1 --max-size 10 --desired-capacity 2 --target-group-arns arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/MyTargetGroup/1234567890123456 --vpc-zone-identifier "subnet-12345678,subnet-87654321"</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>🔵 Senaryo 3: Google Cloud Platform Kurulumu ve Yönetimi</h3>
+                    <p><strong>Problem:</strong> 200 çalışanlı startup'ta veri analizi altyapısı yetersiz</p>
+                    <p><strong>Çözüm:</strong> GCP ile BigQuery ve Data Studio entegrasyonu</p>
+                    <p><strong>Sonuç:</strong> %95 veri analizi hızı artışı, %60 maliyet tasarrufu</p>
+                    
+                    <div class="scenario-details">
+                        <h4>GCP Kurulum Süreci:</h4>
+                        <div class="code-block">
+                            <pre><code># Google Cloud Platform kurulumu ve yönetimi
+# 1. GCP CLI yapılandırması
+gcloud auth login
+gcloud config set project PROJECT_ID
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
+
+# 2. Service Account oluştur
+gcloud iam service-accounts create my-service-account --display-name "My Service Account"
+gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:my-service-account@PROJECT_ID.iam.gserviceaccount.com" --role="roles/storage.objectAdmin"
+gcloud iam service-accounts keys create key.json --iam-account=my-service-account@PROJECT_ID.iam.gserviceaccount.com
+
+# 3. VPC Network oluştur
+gcloud compute networks create my-vpc --subnet-mode custom
+gcloud compute networks subnets create my-subnet --network my-vpc --range 10.0.1.0/24 --region us-central1
+gcloud compute firewall-rules create allow-ssh --network my-vpc --allow tcp:22 --source-ranges 0.0.0.0/0
+gcloud compute firewall-rules create allow-http --network my-vpc --allow tcp:80 --source-ranges 0.0.0.0/0
+gcloud compute firewall-rules create allow-https --network my-vpc --allow tcp:443 --source-ranges 0.0.0.0/0
+
+# 4. Compute Engine Instance oluştur
+gcloud compute instances create my-instance --zone=us-central1-a --machine-type=e2-medium --network-interface=subnet=my-subnet,no-address --metadata=startup-script='#!/bin/bash
+apt-get update
+apt-get install -y nginx
+systemctl start nginx
+systemctl enable nginx'
+
+# 5. Instance durumunu kontrol et
+gcloud compute instances list
+gcloud compute instances describe my-instance --zone=us-central1-a
+
+# 6. Instance'i başlat/durdur
+gcloud compute instances start my-instance --zone=us-central1-a
+gcloud compute instances stop my-instance --zone=us-central1-a
+
+# 7. Instance'i yeniden boyutlandır
+gcloud compute instances set-machine-type my-instance --machine-type=e2-standard-2 --zone=us-central1-a
+
+# 8. Cloud Storage bucket oluştur
+gsutil mb gs://my-bucket-name
+gsutil cp local-file.txt gs://my-bucket-name/
+gsutil ls gs://my-bucket-name/
+
+# 9. BigQuery dataset oluştur
+bq mk --dataset PROJECT_ID:my_dataset
+bq mk --table PROJECT_ID:my_dataset.my_table schema.json
+bq load --source_format=CSV PROJECT_ID:my_dataset.my_table data.csv
+
+# 10. Cloud SQL instance oluştur
+gcloud sql instances create my-instance --database-version=MYSQL_8_0 --tier=db-n1-standard-1 --region=us-central1
+gcloud sql databases create my-database --instance=my-instance
+gcloud sql users create my-user --instance=my-instance --password=my-password
+
+# 11. Kubernetes Engine cluster oluştur
+gcloud container clusters create my-cluster --num-nodes=3 --zone=us-central1-a
+gcloud container clusters get-credentials my-cluster --zone=us-central1-a
+
+# 12. Cloud Functions oluştur
+gcloud functions deploy my-function --runtime python39 --trigger-http --allow-unauthenticated --source=./my-function</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-scenario">
+                <h2>🏢 Gerçek Hayat Senaryosu: Kapsamlı Cloud Dönüşümü</h2>
+                <div class="scenario">
+                    <h3>1000 Çalışanlı Finansal Hizmetler Firması Cloud Dönüşümü</h3>
                     <p><strong>Şirket:</strong> 1000 çalışanlı finansal hizmetler firması</p>
-                    <p><strong>Proje:</strong> On-premises'den hibrit buluta geçiş</p>
+                    <p><strong>Bütçe:</strong> 5 milyon TL cloud dönüşüm bütçesi</p>
+                    <p><strong>Süre:</strong> 12 ay dönüşüm projesi</p>
+                    <p><strong>Durum:</strong> On-premises'den hibrit buluta geçiş</p>
+                    
+                    <h4>Proje Sonuçları:</h4>
+                    <div class="project-results">
+                        <div class="result-item">
+                            <strong>Uptime:</strong> %99.99 sistem kullanılabilirliği
+                        </div>
+                        <div class="result-item">
+                            <strong>Maliyet:</strong> %40 IT altyapı maliyeti azalması
+                        </div>
+                        <div class="result-item">
+                            <strong>Performans:</strong> %60 uygulama yanıt süresi iyileşmesi
+                        </div>
+                        <div class="result-item">
+                            <strong>Güvenlik:</strong> %95 güvenlik olayı azalması
+                        </div>
+                    </div>
+                    
+                    <h4>Uygulanan Çözümler:</h4>
+                    <div class="solutions-implemented">
+                        <div class="solution-category">
+                            <h5>🔵 Azure Servisleri</h5>
+                            <ul>
+                                <li>Azure Active Directory</li>
+                                <li>Azure Virtual Machines</li>
+                                <li>Azure SQL Database</li>
+                                <li>Azure Storage</li>
+                                <li>Azure Backup</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🏢 On-Premises</h5>
+                            <ul>
+                                <li>Active Directory</li>
+                                <li>Exchange Server</li>
+                                <li>File Server</li>
+                                <li>Database Server</li>
+                                <li>Backup Server</li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     <h4>Geçiş Stratejisi:</h4>
                     <div class="migration-strategy">
@@ -405,31 +656,6 @@ gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:my-se
                                 <li>Veri migrasyonu</li>
                                 <li>Uygulama modernizasyonu</li>
                                 <li>Go-live desteği</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <h4>Kullanılan Bulut Servisleri:</h4>
-                    <div class="cloud-services-used">
-                        <div class="service-group">
-                            <h5>🔵 Azure Servisleri</h5>
-                            <ul>
-                                <li>Azure Active Directory</li>
-                                <li>Azure Virtual Machines</li>
-                                <li>Azure SQL Database</li>
-                                <li>Azure Storage</li>
-                                <li>Azure Backup</li>
-                            </ul>
-                        </div>
-
-                        <div class="service-group">
-                            <h5>🏢 On-Premises</h5>
-                            <ul>
-                                <li>Active Directory</li>
-                                <li>Exchange Server</li>
-                                <li>File Server</li>
-                                <li>Database Server</li>
-                                <li>Backup Server</li>
                             </ul>
                         </div>
                     </div>

@@ -86,6 +86,152 @@
                 </div>
             </div>
 
+            <div class="mail-server-scenarios">
+                <h2>🏢 Gerçek Hayat Mail Server Senaryoları</h2>
+                
+                <div class="scenario">
+                    <h3>📧 Senaryo 1: Exchange Server Kurulumu ve Yapılandırması</h3>
+                    <p><strong>Problem:</strong> 1000 çalışanlı şirkette e-posta sistemi kurulması</p>
+                    <p><strong>Çözüm:</strong> Exchange Server 2019 ile hibrit ortam</p>
+                    <p><strong>Sonuç:</strong> %99.9 uptime, %95 kullanıcı memnuniyeti</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Exchange Server Kurulum Adımları:</h4>
+                        <div class="code-block">
+                            <pre><code># Exchange Server 2019 kurulumu
+# 1. Ön gereksinimler kontrolü
+$features = @(
+    "ADLDS", "NET-Framework-45-Features", "RPC-over-HTTP-proxy",
+    "RSAT-Clustering", "RSAT-ADDS", "Web-Mgmt-Console",
+    "WAS-Process-Model", "Web-Asp-Net45", "Web-Basic-Auth",
+    "Web-Client-Auth", "Web-Digest-Auth", "Web-Dir-Browsing",
+    "Web-Http-Errors", "Web-Http-Logging", "Web-Http-Redirect",
+    "Web-Http-Tracing", "Web-ISAPI-Ext", "Web-ISAPI-Filter",
+    "Web-Lgcy-Mgmt-Console", "Web-Metabase", "Web-Mgmt-Console",
+    "Web-Mgmt-Service", "Web-Net-Ext45", "Web-Request-Monitor",
+    "Web-Server", "Web-Stat-Compression", "Web-Static-Content",
+    "Web-Windows-Auth", "Web-WMI", "Windows-Identity-Foundation"
+)
+
+foreach ($feature in $features) {
+    Install-WindowsFeature -Name $feature -IncludeManagementTools
+}
+
+# 2. Exchange Server kurulumu
+# Setup.exe /IAcceptExchangeServerLicenseTerms /Mode:Install /Role:Mailbox
+
+# 3. Post-kurulum yapılandırması
+# Exchange Management Shell açılır ve gerekli ayarlar yapılır
+
+# 4. Database Availability Group (DAG) kurulumu
+New-DatabaseAvailabilityGroup -Name "DAG-01" -WitnessServer "DC01" -WitnessDirectory "C:\DAG-Witness"
+
+# 5. Mailbox database oluşturma
+New-MailboxDatabase -Name "Mailbox Database 1" -Server "EX01" -EdbFilePath "C:\Exchange\Mailbox Database 1\Mailbox Database 1.edb"
+
+# 6. DAG'a database ekleme
+Add-MailboxDatabaseCopy -Identity "Mailbox Database 1" -MailboxServer "EX02" -ActivationPreference 2</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>🔒 Senaryo 2: E-posta Güvenliği ve Anti-Spam</h3>
+                    <p><strong>Problem:</strong> Spam e-postalar ve güvenlik tehditleri</p>
+                    <p><strong>Çözüm:</strong> Kapsamlı güvenlik politikaları</p>
+                    <p><strong>Sonuç:</strong> %95 spam engelleme, %99 güvenlik</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Güvenlik Yapılandırması:</h4>
+                        <div class="code-block">
+                            <pre><code># E-posta güvenliği yapılandırması
+# 1. Anti-spam ayarları
+Set-ContentFilterConfig -Enabled $true `
+    -QuarantineRetentionPeriod 15 `
+    -SpamQuarantineRetentionPeriod 15 `
+    -SclQuarantineThreshold 6
+
+# 2. IP Allow List
+Add-IPAllowListEntry -IPAddress "203.0.113.0/24" -Comment "Trusted Partner Network"
+Add-IPAllowListEntry -IPAddress "198.51.100.0/24" -Comment "Business Partner"
+
+# 3. IP Block List
+Add-IPBlockListEntry -IPAddress "192.0.2.0/24" -Comment "Known Spam Source"
+Add-IPBlockListEntry -IPAddress "198.18.0.0/15" -Comment "Test Network"
+
+# 4. Sender reputation
+Set-SenderReputationConfig -Enabled $true -SrlBlockThreshold 7
+
+# 5. Transport rules
+New-TransportRule -Name "Block Executable Attachments" `
+    -FromScope "NotInOrganization" `
+    -AttachmentHasExecutableContent $true `
+    -RejectMessageReasonText "Executable attachments are not allowed from external senders"
+
+# 6. DLP politikası
+New-DlpPolicy -Name "Financial Data Protection" `
+    -Mode "Enforce" `
+    -State "Enabled"
+
+# 7. DLP kuralı
+New-TransportRule -Name "Credit Card Detection" `
+    -DlpPolicy "Financial Data Protection" `
+    -MessageContainsDataClassification @{
+        Name = "Credit Card Number"
+        MinCount = 1
+    } `
+    -BlockAccess $true `
+    -RejectMessageReasonText "Credit card information is not allowed in emails"</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>📊 Senaryo 3: Mail Server İzleme ve Performans</h3>
+                    <p><strong>Problem:</strong> Mail server performans sorunları</p>
+                    <p><strong>Çözüm:</strong> Kapsamlı izleme ve optimizasyon</p>
+                    <p><strong>Sonuç:</strong> %50 performans artışı, %99 uptime</p>
+                    
+                    <div class="scenario-details">
+                        <h4>İzleme ve Performans Optimizasyonu:</h4>
+                        <div class="code-block">
+                            <pre><code># Mail server izleme ve performans
+# 1. Performans sayaçları
+Get-Counter -Counter "\MSExchange Database\Log Generation Checkpoint Depth" `
+    -SampleInterval 1 -MaxSamples 5
+
+# 2. Mailbox veritabanı durumu
+Get-MailboxDatabase -Status | Select-Object Name, DatabaseSize, AvailableNewMailboxSpace
+
+# 3. E-posta kuyruğu durumu
+Get-Queue | Select-Object Identity, MessageCount, Status
+
+# 4. Servis durumu
+Get-Service -Name "MSExchange*" | Select-Object Name, Status
+
+# 5. Disk alanı kontrolü
+Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | 
+    Select-Object DeviceID, @{Name="Size(GB)";Expression={[math]::Round($_.Size/1GB,2)}}, 
+    @{Name="FreeSpace(GB)";Expression={[math]::Round($_.FreeSpace/1GB,2)}}
+
+# 6. Memory kullanımı
+Get-Process -Name "MSExchange*" | Select-Object Name, WorkingSet, VirtualMemorySize
+
+# 7. Log dosyalarını temizleme
+Get-ChildItem -Path "C:\Program Files\Microsoft\Exchange Server\V15\Logging" -Recurse | 
+    Where-Object {$_.LastWriteTime -lt (Get-Date).AddDays(-7)} | Remove-Item -Force
+
+# 8. Database defragmentation
+Get-MailboxDatabase | ForEach-Object {
+    $db = $_.Name
+    Write-Host "Defragmenting database: $db"
+    # Eseutil /d "C:\Exchange\$db\$db.edb"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mail-protocols">
                 <h2>📡 E-posta Protokolleri</h2>
                 
@@ -319,11 +465,72 @@ New-TransportRule -Name "Credit Card Detection" `
             </div>
 
             <div class="real-world-scenario">
-                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <h2>🏢 Gerçek Hayat Senaryosu: Kapsamlı Mail Server Dönüşümü</h2>
                 <div class="scenario">
-                    <h3>E-posta Sistemi Çökmesi ve Kurtarma</h3>
+                    <h3>1000 Çalışanlı Finansal Hizmetler Firması Mail Server Dönüşümü</h3>
                     <p><strong>Şirket:</strong> 1000 çalışanlı finansal hizmetler firması</p>
-                    <p><strong>Durum:</strong> Exchange Server 2016 çökmesi</p>
+                    <p><strong>Bütçe:</strong> 2.5 milyon TL mail server dönüşüm bütçesi</p>
+                    <p><strong>Süre:</strong> 12 ay dönüşüm projesi</p>
+                    <p><strong>Durum:</strong> Exchange Server 2016'dan 2019'a geçiş</p>
+                    
+                    <h4>Proje Sonuçları:</h4>
+                    <div class="project-results">
+                        <div class="result-item">
+                            <strong>Uptime:</strong> %99.9 e-posta servis kullanılabilirliği
+                        </div>
+                        <div class="result-item">
+                            <strong>Performans:</strong> %60 e-posta işleme hızı artışı
+                        </div>
+                        <div class="result-item">
+                            <strong>Güvenlik:</strong> %95 spam engelleme oranı
+                        </div>
+                        <div class="result-item">
+                            <strong>Maliyet:</strong> %30 operasyonel maliyet azalması
+                        </div>
+                    </div>
+                    
+                    <h4>Uygulanan Çözümler:</h4>
+                    <div class="solutions-implemented">
+                        <div class="solution-category">
+                            <h5>📧 Exchange Server 2019</h5>
+                            <ul>
+                                <li>Database Availability Group (DAG)</li>
+                                <li>Load balancing</li>
+                                <li>High availability</li>
+                                <li>Disaster recovery</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🔒 Güvenlik Çözümleri</h5>
+                            <ul>
+                                <li>Anti-spam filtreleme</li>
+                                <li>DLP (Data Loss Prevention)</li>
+                                <li>Transport rules</li>
+                                <li>IP filtering</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>📊 İzleme ve Analitik</h5>
+                            <ul>
+                                <li>Exchange monitoring</li>
+                                <li>Performance counters</li>
+                                <li>Log analysis</li>
+                                <li>Alert systems</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>💾 Yedekleme ve Kurtarma</h5>
+                            <ul>
+                                <li>VSS backup</li>
+                                <li>Cloud backup</li>
+                                <li>Point-in-time recovery</li>
+                                <li>Mailbox recovery</li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     <h4>Kriz Süreci:</h4>
                     <div class="crisis-timeline">

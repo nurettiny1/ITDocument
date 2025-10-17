@@ -87,8 +87,165 @@
             </div>
 
             <div class="helpdesk-roles">
-                <h2>👥 Helpdesk Rolleri ve Sorumlulukları</h2>
+                <h2>👥 Helpdesk Rolleri ve Sorumlulukları - Detaylı Rehber</h2>
                 
+                <h3>Gerçek Hayat Helpdesk Rolleri Senaryoları</h3>
+                <div class="role-scenarios">
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 1: Level 1 Support - Günlük Operasyonlar</h4>
+                        <p><strong>Problem:</strong> 500 çalışanlı şirkette günlük 200+ ticket</p>
+                        <p><strong>Çözüm:</strong> 8 Level 1 Support uzmanı ile 7/24 destek</p>
+                        <p><strong>Sonuç:</strong> %85 ilk çağrıda çözüm, %90 müşteri memnuniyeti</p>
+                        
+                        <div class="role-details">
+                            <h5>Level 1 Support Günlük İş Akışı:</h5>
+                            <div class="code-block">
+                                <pre><code># Level 1 Support günlük iş akışı
+# 1. Ticket alımı ve kategorilendirme
+$ticket = @{
+    Id = "HD-2024-001"
+    Title = "Outlook açılmıyor"
+    Category = "Email"
+    Priority = "Medium"
+    User = "john.doe@company.com"
+    Created = Get-Date
+}
+
+# 2. İlk değerlendirme
+if ($ticket.Category -eq "Email") {
+    $solution = Get-KnowledgeBase -Category "Email" -Keywords "Outlook"
+    if ($solution) {
+        Apply-Solution -TicketId $ticket.Id -Solution $solution
+        Close-Ticket -TicketId $ticket.Id -Resolution "Resolved using KB"
+    } else {
+        Escalate-Ticket -TicketId $ticket.Id -Level "Level 2"
+    }
+}
+
+# 3. Kullanıcı iletişimi
+Send-Notification -To $ticket.User -Message "Ticket $($ticket.Id) received and being processed"
+
+# 4. Çözüm uygulama
+$resolution = @{
+    TicketId = $ticket.Id
+    Solution = "Outlook cache cleared, profile recreated"
+    ResolutionTime = "15 minutes"
+    Status = "Resolved"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 2: Level 2 Support - Karmaşık Teknik Sorunlar</h4>
+                        <p><strong>Problem:</strong> Active Directory entegrasyon sorunları</p>
+                        <p><strong>Çözüm:</strong> PowerShell ile otomatik sorun giderme</p>
+                        <p><strong>Sonuç:</strong> %95 teknik sorun çözümü, %80 otomasyon</p>
+                        
+                        <div class="role-details">
+                            <h5>Level 2 Support Teknik Çözümler:</h5>
+                            <div class="code-block">
+                                <pre><code># Level 2 Support teknik çözümler
+# 1. Active Directory sorun giderme
+function Resolve-ADIssues {
+    param($user)
+    
+    # Kullanıcı hesap durumu kontrolü
+    $userAccount = Get-ADUser -Identity $user -Properties *
+    if ($userAccount.Enabled -eq $false) {
+        Enable-ADAccount -Identity $user
+        Write-Host "User account enabled: $user"
+    }
+    
+    # Grup üyelikleri kontrolü
+    $userGroups = Get-ADPrincipalGroupMembership -Identity $user
+    $requiredGroups = @("Domain Users", "Company Users")
+    foreach ($group in $requiredGroups) {
+        if ($userGroups.Name -notcontains $group) {
+            Add-ADGroupMember -Identity $group -Members $user
+            Write-Host "Added $user to $group"
+        }
+    }
+    
+    # Şifre politikası kontrolü
+    $passwordPolicy = Get-ADDefaultDomainPasswordPolicy
+    if ($passwordPolicy.MinPasswordLength -lt 8) {
+        Set-ADDefaultDomainPasswordPolicy -MinPasswordLength 8
+        Write-Host "Password policy updated"
+    }
+}
+
+# 2. Exchange Server sorun giderme
+function Resolve-ExchangeIssues {
+    param($user)
+    
+    # Mailbox durumu kontrolü
+    $mailbox = Get-Mailbox -Identity $user
+    if ($mailbox.IsMailboxEnabled -eq $false) {
+        Enable-Mailbox -Identity $user
+        Write-Host "Mailbox enabled for: $user"
+    }
+    
+    # E-posta kotaları kontrolü
+    $quota = Get-Mailbox -Identity $user | Get-MailboxStatistics
+    if ($quota.TotalItemSize -gt 2GB) {
+        Set-Mailbox -Identity $user -ProhibitSendQuota 2GB
+        Write-Host "Mailbox quota updated for: $user"
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 3: Level 3 Support - Kritik Sistem Sorunları</h4>
+                        <p><strong>Problem:</strong> Sunucu çökmesi, 1000 çalışan etkilendi</p>
+                        <p><strong>Çözüm:</strong> Hızlı müdahale ve sistem kurtarma</p>
+                        <p><strong>Sonuç:</strong> %99 sistem kurtarma, %95 veri koruması</p>
+                        
+                        <div class="role-details">
+                            <h5>Level 3 Support Kritik Müdahale:</h5>
+                            <div class="code-block">
+                                <pre><code># Level 3 Support kritik müdahale
+# 1. Sistem durumu kontrolü
+function Check-SystemHealth {
+    $servers = @("DC01", "EX01", "FS01", "WEB01")
+    foreach ($server in $servers) {
+        $status = Test-Connection -ComputerName $server -Count 1 -Quiet
+        if (-not $status) {
+            Write-Warning "Server $server is down!"
+            Send-CriticalAlert -Server $server -Message "Critical server down"
+        }
+    }
+}
+
+# 2. Otomatik yedekleme kontrolü
+function Check-BackupStatus {
+    $backupJobs = Get-VBRJob
+    foreach ($job in $backupJobs) {
+        if ($job.LastResult -ne "Success") {
+            Write-Warning "Backup job $($job.Name) failed!"
+            Start-VBRJob -Job $job
+        }
+    }
+}
+
+# 3. Sistem kurtarma
+function Restore-System {
+    param($server)
+    
+    # Veeam ile sistem kurtarma
+    $restorePoint = Get-VBRRestorePoint -Server $server | Sort-Object CreationTime -Descending | Select-Object -First 1
+    Start-VBRRestore -RestorePoint $restorePoint -TargetServer $server
+    
+    Write-Host "System restore initiated for: $server"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Helpdesk Rolleri Detaylı Açıklama</h3>
                 <div class="role-grid">
                     <div class="role-card">
                         <h3>🎧 Level 1 Support</h3>
@@ -147,11 +304,13 @@
             </div>
 
             <div class="real-world-scenario">
-                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <h2>🏢 Gerçek Hayat Senaryosu: Kapsamlı IT Destek Dönüşümü</h2>
                 <div class="scenario">
                     <h3>1000 Çalışanlı Şirket IT Destek Merkezi</h3>
                     <p><strong>Şirket:</strong> Çok uluslu teknoloji firması</p>
                     <p><strong>IT Destek Ekibi:</strong> 15 kişi</p>
+                    <p><strong>Bütçe:</strong> 3 milyon TL yıllık IT destek bütçesi</p>
+                    <p><strong>Süre:</strong> 18 ay dönüşüm projesi</p>
                     
                     <h4>Günlük Operasyonlar:</h4>
                     <div class="daily-operations">
@@ -162,6 +321,7 @@
                                 <li>2 Level 2 Support</li>
                                 <li>1 Level 3 Support</li>
                                 <li>Günlük 200-300 ticket</li>
+                                <li><strong>Verimlilik:</strong> %85 ilk çağrıda çözüm</li>
                             </ul>
                         </div>
 
@@ -172,6 +332,7 @@
                                 <li>1 Level 2 Support</li>
                                 <li>1 Level 3 Support</li>
                                 <li>Günlük 100-150 ticket</li>
+                                <li><strong>Verimlilik:</strong> %90 müşteri memnuniyeti</li>
                             </ul>
                         </div>
 
@@ -182,6 +343,66 @@
                                 <li>1 Level 2 Support</li>
                                 <li>Kritik sorunlar için on-call</li>
                                 <li>Günlük 20-50 ticket</li>
+                                <li><strong>Verimlilik:</strong> %95 kritik sorun çözümü</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Proje Sonuçları:</h4>
+                    <div class="project-results">
+                        <div class="result-item">
+                            <strong>Maliyet Tasarrufu:</strong> %40 IT destek maliyeti azalması
+                        </div>
+                        <div class="result-item">
+                            <strong>Verimlilik Artışı:</strong> %60 ticket çözüm hızı
+                        </div>
+                        <div class="result-item">
+                            <strong>Müşteri Memnuniyeti:</strong> %95 memnuniyet oranı
+                        </div>
+                        <div class="result-item">
+                            <strong>Otomasyon:</strong> %80 otomatik çözüm oranı</li>
+                        </div>
+                    </div>
+                    
+                    <h4>Uygulanan Çözümler:</h4>
+                    <div class="solutions-implemented">
+                        <div class="solution-category">
+                            <h5>🎧 Ticket Yönetimi</h5>
+                            <ul>
+                                <li>ServiceNow ITSM</li>
+                                <li>Otomatik ticket atama</li>
+                                <li>SLA monitoring</li>
+                                <li>Knowledge base</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🖥️ Uzaktan Erişim</h5>
+                            <ul>
+                                <li>TeamViewer Enterprise</li>
+                                <li>Remote Desktop</li>
+                                <li>PowerShell Remoting</li>
+                                <li>SSH bağlantıları</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>📊 İzleme ve Analitik</h5>
+                            <ul>
+                                <li>PRTG Network Monitor</li>
+                                <li>Splunk SIEM</li>
+                                <li>KPI dashboard</li>
+                                <li>Performans raporları</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🤖 Otomasyon</h5>
+                            <ul>
+                                <li>PowerShell scripts</li>
+                                <li>Workflow automation</li>
+                                <li>Auto-resolution</li>
+                                <li>Proactive monitoring</li>
                             </ul>
                         </div>
                     </div>

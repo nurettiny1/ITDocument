@@ -87,8 +87,66 @@
             </div>
 
             <div class="threat-landscape">
-                <h2>⚠️ Siber Tehdit Türleri</h2>
+                <h2>⚠️ Siber Tehdit Türleri - Detaylı Analiz</h2>
                 
+                <h3>Gerçek Hayat Tehdit Senaryoları</h3>
+                <div class="threat-scenarios">
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 1: Ransomware Saldırısı - WannaCry</h4>
+                        <p><strong>Problem:</strong> 1000 çalışanlı şirkette WannaCry ransomware saldırısı</p>
+                        <p><strong>Etki:</strong> 3 günlük iş durması, 2 milyon lira kayıp</p>
+                        <p><strong>Çözüm:</strong> Hızlı müdahale ve yedekleme stratejisi</p>
+                        <p><strong>Sonuç:</strong> %95 veri kurtarma, %90 sistem geri yükleme</p>
+                        
+                        <div class="threat-details">
+                            <h5>Ransomware Özellikleri:</h5>
+                            <ul>
+                                <li><strong>Şifreleme:</strong> AES-256 ile dosya şifreleme</li>
+                                <li><strong>Yayılma:</strong> Ağ üzerinden otomatik yayılma</li>
+                                <li><strong>Fidye:</strong> Bitcoin ile ödeme talebi</li>
+                                <li><strong>Zamanlama:</strong> 72 saat içinde ödeme</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 2: Phishing Saldırısı - CEO Fraud</h4>
+                        <p><strong>Problem:</strong> CEO'ya yönelik hedefli phishing saldırısı</p>
+                        <p><strong>Etki:</strong> 500.000 lira finansal kayıp</p>
+                        <p><strong>Çözüm:</strong> E-posta güvenliği ve kullanıcı eğitimi</p>
+                        <p><strong>Sonuç:</strong> %99 phishing tespiti, %95 güvenlik artışı</p>
+                        
+                        <div class="threat-details">
+                            <h5>Phishing Teknikleri:</h5>
+                            <ul>
+                                <li><strong>Domain Spoofing:</strong> Sahte domain kullanımı</li>
+                                <li><strong>Social Engineering:</strong> Psikolojik manipülasyon</li>
+                                <li><strong>Urgency:</strong> Aciliyet yaratma</li>
+                                <li><strong>Authority:</strong> Otorite kullanma</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 3: DDoS Saldırısı - Botnet</h4>
+                        <p><strong>Problem:</strong> E-ticaret sitesine 100 Gbps DDoS saldırısı</p>
+                        <p><strong>Etki:</strong> 6 saatlik hizmet kesintisi, 1 milyon lira kayıp</p>
+                        <p><strong>Çözüm:</strong> DDoS koruması ve CDN kullanımı</p>
+                        <p><strong>Sonuç:</strong> %99.9 uptime, %95 performans artışı</p>
+                        
+                        <div class="threat-details">
+                            <h5>DDoS Saldırı Türleri:</h5>
+                            <ul>
+                                <li><strong>Volume-based:</strong> Bant genişliği doldurma</li>
+                                <li><strong>Protocol-based:</strong> Protokol zayıflıklarını kullanma</li>
+                                <li><strong>Application-based:</strong> Uygulama katmanı saldırıları</li>
+                                <li><strong>Reflection:</strong> Yansıtma saldırıları</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Tehdit Türleri Detaylı Açıklama</h3>
                 <div class="threat-grid">
                     <div class="threat-card">
                         <h3>🦠 Malware</h3>
@@ -194,8 +252,139 @@
             </div>
 
             <div class="security-tools">
-                <h2>🛠️ Güvenlik Araçları</h2>
+                <h2>🛠️ Güvenlik Araçları - Pratik Kullanım Senaryoları</h2>
                 
+                <h3>Gerçek Hayat Güvenlik Araçları Senaryoları</h3>
+                <div class="tools-scenarios">
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 1: Vulnerability Assessment - Nessus</h4>
+                        <p><strong>Problem:</strong> 500 sunuculu ağda güvenlik açıkları tespit edilemiyor</p>
+                        <p><strong>Çözüm:</strong> Nessus ile kapsamlı vulnerability taraması</p>
+                        <p><strong>Sonuç:</strong> %95 güvenlik açığı tespiti, %90 risk azaltma</p>
+                        
+                        <div class="tools-details">
+                            <h5>Nessus Kurulum ve Kullanım:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Nessus kurulumu
+sudo apt-get update
+sudo apt-get install nessus
+
+# 2. Nessus servisini başlat
+sudo systemctl start nessusd
+sudo systemctl enable nessusd
+
+# 3. Web arayüzüne erişim
+# https://localhost:8834
+
+# 4. Tarama oluşturma
+# - Target: 192.168.1.0/24
+# - Policy: Basic Network Scan
+# - Schedule: Daily at 2 AM
+
+# 5. Rapor oluşturma
+# - Executive Summary
+# - Technical Details
+# - Remediation Steps</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 2: Endpoint Protection - CrowdStrike</h4>
+                        <p><strong>Problem:</strong> 1000 endpoint'te malware tespiti zor</p>
+                        <p><strong>Çözüm:</strong> CrowdStrike Falcon ile EDR</p>
+                        <p><strong>Sonuç:</strong> %99 malware tespiti, %95 otomatik müdahale</p>
+                        
+                        <div class="tools-details">
+                            <h5>CrowdStrike Kurulum ve Yapılandırma:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. CrowdStrike agent kurulumu
+sudo dpkg -i falcon-sensor_6.42.0-15803_amd64.deb
+
+# 2. Agent yapılandırması
+sudo /opt/CrowdStrike/falconctl -s --cid=YOUR_CID
+
+# 3. Agent durumunu kontrol et
+sudo /opt/CrowdStrike/falconctl -g --cid
+
+# 4. Log dosyalarını kontrol et
+sudo tail -f /var/log/crowdstrike/falcon-sensor.log
+
+# 5. Policy yapılandırması
+# - Real-time Protection: Enabled
+# - Behavioral Analysis: Enabled
+# - Machine Learning: Enabled</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 3: Network Security - Wireshark</h4>
+                        <p><strong>Problem:</strong> Ağ trafiğinde şüpheli aktiviteler tespit edilemiyor</p>
+                        <p><strong>Çözüm:</strong> Wireshark ile ağ trafiği analizi</p>
+                        <p><strong>Sonuç:</strong> %90 anomali tespiti, %95 güvenlik artışı</p>
+                        
+                        <div class="tools-details">
+                            <h5>Wireshark Kullanım Senaryoları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Wireshark kurulumu
+sudo apt-get install wireshark
+sudo usermod -a -G wireshark $USER
+
+# 2. Ağ trafiği yakalama
+# - Interface: eth0
+# - Filter: tcp port 80
+# - Capture: 1000 packets
+
+# 3. Filtreleme örnekleri
+# HTTP trafiği: http
+# HTTPS trafiği: ssl
+# DNS sorguları: dns
+# SSH bağlantıları: ssh
+
+# 4. Anomali tespiti
+# - Çok fazla bağlantı: tcp.analysis.flags
+# - Şüpheli portlar: tcp.port > 1024
+# - Büyük paketler: frame.len > 1500</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 4: SIEM - Splunk</h4>
+                        <p><strong>Problem:</strong> Güvenlik olayları merkezi olarak izlenemiyor</p>
+                        <p><strong>Çözüm:</strong> Splunk ile SIEM kurulumu</p>
+                        <p><strong>Sonuç:</strong> %95 olay tespiti, %90 otomatik müdahale</p>
+                        
+                        <div class="tools-details">
+                            <h5>Splunk Kurulum ve Yapılandırma:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. Splunk kurulumu
+wget -O splunk-9.0.0-linux-x86_64.rpm https://download.splunk.com/products/splunk/releases/9.0.0/linux/splunk-9.0.0-linux-x86_64.rpm
+sudo rpm -i splunk-9.0.0-linux-x86_64.rpm
+
+# 2. Splunk servisini başlat
+sudo /opt/splunk/bin/splunk start --accept-license
+
+# 3. Web arayüzüne erişim
+# https://localhost:8000
+
+# 4. Data source ekleme
+# - Windows Event Logs
+# - Syslog
+# - Apache Logs
+# - Firewall Logs
+
+# 5. Alert kurulumu
+# - Failed login attempts > 5
+# - Unusual network traffic
+# - File access anomalies</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Güvenlik Araçları Kategorileri</h3>
                 <div class="tools-categories">
                     <div class="tool-category">
                         <h3>🔍 Vulnerability Assessment</h3>
@@ -240,7 +429,127 @@
             </div>
 
             <div class="incident-response">
-                <h2>🚨 Olay Müdahale (Incident Response)</h2>
+                <h2>🚨 Olay Müdahale (Incident Response) - Pratik Senaryolar</h2>
+                
+                <h3>Gerçek Hayat Olay Müdahale Senaryoları</h3>
+                <div class="incident-scenarios">
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 1: Ransomware Saldırısı Müdahalesi</h4>
+                        <p><strong>Problem:</strong> 500 çalışanlı şirkette Ryuk ransomware saldırısı</p>
+                        <p><strong>Etki:</strong> 3 günlük iş durması, 2 milyon lira kayıp</p>
+                        <p><strong>Çözüm:</strong> Hızlı müdahale ve kurtarma stratejisi</p>
+                        <p><strong>Sonuç:</strong> %95 veri kurtarma, %90 sistem geri yükleme</p>
+                        
+                        <div class="incident-details">
+                            <h5>Müdahale Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. HAZIRLIK AŞAMASI
+# - Olay müdahale planı hazırla
+# - Ekip oluştur ve eğit
+# - Araçları hazırla
+# - İletişim protokolleri belirle
+
+# 2. TESPİT AŞAMASI
+# - Olayı tespit et (08:00)
+# - Kapsamı belirle (08:15)
+# - Öncelik seviyesini belirle (08:30)
+# - İlgili tarafları bilgilendir (08:45)
+
+# 3. SINIRLAMA AŞAMASI
+# - Hasarı sınırla (09:00)
+# - Etkilenen sistemleri izole et (09:15)
+# - Kanıtları koru (09:30)
+# - Geçici çözümler uygula (09:45)
+
+# 4. YOK ETME AŞAMASI
+# - Tehdidi tamamen kaldır (10:00)
+# - Zararlı yazılımları temizle (10:30)
+# - Güvenlik açıklarını kapat (11:00)
+# - Sistemleri güncelle (11:30)
+
+# 5. KURTARMA AŞAMASI
+# - Sistemleri normale döndür (12:00)
+# - Hizmetleri yeniden başlat (13:00)
+# - İzleme artır (14:00)
+# - Kullanıcıları bilgilendir (15:00)
+
+# 6. DERSLER AŞAMASI
+# - Olayı analiz et (16:00)
+# - Zayıflıkları belirle (17:00)
+# - Süreçleri iyileştir (18:00)
+# - Eğitim ihtiyaçlarını belirle (19:00)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 2: DDoS Saldırısı Müdahalesi</h4>
+                        <p><strong>Problem:</strong> E-ticaret sitesine 100 Gbps DDoS saldırısı</p>
+                        <p><strong>Etki:</strong> 6 saatlik hizmet kesintisi, 1 milyon lira kayıp</p>
+                        <p><strong>Çözüm:</strong> DDoS koruması ve CDN kullanımı</p>
+                        <p><strong>Sonuç:</strong> %99.9 uptime, %95 performans artışı</p>
+                        
+                        <div class="incident-details">
+                            <h5>DDoS Müdahale Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. TESPİT VE ANALİZ
+# - Ağ trafiği anomali tespiti
+# - DDoS saldırı türü belirleme
+# - Saldırı kaynağı analizi
+# - Etkilenen servislerin belirlenmesi
+
+# 2. SINIRLAMA VE KORUMA
+# - Firewall kuralları güncelleme
+# - Rate limiting uygulama
+# - CDN trafiği yönlendirme
+# - DDoS koruma servisi aktifleştirme
+
+# 3. KURTARMA VE İYİLEŞTİRME
+# - Servisleri normale döndürme
+# - Performans optimizasyonu
+# - İzleme sistemlerini güçlendirme
+# - Gelecek saldırılara hazırlık</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario">
+                        <h4>🏢 Senaryo 3: Veri Sızıntısı Müdahalesi</h4>
+                        <p><strong>Problem:</strong> Müşteri verilerinin sızması</p>
+                        <p><strong>Etki:</strong> 10.000 müşteri verisi etkilendi</p>
+                        <p><strong>Çözüm:</strong> Hızlı müdahale ve şeffaf iletişim</p>
+                        <p><strong>Sonuç:</strong> %100 müşteri bilgilendirme, %95 güven artışı</p>
+                        
+                        <div class="incident-details">
+                            <h5>Veri Sızıntısı Müdahale Adımları:</h5>
+                            <div class="code-block">
+                                <pre><code># 1. TESPİT VE DEĞERLENDİRME
+# - Veri sızıntısı tespiti
+# - Etkilenen veri miktarı belirleme
+# - Sızıntı kaynağı analizi
+# - Risk seviyesi değerlendirmesi
+
+# 2. SINIRLAMA VE KORUMA
+# - Sızıntı kaynağını kapatma
+# - Etkilenen sistemleri izole etme
+# - Veri erişimini kısıtlama
+# - Güvenlik önlemlerini artırma
+
+# 3. BİLDİRİM VE İLETİŞİM
+# - Yasal otoritelere bildirim
+# - Müşterilere bilgilendirme
+# - Medya ile iletişim
+# - İç paydaşlara raporlama
+
+# 4. KURTARMA VE İYİLEŞTİRME
+# - Güvenlik açıklarını kapatma
+# - Veri koruma önlemlerini güçlendirme
+# - Müşteri güvenini yeniden kazanma
+# - Süreçleri iyileştirme</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
                 <h3>Olay Müdahale Süreci</h3>
                 <div class="incident-steps">
@@ -307,51 +616,120 @@
             </div>
 
             <div class="real-world-scenario">
-                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <h2>🏢 Gerçek Hayat Senaryosu: Kapsamlı Siber Güvenlik Dönüşümü</h2>
                 <div class="scenario">
-                    <h3>Ransomware Saldırısı ve Müdahale</h3>
-                    <p><strong>Şirket:</strong> 500 çalışanlı üretim firması</p>
+                    <h3>Ransomware Saldırısı ve Kapsamlı Müdahale</h3>
+                    <p><strong>Şirket:</strong> 1000 çalışanlı üretim firması</p>
                     <p><strong>Saldırı:</strong> Ryuk Ransomware</p>
+                    <p><strong>Bütçe:</strong> 5 milyon TL güvenlik yatırımı</p>
+                    <p><strong>Süre:</strong> 12 ay dönüşüm projesi</p>
                     
-                    <h4>Saldırı Süreci:</h4>
+                    <h4>Saldırı Süreci ve Müdahale:</h4>
                     <div class="attack-timeline">
                         <div class="timeline-event">
                             <h5>🌅 08:00 - İlk Tespit</h5>
                             <p>IT ekibi, bazı dosyaların şifrelendiğini fark etti</p>
+                            <p><strong>Etki:</strong> 50 sunucu, 500 workstation etkilendi</p>
                         </div>
 
                         <div class="timeline-event">
                             <h5>🚨 08:15 - Alarm</h5>
                             <p>Ransomware uyarısı ve olay müdahale ekibi devreye girdi</p>
+                            <p><strong>Müdahale:</strong> 15 kişilik güvenlik ekibi aktifleştirildi</p>
                         </div>
 
                         <div class="timeline-event">
                             <h5>🛡️ 08:30 - Sınırlama</h5>
                             <p>Etkilenen sistemler izole edildi, ağ trafiği kesildi</p>
+                            <p><strong>Koruma:</strong> %90 sistem izolasyonu sağlandı</p>
                         </div>
 
                         <div class="timeline-event">
                             <h5>🔍 09:00 - Analiz</h5>
                             <p>Saldırının kapsamı ve etkilenen sistemler belirlendi</p>
+                            <p><strong>Sonuç:</strong> 2 milyon lira potansiyel kayıp tespit edildi</p>
                         </div>
 
                         <div class="timeline-event">
                             <h5>🔄 10:00 - Kurtarma</h5>
                             <p>Yedeklerden geri yükleme işlemi başlatıldı</p>
+                            <p><strong>Başarı:</strong> %95 veri kurtarma oranı</p>
                         </div>
 
                         <div class="timeline-event">
                             <h5>✅ 16:00 - Normale Dönüş</h5>
                             <p>Sistemler normale döndü, güvenlik önlemleri artırıldı</p>
+                            <p><strong>Sonuç:</strong> %90 sistem geri yükleme</p>
                         </div>
                     </div>
 
+                    <h4>Proje Sonuçları:</h4>
+                    <div class="project-results">
+                        <div class="result-item">
+                            <strong>Maliyet Tasarrufu:</strong> %60 güvenlik maliyeti azalması
+                        </div>
+                        <div class="result-item">
+                            <strong>Güvenlik Artışı:</strong> %95 tehdit tespiti
+                        </div>
+                        <div class="result-item">
+                            <strong>Veri Koruma:</strong> %99 veri güvenliği
+                        </div>
+                        <div class="result-item">
+                            <strong>Kullanıcı Memnuniyeti:</strong> %90 güven artışı
+                        </div>
+                    </div>
+                    
+                    <h4>Uygulanan Çözümler:</h4>
+                    <div class="solutions-implemented">
+                        <div class="solution-category">
+                            <h5>🛡️ Endpoint Protection</h5>
+                            <ul>
+                                <li>CrowdStrike Falcon EDR</li>
+                                <li>Microsoft Defender ATP</li>
+                                <li>Behavioral Analysis</li>
+                                <li>Real-time Threat Detection</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🌐 Network Security</h5>
+                            <ul>
+                                <li>FortiGate Firewall</li>
+                                <li>Intrusion Detection System</li>
+                                <li>Network Segmentation</li>
+                                <li>VPN Security</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>📊 SIEM & Monitoring</h5>
+                            <ul>
+                                <li>Splunk SIEM</li>
+                                <li>24/7 SOC Monitoring</li>
+                                <li>Threat Intelligence</li>
+                                <li>Automated Response</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>👥 User Security</h5>
+                            <ul>
+                                <li>Multi-Factor Authentication</li>
+                                <li>Security Awareness Training</li>
+                                <li>Phishing Simulation</li>
+                                <li>Access Control</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
                     <h4>Alınan Dersler:</h4>
                     <ul>
                         <li>Yedekleme stratejisinin önemi</li>
                         <li>E-posta güvenliğinin kritikliği</li>
                         <li>Kullanıcı eğitiminin gerekliliği</li>
                         <li>Olay müdahale planının değeri</li>
+                        <li>Proaktif güvenlik yaklaşımının faydaları</li>
+                        <li>Sürekli izleme ve güncellemenin önemi</li>
                     </ul>
                 </div>
             </div>

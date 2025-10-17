@@ -86,6 +86,194 @@
                 </div>
             </div>
 
+            <div class="remote-management-scenarios">
+                <h2>🏢 Gerçek Hayat Remote Management Senaryoları</h2>
+                
+                <div class="scenario">
+                    <h3>🖥️ Senaryo 1: Çok Lokasyonlu Şirket Uzaktan Yönetimi</h3>
+                    <p><strong>Problem:</strong> 20 lokasyonlu perakende zinciri, merkezi IT yönetimi</p>
+                    <p><strong>Çözüm:</strong> Kapsamlı remote management altyapısı</p>
+                    <p><strong>Sonuç:</strong> %80 maliyet tasarrufu, %95 sorun çözüm hızı</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Remote Management Altyapısı:</h4>
+                        <div class="code-block">
+                            <pre><code># Çok lokasyonlu remote management kurulumu
+# 1. RDP Gateway yapılandırması
+Install-WindowsFeature -Name "RDS-Gateway" -IncludeManagementTools
+Install-WindowsFeature -Name "RDS-Web-Access" -IncludeManagementTools
+
+# 2. VPN Server yapılandırması
+Install-WindowsFeature -Name "DirectAccess-VPN" -IncludeManagementTools
+Install-WindowsFeature -Name "RRAS" -IncludeManagementTools
+
+# 3. PowerShell Remoting yapılandırması
+Enable-PSRemoting -Force
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
+
+# 4. SSH Server yapılandırması
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Start-Service -Name "sshd"
+Set-Service -Name "sshd" -StartupType Automatic
+
+# 5. Monitoring sistemi kurulumu
+Install-WindowsFeature -Name "SNMP-Service" -IncludeManagementTools
+Install-WindowsFeature -Name "SNMP-WMI-Provider" -IncludeManagementTools
+
+# 6. Remote management kullanıcıları oluşturma
+New-LocalUser -Name "RemoteAdmin" -Password (ConvertTo-SecureString "SecurePass123!" -AsPlainText -Force)
+Add-LocalGroupMember -Group "Remote Desktop Users" -Member "RemoteAdmin"
+Add-LocalGroupMember -Group "Administrators" -Member "RemoteAdmin"</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>🔒 Senaryo 2: Güvenli Remote Management Yapılandırması</h3>
+                    <p><strong>Problem:</strong> Hassas verilerin güvenli uzaktan yönetimi</p>
+                    <p><strong>Çözüm:</strong> Multi-layer güvenlik katmanları</p>
+                    <p><strong>Sonuç:</strong> %99 güvenlik, %100 compliance</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Güvenlik Yapılandırması:</h4>
+                        <div class="code-block">
+                            <pre><code># Güvenli remote management yapılandırması
+# 1. RDP güvenlik ayarları
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 1
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "MinEncryptionLevel" -Value 3
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "PortNumber" -Value 3390
+
+# 2. PowerShell Remoting güvenlik ayarları
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "192.168.1.0/24" -Force
+Set-Item WSMan:\localhost\Service\Auth\Basic -Value $false
+Set-Item WSMan:\localhost\Service\Auth\Certificate -Value $true
+
+# 3. SSH güvenlik ayarları
+$sshConfig = @"
+Port 2222
+Protocol 2
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+MaxAuthTries 3
+ClientAliveInterval 300
+ClientAliveCountMax 2
+"@
+Set-Content -Path "C:\ProgramData\ssh\sshd_config" -Value $sshConfig
+
+# 4. Firewall kuralları
+New-NetFirewallRule -DisplayName "RDP Custom Port" -Direction Inbound -Protocol TCP -LocalPort 3390 -Action Allow
+New-NetFirewallRule -DisplayName "SSH Custom Port" -Direction Inbound -Protocol TCP -LocalPort 2222 -Action Allow
+New-NetFirewallRule -DisplayName "PowerShell Remoting" -Direction Inbound -Protocol TCP -LocalPort 5985,5986 -Action Allow
+
+# 5. Certificate-based authentication
+$cert = New-SelfSignedCertificate -Subject "CN=RemoteManagement" -CertStoreLocation "Cert:\LocalMachine\My"
+Set-Item WSMan:\localhost\Service\CertificateThumbprint -Value $cert.Thumbprint</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>📊 Senaryo 3: Otomatik Remote Management ve Monitoring</h3>
+                    <p><strong>Problem:</strong> 100+ sunucunun 7/24 izlenmesi ve yönetimi</p>
+                    <p><strong>Çözüm:</strong> Otomatik monitoring ve remote management</p>
+                    <p><strong>Sonuç:</strong> %90 otomasyon, %99 uptime</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Otomatik Monitoring ve Management:</h4>
+                        <div class="code-block">
+                            <pre><code># Otomatik remote management ve monitoring
+# 1. Sunucu listesi
+$servers = @("server1", "server2", "server3", "server4", "server5")
+
+# 2. Otomatik health check
+function Test-ServerHealth {
+    param($server)
+    
+    $health = @{
+        Server = $server
+        Online = $false
+        RDP = $false
+        PowerShell = $false
+        SSH = $false
+        Services = @()
+        DiskSpace = @()
+        Memory = @()
+    }
+    
+    # Ping test
+    if (Test-Connection -ComputerName $server -Count 1 -Quiet) {
+        $health.Online = $true
+        
+        # RDP test
+        if (Test-NetConnection -ComputerName $server -Port 3389 -InformationLevel Quiet) {
+            $health.RDP = $true
+        }
+        
+        # PowerShell Remoting test
+        try {
+            $session = New-PSSession -ComputerName $server -ErrorAction Stop
+            $health.PowerShell = $true
+            Remove-PSSession -Session $session
+        } catch {
+            $health.PowerShell = $false
+        }
+        
+        # SSH test
+        if (Test-NetConnection -ComputerName $server -Port 22 -InformationLevel Quiet) {
+            $health.SSH = $true
+        }
+        
+        # Servis durumu
+        try {
+            $services = Invoke-Command -ComputerName $server -ScriptBlock { Get-Service | Where-Object {$_.Status -ne "Running"} }
+            $health.Services = $services
+        } catch {
+            $health.Services = "Unable to check services"
+        }
+        
+        # Disk alanı
+        try {
+            $disk = Invoke-Command -ComputerName $server -ScriptBlock { Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} }
+            $health.DiskSpace = $disk
+        } catch {
+            $health.DiskSpace = "Unable to check disk space"
+        }
+        
+        # Memory kullanımı
+        try {
+            $memory = Invoke-Command -ComputerName $server -ScriptBlock { Get-WmiObject -Class Win32_OperatingSystem }
+            $health.Memory = $memory
+        } catch {
+            $health.Memory = "Unable to check memory"
+        }
+    }
+    
+    return $health
+}
+
+# 3. Tüm sunucuları kontrol et
+$allHealth = @()
+foreach ($server in $servers) {
+    $health = Test-ServerHealth -Server $server
+    $allHealth += $health
+}
+
+# 4. Rapor oluştur
+$report = $allHealth | ConvertTo-Json -Depth 3
+$report | Out-File -FilePath "C:\Reports\ServerHealth-$(Get-Date -Format 'yyyy-MM-dd').json"
+
+# 5. Alert gönder (gerekirse)
+$problematicServers = $allHealth | Where-Object { -not $_.Online -or -not $_.RDP -or -not $_.PowerShell }
+if ($problematicServers) {
+    Send-MailMessage -To "admin@company.com" -Subject "Server Health Alert" -Body "Problematic servers: $($problematicServers.Server -join ', ')"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="remote-tools">
                 <h2>🛠️ Uzaktan Yönetim Araçları</h2>
                 
@@ -363,10 +551,72 @@ Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\W
             </div>
 
             <div class="real-world-scenario">
-                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <h2>🏢 Gerçek Hayat Senaryosu: Kapsamlı Remote Management Dönüşümü</h2>
                 <div class="scenario">
-                    <h3>Çok Lokasyonlu Şirket Uzaktan Yönetimi</h3>
-                    <p><strong>Şirket:</strong> 10 lokasyonlu perakende zinciri</p>
+                    <h3>50 Lokasyonlu Perakende Zinciri Remote Management Dönüşümü</h3>
+                    <p><strong>Şirket:</strong> 50 lokasyonlu perakende zinciri</p>
+                    <p><strong>Bütçe:</strong> 1.5 milyon TL remote management dönüşüm bütçesi</p>
+                    <p><strong>Süre:</strong> 8 ay dönüşüm projesi</p>
+                    <p><strong>Durum:</strong> Fiziksel IT desteğinden remote management'a geçiş</p>
+                    
+                    <h4>Proje Sonuçları:</h4>
+                    <div class="project-results">
+                        <div class="result-item">
+                            <strong>Maliyet Tasarrufu:</strong> %80 IT destek maliyeti azalması
+                        </div>
+                        <div class="result-item">
+                            <strong>Verimlilik:</strong> %95 sorun çözüm hızı artışı
+                        </div>
+                        <div class="result-item">
+                            <strong>Uptime:</strong> %99.5 sistem kullanılabilirliği
+                        </div>
+                        <div class="result-item">
+                            <strong>Güvenlik:</strong> %100 güvenli remote erişim
+                        </div>
+                    </div>
+                    
+                    <h4>Uygulanan Çözümler:</h4>
+                    <div class="solutions-implemented">
+                        <div class="solution-category">
+                            <h5>🖥️ Remote Desktop Infrastructure</h5>
+                            <ul>
+                                <li>RDP Gateway</li>
+                                <li>RDS Web Access</li>
+                                <li>Load balancing</li>
+                                <li>High availability</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🔒 Güvenlik Çözümleri</h5>
+                            <ul>
+                                <li>VPN Server</li>
+                                <li>Certificate-based auth</li>
+                                <li>Multi-factor authentication</li>
+                                <li>Firewall rules</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>📊 Monitoring ve Analitik</h5>
+                            <ul>
+                                <li>SNMP monitoring</li>
+                                <li>Performance counters</li>
+                                <li>Log analysis</li>
+                                <li>Alert systems</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🤖 Otomasyon</h5>
+                            <ul>
+                                <li>PowerShell scripts</li>
+                                <li>Automated health checks</li>
+                                <li>Remote deployment</li>
+                                <li>Self-healing systems</li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     <h4>Uzaktan Yönetim Altyapısı:</h4>
                     <div class="remote-infrastructure">

@@ -86,6 +86,188 @@
                 </div>
             </div>
 
+            <div class="troubleshooting-scenarios">
+                <h2>🏢 Gerçek Hayat Sorun Giderme Senaryoları</h2>
+                
+                <div class="scenario">
+                    <h3>🚨 Senaryo 1: Kritik Sunucu Çökmesi ve Hızlı Kurtarma</h3>
+                    <p><strong>Problem:</strong> 500 çalışanlı e-ticaret firmasında web sunucusu çöktü</p>
+                    <p><strong>Çözüm:</strong> Sistematik sorun giderme ve hızlı kurtarma</p>
+                    <p><strong>Sonuç:</strong> 2 saat içinde sistem normale döndü, %99 uptime</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Kritik Sunucu Çökmesi Sorun Giderme Süreci:</h4>
+                        <div class="code-block">
+                            <pre><code># Kritik sunucu çökmesi sorun giderme
+# 1. İlk durum tespiti
+Get-ComputerInfo | Select-Object WindowsProductName, TotalPhysicalMemory, CsProcessors
+Get-Service | Where-Object {$_.Status -ne "Running"} | Select-Object Name, Status, StartType
+
+# 2. Event log analizi
+Get-WinEvent -LogName System -MaxEvents 50 | Where-Object {$_.LevelDisplayName -eq "Error"} | 
+    Select-Object TimeCreated, Id, LevelDisplayName, Message | Format-Table -AutoSize
+
+# 3. Performans analizi
+Get-Counter -Counter "\Processor(_Total)\% Processor Time" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\Memory\Available MBytes" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\PhysicalDisk(_Total)\% Disk Time" -SampleInterval 1 -MaxSamples 5
+
+# 4. Ağ bağlantısı testi
+Test-NetConnection -ComputerName "google.com" -Port 80
+Test-NetConnection -ComputerName "8.8.8.8" -Port 53
+
+# 5. Servis durumu kontrolü
+Get-Service | Where-Object {$_.Name -like "*IIS*" -or $_.Name -like "*Apache*" -or $_.Name -like "*Nginx*"}
+
+# 6. Disk alanı kontrolü
+Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | 
+    Select-Object DeviceID, @{Name="Size(GB)";Expression={[math]::Round($_.Size/1GB,2)}}, 
+    @{Name="FreeSpace(GB)";Expression={[math]::Round($_.FreeSpace/1GB,2)}}, 
+    @{Name="PercentFree";Expression={[math]::Round(($_.FreeSpace/$_.Size)*100,2)}}
+
+# 7. Yüksek kaynak kullanan işlemler
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 Name, CPU, WorkingSet
+Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10 Name, WorkingSet, CPU
+
+# 8. Otomatik kurtarma scripti
+function Restart-CriticalServices {
+    $criticalServices = @("IIS", "Apache", "Nginx", "MySQL", "SQL Server")
+    foreach ($service in $criticalServices) {
+        $svc = Get-Service -Name $service -ErrorAction SilentlyContinue
+        if ($svc -and $svc.Status -ne "Running") {
+            Start-Service -Name $service
+            Write-Host "Started service: $service"
+        }
+    }
+}
+
+# 9. Sistem temizliği
+Get-ChildItem -Path "C:\Windows\Temp" -Recurse | Remove-Item -Force -Recurse
+Get-ChildItem -Path "C:\Temp" -Recurse | Remove-Item -Force -Recurse
+
+# 10. Performans optimizasyonu
+Get-Service | Where-Object {$_.StartType -eq "Automatic" -and $_.Status -eq "Stopped"} | 
+    ForEach-Object { Start-Service -Name $_.Name }</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>🌐 Senaryo 2: Ağ Bağlantı Sorunları ve Çözümü</h3>
+                    <p><strong>Problem:</strong> 200 çalışanlı ofiste internet bağlantısı kesintisi</p>
+                    <p><strong>Çözüm:</strong> Kapsamlı ağ tanılama ve sorun giderme</p>
+                    <p><strong>Sonuç:</strong> 1 saat içinde bağlantı normale döndü, %100 uptime</p>
+                    
+                    <div class="scenario-details">
+                        <h4>Ağ Bağlantı Sorunları Tanılama:</h4>
+                        <div class="code-block">
+                            <pre><code># Ağ bağlantı sorunları tanılama
+# 1. Ağ adaptörü durumu
+Get-NetAdapter | Select-Object Name, InterfaceDescription, Status, LinkSpeed
+Get-NetAdapter | Where-Object {$_.Status -eq "Disconnected"} | Enable-NetAdapter
+
+# 2. IP yapılandırması
+Get-NetIPConfiguration | Select-Object InterfaceAlias, IPv4Address, IPv4DefaultGateway, DNSServer
+Get-NetIPAddress | Where-Object {$_.AddressFamily -eq "IPv4"} | Select-Object IPAddress, InterfaceAlias
+
+# 3. Ağ bağlantısı testleri
+Test-NetConnection -ComputerName "8.8.8.8" -Port 53
+Test-NetConnection -ComputerName "google.com" -Port 80
+Test-NetConnection -ComputerName "microsoft.com" -Port 443
+
+# 4. DNS çözümlemesi
+Resolve-DnsName -Name "google.com"
+Resolve-DnsName -Name "microsoft.com"
+nslookup google.com
+
+# 5. Ağ trafiği analizi
+netstat -an | findstr :80
+netstat -an | findstr :443
+netstat -an | findstr :53
+
+# 6. Firewall durumu
+Get-NetFirewallProfile | Select-Object Name, Enabled
+Get-NetFirewallRule | Where-Object {$_.Enabled -eq "True"} | Select-Object DisplayName, Direction, Action
+
+# 7. Ağ sürücüleri
+Get-NetAdapter | Get-NetAdapterDriver | Select-Object Name, DriverVersion, DriverDate
+
+# 8. Ağ performansı
+Get-Counter -Counter "\Network Interface(*)\Bytes Total/sec" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\Network Interface(*)\Packets/sec" -SampleInterval 1 -MaxSamples 5
+
+# 9. Ağ bağlantısı yenileme
+ipconfig /release
+ipconfig /renew
+ipconfig /flushdns
+
+# 10. Ağ servisleri yeniden başlatma
+Restart-Service -Name "Dnscache"
+Restart-Service -Name "Dhcp"
+Restart-Service -Name "Netman"</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3>📧 Senaryo 3: E-posta Sistemi Sorunları ve Çözümü</h3>
+                    <p><strong>Problem:</strong> 1000 çalışanlı şirkette e-posta sistemi çöktü</p>
+                    <p><strong>Çözüm:</strong> Exchange Server sorun giderme ve kurtarma</p>
+                    <p><strong>Sonuç:</strong> 3 saat içinde e-posta sistemi normale döndü, %99.9 uptime</p>
+                    
+                    <div class="scenario-details">
+                        <h4>E-posta Sistemi Sorun Giderme:</h4>
+                        <div class="code-block">
+                            <pre><code># E-posta sistemi sorun giderme
+# 1. Exchange servisleri durumu
+Get-Service -Name "MSExchange*" | Select-Object Name, Status, StartType
+Get-Service -Name "IIS*" | Select-Object Name, Status, StartType
+
+# 2. Exchange veritabanı durumu
+Get-MailboxDatabase -Status | Select-Object Name, DatabaseSize, AvailableNewMailboxSpace, Mounted
+Get-MailboxDatabase | Get-MailboxDatabaseCopyStatus | Select-Object Name, Status, CopyQueueLength, ReplayQueueLength
+
+# 3. E-posta kuyruğu durumu
+Get-Queue | Select-Object Identity, MessageCount, Status, NextHopDomain
+Get-Queue | Where-Object {$_.Status -eq "Retry"} | Resume-Queue
+
+# 4. Exchange performans sayaçları
+Get-Counter -Counter "\MSExchange Database\Log Generation Checkpoint Depth" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\MSExchange Database\Log Generation Rate" -SampleInterval 1 -MaxSamples 5
+
+# 5. Exchange log analizi
+Get-EventLog -LogName "Application" -Source "MSExchange*" -After (Get-Date).AddHours(-1) | 
+    Select-Object TimeGenerated, EntryType, Message | Format-Table -AutoSize
+
+# 6. Mailbox durumu
+Get-Mailbox -ResultSize Unlimited | Select-Object Name, Database, IssueWarningQuota, ProhibitSendQuota
+Get-MailboxStatistics | Where-Object {$_.TotalItemSize -gt 2GB} | Select-Object DisplayName, TotalItemSize
+
+# 7. Exchange veritabanı kurtarma
+Get-MailboxDatabase | Where-Object {$_.Mounted -eq $false} | Mount-Database
+Get-MailboxDatabase | Get-MailboxDatabaseCopyStatus | Where-Object {$_.Status -eq "Failed"} | 
+    Update-MailboxDatabaseCopy -DeleteExistingFiles
+
+# 8. Exchange servisleri yeniden başlatma
+Restart-Service -Name "MSExchangeIS"
+Restart-Service -Name "MSExchangeTransport"
+Restart-Service -Name "MSExchangeRPC"
+
+# 9. Exchange performans optimizasyonu
+Get-MailboxDatabase | ForEach-Object {
+    $db = $_.Name
+    Write-Host "Optimizing database: $db"
+    # Eseutil /d "C:\Exchange\$db\$db.edb"
+}
+
+# 10. Exchange monitoring
+Get-EventLog -LogName "Application" -Source "MSExchange*" -After (Get-Date).AddHours(-1) | 
+    Group-Object EntryType | Select-Object Name, Count</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="troubleshooting-methodology">
                 <h2>🔧 Sorun Giderme Metodolojisi</h2>
                 
@@ -400,11 +582,72 @@ Get-ChildItem -Path "C:\" -Recurse -File | Sort-Object Length -Descending | Sele
             </div>
 
             <div class="real-world-scenario">
-                <h2>🏢 Gerçek Hayat Senaryosu</h2>
+                <h2>🏢 Gerçek Hayat Senaryosu: Kapsamlı Sorun Giderme Dönüşümü</h2>
                 <div class="scenario">
-                    <h3>Kritik Sunucu Performans Sorunu</h3>
-                    <p><strong>Şirket:</strong> 500 çalışanlı e-ticaret firması</p>
-                    <p><strong>Sorun:</strong> Web sunucusu yavaş çalışıyor</p>
+                    <h3>1000 Çalışanlı E-ticaret Firması Sorun Giderme Dönüşümü</h3>
+                    <p><strong>Şirket:</strong> 1000 çalışanlı e-ticaret firması</p>
+                    <p><strong>Bütçe:</strong> 2 milyon TL sorun giderme dönüşüm bütçesi</p>
+                    <p><strong>Süre:</strong> 6 ay dönüşüm projesi</p>
+                    <p><strong>Durum:</strong> Reaktif sorun gidermeden proaktif monitoring'e geçiş</p>
+                    
+                    <h4>Proje Sonuçları:</h4>
+                    <div class="project-results">
+                        <div class="result-item">
+                            <strong>Uptime:</strong> %99.9 sistem kullanılabilirliği
+                        </div>
+                        <div class="result-item">
+                            <strong>MTTR:</strong> %80 ortalama onarım süresi azalması
+                        </div>
+                        <div class="result-item">
+                            <strong>Proaktif:</strong> %90 sorun önceden tespit edilme
+                        </div>
+                        <div class="result-item">
+                            <strong>Maliyet:</strong> %60 IT destek maliyeti azalması
+                        </div>
+                    </div>
+                    
+                    <h4>Uygulanan Çözümler:</h4>
+                    <div class="solutions-implemented">
+                        <div class="solution-category">
+                            <h5>📊 Monitoring ve Alerting</h5>
+                            <ul>
+                                <li>Real-time monitoring</li>
+                                <li>Performance baselines</li>
+                                <li>Automated alerting</li>
+                                <li>Predictive analytics</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🔧 Sorun Giderme Araçları</h5>
+                            <ul>
+                                <li>Event log analysis</li>
+                                <li>Performance monitoring</li>
+                                <li>Network diagnostics</li>
+                                <li>Automated remediation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>📚 Knowledge Management</h5>
+                            <ul>
+                                <li>Incident database</li>
+                                <li>Solution repository</li>
+                                <li>Best practices</li>
+                                <li>Training programs</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-category">
+                            <h5>🤖 Otomasyon</h5>
+                            <ul>
+                                <li>Automated diagnostics</li>
+                                <li>Self-healing systems</li>
+                                <li>Predictive maintenance</li>
+                                <li>Intelligent routing</li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     <h4>Sorun Giderme Süreci:</h4>
                     <div class="troubleshooting-timeline">
