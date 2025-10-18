@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Group Policy (GPO) - IT Eğitim</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn" onclick="toggleSearch()" title="Arama (Ctrl+K)">🔍</button>
+        <button class="floating-btn" onclick="toggleDarkMode()" title="Dark Mode (Ctrl+D)">🌙</button>
+        <button class="floating-btn" onclick="toggleSidebar()" title="Menü (Ctrl+M)">📋</button>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container hidden" id="searchContainer" style="display: none;">
+        <input type="text" class="search-input" id="searchInput" placeholder="Doküman içinde ara..." onkeyup="performSearch()">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-title">Konular Menüsü</div>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">🏠 Ana Sayfa</a></li>
+            <li><a href="bolum-01-giris.html">📚 Giriş ve Temel Kavramlar</a></li>
+            <li><a href="bolum-02-ag-temelleri.html">🌐 Ağ Temelleri</a></li>
+            <li><a href="bolum-03-windows-server.html">🖥️ Windows Server Kurulumu</a></li>
+            <li><a href="bolum-04-active-directory.html">👥 Active Directory (AD DS)</a></li>
+            <li><a href="bolum-05-powershell.html">⚡ PowerShell Eğitimi</a></li>
+            <li><a href="bolum-06-guvenlik.html">🔒 Güvenlik & AppLocker</a></li>
+            <li><a href="bolum-07-siber-guvenlik.html">🛡️ Siber Güvenlik</a></li>
+            <li><a href="bolum-08-fortigate.html">🔥 FortiGate Firewall</a></li>
+            <li><a href="bolum-09-helpdesk.html">🎧 Helpdesk & IT Support</a></li>
+            <li><a href="bolum-10-microsoft365.html">☁️ Microsoft 365 Adminliği</a></li>
+            <li><a href="bolum-11-mail-server.html">📧 Mail Server Yönetimi</a></li>
+            <li><a href="bolum-12-remote-management.html">🔧 Remote Management</a></li>
+            <li><a href="bolum-13-sorun-giderme.html">🔍 Sorun Giderme</a></li>
+            <li><a href="bolum-14-cloud-teknolojileri.html">☁️ Cloud Teknolojileri</a></li>
+            <li><a href="bolum-15-otomasyon.html">🤖 Otomasyon ve Chatbots</a></li>
+            <li><a href="bolum-16-group-policy.html">🧩 Group Policy (GPO)</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="index.html">🏠 Ana Sayfa</a>
+        <span>›</span>
+        <span>Group Policy (GPO)</span>
+    </div>
+
+    <div class="container">
+        <div class="section" id="group-policy">
+            <h1>🧩 Group Policy (GPO)</h1>
+
+            <div class="intro-section">
+                <h2>🎯 GPO Neden Kritik?</h2>
+                <p>GPO, domain ortamında kullanıcı ve bilgisayarların merkezi olarak yapılandırılmasını sağlar. <strong>Neden GPO kullanıyoruz?</strong></p>
+                <div class="why-ad">
+                    <ul>
+                        <li><strong>Güvenlik Sertleştirme:</strong> Parola, lockout, firewall, Defender, BitLocker</li>
+                        <li><strong>Standartlaşma:</strong> Tüm cihazlarda tutarlı ayarlar</li>
+                        <li><strong>Operasyonel Verimlilik:</strong> Otomatik dağıtım ve anlık politika değişiklikleri</li>
+                        <li><strong>Uyumluluk:</strong> CIS/Microsoft benchmark’larına uygunluk</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gpo-policy-index" id="policy-index">
+                <h2>📚 Policy Index (Win10/11, Server 2019/2022)</h2>
+                <p>Aşağıdaki liste, Administrative Templates (Computer/User), Windows Settings/Security Settings ve Preferences kapsamındaki ayarların gezilebilir bir özetidir. Başlıkları açarak detayları görebilirsiniz. Sayfa içi arama kutusunu (Ctrl+K) kullanabilirsiniz.</p>
+
+                <div class="policy-index-tools">
+                    <div class="policy-index-anchors">
+                        <a href="#pi-computer" class="btn btn-small">Computer Configuration</a>
+                        <a href="#pi-user" class="btn btn-small">User Configuration</a>
+                        <a href="#pi-security" class="btn btn-small">Security Settings</a>
+                        <a href="#pi-preferences" class="btn btn-small">Preferences</a>
+                    </div>
+                    <div class="policy-index-filter">
+                        <input type="text" id="policyIndexFilter" class="search-input" placeholder="Policy Index içinde filtrele..." oninput="filterPolicyIndex()" />
+                    </div>
+                    <div class="policy-index-toggle">
+                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                            <input type="checkbox" id="policyOnlyToggle" onchange="togglePolicyOnly()" />
+                            <span>Yalnızca policy maddelerini göster</span>
+                        </label>
+                    </div>
+                </div>
+
+                <details open id="pi-computer">
+                    <summary><strong>Computer Configuration</strong></summary>
+
+                    <details id="pi-computer-system">
+                        <summary>Policies → Administrative Templates → System</summary>
+                        <details id="pi-computer-system-gp">
+                            <summary>Group Policy</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Turn off background refresh of Group Policy</strong> — Ne yapar: Oturum açıkken periyodik arka plan yenilemeyi kapatır. Etki: Ağ yükünü azaltır; değişikliklerin uygulanması gecikebilir. Tipik kullanım: Zayıf bağlantılı uzak şubeler. Dikkat: Güvenlik güncellemeleri geç uygulanabilir.</li>
+                                <li class="policy-item"><strong>Configure Group Policy refresh interval for computers</strong> — Ne yapar: Arka plan yenileme sıklığını (dakika) ve rastgele gecikmeyi belirler. Tipik: 90+0–30 dk. Dikkat: Sık değerler DC yükünü artırır.</li>
+                                <li class="policy-item"><strong>Always wait for the network at computer startup and logon</strong> — Ne yapar: Senkron GPO işlenmesini zorlar. Tipik: Drive/printer mapping, roaming profile, skript bağımlılıkları. Dikkat: Boot/logon süresi artar.</li>
+                                <li class="policy-item"><strong>Turn off processing of Legacy run list</strong> — Ne yapar: Eski Run girişlerini yoksayar. Güvenlik katılaştırma.</li>
+                                <li class="policy-item"><strong>Verbose vs normal status messages</strong> — Ne yapar: Açılışta ayrıntılı iletiler. Sorun giderme kolaylaşır.</li>
+                            </ul>
+                        </details>
+                        <details id="pi-computer-system-logon">
+                            <summary>Logon</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Always use classic logon</strong> — Klasik logon ekranını zorlar. Güvenlik/uyumluluk amaçlı.</li>
+                                <li class="policy-item"><strong>Hide entry points for Fast User Switching</strong> — Hızlı kullanıcı değişimini gizler. Tek oturum kurumsal kiosk.</li>
+                                <li class="policy-item"><strong>Run these programs at user logon</strong> — Oturum açılışında çalışacak program listesi. Dikkat: GPP/Scheduled Tasks alternatifleri düşünülmeli.</li>
+                            </ul>
+                        </details>
+                        <details id="pi-computer-system-power">
+                            <summary>Power Management</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Select an Active Power Plan</strong> — Etkin güç planını atar (Balanced/High performance). Tipik: Dizüstülerde Balanced.</li>
+                                <li class="policy-item"><strong>Sleep/Display timeouts</strong> — Ekran/uyku zamanlayıcılarını merkezi yönetir. Enerji tasarrufu.</li>
+                            </ul>
+                        </details>
+                        <details id="pi-computer-system-profiles">
+                            <summary>User Profiles</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Set roaming profile path for all users logging onto this computer</strong> — Roaming profil yolu atar.</li>
+                                <li class="policy-item"><strong>Delete cached copies of roaming profiles</strong> — Güvenlik için yerel cache’i temizler.</li>
+                            </ul>
+                        </details>
+                    </details>
+
+                    <details id="pi-computer-network">
+                        <summary>Policies → Administrative Templates → Network</summary>
+                        <ul>
+                            <li class="policy-item"><strong>Hardened UNC Paths</strong> — SMB erişimleri için güvenlik kısıtları (Mutual Auth, Integrity). Öneri: SYSVOL/NETLOGON’da etkinleştirin.</li>
+                            <li class="policy-item"><strong>Offline Files</strong> — Önbelleğe alma davranışı. Dikkat: Veri tutarlılığı ve çakışmalar.</li>
+                            <li class="policy-item"><strong>DNS Client</strong> — Suffix ekleme, kayıt politikaları.</li>
+                        </ul>
+                    </details>
+
+                    <details id="pi-computer-windows-components">
+                        <summary>Policies → Administrative Templates → Windows Components</summary>
+                        <details>
+                            <summary>Windows Update</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Configure Automatic Updates</strong> — Otomatik güncelleme modu/planı. Tipik: 4 (Auto download, schedule install).</li>
+                                <li class="policy-item"><strong>Specify intranet Microsoft update service location</strong> — WSUS adresi. Etki: Trafik ve onaylı yamalar.</li>
+                                <li class="policy-item"><strong>No auto-restart with logged on users</strong> — Kullanıcı oturumunda otomatik yeniden başlatmayı engeller.</li>
+                            </ul>
+                        </details>
+                        <details>
+                            <summary>Microsoft Defender Antivirus</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Turn off real-time protection</strong> — DEVRE DIŞI bırakmayın (sadece özel senaryoda). Alternatif: ASR ve istisnalar.</li>
+                                <li class="policy-item"><strong>Exclusions</strong> — Yol/süreç/uzantı istisnaları. Dikkat: Saldırı yüzeyini artırır.</li>
+                                <li class="policy-item"><strong>Cloud-delivered protection</strong> — Bulut tabanlı koruma, örnek gönderimi.</li>
+                            </ul>
+                        </details>
+                        <details>
+                            <summary>BitLocker Drive Encryption</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Require additional authentication at startup</strong> — TPM+PIN vs. Zorunlu ek kimlik doğrulama.</li>
+                                <li class="policy-item"><strong>Choose how BitLocker-protected OS drives can be recovered</strong> — Recovery key AD DS’ye kaydetme.</li>
+                            </ul>
+                        </details>
+                        <details>
+                            <summary>Remote Desktop Services</summary>
+                            <ul>
+                                <li class="policy-item"><strong>Require user authentication for remote connections by using NLA</strong> — NLA zorunlu. Güvenlik tavsiyesi.</li>
+                                <li class="policy-item"><strong>Set client connection encryption level</strong> — Şifreleme seviyesi.</li>
+                            </ul>
+                        </details>
+                    </details>
+                </details>
+
+                <details id="pi-user">
+                    <summary><strong>User Configuration</strong></summary>
+                    <details id="pi-user-start">
+                        <summary>Policies → Administrative Templates → Start Menu and Taskbar</summary>
+                        <ul>
+                            <li class="policy-item"><strong>Remove Run menu from Start Menu</strong> — “Çalıştır”’ı kaldırır.</li>
+                            <li class="policy-item"><strong>Remove and prevent access to the Shut Down</strong> — Kapat seçeneklerini gizler (kiosk).</li>
+                            <li class="policy-item"><strong>Force Start to be either full screen size or menu size</strong> — Başlat davranışı.</li>
+                        </ul>
+                    </details>
+                    <details id="pi-user-file-explorer">
+                        <summary>Policies → Administrative Templates → Windows Components → File Explorer</summary>
+                        <ul>
+                            <li class="policy-item"><strong>Hide these specified drives in My Computer</strong> — Sürücüleri gizler.</li>
+                            <li class="policy-item"><strong>Prevent access to drives from My Computer</strong> — Erişimi engeller.</li>
+                            <li class="policy-item"><strong>Turn off Windows+X hotkeys</strong> — Kısayol engelleme.</li>
+                        </ul>
+                    </details>
+                </details>
+
+                <details id="pi-security">
+                    <summary><strong>Windows Settings → Security Settings</strong></summary>
+                    <ul>
+                        <li>Account Policies (Password, Lockout, Kerberos) — ayrıntılar yukarıda.</li>
+                        <li>Local Policies (Audit/Advanced Audit, User Rights, Security Options)</li>
+                        <li>Event Log, Restricted Groups, System Services, Registry, File System</li>
+                        <li>Windows Defender Firewall with Advanced Security, IP Security Policies</li>
+                        <li>Public Key Policies (Certificates, EFS, Autoenrollment)</li>
+                        <li>Software Restriction Policies / AppLocker</li>
+                        <li>Name Resolution Policy</li>
+                    </ul>
+                </details>
+
+                <details id="pi-preferences">
+                    <summary><strong>Preferences</strong></summary>
+                    <ul>
+                        <li>Windows Settings: Drive Maps, Printers, Registry, Files, Shortcuts, Environment, Services, Scheduled Tasks, Network Shares</li>
+                        <li>Control Panel Settings: Internet Settings, Regional Options, Power Options, Data Sources, Folder Options</li>
+                        <li>Item-level Targeting: Group/OU/Site/IP/OS/Registry vb.</li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="gpo-admin-details">
+                <h2>🧩 Administrative Templates – Detaylar</h2>
+                <p>Aşağıdaki başlıklar, Windows 10/11 ve Windows Server 2019/2022 için yerleşik ADMX kapsamındaki yaygın ve kritik policy’lerin açıklamalarını içerir.</p>
+
+                <h3>System → Removable Storage Access</h3>
+                <ul>
+                    <li><strong>All Removable Storage classes: Deny all access</strong> — Ne yapar: Tüm çıkarılabilir depolamaya tam erişimi engeller. Etki: USB bellek/disk okuma-yazma tamamen engellenir. Tipik kullanım: Veri sızıntısını engelleme, yüksek güvenlikli alanlar. Dikkat: İstisnalar için belirli sınıfları ayrı yönetmeniz gerekir.</li>
+                    <li><strong>Removable Disks: Deny read access</strong> — Ne yapar: USB disklerde okunmayı engeller. Etki: Veri çıkışı engellenir. Tipik kullanım: Sadece yazılım yükleme/policy aracı için yazma gerekirse alternatif düşünün. Dikkat: İş akışlarını bozabilir.</li>
+                    <li><strong>Removable Disks: Deny write access</strong> — Ne yapar: USB disklerde yazmayı engeller. Etki: Veri kopyalama/çıkarma engellenir. Tipik kullanım: DLP hafif senaryoları. Dikkat: Bazı kurulum medyaları çalışmayabilir.</li>
+                    <li><strong>CD and DVD: Deny read/write</strong> — Ne yapar: Optik medyada erişimi sınırlar. Tipik kullanım: Eski ortamlarda veri sızıntısı riski azaltma.</li>
+                    <li><strong>Floppy / Tape / WPD (MTP cihazlar)</strong> — Ne yapar: Eski/özel aygıt sınıflarında erişim kontrolü. Dikkat: WPD telefon bağlantılarını etkiler.</li>
+                    <li><strong>All Removable Storage classes: Allow direct access in remote sessions</strong> — Ne yapar: Uzak oturumlarda erişime izin istisnası. Dikkat: RDS güvenlik politikanızla uyumluluğu kontrol edin.</li>
+                </ul>
+
+                <h3>System → Device Installation → Device Installation Restrictions</h3>
+                <ul>
+                    <li><strong>Prevent installation of devices not described by other policy settings</strong> — Ne yapar: Açıkça izin verilmeyen donanımların kurulmasını engeller. Etki: Yalnızca allowlist cihazlar yüklenir. Tipik kullanım: Kiosk/çağrı merkezi. Dikkat: Sürücü güncellemeleri için allowlist’i güncel tutun.</li>
+                    <li><strong>Allow installation of devices that match any of these device IDs</strong> — Ne yapar: Donanım Kimliği (DEV/VID) allowlist. Etki: Hedef donanım kurulabilir. Dikkat: Yanlış ID kapsamlarını (parent/child) gözden kaçırmayın.</li>
+                    <li><strong>Prevent installation of devices that match any of these device IDs</strong> — Ne yapar: Belirli donanım ID’lerini engeller. Tipik kullanım: USB Wi‑Fi dongle yasaklama. Dikkat: Yan etki olarak benzer cihazlar da bloklanabilir.</li>
+                    <li><strong>Prevent installation of devices using drivers that match these device setup classes</strong> — Ne yapar: Sınıf GUID bloklama. Etki: Geniş kapsamlı engelleme. Dikkat: Yanlış sınıf, kritik aygıtları etkileyebilir.</li>
+                    <li><strong>Allow administrators to override Device Installation Restriction policies</strong> — Ne yapar: Yöneticilerin kısıtlamayı aşmasına izin. Dikkat: Güvenlik politikanızla uyumlu olsun.</li>
+                    <li><strong>Display a custom message when installation is prevented</strong> — Ne yapar: Kullanıcıya politika mesajı. Tipik kullanım: Helpdesk yönlendirmesi.</li>
+                </ul>
+
+                <h3>System → Group Policy</h3>
+                <ul>
+                    <li><strong>Always wait for the network at computer startup and logon</strong> — Senkron işleme zorlar; GPP/roaming profile/skript bağımlılıkları için önerilir. Etki: Logon süresi artabilir.</li>
+                    <li><strong>Configure Group Policy refresh interval for computers</strong> — Arka plan yenileme periyodu ve jitter. Öneri: 90 dk + 30 dk rastgele.</li>
+                    <li><strong>Turn off background refresh of Group Policy</strong> — Arka plan yenilemeyi kapatır. Zayıf hatlarda ağ yükünü azaltır; değişiklikler geç uygulanır.</li>
+                    <li><strong>Enable logging for Group Policy Preferences</strong> (ilgili bileşenlerde) — Sorun giderme için log ayrıntısını artırır.</li>
+                </ul>
+
+                <h3>System → Logon</h3>
+                <ul>
+                    <li><strong>Hide entry points for Fast User Switching</strong> — Kiosk/tek oturum bilgisayarlarda önerilir.</li>
+                    <li><strong>Run these programs at user logon</strong> — Oturum açılışında çalışan uygulamalar listesi; GPP/Scheduled Tasks çoğu senaryoda daha iyi.</li>
+                    <li><strong>Always use classic logon</strong> — Uyumluluk/güvenlik amaçlı klasik deneyim.</li>
+                </ul>
+
+                <h3>System → User Profiles</h3>
+                <ul>
+                    <li><strong>Set roaming profile path</strong> — Merkezi profil. Dikkat: Ağ gecikmeleri, profil boyutu.</li>
+                    <li><strong>Delete cached copies of roaming profiles</strong> — Güvenlik için cache temizliği; mobil kullanıcılar için dikkat.</li>
+                </ul>
+
+                <h3>Power Management</h3>
+                <ul>
+                    <li><strong>Select an active power plan</strong> — Balanced/High performance ataması.</li>
+                    <li><strong>Specify the system sleep/hibernate timeouts</strong> — Enerji tasarrufu, pil ömrü.</li>
+                </ul>
+
+                <h3>Network</h3>
+                <ul>
+                    <li><strong>Hardened UNC Paths</strong> — \\*\SYSVOL ve \\*\NETLOGON için Mutual Auth/Integrity. Güvenlik tavsiyesi: Etkinleştirin.</li>
+                    <li><strong>Offline Files</strong> — Önbelleğe alma davranışı; dosya çakışmalarına dikkat.</li>
+                    <li><strong>DNS Client</strong> — Sonek ekleme, dinamik kayıt; domain ortamında doğru sonek sırası önemli.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Update</h3>
+                <ul>
+                    <li><strong>Configure Automatic Updates</strong> — Mod 2/3/4; tipik: 4 + planlı saat.</li>
+                    <li><strong>Specify intranet Microsoft update service location</strong> — WSUS adresi (http(s)://wsus:8530).</li>
+                    <li><strong>No auto-restart with logged on users</strong> — Kullanıcı varken otomatik restart yok.</li>
+                    <li><strong>Do not include drivers with Windows Updates</strong> — Sürücüleri ayırın (kurumsal sürücü yönetimi için).</li>
+                    <li><strong>Manage end user experience (Active hours, restart)</strong> — Kullanıcı kesintisini azaltır.</li>
+                </ul>
+
+                <h3>Windows Components → Microsoft Defender Antivirus</h3>
+                <ul>
+                    <li><strong>Cloud-delivered protection</strong> — İleri tehdit koruması; önerilir.</li>
+                    <li><strong>Real-time protection</strong> — Devre dışı bırakmayın; istisnaları dikkatle tanımlayın.</li>
+                    <li><strong>Exclusions</strong> — Yol/süreç/uzantı istisnaları; minimumda tutun.</li>
+                    <li><strong>MAPS/Sample submission</strong> — Örnek gönderimi; gizlilik gereksinimlerine göre ayarlayın.</li>
+                </ul>
+
+                <h3>Windows Components → BitLocker Drive Encryption</h3>
+                <ul>
+                    <li><strong>Require additional authentication at startup</strong> — TPM+PIN; taşınabilirlerde önerilir.</li>
+                    <li><strong>Choose how BitLocker-protected OS/data drives can be recovered</strong> — Recovery key AD DS’ye/MBAM’e kaydedin.</li>
+                    <li><strong>Configure use of hardware-based encryption</strong> — Güvenliğe göre yazılım/Donanım şifreleme tercihi.</li>
+                </ul>
+
+                <h3>Windows Components → Remote Desktop Services</h3>
+                <ul>
+                    <li><strong>Require user authentication for remote connections by using NLA</strong> — Zorunlu NLA.</li>
+                    <li><strong>Set client connection encryption level</strong> — Yüksek şifreleme.</li>
+                    <li><strong>Limit number of connections / timeouts</strong> — Oturum yönetimi.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Device and Resource Redirection</h4>
+                <ul>
+                    <li class="policy-item"><strong>Do not allow client printer redirection</strong> — Ne yapar: İstemci yazıcılarının oturuma yönlendirilmesini engeller. Etki: Sunucu güvenliği ve sürücü kaosu azalır. Tipik kullanım: Çok kullanıcılı RDS çiftliği. Dikkat: Uçtan yazdırma ihtiyacı olan kullanıcılar için istisna gerebilir.</li>
+                    <li class="policy-item"><strong>Do not set default client printer to be default printer in a session</strong> — Ne yapar: Oturumda varsayılan yazıcıyı istemci yazıcısı yapmaz. Etki: Sunucu tarafı yazıcı politikasını korur. Tipik kullanım: Merkezi yazdırma.</li>
+                    <li class="policy-item"><strong>Do not allow drive redirection</strong> — Ne yapar: İstemci sürücülerini \tsclient\* olarak yönlendirmeyi engeller. Etki: Veri sızıntısı riski azalır. Dikkat: Dosya aktarımı gerekirse alternatif kanal belirleyin.</li>
+                    <li class="policy-item"><strong>Do not allow clipboard redirection</strong> — Ne yapar: Kopyala-yapıştırı engeller. Etki: Veri dışa aktarımı zorlaşır. Dikkat: Kullanıcı deneyimi etkilenir.</li>
+                    <li class="policy-item"><strong>Do not allow COM port / LPT port / Plug and Play device redirection</strong> — Ne yapar: Yerel aygıt yönlendirmelerini engeller. Etki: Yalnızca sunucu kaynakları kullanılır.</li>
+                    <li class="policy-item"><strong>Audio and video playback/recording redirection</strong> — Ne yapar: Ses/Video yönlendirme davranışını belirler. Tipik kullanım: Çağrı merkezi/VDI optimizasyonu.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Security</h4>
+                <ul>
+                    <li class="policy-item"><strong>Require user authentication for remote connections by using NLA</strong> — Ne yapar: Oturum öncesi NLA şartı. Etki: Kimlik doğrulama güçlenir. Dikkat: Eski istemciler sorun yaşayabilir.</li>
+                    <li class="policy-item"><strong>Set client connection encryption level</strong> — Ne yapar: Şifreleme seviyesini (Low/Client Compatible/High/FIPS) belirler. Tipik kullanım: High veya FIPS. Dikkat: Performans/uyumluluk etkisi.</li>
+                    <li class="policy-item"><strong>Always prompt for password upon connection</strong> — Ne yapar: Tekrar parola sorar. Etki: Kimlik hırsızlığı riski azalır.</li>
+                    <li class="policy-item"><strong>Set time limit for active but idle Remote Desktop Services sessions</strong> — Ne yapar: Idle oturum zaman sınırı. Etki: Kaynak geri kazanımı. Dikkat: İş kaybını önlemek için kullanıcı bilgilendirmesi.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Connections</h4>
+                <ul>
+                    <li class="policy-item"><strong>Limit number of connections</strong> — Ne yapar: Eşzamanlı oturum sayısını sınırlar. Tipik kullanım: Kaynak planlama, lisans maliyeti kontrolü.</li>
+                    <li class="policy-item"><strong>Set rules for remote control of Remote Desktop Services user sessions</strong> — Ne yapar: Yardım amaçlı oturum izleme/denetleme. Etki: Helpdesk müdahalesi kolaylaşır. Dikkat: Gizlilik/politika.</li>
+                    <li class="policy-item"><strong>Keep-Alive connections interval</strong> — Ne yapar: TCP keep-alive süreleri. Etki: WAN’da kararlılık.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Licensing</h4>
+                <ul>
+                    <li class="policy-item"><strong>Use the specified Remote Desktop license servers</strong> — Ne yapar: Lisans sunucularını tanımlar. Etki: CAL dağıtımı doğru çalışır.</li>
+                    <li class="policy-item"><strong>Set the Remote Desktop licensing mode</strong> — Ne yapar: Per User / Per Device modu seçer. Dikkat: Uyumluluk ve maliyet.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Session Time Limits</h4>
+                <ul>
+                    <li class="policy-item"><strong>Set time limit for disconnected sessions</strong> — Ne yapar: Bağlantısı kopan oturumların kapatılma süresi. Etki: Kaynak geri kazanımı.</li>
+                    <li class="policy-item"><strong>End session when time limits are reached</strong> — Ne yapar: Süre dolunca oturumu sonlandırır. Dikkat: Veri kaybını önlemek için kaydetme uyarıları gerekebilir.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Temporary Folders</h4>
+                <ul>
+                    <li class="policy-item"><strong>Do not use temporary folders per session</strong> — Ne yapar: Oturum başına temp klasörü kullanmaz. Etki: Disk alanı yönetimi değişir.</li>
+                    <li class="policy-item"><strong>Delete temporary folders on exit</strong> — Ne yapar: Oturum kapanınca temp’i temizler. Etki: Gizlilik ve alan kazanımı.</li>
+                </ul>
+
+                <h4>Remote Desktop Session Host → Printer Redirection</h4>
+                <ul>
+                    <li class="policy-item"><strong>Redirect only the default client printer</strong> — Ne yapar: Sadece varsayılan yazıcı yönlendirilir. Etki: Sürücü karmaşıklığı azalır.</li>
+                    <li class="policy-item"><strong>Use Remote Desktop Easy Print printer driver first</strong> — Ne yapar: Easy Print’i tercih eder. Etki: Sürücü dağıtımını basitleştirir. Dikkat: Bazı yazıcı özellikleri sınırlı olabilir.</li>
+                </ul>
+
+                <h3>Windows Components → Data Collection and Preview Builds</h3>
+                <ul>
+                    <li class="policy-item"><strong>Allow Telemetry</strong> — Ne yapar: Tanılama verisi seviyesini belirler (Security/Basic/Enhanced/Full). Etki: Gizlilik ve uyumluluk. Tipik kullanım: Kurumlarda Basic/Security. Dikkat: Bazı özellikler daha yüksek seviyeye ihtiyaç duyabilir.</li>
+                    <li class="policy-item"><strong>Do not show feedback notifications</strong> — Ne yapar: Geri bildirim bildirimlerini kapatır. Etki: Kullanıcı kesintisi azalır.</li>
+                    <li class="policy-item"><strong>Manage preview builds</strong> — Ne yapar: Preview build’lere izin/verme ve geciktirme. Tipik: Kurumsal cihazlarda engelle.</li>
+                    <li class="policy-item"><strong>Toggle user control over Insider builds</strong> — Ne yapar: Kullanıcının Insider ayarlarını değiştirmesini kısıtlar.</li>
+                </ul>
+
+                <h3>Windows Components → Windows PowerShell</h3>
+                <ul>
+                    <li class="policy-item"><strong>Turn on Script Execution</strong> — Ne yapar: Çalıştırma ilkesini belirler (Restricted/AllSigned/RemoteSigned/Unrestricted). Etki: Güvenlik ve otomasyon dengesi. Tipik kullanım: RemoteSigned. Dikkat: İmzalı betikleri tercih edin.</li>
+                    <li class="policy-item"><strong>Turn on PowerShell Script Block Logging</strong> — Ne yapar: Çalışan script bloklarını loglar. Etki: Adli analiz kolaylaşır. Dikkat: Log hacmi artar.</li>
+                    <li class="policy-item"><strong>Turn on PowerShell Transcription</strong> — Ne yapar: Oturum çıktısını dosyaya yazar. Etki: İzlenebilirlik. Dikkat: Hassas veri maskeleme gerebilir.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Update (İleri Ayarlar)</h3>
+                <ul>
+                    <li class="policy-item"><strong>Do not connect to any Windows Update Internet locations</strong> — Ne yapar: Yalnızca WSUS kullanımı. Etki: Trafik ve kontrol kurumsalda kalır. Dikkat: Microsoft Store etkilenebilir.</li>
+                    <li class="policy-item"><strong>Allow non-administrators to receive update notifications</strong> — Ne yapar: Kullanıcılara bildirim. Etki: Kullanıcı deneyimi. Dikkat: Yardım masası çağrıları artabilir.</li>
+                    <li class="policy-item"><strong>No auto-restart with logged on users (scheduled installs)</strong> — Ne yapar: Planlı yüklemelerde yeniden başlatmayı baskılar. Etki: Kesinti azalır.</li>
+                    <li class="policy-item"><strong>Configure auto-restart required notifications for updates</strong> — Ne yapar: Yeniden başlatma bildirim davranışı. Etki: Kullanıcı bilgilendirme.</li>
+                </ul>
+
+                <h3>Microsoft Defender Antivirus (İleri)</h3>
+                <ul>
+                    <li class="policy-item"><strong>Potentially Unwanted Application (PUA) protection</strong> — Ne yapar: PUA tespitlerini etkinleştirir (block/audit). Etki: İstenmeyen yazılımlar engellenir. Dikkat: Yanlış pozitifleri izleyin.</li>
+                    <li class="policy-item"><strong>Scheduled scan</strong> — Ne yapar: Planlı tarama günü/saat/davranışı. Etki: Performans ve güvenlik dengesi.</li>
+                    <li class="policy-item"><strong>Passive mode</strong> — Ne yapar: Defender’ı pasif modda çalıştırır (üçüncü taraf AV ile). Dikkat: Yanlış yapılandırma korumayı düşürebilir.</li>
+                </ul>
+
+                <h3>Network → Network Connections</h3>
+                <ul>
+                    <li class="policy-item"><strong>Prohibit installation and configuration of network bridges on your DNS domain network</strong> — Ne yapar: Bridge/ICS kurulumunu engeller. Etki: İstemci üzerinde yetkisiz yönlendirme engeli. Tipik kullanım: Kurumsal ağ bütünlüğü.</li>
+                    <li class="policy-item"><strong>Prohibit use of Internet Connection Sharing on your DNS domain network</strong> — Ne yapar: ICS’yi engeller. Etki: Güvenlik ve adresleme bütünlüğü.</li>
+                    <li class="policy-item"><strong>Disable changing proxy settings</strong> — Ne yapar: Proxy ayarlarını kilitler. Etki: Trafik yönlendirmesi politikaya uygun kalır.</li>
+                </ul>
+
+                <h3>User Configuration → System (Ctrl+Alt+Del Options)</h3>
+                <ul>
+                    <li class="policy-item"><strong>Remove Task Manager</strong> — Ne yapar: Görev Yöneticisi’ni kaldırır. Etki: Kötüye kullanımın önlenmesi. Dikkat: Sorun giderme zorlaşır.</li>
+                    <li class="policy-item"><strong>Remove Change Password</strong> — Ne yapar: Parola değiştirme seçeneğini kaldırır. Tipik: Kiosk/konuk hesapları.</li>
+                    <li class="policy-item"><strong>Remove Lock Computer</strong> — Ne yapar: Bilgisayarı kilitle seçeneğini kaldırır. Dikkat: Güvenlik etkisi.</li>
+                </ul>
+
+                <h3>User Configuration → Desktop / Personalization</h3>
+                <ul>
+                    <li class="policy-item"><strong>Desktop Wallpaper</strong> — Ne yapar: Duvar kağıdını zorunlu kılar (yol/ölçek). Etki: Kurumsal marka. Dikkat: Ağ yoluna erişim.</li>
+                    <li class="policy-item"><strong>Prevent changing desktop background / theme</strong> — Ne yapar: Kişiselleştirmeyi engeller. Etki: Tutarlılık.</li>
+                    <li class="policy-item"><strong>Hide and disable all items on the desktop</strong> — Ne yapar: Masaüstünü boşaltır. Tipik: Kiosk/lab.</li>
+                </ul>
+
+                <h3>User Configuration → Start Menu and Taskbar (Ekstra)</h3>
+                <ul>
+                    <li class="policy-item"><strong>Remove access to the context menus for the taskbar</strong> — Ne yapar: Görev çubuğu bağlam menülerini kapatır. Etki: Sabit deneyim.</li>
+                    <li class="policy-item"><strong>Prevent users from customizing their Start Screen</strong> — Ne yapar: Başlat özelleştirmesini engeller. Tipik: VDI/Kiosk.</li>
+                    <li class="policy-item"><strong>Do not keep a history of recently opened documents</strong> — Ne yapar: Son öğeler geçmişini kapatır. Etki: Gizlilik.</li>
+                </ul>
+
+                <h3>User Configuration → Start Menu and Taskbar</h3>
+                <ul>
+                    <li><strong>Remove Run menu from Start Menu</strong> — “Çalıştır”’ı kaldır.</li>
+                    <li><strong>Remove and prevent access to Shut Down</strong> — Kapat seçeneklerini gizle.</li>
+                    <li><strong>Force Start to be full screen</strong> — Başlat boyutu sabit.</li>
+                </ul>
+
+                <h3>User Configuration → Windows Components → File Explorer</h3>
+                <ul>
+                    <li><strong>Hide these specified drives in My Computer</strong> — Seçili sürücüleri gizle.</li>
+                    <li><strong>Prevent access to drives from My Computer</strong> — Erişimi engelle.</li>
+                    <li><strong>Turn off Windows+X hotkeys</strong> — Kısayolları kapat.</li>
+                </ul>
+
+                <h3>Control Panel (Computer/User)</h3>
+                <ul>
+                    <li><strong>Prohibit access to Control Panel and PC settings</strong> — Denetim Masası/Settings’ı kapatır (kiosk/lab).</li>
+                    <li><strong>Hide specified Control Panel items</strong> — Belirli applet’leri gizler.</li>
+                    <li><strong>Show only specified Control Panel items</strong> — Sadece listelenen applet’leri gösterir.</li>
+                </ul>
+
+                <h3>Printers</h3>
+                <ul>
+                    <li><strong>Point and Print Restrictions</strong> — İmzalanmamış sürücü yüklemesini engelle; kullanıcıdan onay/elevasyon iste.</li>
+                    <li><strong>Package Point and Print - Approved servers</strong> — Yalnızca onaylı yazıcı sunucularına izin ver.</li>
+                    <li><strong>Turn off Legacy Plug and Play resolution</strong> — Eski sürücü davranışlarını kısıtlar.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Installer</h3>
+                <ul>
+                    <li><strong>Always install with elevated privileges</strong> — Güvenlik nedeniyle önerilmez; kapalı tutun.</li>
+                    <li><strong>Disable Windows Installer</strong> — Son kullanıcı MSI kurulumlarını kısıtlar.</li>
+                    <li><strong>Prohibit removal of updates</strong> — Yamaların kaldırılmasını engeller.</li>
+                </ul>
+
+                <h3>Windows Components → Attachment Manager</h3>
+                <ul>
+                    <li><strong>Do not preserve zone information</strong> — İnternetten indirilen dosya “zone” bilgisini tutma (önerilmez).</li>
+                    <li><strong>Inclusion list for low file types</strong> — Düşük risk dosya türleri istisnası (dikkatle).</li>
+                </ul>
+
+                <h3>Windows Components → Credential User Interface</h3>
+                <ul>
+                    <li><strong>Require trusted path for credential entry</strong> — Güvenli kimlik giriş akışını zorlar.</li>
+                    <li><strong>Enumerate administrator accounts on elevation</strong> — Yükseltmede admin hesaplarını listelemeyi engelle.</li>
+                </ul>
+
+                <h3>Windows Components → Remote Assistance</h3>
+                <ul>
+                    <li><strong>Configure Offer Remote Assistance</strong> — IT’nin kullanıcıya yardım teklif etmesini etkinleştir/izinleri tanımla.</li>
+                    <li><strong>Solicited Remote Assistance</strong> — Kullanıcı isteğiyle yardım; güvenlik kapsamını sınırla.</li>
+                </ul>
+
+                <h3>System → Device Guard / Credential Guard</h3>
+                <ul>
+                    <li><strong>Turn On Virtualization Based Security</strong> — VBS, HVCI (Memory Integrity). Donanım desteği gerekir.</li>
+                    <li><strong>Credential Guard configuration</strong> — LSASS kimlik bilgilerini izole eder; kimlik hırsızlığına karşı koruma.</li>
+                </ul>
+
+                <h3>Windows Components → File Explorer (Gelişmiş)</h3>
+                <ul>
+                    <li><strong>Turn off caching of thumbnails in hidden thumbs.db files</strong> — Ağ paylaşımlarında kilitlenmeleri azaltır.</li>
+                    <li><strong>Hide extensions for known file types</strong> — Güvenlik için kapalı önerilir (kötü amaçlı .exe.txt vb.).</li>
+                    <li><strong>Turn off display of recent search entries</strong> — Gizlilik.</li>
+                </ul>
+
+                <h3>Windows Components → Delivery Optimization</h3>
+                <ul>
+                    <li><strong>Download Mode</strong> — LAN/Internet eş paylaşımlı indirme; WAN trafiğini azaltır.</li>
+                    <li><strong>Maximum Download/Upload Bandwidth</strong> — Yüzdelik sınırlarla bant genişliği kısıtlama.</li>
+                    <li><strong>Group ID</strong> — Şube/segment bazlı eşleştirme için özel grup kimliği.</li>
+                </ul>
+
+                <h3>Windows Components → OneDrive</h3>
+                <ul>
+                    <li><strong>Prevent the usage of OneDrive for file storage</strong> — Kurumsal politika gereği devre dışı bırakma.</li>
+                    <li><strong>Silently configure OneDrive using Windows credentials</strong> — Sessiz yapılandırma (kurumsal hesapla).</li>
+                    <li><strong>Use OneDrive Files On-Demand</strong> — Depolama optimizasyonu.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Hello for Business</h3>
+                <ul>
+                    <li><strong>Use biometrics</strong> — Yüz parmak izi izin verme.</li>
+                    <li><strong>Use a hardware security device</strong> — TPM zorunluluğu.</li>
+                    <li><strong>PIN Complexity</strong> — Uzunluk/küme/ömrü tanımı.</li>
+                </ul>
+
+                <h3>Windows Components → SmartScreen</h3>
+                <ul>
+                    <li><strong>Configure Windows Defender SmartScreen</strong> — Uygulama/indirme denetimi; blok veya uyar.</li>
+                    <li><strong>Prevent bypassing SmartScreen prompts</strong> — Kullanıcı atlamasını engelle.</li>
+                </ul>
+
+                <h3>Windows Components → Microsoft Defender Exploit Guard</h3>
+                <ul>
+                    <li><strong>Attack Surface Reduction (ASR) rules</strong> — Office makroları, child process engeli vb.; audit → enforce geçişi önerilir.</li>
+                    <li><strong>Network Protection</strong> — Kötü amaçlı alanlara çıkışı engeller.</li>
+                    <li><strong>Controlled Folder Access</strong> — Ransomware’a karşı koruma; izinli liste yönetimi gerekir.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Remote Management (WinRM)</h3>
+                <ul>
+                    <li><strong>Allow remote server management through WinRM</strong> — WinRM dinleyicisini ve firewall kuralını ayarlar. Uzak PowerShell yönetimi için gereklidir.</li>
+                    <li><strong>Disallow WinRM from storing RunAs credentials</strong> — Güvenlik için kimlik bilgisi saklamayı engeller.</li>
+                </ul>
+
+                <h3>System → Credentials Delegation</h3>
+                <ul>
+                    <li><strong>Allow delegating default credentials / saved credentials</strong> — Kerberos/CredSSP temsil yetkisi; RDP/WinRM senaryolarında gerekli olabilir.</li>
+                    <li><strong>Encryption Oracle Remediation</strong> — CredSSP güvenlik seviyesi (Force Updated Clients önerilir).</li>
+                </ul>
+
+                <h3>Windows Components → Microsoft Store</h3>
+                <ul>
+                    <li><strong>Turn off the Store application</strong> — Kurumsal cihazlarda Store’u devre dışı bırakır.</li>
+                    <li><strong>Only display the private store within the Microsoft Store</strong> — Sadece kurumsal mağazayı göster.</li>
+                    <li><strong>Disable all apps from Microsoft Store</strong> — Uygulama kurulumlarını engeller.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Error Reporting</h3>
+                <ul>
+                    <li><strong>Disable Windows Error Reporting</strong> — Hata raporlarını kapatır (gizlilik). Alternatif: Internal server yapılandır.</li>
+                    <li><strong>Configure Corporate Windows Error Reporting</strong> — Raporları kurumsal sunucuya yönlendir.</li>
+                </ul>
+
+                <h3>System → Windows Time Service</h3>
+                <ul>
+                    <li><strong>Global Configuration Settings</strong> — Zaman senkron parametreleri.</li>
+                    <li><strong>Time Providers</strong> — NTP/NT5DS sağlayıcılarını yapılandır; domain müşterileri için NT5DS, kenar durumlarda NTP.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Defender Application Control (WDAC)</h3>
+                <ul>
+                    <li><strong>Deploy Windows Defender Application Control</strong> — İzin verilen imzalı kodlar dışında çalıştırmayı engeller. Öneri: Audit → Enforce geçişi.</li>
+                    <li><strong>Manage catalog files and policies</strong> — Kataloğa alınmış uygulamalar; bakım gerektirir.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Sandbox</h3>
+                <ul>
+                    <li><strong>Allow/Configure Windows Sandbox</strong> — İzole test ortamı; güvenli denemeler için.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Update for Business (WUfB)</h3>
+                <ul>
+                    <li><strong>Select when Preview Builds and Feature Updates are received</strong> — Özellik güncellemesi erteleme (gün/kanal).</li>
+                    <li><strong>Select when Quality Updates are received</strong> — Kalite güncellemesi erteleme.</li>
+                    <li><strong>Manage preview builds</strong> — Önizleme derlemelerini izin verme/engelleme.</li>
+                </ul>
+
+                <h3>Windows Components → Work Folders</h3>
+                <ul>
+                    <li><strong>Specify Work Folders settings</strong> — Sunucu URL, cihaz kayıt seçenekleri.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Ink Workspace</h3>
+                <ul>
+                    <li><strong>Allow Windows Ink Workspace</strong> — Etkin/Devre dışı; kilit ekranında kullanım seçenekleri.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Spotlight</h3>
+                <ul>
+                    <li><strong>Turn off all Windows Spotlight features</strong> — Gizlilik/kurumsal tutarlılık için kapatma.</li>
+                    <li><strong>Do not use diagnostic data for tailored experiences</strong> — Kişiselleştirilmiş önerileri kapat.</li>
+                </ul>
+
+                <h3>RemoteFX (Not: Destek dışı)</h3>
+                <ul>
+                    <li>RemoteFX vGPU özellikleri güvenlik nedeniyle kaldırıldı; mevcut policy’ler devre dışı bırakılmalı.</li>
+                </ul>
+            </div>
+
+            <div class="gpo-security-settings">
+                <h2>🔒 Security Settings (Computer Configuration > Policies > Windows Settings)</h2>
+                <p>Domain genelinde güvenlik sertleştirme için ana bölüm. Aşağıdaki alt başlıkların her biri belirli bir güvenlik alanını yönetir.</p>
+
+                <h3>1) Account Policies</h3>
+                <ul>
+                    <li><strong>Password Policy:</strong> Minimum/maximum yaş, uzunluk, karmaşıklık. Kurumsal parola standardını uygular.</li>
+                    <li><strong>Account Lockout Policy:</strong> Yanlış deneme eşiği, kilitlenme süresi, reset zamanı. Brute force’u sınırlar.</li>
+                    <li><strong>Kerberos Policy:</strong> Ticket ömürleri, yenileme, clock skew. Domain kimlik doğrulama güvenliği.</li>
+                </ul>
+                <p><em>Not:</em> Domain bazlı uygulanır; genelde <strong>Default Domain Policy</strong> veya ayrı bir <strong>SEC-Password-Lockout</strong> GPO’su.</p>
+
+                <h3>2) Local Policies</h3>
+                <ul>
+                    <li><strong>Audit Policy / Advanced Audit:</strong> Oturum açma, policy değişikliği, nesne erişimi gibi olayların loglanması. Tercihen <em>Advanced Audit</em> kullanın.</li>
+                    <li><strong>User Rights Assignment:</strong> Kimler logon olabilir, hizmet olarak oturum açabilir, yedekleme yapabilir vs. En az yetki prensibi.</li>
+                    <li><strong>Security Options:</strong> NTLM kısıtlamaları, administrator hesabı durumu, UAC, cihaz kuralları gibi yüzlerce ayar.</li>
+                </ul>
+
+                <h3>3) Event Log</h3>
+                <ul>
+                    <li>Application/Security/System log boyutları, saklama ve overwrite davranışı. Olay geçmişinin korunması.</li>
+                </ul>
+
+                <h3>4) Restricted Groups</h3>
+                <ul>
+                    <li>Belirli yerel grupların üyeliklerini merkezi tanımlama. Örn: <strong>Administrators</strong> grubunda sadece onaylı gruplar.</li>
+                </ul>
+
+                <h3>5) System Services</h3>
+                <ul>
+                    <li>Servislerin başlangıç türleri (Automatic/Manual/Disabled) ve güvenlik izinleri. Saldırı yüzeyini azaltır.</li>
+                </ul>
+
+                <h3>6) Registry</h3>
+                <ul>
+                    <li>Belirli kayıt defteri anahtarlarına izinler, sahiplik, denetim. Sertleştirme ve uygulama konfigürasyonu.</li>
+                </ul>
+
+                <h3>7) File System</h3>
+                <ul>
+                    <li>Klasör/dosya NTFS izinleri ve denetim (auditing). Hassas klasörlerin korunması.</li>
+                </ul>
+
+                <h3>8) Windows Defender Firewall with Advanced Security</h3>
+                <ul>
+                    <li>Domain/Private/Public profiller, inbound/outbound kurallar, IPsec ayarları. Sunucu/istemci bazlı network güvenliği.</li>
+                </ul>
+
+                <h3>9) Public Key Policies</h3>
+                <ul>
+                    <li>Trusted Root/Intermediate CAs, Autoenrollment, EFS, sertifika dağıtımı. Kurumsal PKI entegrasyonu.</li>
+                </ul>
+
+                <h3>10) Software Restriction Policies / AppLocker</h3>
+                <ul>
+                    <li><strong>SRP:</strong> Yol/hash/zone tabanlı temel kısıtlama.</li>
+                    <li><strong>AppLocker:</strong> Publisher/Path/Hash kuralları ile modern ve ayrıntılı uygulama kontrolü.</li>
+                </ul>
+
+                <h3>11) IP Security Policies</h3>
+                <ul>
+                    <li>IPsec politikaları ile network trafiğini şifreleme/kimlik doğrulama. Güncel senaryolarda genelde Firewall/IPsec ile yönetilir.</li>
+                </ul>
+
+                <h3>12) Advanced Audit Policy Configuration</h3>
+                <ul>
+                    <li>Detaylı denetim kategorileri (Logon, Object Access, Policy Change, DS Access, Account Logon, Privilege Use, System, Detailed Tracking).</li>
+                </ul>
+
+                <h3>13) Name Resolution Policy</h3>
+                <ul>
+                    <li>DNS Client policy’leri (ör. DNSSEC). Kurumsal ad çözümlemede güvenlik.</li>
+                </ul>
+
+                <div class="best-practices">
+                    <h3>En İyi Uygulamalar (Security Settings)</h3>
+                    <ul>
+                        <li>Parola/Lockout’ı domain seviyesinde tek GPO’da yönetin; test OU’su ile pilot yapın.</li>
+                        <li>Audit’i <em>Advanced Audit</em> ile ayrıntılı tanımlayın; SIEM’e iletin.</li>
+                        <li>Local admin’leri Restricted Groups (veya LAPS) ile kontrol edin.</li>
+                        <li>Firewall ve IPsec kurallarını profillere göre ayrı GPO’larla bölün.</li>
+                        <li>AppLocker’ı önce <strong>Audit</strong> modda deneyin, sonra <strong>Enforce</strong>’a alın.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gpo-basics">
+                <h2>🏗️ GPO Temelleri ve İşleyiş</h2>
+                <ul>
+                    <li><strong>LSDOU:</strong> Local → Site → Domain → OU sırasıyla uygulanır.</li>
+                    <li><strong>Inheritance:</strong> Üstten alta devralma; <em>Block Inheritance</em> ile engellenebilir, <em>Enforced</em> (No override) ile zorlanabilir.</li>
+                    <li><strong>Link Order:</strong> Aynı OU’daki link sırası önemlidir (düşük numara daha yüksek öncelik).</li>
+                    <li><strong>User vs Computer:</strong> Politikanın hedefi farklıdır; Loopback ile kullanıcı ayarları bilgisayar bağlamında uygulanabilir.</li>
+                </ul>
+            </div>
+
+            <div class="gpo-scoping">
+                <h2>🎯 Scope, Filtreleme ve Loopback</h2>
+                <ul>
+                    <li><strong>Security Filtering:</strong> GPO yalnızca belirli grup/kullanıcı/bilgisayarlara uygulatılır.</li>
+                    <li><strong>WMI Filtering:</strong> OS sürümü, donanım, network gibi koşullara göre hedefleme.</li>
+                    <li><strong>Loopback Processing:</strong> Kiosk/VDI/Lab senaryolarında kullanıcı ayarlarını bilgisayara göre zorla.</li>
+                </ul>
+                <div class="code-block">
+<pre><code># PowerShell ile GPO kapsamı ve link işlemleri (GroupPolicy modülü)
+# Not: Group Policy Management Console (GPMC) yüklü olmalıdır.
+# New-GPO, New-GPLink, Set-GPPermission gibi cmdlet'ler kullanılır.
+
+# Örnek: Yeni GPO oluştur ve OU'ya linkle
+New-GPO -Name "SEC-Baseline-Workstations" | New-GPLink -Target "OU=Workstations,DC=contoso,DC=local" -LinkEnabled Yes
+
+# Örnek: Security filtering için izin ekle (Read + Apply)
+$gpo = Get-GPO -Name "SEC-Baseline-Workstations"
+Set-GPPermission -Name $gpo.DisplayName -TargetName "GG-Workstations" -TargetType Group -PermissionLevel GpoApply
+
+# Loopback etkinleştirme (bilgilendirme)
+# User Configuration > Policies > Administrative Templates > System > Group Policy >
+# "User Group Policy loopback processing mode" = Merge veya Replace
+</code></pre>
+                </div>
+
+            </div>
+
+            <div class="gpo-preferences">
+                <h2>🧰 GPO Preferences ve Item-level Targeting</h2>
+                <ul>
+                    <li>Drive/Printer mapping, Registry, Files/Shortcuts, Scheduled Tasks</li>
+                    <li>Item-level Targeting ile OU, Security Group, IP, OS sürümü gibi hedefleme</li>
+                </ul>
+                <div class="code-block">
+<pre><code># Logon Script yerine Group Policy Preferences (GPP) önerilir
+# GUI: User Configuration > Preferences > Windows Settings > Drive Maps
+# Targeting: Security Group = GG-Share-Finance, OU = Istanbul-Users
+</code></pre>
+                </div>
+            </div>
+
+            <div class="gpo-admin">
+                <h2>⚙️ Yönetim: ADMX, Central Store, Starter GPO</h2>
+                <ul>
+                    <li><strong>ADMX/ADML:</strong> Şablonları \\DOMAIN\SYSVOL\\DOMAIN\\Policies\\PolicyDefinitions konumunda Central Store’a koy.</li>
+                    <li><strong>Starter GPO:</strong> Kurumsal standart başlangıç şablonları.</li>
+                    <li><strong>Backup/Restore:</strong> GPO’ları yedekle, versiyonla, geri yükle.</li>
+                </ul>
+                <div class="code-block">
+<pre><code># GPO yedek/al-geri yükle
+Backup-GPO -Name "SEC-Baseline-Workstations" -Path "\\\\fileserver\\GPO-Backups"
+Restore-GPO -Name "SEC-Baseline-Workstations" -Path "\\\\fileserver\\GPO-Backups"
+
+# Rapor al / içe aktar
+Save-GPOReport -Name "SEC-Baseline-Workstations" -ReportType Html -Path "C:\\Reports\\SEC-Baseline.html"
+Import-GPO -BackupGpoName "SEC-Baseline-Workstations" -Path "\\\\fileserver\\GPO-Backups" -TargetName "SEC-Baseline-Workstations"
+</code></pre>
+                </div>
+            </div>
+
+            <div class="gpo-baseline">
+                <h2>🛡️ Kurumsal Baseline ve Güvenlik Sertleştirme</h2>
+                <ul>
+                    <li>Parola ve Lockout politikaları</li>
+                    <li>Windows Defender, Firewall, SmartScreen</li>
+                    <li>BitLocker (TPM, PIN), Device Guard, Credential Guard</li>
+                    <li>LAPS (Local Administrator Password Solution)</li>
+                    <li>Windows Update, OneDrive, Edge/Chrome policy</li>
+                </ul>
+                <div class="code-block">
+<pre><code># Password Policy domain seviyesinde (Default Domain Policy veya ayrı GPO + Fine-Grained)
+# GUI: Computer Configuration > Policies > Windows Settings > Security Settings > Account Policies
+
+# LAPS (Windows LAPS) için: AD şema güncellemesi ve ilgili policy objeleri gerekir.
+</code></pre>
+                </div>
+            </div>
+
+            <div class="gpo-admin-templates">
+                <h2>📁 Administrative Templates (ADMX) – Computer ve User</h2>
+                <p>ADMX/ADML şablonları ile binlerce sistem ve kullanıcı ayarı merkezi yönetilir. Central Store kullanarak tüm DC’lerde tutarlılık sağlayın.</p>
+
+                <h3>Computer Configuration > Administrative Templates – Öne Çıkan Alanlar</h3>
+                <ul>
+                    <li><strong>System:</strong> Logon, Profiles, Power Management, Group Policy, Scripts. (Örn: Always wait for the network at computer startup and logon)</li>
+                    <li><strong>Network:</strong> Offline Files, DNS Client, NLA. (Örn: Hardened UNC Paths)</li>
+                    <li><strong>Windows Components:</strong> Windows Update, Defender, Remote Desktop Services, BitLocker, SmartScreen.</li>
+                    <li><strong>Control Panel:</strong> Settings visibility kısıtlamaları.</li>
+                    <li><strong>Printers:</strong> Point and Print Restrictions, driver yükleme kısıtları.</li>
+                </ul>
+
+                <h4>Tipik Kullanımlar (Computer)</h4>
+                <ul>
+                    <li>Windows Update politikası (Automatic Updates schedule, deferral)</li>
+                    <li>Defender ayarları (Real-time protection, ASR kuralları – ADMX’e bağlı)</li>
+                    <li>RDP sertleştirme (NLA, şifreleme seviyeleri)</li>
+                    <li>BitLocker politikaları (OS/Data drive, TPM/PIN, recovery key saklama)</li>
+                    <li>SmartScreen ve Exploit Guard ilkeleri</li>
+                </ul>
+
+                <h3>User Configuration > Administrative Templates – Öne Çıkan Alanlar</h3>
+                <ul>
+                    <li><strong>Start Menu and Taskbar:</strong> Menü öğeleri, arama, sabitlenen uygulamalar.</li>
+                    <li><strong>Desktop:</strong> Simgeler, duvar kağıdı, kısayol kısıtlamaları.</li>
+                    <li><strong>Control Panel:</strong> Denetim Masası erişim ve alt öğe kısıtlamaları.</li>
+                    <li><strong>Windows Components:</strong> OneDrive, Edge/IE, File Explorer, Teams/Office ADMX (yüklüyse).</li>
+                </ul>
+
+                <div class="code-block">
+<pre><code># ADMX Central Store yolu (bilgilendirme)
+# \\DOMAIN\SYSVOL\DOMAIN\Policies\PolicyDefinitions
+# Yeni ürün ADMX’lerini buraya kopyalayın (örn. Office, Chrome, Edge).
+</code></pre>
+                </div>
+
+
+                <div class="best-practices">
+                    <h3>En İyi Uygulamalar (Administrative Templates)</h3>
+                    <ul>
+                        <li>ADMX Central Store kullanın; versiyonları dokümante edin.</li>
+                        <li>Bilgisayar ve kullanıcı ayarlarını ayrı GPO’larda yönetin.</li>
+                        <li>Windows Update/Defender/BitLocker gibi kritik politikaları ayrı isimli GPO’lara bölün.</li>
+                        <li>Değişiklikleri pilot OU’da test ettikten sonra genişletin.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gpo-preferences-deep">
+                <h2>🧰 Preferences – Windows ve Control Panel Settings</h2>
+                <p>GPP, politik olmayan (non-enforced) ama güçlü dağıtım kabiliyetleri sunar. <strong>Item-level Targeting</strong> ile koşullu hedefleme yapabilirsiniz.</p>
+
+                <h3>Windows Settings</h3>
+                <ul>
+                    <li><strong>Drive Maps:</strong> Paylaşımları harflerle bağlama. (Örn: \\fs\departman → H:)</li>
+                    <li><strong>Printers:</strong> Yazıcı dağıtımı (Default printer, bağlantı).</li>
+                    <li><strong>Registry:</strong> Kayıt defteri anahtar/değer atama.</li>
+                    <li><strong>Files/Shortcuts:</strong> Dosya kopyalama, kısayol oluşturma.</li>
+                    <li><strong>Environment:</strong> Ortam değişkenleri yönetimi.</li>
+                    <li><strong>Services:</strong> Servis başlangıç türü ve durum ayarı.</li>
+                    <li><strong>Scheduled Tasks:</strong> Görev zamanlama (PowerShell script tetikleme vb.).</li>
+                    <li><strong>Network Shares:</strong> Paylaşım oluşturma/ayar.</li>
+                </ul>
+
+                <h3>Control Panel Settings</h3>
+                <ul>
+                    <li><strong>Internet Settings:</strong> Proxy, güvenlik bölgeleri.</li>
+                    <li><strong>Regional Options:</strong> Dil/bölge/klavye.</li>
+                    <li><strong>Power Options:</strong> Güç planları.</li>
+                    <li><strong>Data Sources / Folder Options:</strong> Uygulama ve görünüm ayarları.</li>
+                </ul>
+
+                <h3>Item-level Targeting (ILT)</h3>
+                <ul>
+                    <li>Security Group, OU, Site, IP/MAC, OS sürümü, bilgisayar adı, LDAP sorgusu, Registry değeri vb. koşullarla hedefleme.</li>
+                    <li>Örnek: “GG-Finance” grubundaki kullanıcılar için \\fs\finance sürücüsünü bağla; lokasyon “IST” ise yazıcı “PRN-IST-01”.</li>
+                </ul>
+
+                <div class="code-block">
+<pre><code># Öneri (GUI yolu):
+# User Configuration > Preferences > Windows Settings > Drive Maps
+# New > Mapped Drive > Location: \\fs\finance | Label: Finance | Reconnect: Yes
+# Common > Item-level Targeting: Security Group = GG-Finance; Computer Location = IST
+</code></pre>
+                </div>
+
+
+                <div class="best-practices">
+                    <h3>En İyi Uygulamalar (Preferences)</h3>
+                    <ul>
+                        <li>Script’lerle yaptığınız kopyalama/drive/printer dağıtımlarını GPP’ye taşıyın.</li>
+                        <li>ILT ile kapsamı daraltın; karmaşık hedefler için koşulları gruplayın.</li>
+                        <li>Bilgisayar ve kullanıcı GPP öğelerini ayrı GPO’larda yönetin.</li>
+                        <li>“Replace” yerine “Update” davranışını tercih edin (gereksiz sil-yap yeniden riskini azaltır).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gpo-scripts-software">
+                <h2>📜 Scripts ve 💽 Software Settings</h2>
+                <p>GPO ile script çalıştırma ve MSI tabanlı yazılım dağıtımı yapılabilir. Büyük ölçekte yazılım dağıtımı için genellikle MEM/Intune, SCCM veya üçüncü taraf MDM tercih edilir; ancak küçük/orta senaryolarda GPO yeterlidir.</p>
+
+                <h3>Scripts</h3>
+                <ul>
+                    <li><strong>Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown):</strong> Makine açılış/kapanışında çalışır.</li>
+                    <li><strong>User Configuration > Policies > Windows Settings > Scripts (Logon/Logoff):</strong> Kullanıcı oturum açma/kapatmada çalışır.</li>
+                    <li><strong>Sıra ve zamanlama:</strong> Startup önce, sonra Logon; Shutdown ve Logoff kapanışta. “Run scripts synchronously” kritik durumlarda önerilir.</li>
+                    <li><strong>Konum:</strong> Scriptleri <code>\\DOMAIN\\SYSVOL\\DOMAIN\\Scripts</code> veya erişimi olan paylaşımlarda tutun.</li>
+                </ul>
+
+                <div class="code-block">
+<pre><code># Basit bir PowerShell başlatma scripti (örnek)
+# File: \\DOMAIN\SYSVOL\DOMAIN\Scripts\Startup\Init-Workstation.ps1
+Write-EventLog -LogName Application -Source "GPO-Startup" -EventId 1001 -EntryType Information -Message "Startup policy executed."
+
+# GPO > Computer Configuration > Policies > Windows Settings > Scripts (Startup)
+# Add > Powershell Scripts > Script Name: Init-Workstation.ps1 (Parameters boş kalabilir)
+# Not: Execution Policy, Administrative Templates ile yönetilebilir (Turn on Script Execution)
+</code></pre>
+                </div>
+
+                <div class="best-practices">
+                    <h4>En İyi Uygulamalar (Scripts)</h4>
+                    <ul>
+                        <li>Script’leri imzalayın veya güvenilir kaynaktan dağıtın; olay kaydı yazdırın.</li>
+                        <li>Uzun süren işlemler için zamanlayıcı (Scheduled Task) veya yönetim aracı kullanın.</li>
+                        <li>SYSVOL’de gereksiz büyük dosyalardan kaçının; versiyon ve değişim takibi yapın.</li>
+                    </ul>
+                </div>
+
+                <h3>Software Settings (Software Installation)</h3>
+                <ul>
+                    <li><strong>Computer/User > Policies > Software Settings > Software Installation:</strong> MSI paketlerinin Assigned/Published dağıtımı.</li>
+                    <li><strong>Assigned vs Published:</strong> Computer Assigned başta yüklenir; User Published kullanıcı Programlar ve Özellikler’den kurabilir.</li>
+                    <li><strong>Upgrades/Removal:</strong> Mevcut sürümü yükseltme (Upgrades) ve kaldırma seçenekleri (Uninstall).</li>
+                    <li><strong>Kaynak yolu:</strong> MSI ve MST dosyalarını erişilebilir bir UNC yolunda tutun (\fileserver\packages\vendor\product\version).</li>
+                    <li><strong>Transforms (MST):</strong> Sessiz kurulum, özellik/özelleştirmeler için MST kullanın.</li>
+                </ul>
+
+                <div class="code-block">
+<pre><code># Öneri: Paket paylaşımı yapısı
+# \\fileserver\packages\Vendor\Product\1.2.3\Product.msi
+# \\fileserver\packages\Vendor\Product\1.2.3\Product.mst (isteğe bağlı)
+# GPMC: Computer Configuration > Policies > Software Settings > Software Installation > New > Package
+</code></pre>
+                </div>
+
+
+                <div class="best-practices">
+                    <h4>En İyi Uygulamalar (Software Installation)</h4>
+                    <ul>
+                        <li>MSI’ları bilgisayar kapsamından (Assigned) dağıtın; oturum açmadan önce kurulur.</li>
+                        <li>Kaynaktaki paket yolunu sabit ve yüksek erişilebilirlikte tutun; izinleri doğru ayarlayın.</li>
+                        <li>Yükseltmeleri (Upgrades) dikkatle tanımlayın; eski sürümleri temiz kaldırın.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gpo-more-components">
+                <h2>🧱 Windows Components – Diğer Önemli Başlıklar</h2>
+
+                <h3>Windows Components → Search</h3>
+                <ul>
+                    <li><strong>Allow Cortana</strong> — Kurumsal gizlilik için genelde kapatılır.</li>
+                    <li><strong>Do not allow web search</strong> — Aramaların web sonuçlarıyla birleşmesini engeller.</li>
+                    <li><strong>Don’t search the web or display web results in Search</strong> — Sadece yerel/kurumsal sonuçlar görünür.</li>
+                </ul>
+
+                <h3>Windows Components → Task Scheduler</h3>
+                <ul>
+                    <li><strong>Enable/Disable Task Scheduler</strong> — Genel görev zamanlayıcı davranışı.</li>
+                    <li><strong>Prevent task creation</strong> — Kullanıcıların görev oluşturmasını engeller.</li>
+                </ul>
+
+                <h3>Windows Components → Event Forwarding (Windows Event Collector)</h3>
+                <ul>
+                    <li><strong>Configure target Subscription Manager</strong> — Olay iletimi abonelik sunucusu (wec://sunucu).</li>
+                    <li><strong>Allow forwarded events</strong> — SIEM entegrasyonu için gereklidir.</li>
+                </ul>
+
+                <h3>Windows Components → Security Center</h3>
+                <ul>
+                    <li><strong>Turn on Security Center (enhanced notifications)</strong> — Güvenlik bildirim davranışı.</li>
+                    <li><strong>Hide all notifications</strong> — Son kullanıcı bildirimlerini bastır.</li>
+                </ul>
+
+                <h3>System → Licensing/Activation</h3>
+                <ul>
+                    <li><strong>Turn off KMS client online activation</strong> — KMS/MAK stratejisine göre ayarlayın.</li>
+                    <li><strong>Specify KMS host</strong> — Kurumsal KMS sunucu FQDN/port.</li>
+                </ul>
+
+                <h3>Windows Components → Windows Remote Shell</h3>
+                <ul>
+                    <li><strong>Allow Remote Shell Access</strong> — WinRS erişimini açar; güvenlik duvarı/kimlik doğrulama ile birlikte yapılandırın.</li>
+                    <li><strong>Specify Remote Shell limits</strong> — Eşzamanlı oturum ve kaynak limitleri.</li>
+                </ul>
+            </div>
+
+            <div class="gpo-external-admx">
+                <h2>🧩 Ek ADMX Şablonları – Office, Edge, Chrome</h2>
+                <p>Bu şablonlar varsayılan olarak gelmez; <code>\\DOMAIN\\SYSVOL\\DOMAIN\\Policies\\PolicyDefinitions</code> altına ADMX/ADML kopyalanmalıdır. Versiyon uyumuna dikkat edin.</p>
+
+                <h3>Microsoft Office (Office 2016/2019/2021/Microsoft 365 Apps)</h3>
+                <ul>
+                    <li><strong>Update Channel</strong> — Güncelleme kanalı (Current/Monthly Enterprise/Semi-Annual). Kurumsal istikrar için M.E./S.A.</li>
+                    <li><strong>Disable First Run experience</strong> — İlk kullanım sihirbazlarını kapat.</li>
+                    <li><strong>VBA Macro Settings</strong> — Makroları imza/konum esaslı kısıtlama. Güvenlik için zorunlu.</li>
+                    <li><strong>Trusted Locations/Templates</strong> — Güvenilir şablon/konumlar.</li>
+                    <li><strong>Privacy/Telemetry</strong> — Tanılama verisi düzeyi; en aza indir.</li>
+                </ul>
+
+                <h3>Microsoft Edge (Chromium)</h3>
+                <ul>
+                    <li><strong>Update policy override</strong> — Sürüm güncelleme davranışı/kanalı.</li>
+                    <li><strong>Homepage/Startup URLs</strong> — Ana sayfa ve açılış sekmeleri.</li>
+                    <li><strong>Extensions</strong> — İzin verilen/engellenen eklentiler; zorunlu kurulum listesi.</li>
+                    <li><strong>SmartScreen/Tracking prevention</strong> — Güvenlik/izleme koruması seviyeleri.</li>
+                    <li><strong>Password Manager/Autofill</strong> — Kurumsal politika gereği kapatma/ayar.</li>
+                </ul>
+
+                <h3>Google Chrome</h3>
+                <ul>
+                    <li><strong>Homepage/Startup</strong> — Ana sayfa, başlangıç sekmeleri.</li>
+                    <li><strong>Extensions/Blocklist/Allowlist</strong> — Eklenti politikaları, zorunlu install.</li>
+                    <li><strong>Safe Browsing</strong> — Güvenlik seviyesi.</li>
+                    <li><strong>Password Manager/Autofill</strong> — Parola/otomatik doldurma ayarları.</li>
+                    <li><strong>Proxy/Certificates</strong> — Kurumsal proxy ve sertifika depoları entegrasyonu.</li>
+                </ul>
+
+                <div class="best-practices">
+                    <h3>En İyi Uygulamalar (Ek ADMX)</h3>
+                    <ul>
+                        <li>ADMX sürümlerini dokümante edin; Central Store’a atomik kopyalama yapın.</li>
+                        <li>Pilot OU ile aşamalı yayın yapın; geri alma planı bulundurun.</li>
+                        <li>Tarayıcı eklentilerinde allowlist yaklaşımı ve asgari izin prensibi uygulayın.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gpo-scenarios">
+                <h2>🏢 Gerçek Hayat Senaryoları</h2>
+                <div class="scenario">
+                    <h3>🔐 Senaryo 1: Local Admin Kaldırma + LAPS</h3>
+                    <p><strong>Hedef:</strong> Kullanıcılardan local admin yetkisini almak ve LAPS ile yönetmek</p>
+                    <ul>
+                        <li>Local Administrators grubundan domain kullanıcılarını çıkar</li>
+                        <li>Windows LAPS ile unique ve rotate edilen local admin parolaları</li>
+                        <li>Helpdesk için read-only password retrieval</li>
+                    </ul>
+                </div>
+                <div class="scenario">
+                    <h3>🛡️ Senaryo 2: USB Kısıtlama ve Endpoint Koruma</h3>
+                    <p><strong>Hedef:</strong> Veri sızıntısını önlemek için removable storage kısıtlaması</p>
+                    <ul>
+                        <li>Removable Storage Access policy ile yazma/okuma kısıtlaması</li>
+                        <li>Defender ayarları ve Attack Surface Reduction kuralları</li>
+                        <li>İstisnalar için Security/WMI filtering</li>
+                    </ul>
+                </div>
+                <div class="scenario">
+                    <h3>🖨️ Senaryo 3: Drive/Printer Dağıtımı (GPP)</h3>
+                    <p><strong>Hedef:</strong> Departman bazlı paylaşımlar ve yazıcı dağıtımı</p>
+                    <ul>
+                        <li>Drive Maps ve Printers (User Configuration > Preferences)</li>
+                        <li>Item-level targeting: Security Group + Location</li>
+                        <li>Logon scripts yerine GPP ile yönetim</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🧪 GPO Sorun Giderme</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>📋 gpresult /h</h3>
+                        <div class="code-block"><pre><code>gpresult /h C:\\Reports\\gpresult.html
+rsop.msc
+# Event Viewer > Applications and Services Logs > Microsoft > Windows > GroupPolicy</code></pre></div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>🗂️ SYSVOL & Replikasyon</h3>
+                        <div class="code-block"><pre><code>dfsrdiag ReplicationState
+# \\DOMAIN\\SYSVOL\\DOMAIN\\Policies altında GPO versiyonlarını kontrol edin</code></pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>✅ En İyi Uygulamalar</h2>
+                <ul>
+                    <li>Açık ve standart isimlendirme: Prefix (SEC-, UX-, NET-)</li>
+                    <li>Az ama amaç odaklı GPO, gereksiz ayarlardan kaçın</li>
+                    <li>Pilot OU ve kademeli rollout</li>
+                    <li>Değişiklik kontrolü, backup ve versiyonlama</li>
+                    <li>Scope’u dar tut, Security/WMI filtering ile hedefle</li>
+                </ul>
+            </div>
+
+            <div class="next-steps">
+                <h2>➡️ Sonraki Adımlar</h2>
+                <div class="action-buttons">
+                    <a href="bolum-04-active-directory.html" class="btn btn-secondary">← Active Directory</a>
+                    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Başa Dön">↑</button>
+
+    <script src="script.js"></script>
+    <script>
+    function filterPolicyIndex() {
+        var input = document.getElementById('policyIndexFilter');
+        if (!input) return;
+        var query = input.value.toLowerCase().trim();
+        var container = document.getElementById('policy-index');
+        if (!container) return;
+        var items = container.querySelectorAll('.policy-item');
+        if (!items) return;
+        items.forEach(function(el){
+            var text = el.textContent.toLowerCase();
+            el.style.display = (query === '' || text.indexOf(query) !== -1) ? '' : 'none';
+        });
+    }
+
+    function togglePolicyOnly() {
+        var container = document.getElementById('policy-index');
+        if (!container) return;
+        var checked = document.getElementById('policyOnlyToggle')?.checked;
+        // Hide all non-policy elements inside Policy Index when enabled
+        var selectorsToToggle = [
+            'details > summary',
+            'h2, h3, h4, p',
+            'ul:not(:has(.policy-item))',
+            '.policy-index-anchors',
+            '.policy-index-filter',
+            '.policy-index-toggle'
+        ];
+        selectorsToToggle.forEach(function(sel){
+            container.querySelectorAll(sel).forEach(function(el){
+                // Keep the filter/controls visible; we hide summaries and non-policy lists
+                if (el.closest('.policy-index-tools')) return;
+                if (checked) {
+                    // If this is a policy-item container, skip
+                    if (el.classList && el.classList.contains('policy-item')) return;
+                    el.style.display = 'none';
+                } else {
+                    el.style.display = '';
+                }
+            });
+        });
+        // Always show policy items
+        container.querySelectorAll('.policy-item').forEach(function(el){ el.style.display = ''; });
+    }
+    </script>
+</body>
+</html>
